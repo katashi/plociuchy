@@ -21,8 +21,26 @@ class Product_Model extends Main_Model {
         $record = $query->result_array();
         return $record;
     }
+    function load_all_user_count($id = null) {
+        $this->db->where('id', $id);
+        $this->db->from($this->table_name);
+        return $this->db->count_all_results();
+    }
+    function load_all_user($id) {
+        $this->limit_check();
+        $this->db->where('id', $id);
+        $query = $this->db->get($this->table_name);
+        $record = $query->result_array();
+        return $record;
+    }
     function load($id) {
         $this->db->where('id', $id);
+        $query = $this->db->get($this->table_name);
+        $record = $query->row_array();
+        return $record;
+    }
+    function load_promote() {
+        $this->db->where('promote', 1);
         $query = $this->db->get($this->table_name);
         $record = $query->row_array();
         return $record;
