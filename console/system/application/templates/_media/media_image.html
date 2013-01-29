@@ -1,0 +1,142 @@
+<script type="text/javascript">
+{literal}
+
+// fields
+var fields = new Array('tree', 'element_id', 'element_title', 'element_file_name', 'element_file_type', 'element_orig_name', 'element_file_size', 'element_dimensions');
+
+// store
+var config = new Object({
+	fields: fields,
+	format: 'json',
+	id: 'media_image_store',
+	url: base_url+'/_media:media_image/load_all/{/literal}{$id}{literal}'
+});
+media_image_store = new Store();
+media_image_store.init(config);
+
+// paging toolbar
+var config = new Object({
+	store: media_image_store.display,
+	items: ['-',
+		{
+			iconCls: 'x-btn-text-icon camera_add',
+			handler: media_add,
+			text: 'Dodaj Obraz'
+		},{
+			iconCls: 'x-btn-text-icon folder_add',
+			handler: directory_add,
+			text: 'Dodaj katalog'
+		}
+	]
+});
+media_image_pagingtoolbar = new PagingToolBar();
+media_image_pagingtoolbar.init(config);
+
+// grid
+var config = new Object({
+	store: media_image_store.display,
+	tbar: media_image_pagingtoolbar.display,
+	title: 'Obrazy',
+	columns: [
+		{ id: 'image', header: 'Obraz', renderer: render_image},
+		{ id: 'title', header: 'Nazwa (+pobierz)', renderer: render_title },
+		{ id: 'file_type', dataIndex: 'element_file_type', header: 'Typ (mime)' },
+		{ id: 'file_size', dataIndex: 'element_file_size', header: 'Wielkość (kb)' },
+		{ id: 'dimensions', dataIndex: 'element_dimensions', header: 'Rozmiar (oryginalny)' },
+		{ id: 'options', header: 'Opcje', renderer: render_options }
+	]
+});
+media_image_grid = new EditorGridPanel();
+media_image_grid.init(config);
+
+// panel
+var config = new Object({
+	items: [ media_image_grid.display ]
+});
+media_image_panel = new Panel();
+media_image_panel.init(config);
+media_image_panel.display.render(Ext.get('div_media_image_display_{/literal}{$id}{literal}'));
+
+// store load
+media_image_store.display.load({ params: { start: 0, limit: _paging_limit }});
+
+// render image
+function render_image(value, p, record) {
+	return String.format('<a href="javascript:new Helper_Ui().pretty_show(\''+record.data.element_file_name+'\',\''+record.data.element_orig_name+'\');" title="'+record.data.element_title+'"><image src="../media/image/80x60/'+record.data.element_file_name+'"></a>');	
+}
+// render title
+function render_title(value, p, record) {
+	return String.format('<a href="javascript:new Helper_Ui().url_window(\'../media/image/640x480/'+record.data.element_file_name+'\');">'+record.data.element_title+' (640x480)</a><br><a href="javascript:new Helper_Ui().url_window(\'../media/image/100x75/'+record.data.element_file_name+'\');">'+record.data.element_title+' (100x75)</a><br><a href="javascript:new Helper_Ui().url_window(\'../media/image/80x60/'+record.data.element_file_name+'\');">'+record.data.element_title+' (80x60)</a>');	
+}
+// render options
+function render_options(value, p, record) {
+	return String.format('<a href="javascript:delete_confirm(\''+base_url+'/_media:media_image/delete/'+record.data.element_id+'\');"><img src="images/icon/delete.png" border="0"></a>');
+}
+
+// delete
+function delete_confirm(url) {
+	new Helper_Delete().delete_confirm(url, 'grid', media_image_store, west_media_image.ui_tree);
+}
+
+// media add
+function media_add() {
+	var config = new Object({
+		fileUpload: true,
+		items: [{
+			allowBlank: false,
+            emptyText: 'Wybierz plik',
+			fieldLabel: 'Plik',
+			name: 'userfile',
+			xtype: 'fileuploadfield'
+        }],
+		buttons: [{
+            text: 'Dodaj plik',
+            handler: submit
+        },{
+            text: 'Wyczyść',
+            handler: reset
+        }]
+	});
+	media_add_formpanel = new FormPanel();
+	media_add_formpanel.init(config);
+	
+	// window
+	var config = new Object({
+		title: 'Dodaj obraz',
+		width: 500,
+		items: [ media_add_formpanel.display ]
+	});
+	media_add_window = new Window();
+	media_add_window.init(config);
+	media_add_window.display.show();
+}
+
+// directory add
+function directory_add() {
+	new Helper_Ui().add_window('media_image_directory_add', 'Dodaj katalog', base_url +'/_system:tree/add/media_image');
+}
+
+// submit
+function submit() {
+	if (media_add_formpanel.display.getForm().isValid()) {
+		media_add_formpanel.display.getForm().submit({
+			url: base_url+'/_media:media_image/add/{/literal}{$id}{literal}',
+			waitMsg: 'Oczekiwanie...',
+			success: function(form, o){
+				media_add_window.display.hide();
+				media_image_store.display.reload();
+				west_media_image.ui_tree.root.reload();
+				west_media_image.ui_tree.path_expand();
+			}
+		});
+	}
+}
+
+// reset
+function reset() {
+	media_add_formpanel.display.getForm().reset();
+}
+
+{/literal}
+</script>
+<div id="div_media_image_display_{$id}"></div>

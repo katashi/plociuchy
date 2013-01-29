@@ -1,0 +1,138 @@
+<script type="text/javascript">
+{literal}
+
+// panel
+var config = new Object({
+	title: 'Konfiguracja Newslettera',
+	items: [{
+		allowBlank: true,
+		fieldLabel: 'Temat (domyślny)',
+        labelStyle: 'width: 160px',
+		name: 'subject',
+		value: '',
+		xtype: 'textfield',
+		width: 350
+	},{
+		allowBlank: true,
+		fieldLabel: 'Od (nazwa)',
+        labelStyle: 'width: 160px',
+		name: 'from_name',
+		value: '',
+		xtype: 'textfield',
+		width: 350
+	},{
+		allowBlank: true,
+		fieldLabel: 'Od (email)',
+        labelStyle: 'width: 160px',
+		name: 'from_email',
+		value: '',
+		xtype: 'textfield',
+		width: 350
+	},{
+		allowBlank: true,
+		fieldLabel: 'Odpowiedz do (nazwa)',
+        labelStyle: 'width: 160px',
+		name: 'replyto_name',
+		value: '',
+		xtype: 'textfield',
+		width: 350
+	},{
+		allowBlank: true,
+		fieldLabel: 'Odpowiedz do (email)',
+        labelStyle: 'width: 160px',
+		name: 'replyto_email',
+		value: '',
+		xtype: 'textfield',
+		width: 350
+	},{
+		allowBlank: true,
+		fieldLabel: 'Domena serwera (bez www)',
+        labelStyle: 'width: 160px',
+		name: 'server_domain',
+		value: '',
+		xtype: 'textfield',
+		width: 350
+	},{
+		allowBlank: false,
+		fieldLabel: 'Kodowanie',
+        labelStyle: 'width: 160px',
+		name: 'encoding',
+		value: '',
+		xtype: 'textfield',
+		width: 350
+	},{
+		allowBlank: false,
+		fieldLabel: 'Format (html/text)',
+        labelStyle: 'width: 160px',
+		name: 'format',
+		value: '',
+		xtype: 'textfield',
+		width: 350
+	},{
+		allowBlank: false,
+		fieldLabel: 'Program nadawczy (nazwa)',
+        labelStyle: 'width: 160px',
+		name: 'x-mailer',
+		value: '',
+		xtype: 'textfield',
+		width: 350
+	},{
+		allowBlank: false,
+		fieldLabel: 'Pakiety (adresów na cykl)',
+        labelStyle: 'width: 160px',
+		name: 'packet',
+		value: '',
+		xtype: 'textfield',
+		width: 350
+	},{
+		fieldLabel: 'Stopka kontaktowa',
+        height: 100,
+		labelStyle: 'width:160px;',
+		name: 'text_contact',
+		value: '',
+		xtype: 'textarea',
+		width: 450
+	}],
+	buttons: [{
+		handler: formpanel_submit,
+		text: 'Zapisz'
+	}]
+});
+formpanel = new FormPanel();
+formpanel.init(config);
+formpanel.display.render(Ext.get('div_newsletter_configuration_edit'));
+
+// submit
+function formpanel_submit() {
+	formpanel.display.form.submit({
+		method: 'POST',
+		url: base_url +'/newsletter_configuration/edit',
+		success: function() {
+			Ext.MessageBox.alert('Konfiguracja zaktualizowana', 'Konfiguracja została zaktualizowana.');
+		},
+		failure: function() {
+			Ext.MessageBox.alert('Błąd', 'Wystąpił błąd podczas aktualizacji Konfiguracji.');
+		},
+		waitMsg: _waitmsg
+	});
+}
+
+function formpanel_load() {
+	formpanel.display.form.load({
+		method: 'POST',
+		url: base_url +'/newsletter_configuration/load',
+		waitMsg: _waitmsg,
+		success: function() {
+		},
+		failure: function() {
+			Ext.MessageBox.alert('Błąd', 'Wystąpił błąd podczas ładowania Konfiguracji.');
+		}
+	});
+}
+
+// load form panel
+formpanel_load();
+
+{/literal}
+</script>
+<div id="div_newsletter_configuration_edit"></div>

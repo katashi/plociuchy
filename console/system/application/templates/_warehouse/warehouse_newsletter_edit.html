@@ -1,0 +1,249 @@
+<script type="text/javascript">
+{literal}
+
+// panel
+var config = new Object({
+    collapsible: true,
+	title: 'Edytuj Newsletter (element główny)',
+    titleCollapse: true,
+	items: [{
+		allowBlank: true,
+		fieldLabel: 'Tytuł',
+		name: 'title',
+		value: '',
+		xtype: 'textfield',
+		width: 350
+	},{
+		allowBlank: true,
+		fieldLabel: 'Nagłowek',
+		name: 'header',
+		value: '',
+		xtype: 'textarea',
+		width: 350
+	},{
+		allowBlank: true,
+		fieldLabel: 'Treść',
+		height: 250,
+		name: 'text',
+		value: '',
+		xtype: 'htmleditor',
+		width: 550
+	},{
+		allowBlank: true,
+		fieldLabel: 'Aktywność',
+		name: 'active',
+		value: '1',
+		xtype: 'textfield',
+		width: 350
+	},{
+		html: '<br>Obrazek - Nagłówek newslettera widoczny w listach czy skrótach. Przeciągnij wybrany obraz z części Media / Obrazy.<br><br>',
+		width: 778
+	},{
+		id: 'image',
+		name: 'image',
+		xtype: 'hidden'
+	},{
+		allowBlank: false,
+		fieldLabel: 'Obraz',
+		id: 'image_image_wne_{/literal}{$id}{literal}',
+		name: 'image_image_{/literal}{$id}{literal}',
+		xtype: 'box',
+		autoEl:{
+			tag:'div', 
+			children:[{
+				tag:'img',
+				src: 'media/images/default/default_80x60.jpg'
+			}]
+		}
+	},{
+        html: '<table width="778" cellpadding="10" cellspacing="0"><tr><td width="105"></td><td><img src="images/icon/delete.png" onclick="image_delete();" align="absmiddle"> Usuń obrazek</td></tr></table>',
+        width: 778
+	}],
+	buttons: [{
+		handler: warehouse_newsletter_edit_formpanel_submit,
+		text: 'Zapisz'
+	}],
+    style: {
+		marginBottom: '5px'
+	},
+	listeners: {
+		render: function(form) {
+			form.DropTarget = new Ext.dd.DropTarget(form.getEl(), {
+				copy: false,
+				ddGroup: 'media',
+				enabled: true,
+				notifyDrop: function(dd, e, data) {
+					var field = form.findById('image_image_wne_{/literal}{$id}{literal}');
+					field.update('<img src="media/images/80x60/'+data.node.attributes.file_name+'" border="1">');
+					var field = form.findById('image');
+					field.setValue(data.node.attributes.file_name);
+				}
+			});
+		}
+	}
+});
+warehouse_newsletter_edit_formpanel = new FormPanel();
+warehouse_newsletter_edit_formpanel.init(config);
+
+// content
+
+// fields
+var fields = new Array('id', 'position', 'article_id', 'article_title', 'article_header', 'article_date_created');
+
+// store
+var config = new Object({
+	fields: fields,
+	format: 'json',
+	id: 'warehouse_newsletter_articles_store',
+	url: base_url+'/warehouse_newsletter/load_content/{/literal}{$id}{literal}'
+});
+warehouse_newsletter_content_store = new Store();
+warehouse_newsletter_content_store.init(config);
+
+// paging toolbar
+var config = new Object({
+	store: warehouse_newsletter_content_store.display
+});
+warehouse_newsletter_content_pagingtoolbar = new PagingToolBar();
+warehouse_newsletter_content_pagingtoolbar.init(config);
+
+// grid
+var config = new Object({
+	collapsible: true,
+	ddGroup: 'warehouse_article',
+	store: warehouse_newsletter_content_store.display,
+	tbar: warehouse_newsletter_content_pagingtoolbar.display,
+	title: 'Przypisane elementy (artykuły)',
+	titleCollapse: true,
+	columns: [
+		{ id: 'article_id', dataIndex: 'article_id', header: 'Id' },
+        { id: 'article_title', dataIndex: 'article_title', header: 'Tytuł' },
+		{ id: 'article_header', dataIndex: 'article_header', header: 'Nagłówek' },
+		{ id: 'article_date_created', dataIndex: 'article_date_created', header: 'Data stworzenia' },
+		{ id: 'options', header: 'Opcje', renderer: render_options }
+	],
+	listeners: {
+		render: function(grid) {
+			grid.DropTarget = new Ext.dd.DropTarget(grid.getEl(), {
+				copy: false,
+				ddGroup: 'warehouse_article',
+				enabled: true,
+				notifyDrop: function(dd, e, data) {
+					if (dd == grid.getView().dragZone) {
+						// here is order swap
+					} else {
+						// here is an assigment
+						/*var row_target_index = grid.getView().findRowIndex(Ext.lib.Event.getTarget(e));
+						var row_target = grid.getStore().getAt(row_target_index);
+                        var next_position = grid.getStore().getTotalCount() + 1;
+						if (!row_target) { 
+							row_target = new Object(); 
+							row_target['data'] = new Array(); 
+							row_target['data']['position'] = next_position; 
+						} else {
+                            row_target['data']['position'] = next_position;
+                        }*/
+						var url = base_url+'/warehouse_newsletter/content_bind';
+						var params = { 
+							'id_newsletter': '{/literal}{$id}{literal}',
+							'id_content': data.node.attributes['id_element'], 
+                            'type': 'warehouse_article'
+							//'position': row_target.data['position']
+						};
+						Ext.Ajax.request({
+							params: params,
+							url: url,
+							success: function(response, request) {
+								warehouse_newsletter_content_store_reload();
+							},
+							failure:function() {
+								alert("Wystąpił problem przy przenoszeniu elementu!");
+							}
+						});
+					}
+				}
+			});
+		}
+	}
+});
+warehouse_newsletter_content_grid = new EditorGridPanel();
+warehouse_newsletter_content_grid.init(config);
+
+// panel
+var config = new Object({
+	items: [ warehouse_newsletter_edit_formpanel.display, warehouse_newsletter_content_grid.display ]
+});
+warehouse_newsletter_edit_panel = new Panel();
+warehouse_newsletter_edit_panel.init(config);
+warehouse_newsletter_edit_panel.display.render(Ext.get('div_warehouse_newsletter_edit_{/literal}{$id}{literal}'));
+
+// load form panel
+warehouse_newsletter_edit_formpanel_load();
+
+// submit
+function warehouse_newsletter_edit_formpanel_submit() {
+	warehouse_newsletter_edit_formpanel.display.form.submit({
+		method: 'POST',
+		url: base_url +'/warehouse_newsletter/edit/{/literal}{$id}{literal}',
+		success: function() {
+			Ext.MessageBox.alert('Newsletter zaktualizowany', 'Newsletter został zaktualizowany.');
+		},
+		failure: function() {
+			Ext.MessageBox.alert('Błąd', 'Wystąpił błąd podczas aktualizacji Newslettera');
+		},
+		waitMsg: _waitmsg
+	});
+}
+
+function warehouse_newsletter_edit_formpanel_load() {
+	warehouse_newsletter_edit_formpanel.display.form.load({
+		method: 'POST',
+		url: base_url +'/warehouse_newsletter/load/{/literal}{$id}{literal}',
+		waitMsg: _waitmsg,
+		success: function() {
+			image_update();
+		},
+		failure: function() {
+			Ext.MessageBox.alert('Błąd', 'Wystąpił błąd podczas ładowania Newslettera');
+		}
+	});
+}
+
+function image_update() {
+	var form = warehouse_newsletter_edit_formpanel.display;
+	var image = form.getForm().findField('image').getValue();
+	if (image) {
+		var image_image = form.findById('image_image_wne_{/literal}{$id}{literal}');
+		image_image.update('<img src="media/images/80x60/' + image + '" border="1">');
+	}
+}
+
+// image delete
+function image_delete() {
+    var form = warehouse_newsletter_edit_formpanel.display;
+	var image = form.getForm().findField('image').setValue('');
+    var image_image = form.findById('image_image_{/literal}{$id}{literal}');
+	image_image.update('<img src="media/images/default/default_80x60.jpg" border="1">');
+}
+
+// render options
+function render_options(value, p, record) {
+	return String.format('<a href="javascript:delete_confirm_warehouse_newsletter_content(\''+base_url+'/warehouse_newsletter/content_delete/'+record.data.id+'\');"><img src="images/icon/delete.png" border="0"></a>');	
+}
+
+// delete
+function delete_confirm_warehouse_newsletter_content(url) {
+	new Helper_Delete().delete_confirm(url, 'grid', warehouse_newsletter_content_store);
+}
+
+// content store load
+warehouse_newsletter_content_store.display.load({ params: { start: 0, limit: _paging_limit }});
+
+// content store reload
+function warehouse_newsletter_content_store_reload(){
+	warehouse_newsletter_content_store.display.load({ params: { start: 0, limit: _paging_limit }});
+}
+
+{/literal}
+</script>
+<div id="div_warehouse_newsletter_edit_{$id}"></div>

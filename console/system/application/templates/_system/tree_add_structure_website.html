@@ -1,0 +1,78 @@
+<script type="text/javascript">
+{literal}
+var table = '{/literal}{$table}{literal}';
+
+var config = new Object({
+	items: [{
+		allowBlank: false,
+		fieldLabel: 'Tytuł',
+		name: 'title',
+		xtype: 'textfield'
+	},{
+		allowBlank: false,
+		fieldLabel: 'Wywołanie URL',
+		name: 'title_call',
+		xtype: 'textfield'
+	},{
+        allowBlank: true,
+        fieldLabel: 'Kontroler',
+        name: 'controller',
+        xtype: 'textfield'
+    },{
+		allowBlank: true,
+		fieldLabel: 'Szablon',
+		name: 'template',
+		xtype: 'textfield'
+	},{
+		html: '<br>Pole Tytuł, Opis, Słowa Kluczowe nie powinny być dłuższe niż <b> 250 znaków</b><br><br>',
+		width: 400
+	},{
+		allowBlank: true,
+		fieldLabel: 'Meta Tytuł',
+		name: 'meta_title',
+		value: '',
+		xtype: 'textfield'
+	},{
+		allowBlank: true,
+		fieldLabel: 'Meta Opis',
+		name: 'meta_description',
+		value: '',
+		xtype: 'textfield'
+	},{
+		allowBlank: true,
+		fieldLabel: 'Meta Słowa Kluczowe',
+		name: 'meta_keywords',
+		value: '',
+		xtype: 'textfield'
+	}],
+	buttons: [{
+		text: 'Dodaj',
+		handler: submit
+	}],
+	keys: [{ 
+		key: [Ext.EventObject.ENTER], handler: function() {
+			submit();
+	    }
+	}]
+});
+tree_add_formpanel = new FormPanel();
+tree_add_formpanel.init(config);
+tree_add_formpanel.display.render(Ext.get('div_tree_add'));
+
+function submit() {
+	if (!tab_selected_id) { tab_selected_id = '0'; }
+	tree_add_formpanel.display.form.submit({
+		url: base_url +'/_system:tree/add_save/'+ table +','+ tab_selected_id,
+		success: function() {
+			this['west_'+table].ui_tree.root.reload();
+			this['west_'+table].ui_tree.path_expand();
+			Ext.getCmp(table+'_directory_add').destroy();
+		},
+		failure: function() {
+		},
+		waitMsg: 'Oczekiwanie'
+	});
+}
+{/literal}
+</script>
+<div id="div_tree_add"></div>

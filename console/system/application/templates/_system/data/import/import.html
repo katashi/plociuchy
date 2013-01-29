@@ -1,0 +1,174 @@
+<script type="text/javascript">
+{literal}
+
+// fields
+var fields = new Array('table');
+
+// store
+var config = new Object({
+	fields: fields,
+	format: 'json',
+	id: 'database_table_store',
+	url: base_url+'/data_import/load_all_database_table'
+});
+database_table_store = new Store();
+database_table_store.init(config);
+
+// fields
+/*var fields = new Array('id','name');
+
+// store
+var config = new Object({
+	fields: fields,
+	format: 'json',
+	id: 'newsletter_user_group_store',
+	url: base_url+'/newsletter_user_group/load_all'
+});
+newsletter_user_group_store = new Store();
+newsletter_user_group_store.init(config);*/
+
+// form
+var config = new Object({
+    fileUpload: true,
+	title: 'Import danych',
+    waitMsgTarget: true,
+	items: [{
+		html: 'Import danych jest bardzo wrażliwą częścią systemu. Prosimy o rozwagę przy importowaniu danych.<br>Szczególnie mając na uwadze fakt dostępu do wszystkich tabel (danych) rozwiązania.<br>Import należy wykonować w oparciu o przygotowane szablony w formacie *.CSV z nagłówkami.',
+		width: 778
+	},{ 
+		html:'<hr width=100% color=#bbbbbb noshade size=1>',
+		xtype: 'label' 
+	},{
+        allowBlank: false,
+        autoSelect: true,
+        blankText: 'Pole obowiązkowe',
+	    displayField: 'table',
+	    fieldLabel: 'TABLICA DB',
+        hiddenName: 'table',
+        id: 'table',
+        labelStyle: 'width:150px; font-weight:bold;',
+        name: 'table',
+        store: database_table_store,
+        triggerAction: 'all',
+        width: 250,
+        valueField: 'table',
+        xtype: 'combo'
+	},{
+		html: 'Wybór tablicy do której zostaną zaimportowane dane z pliku CSV.',
+		width: 778
+	},{ 
+		html:'<hr width=100% color=#bbbbbb noshade size=1>',
+		xtype: 'label' 
+	},{
+		allowBlank: false,
+		fieldLabel: 'Plik CSV',
+		inputType: 'file',
+        labelStyle: 'width:150px;',
+		name: 'data',
+		xtype: 'textfield'
+	},{ 
+		html:'<hr width=100% color=#bbbbbb noshade size=1>',
+		xtype: 'label' 
+	}],
+	buttons: [{
+		handler: data_import,
+		text: 'Importuj Dane',
+		width: 200
+	}]
+});
+var data_import_formpanel = new FormPanel();
+data_import_formpanel.init(config);
+
+//
+// panel
+//
+var config = new Object({
+	items: [ data_import_formpanel.display ]
+})
+panel = new Panel();
+panel.init(config);
+panel.display.render(Ext.get('div_data_import'));
+
+// data import
+function data_import() {
+	 data_import_formpanel.display.form.submit({
+        method: 'POST',
+		url: base_url +'/data_import/import',
+		waitMsg: _waitmsg,
+		success: function() {
+            Ext.MessageBox.alert('Import danych', 'Import przebiegł pomyślnie.');
+		},
+		failure: function() {
+		}
+    });
+}
+
+// send test
+/*function send_test() {
+	send('test');
+}
+
+// send mass 
+function send_mass() {
+	send('mass');
+}
+
+// send 
+function send(mode) {
+    newsletter_distribution.display.form.submit({
+        method: 'POST',
+		url: base_url +'/newsletter_distribution/send/'+mode,
+		waitMsg: _waitmsg,
+		success: function() {
+            if (mode == 'test') { 
+                Ext.MessageBox.alert('Newsletter', 'Email testowy został wysłany.');
+            }
+            if (mode == 'mass') {
+                Ext.MessageBox.alert('Newsletter', 'Wysyłanie zostało rozpoczęte.');
+            }
+		},
+		failure: function() {
+		}
+    });
+} 
+
+// preview
+function preview() {
+    var field = newsletter_distribution.display.findById('newsletter_id');
+    var newsletter_id = field.getValue();
+    var field = newsletter_distribution.display.findById('template');
+    var template = field.getValue();
+    var field = newsletter_distribution.display.findById('text_contact_attach');
+    var text_contact_attach = field.getValue();
+    var field = newsletter_distribution.display.findById('unsubscribe_attach');
+    var unsubscribe_attach = field.getValue();
+    if (newsletter_id != '' && template != '') {
+        var tab_id = 'newsletter_preview';
+        var tab_title = 'Podgląd';
+        var tab_url = base_url +'/newsletter_distribution/display_preview/'+newsletter_id+','+template+','+text_contact_attach+','+unsubscribe_attach;
+        center.ui.tab_add(tab_id, tab_title, tab_url);
+    } else {
+        alert('Brak wszystkich danych do stworzenia podglądu!');
+    }
+}
+
+// load data from configuration
+function newsletter_distribution_load() {
+    newsletter_distribution.display.form.load({
+		method: 'POST',
+		url: base_url +'/newsletter_configuration/load',
+		waitMsg: _waitmsg,
+		success: function() {
+		},
+		failure: function() {
+			Ext.MessageBox.alert('Błąd', 'Wystąpił błąd podczas ładowania Konfiguracji.');
+		}
+	});
+}
+
+// load
+newsletter_distribution_load();*/
+
+{/literal}
+</script>
+<div id="div_data_import"></div>

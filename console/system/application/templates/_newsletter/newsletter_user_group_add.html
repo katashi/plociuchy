@@ -1,0 +1,41 @@
+<script type="text/javascript">
+{literal}
+
+// store
+var config = new Object({
+	title: 'Dodaj Grupę',
+	items: [{
+		allowBlank: false,
+		fieldLabel: 'Nazwa',
+		name: 'name',
+		value: '',
+		xtype: 'textfield',
+		width: 350
+	}],
+	buttons: [{
+		handler: submit,
+		text: 'Dodaj Grupę'
+	}]
+});
+formpanel = new FormPanel();
+formpanel.init(config);
+formpanel.display.render(Ext.get('div_newsletter_user_group_add'));
+
+// submit
+function submit() {
+	formpanel.display.form.submit({
+		method: 'POST',
+		url: base_url +'/newsletter_user_group/add/',
+		success: function() {
+			Ext.MessageBox.alert('Grupa Dodana', 'Grupa została dodana.');
+			formpanel.display.getForm().reset();
+		},
+		failure: function() {
+			Ext.MessageBox.alert('Błąd', 'Wystąpił błąd podczas dodawania Grupy');
+		},
+		waitMsg: _waitmsg
+	});
+}
+{/literal}
+</script>
+<div id="div_newsletter_user_group_add"></div>

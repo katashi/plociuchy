@@ -1,0 +1,131 @@
+<script type="text/javascript">
+{literal}
+// fields
+var fields = new Array('tree', 'element_id', 'element_file_name', 'element_file_type', 'element_orig_name', 'element_file_ext', 'element_file_size', 'element_date', 'options');
+
+// store
+var config = new Object({
+	fields: fields,
+	format: 'json',
+	id: 'media_file_store',
+	url: base_url+'/_media:media_file/load_all/{/literal}{$id}{literal}'
+});
+media_file_store = new Store();
+media_file_store.init(config);
+
+// paging toolbar
+var config = new Object({
+	store: media_file_store.display,
+	items: ['-',
+		{
+			iconCls: 'x-btn-text-icon page_add',
+			handler: media_add,
+			text: 'Dodaj plik'
+		},
+		{
+			iconCls: 'x-btn-text-icon folder_add',
+			handler: directory_add,
+			text: 'Dodaj katalog'
+		}
+	]
+});
+media_file_pagingtoolbar = new PagingToolBar();
+media_file_pagingtoolbar.init(config);
+
+// grid
+var config = new Object({
+	store: media_file_store.display,
+	tbar: media_file_pagingtoolbar.display,
+	title: 'Pliki',
+	columns: [
+		{ id: 'file_name', dataIndex: 'element_file_name', header: 'Nazwa' },
+		{ id: 'file_type', dataIndex: 'element_file_type', header: 'Typ' },
+		{ id: 'file_ext', dataIndex: 'element_file_ext', header: 'Rozszerzenie' },
+		{ id: 'file_size', dataIndex: 'element_file_size', header: 'Wielkość' },
+		{ id: 'date', dataIndex: 'element_date', header: 'Data' },
+		{ id: 'options', header: 'Opcje', renderer: render_options }
+	]
+});
+media_file_grid = new EditorGridPanel();
+media_file_grid.init(config);
+
+// panel
+var config = new Object({
+	items: [ media_file_grid.display ]
+});
+media_file_panel = new Panel();
+media_file_panel.init(config);
+media_file_panel.display.render(Ext.get('div_media_file_display_{/literal}{$id}{literal}'));
+
+// store load
+media_file_store.display.load({ params: { start: 0, limit: _paging_limit }});
+
+// render options
+function render_options(value, p, record) {
+	return String.format('<a href="javascript:delete_confirm(\''+base_url+'/_media:media_file/delete/'+record.data.element_id+'\');"><img src="images/icon/delete.png" border="0"></a>');
+}
+
+// delete
+function delete_confirm(url) {
+	new Helper_Delete().delete_confirm(url, 'grid', media_file_store, west_media_file.ui_tree);
+}
+
+// media add
+function media_add() {
+	var config = new Object({
+		fileUpload: true,
+		items: [{
+			allowBlank: false,
+            emptyText: 'Wybierz plik',
+			fieldLabel: 'Plik',
+			name: 'userfile',
+			xtype: 'fileuploadfield',
+        }],
+		buttons: [{
+            text: 'Dodaj plik',
+            handler: submit
+        },{
+            text: 'Wyczyść',
+            handler: reset
+        }]
+	});
+	media_add_formpanel = new FormPanel();
+	media_add_formpanel.init(config);
+	
+	// window
+	var config = new Object({
+		title: 'Dodaj plik',
+		width: 500,
+		items: [ media_add_formpanel.display ]
+	});
+	media_add_window = new Window();
+	media_add_window.init(config);
+	media_add_window.display.show();
+}
+
+function directory_add() {
+	new Helper_Ui().add_window('media_file_directory_add', 'Dodaj katalog', base_url +'/_system:tree/add/media_file');
+}
+
+function submit() {
+	if (media_add_formpanel.display.getForm().isValid()) {
+		media_add_formpanel.display.getForm().submit({
+			url: base_url+'/_media:media_file/add/{/literal}{$id}{literal}',
+			waitMsg: 'Oczekiwanie...',
+			success: function(form, o){
+				media_add_window.display.hide();
+				media_file_store.display.reload();
+				west_media_file.ui_tree.root.reload();
+				west_media_file.ui_tree.path_expand();
+			}
+		});
+	}
+}
+
+function reset() {
+	media_add_formpanel.display.getForm().reset();
+}
+
+{/literal}
+</script>
+<div id="div_media_file_display_{$id}"></div>

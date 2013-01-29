@@ -1,0 +1,92 @@
+{include file="header.html"}
+{literal}
+<script type="text/javascript">
+
+function Login() {
+
+	// init
+	this.init = function() {
+		login_ui = this.construct_ui();
+		login_ui.show();
+	}
+
+	// init
+	this.init_ui = function() { }
+	
+	// construct
+	this.construct_ui = function() { 
+	
+		form = new Ext.FormPanel({
+			bodyStyle: 'padding: 5px',
+			defaults: { 
+				maxLength: 128,
+				width: 300
+			},
+			frame: true,
+			waitMsgTarget: true,
+	        items: [{
+				html: '<center><img src="images/welcome/katashi2.png"><br><br>Witamy <b>Katashi Media Asset Management</b>.<br><br></center>',
+				width: 490
+			},{
+	        	allowBlank: false,
+				fieldLabel: 'Użytkownik',
+				name: 'user',
+				value: '',
+				xtype: 'textfield'
+			},{
+	            allowBlank: false,
+				fieldLabel: 'Hasło',
+                inputType: 'password',
+				name: 'password',
+				value: '',
+				xtype: 'textfield'
+			}],
+	        buttons: [{
+				handler: submit_FormPanel,
+	            text: 'Ok'
+	        }],
+			keys: [{ 
+				key: [Ext.EventObject.ENTER], handler: function() {
+					submit_FormPanel();
+		        }
+			}]
+	    });	
+	
+		var config = new Object({
+			bodyStyle: 'padding: 5px',
+			title: 'Logowanie',
+			items: [ form ],
+			width: 455
+		});
+		return new Ext.Window(config);
+	}
+	
+}
+
+function submit_FormPanel() {
+	form.form.submit({
+		url: 'index.php/main/index_check',
+		success: function(a,b) {
+			if (b.result.success) {
+				location.reload();
+			}
+		},
+		failure: function() {
+			Ext.MessageBox.alert('Logowanie', 'Nieprawidłowe dane.');
+		},
+		waitMsg: 'Oczekiwanie...'
+	});
+}
+
+// login
+login = new Login().init();
+
+// function to fade out preloader
+setTimeout(function(){
+	Ext.get('preload').remove();
+	Ext.get('preload-mask').fadeOut({remove:true});
+}, 500);
+
+</script>
+{/literal}
+{include file="footer.html"}

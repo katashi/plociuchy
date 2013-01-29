@@ -1,0 +1,133 @@
+<script type="text/javascript">
+{literal}
+
+// panel
+var config = new Object({
+	title: 'Edytuj Kategorie',
+	items: [{
+		allowBlank: true,
+		fieldLabel: 'Tytuł',
+		name: 'name',
+		value: '',
+		xtype: 'textfield',
+		width: 350
+	},{
+		allowBlank: true,
+		fieldLabel: 'Opis',
+		name: 'text',
+		value: '',
+		xtype: 'textarea',
+		width: 350
+	},{
+		html: '<br>Aktywność. Widoczność kategorii w sklepie. Wartości 0 lub 1.<br><br>',
+		width: 778
+	},{
+		allowBlank: true,
+		fieldLabel: 'Aktywność',
+		name: 'active',
+		value: '1',
+		xtype: 'textfield',
+		width: 350
+	},{
+		html: '<br>Obrazki. Przeciągnij wybrany obraz z części Media / Obrazy.<br><br>',
+		width: 778
+	},{
+		id: 'image',
+		name: 'image',
+		xtype: 'hidden'
+	},{
+		allowBlank: false,
+		fieldLabel: 'Obraz',
+		id: 'image_image_wae_{/literal}{$id}{literal}',
+		name: 'image_image',
+		xtype: 'box',
+		autoEl:{
+			tag:'div', 
+			children:[{
+				tag:'img',
+				src: 'media/images/default/default_80x60.jpg'
+			}]
+		}
+	},{
+        html: '<table width="778" cellpadding="10" cellspacing="0"><tr><td width="105"></td><td><img src="images/icon/delete.png" onclick="image_delete();" align="absmiddle"> Usuń obrazek</td></tr></table>',
+        width: 778
+	}],
+	buttons: [{
+		handler: warehouse_product_category_edit_formpanel_submit,
+		text: 'Zapisz'
+	}],
+	listeners: {
+		afterRender: function(form) {
+            var img = form.findById('image_image_wae_{/literal}{$id}{literal}').getEl();
+            form.DropTarget = new Ext.dd.DropTarget(img, {
+                copy: false,
+				ddGroup: 'media',
+				enabled: true,
+                notifyDrop: function(dd, e, data) {
+				    var field = form.findById('image_image_wae_{/literal}{$id}{literal}');
+					field.update('<img src="media/images/80x60/'+data.node.attributes.file_name+'" border="1">');
+					var field = form.findById('image');
+					field.setValue(data.node.attributes.file_name);
+				}
+            });
+		}
+	}
+});
+warehouse_product_category_edit_formpanel = new FormPanel();
+warehouse_product_category_edit_formpanel.init(config);
+warehouse_product_category_edit_formpanel.display.render(Ext.get('div_warehouse_product_category_edit_{/literal}{$id}{literal}'));
+
+// submit
+function warehouse_product_category_edit_formpanel_submit() {
+	warehouse_product_category_edit_formpanel.display.form.submit({
+		method: 'POST',
+		url: base_url +'/warehouse_product_category/edit/{/literal}{$id}{literal}',
+		success: function() {
+			Ext.MessageBox.alert('Kategoria', 'Kategoria została zaktualizowana.');
+			warehouse_product_category_edit_formpanel.display.getForm().reset();
+			warehouse_product_category_store.display.reload();
+		},
+		failure: function() {
+			Ext.MessageBox.alert('Błąd', 'Wystąpił błąd podczas aktualizacji Kategorii.');
+		},
+		waitMsg: _waitmsg
+	});
+}
+
+function warehouse_product_category_edit_formpanel_load() {
+	warehouse_product_category_edit_formpanel.display.form.load({
+		method: 'POST',
+		url: base_url +'/warehouse_product_category/load/{/literal}{$id}{literal}',
+		waitMsg: _waitmsg,
+		success: function() {
+			image_update();
+		},
+		failure: function() {
+			Ext.MessageBox.alert('Błąd', 'Wystąpił błąd podczas ładowania Kategorii.');
+		}
+	});
+}
+
+function image_update() {
+	var form = warehouse_product_category_edit_formpanel.display;
+	var image = form.getForm().findField('image').getValue();
+	if (image) {
+		var image_image = form.findById('image_image_wae_{/literal}{$id}{literal}');
+		image_image.update('<img src="media/images/80x60/' + image + '" border="1">');
+	}
+}
+
+// image delete
+function image_delete() {
+    var form = warehouse_product_category_edit_formpanel.display;
+	var image = form.getForm().findField('image').setValue('');
+    var image_image = form.findById('image_image_wae_{/literal}{$id}{literal}');
+	image_image.update('<img src="media/images/default/default_80x60.jpg" border="1">');
+}
+
+// load form panel
+warehouse_product_category_edit_formpanel_load();
+
+{/literal}
+</script>
+<div id="div_warehouse_product_category_edit_{$id}"></div>

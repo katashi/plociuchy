@@ -1,0 +1,102 @@
+<script type="text/javascript">
+{literal}
+
+// fields
+var fields = new Array('id', 'title', 'header', 'active', 'date_created');
+
+// store
+var config = new Object({
+	fields: fields,
+	format: 'json',
+	id: 'warehouse_article_store',
+	url: base_url+'/_warehouse:warehouse_article/load_all/{/literal}{$id}{literal}'
+});
+warehouse_article_store = new Store();
+warehouse_article_store.init(config);
+
+// paging toolbar
+var config = new Object({
+	store: warehouse_article_store.display,
+	items: ['-',
+		{
+			iconCls: 'x-btn-text-icon page_add',
+			handler: warehouse_article_add,
+			text: 'Dodaj Artykuł'
+		}
+	]
+});
+warehouse_article_pagingtoolbar = new PagingToolBar();
+warehouse_article_pagingtoolbar.init(config);
+
+// grid
+var config = new Object({
+	store: warehouse_article_store.display,
+	tbar: warehouse_article_pagingtoolbar.display,
+	title: 'Artykuły',
+	columns: [
+		{ id: 'id', dataIndex: 'id', header: 'Id', sortable: true },
+		{ id: 'title', dataIndex: 'title', header: 'Tytuł', sortable: true },
+		{ id: 'header', dataIndex: 'header', header: 'Nagłówek', sortable: true },
+		{ id: 'active', dataIndex: 'active', header: 'Aktywny', sortable: true },
+		{ id: 'date_created', dataIndex: 'date_created', header: 'Stworzony', sortable: true },
+		{ id: 'options', header: 'Opcje', renderer: render_options, sortable: false }
+	],
+	listeners: {
+		celldblclick: function(grid, rowIndex, columnIndex, e) {
+			var record = grid.getStore().getAt(rowIndex);
+ 			var fieldName = grid.getColumnModel().getDataIndex(columnIndex);
+			var data = record.get(fieldName);
+			var data_id = record.get('id');
+			var data_title = record.get('title');
+			warehouse_article_edit(data_id, data_title);
+		}
+	}
+});
+warehouse_article_grid = new EditorGridPanel();
+warehouse_article_grid.init(config);
+
+// panel
+var config = new Object({
+	items: [ warehouse_article_grid.display ]
+});
+warehouse_article_panel = new Panel();
+warehouse_article_panel.init(config);
+warehouse_article_panel.display.render(Ext.get('div_warehouse_article_{/literal}{$id}{literal}'));
+
+// store load
+warehouse_article_store.display.load({ params: { start: 0, limit: _paging_limit }});
+
+// store reload
+function warehouse_article_store_reload(index){
+	warehouse_article_store.display.load({ params: { start: 0, limit: _paging_limit, id: index }});
+}
+
+// render options
+function render_options(value, p, record) {
+	return String.format('<a href="javascript:delete_confirm(\''+base_url+'/_warehouse:warehouse_article/delete/'+record.data.id+'\');"><img src="images/icon/delete.png" border="0"></a>');
+}
+
+// delete
+function delete_confirm(url) {
+	new Helper_Delete().delete_confirm(url, 'grid', warehouse_article_store, west_warehouse_article.ui_tree);
+}
+
+// article add
+function warehouse_article_add() {
+	tab_id = 'warehouse_article_add';
+	tab_title = 'Dodaj Artykuł';
+	tab_url = base_url+'/_warehouse:warehouse_article/display_add/{/literal}{$id}{literal}';
+	center.ui.tab_add(tab_id, tab_title, tab_url);
+}
+
+// show details
+function warehouse_article_edit(id, title) {
+	tab_id = 'warehouse_article_edit_'+id;
+	tab_title = 'Artykuł '+title;
+	tab_url = base_url+'/_warehouse:warehouse_article/display_edit/'+id;
+	center.ui.tab_add(tab_id, tab_title, tab_url);
+}
+
+{/literal}
+</script>
+<div id="div_warehouse_article_{$id}"></div>

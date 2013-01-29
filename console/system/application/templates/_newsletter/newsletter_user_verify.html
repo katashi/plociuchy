@@ -1,0 +1,30 @@
+<script type="text/javascript">
+{literal}
+
+var config = new Object({
+	title: 'Weryfikacja adresów e-mail',
+	waitMsgTarget: true,
+	items: [{
+		html: 'Weryfikacja adresów e-mail to usługa sprawdzająca fizyczne istnienie obecnych w bazie danych adresów.<br>Dzięki weryfikacji adresy zostaną oznaczone odpowiednimi statusami ( błędów lub powodzenia ),<br>co pozwoli na uniknięcie wpisania serwera wysyłkowego na ew. "czarne listy".<br><br><b>Proces sprawdzający odbywa się automatycznie po 50 adresów pocztowych co 5 minut</b>.',
+        width: 700
+	}],
+	style: {
+		marginBottom: '5px'
+	},
+});
+formpanel_verify = new FormPanel();
+formpanel_verify.init(config);
+
+//
+// panel
+//
+var config = new Object({
+	items: [ formpanel_verify.display ]
+})
+panel = new Panel();
+panel.init(config);
+panel.display.render(Ext.get('div_newsletter_user_verify'));
+
+{/literal}
+</script>
+<div id="div_newsletter_user_verify"></div>

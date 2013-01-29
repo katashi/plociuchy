@@ -1,0 +1,102 @@
+<script type="text/javascript">
+{literal}
+
+// fields
+var fields = new Array('id', 'title', 'header', 'active', 'date_created');
+
+// store
+var config = new Object({
+	fields: fields,
+	format: 'json',
+	id: 'warehouse_newsletter_store',
+	url: base_url+'/warehouse_newsletter/load_all/{/literal}{$id}{literal}'
+});
+warehouse_newsletter_store = new Store();
+warehouse_newsletter_store.init(config);
+
+// paging toolbar
+var config = new Object({
+	store: warehouse_newsletter_store.display,
+	items: ['-',
+		{
+			iconCls: 'x-btn-text-icon newspaper_add',
+			handler: warehouse_newsletter_add,
+			text: 'Dodaj Newsletter'
+		}
+	]
+});
+warehouse_newsletter_pagingtoolbar = new PagingToolBar();
+warehouse_newsletter_pagingtoolbar.init(config);
+
+// grid
+var config = new Object({
+	store: warehouse_newsletter_store.display,
+	tbar: warehouse_newsletter_pagingtoolbar.display,
+	title: 'Newslettery',
+	columns: [
+		{ id: 'id', dataIndex: 'id', header: 'Id', sortable: true },
+		{ id: 'title', dataIndex: 'title', header: 'Tytuł', sortable: true },
+		{ id: 'header', dataIndex: 'header', header: 'Nagłówek', sortable: true },
+		{ id: 'active', dataIndex: 'active', header: 'Aktywny', sortable: true },
+		{ id: 'date_created', dataIndex: 'date_created', header: 'Stworzony', sortable: true },
+		{ id: 'options', header: 'Opcje', renderer: render_options, sortable: false }
+	],
+	listeners: {
+		celldblclick: function(grid, rowIndex, columnIndex, e) {
+			var record = grid.getStore().getAt(rowIndex);
+ 			var fieldName = grid.getColumnModel().getDataIndex(columnIndex);
+			var data = record.get(fieldName);
+			var data_id = record.get('id');
+			var data_title = record.get('title');
+			warehouse_newsletter_edit(data_id, data_title);
+		}
+	}
+});
+warehouse_newsletter_grid = new EditorGridPanel();
+warehouse_newsletter_grid.init(config);
+
+// panel
+var config = new Object({
+	items: [ warehouse_newsletter_grid.display ]
+});
+warehouse_newsletter_panel = new Panel();
+warehouse_newsletter_panel.init(config);
+warehouse_newsletter_panel.display.render(Ext.get('div_warehouse_newsletter_{/literal}{$id}{literal}'));
+
+// store load
+warehouse_newsletter_store.display.load({ params: { start: 0, limit: _paging_limit }});
+
+// store reload
+function warehouse_newsletter_store_reload(index){
+	warehouse_newsletter_store.display.load({ params: { start: 0, limit: _paging_limit, id: index }});
+}
+
+// render options
+function render_options(value, p, record) {
+	return String.format('<a href="javascript:delete_confirm(\''+base_url+'/warehouse_newsletter/delete/'+record.data.id+'\');"><img src="images/icon/delete.png" border="0"></a>');	
+}
+
+// delete
+function delete_confirm(url) {
+	new Helper_Delete().delete_confirm(url, 'grid', warehouse_newsletter_store, west_warehouse_newsletter.ui_tree);
+}
+
+// newsletter add
+function warehouse_newsletter_add() {
+	tab_id = 'warehouse_newsletter_add';
+	tab_title = 'Dodaj Newsletter';
+	tab_url = base_url+'/warehouse_newsletter/display_add/{/literal}{$id}{literal}';
+	center.ui.tab_add(tab_id, tab_title, tab_url);
+}
+
+// show details
+function warehouse_newsletter_edit(id, title) {
+	tab_id = 'warehouse_newsletter_edit_'+id;
+	tab_title = 'Newsletter '+title;
+	tab_url = base_url+'/warehouse_newsletter/display_edit/'+id;
+	center.ui.tab_add(tab_id, tab_title, tab_url);
+}
+
+{/literal}
+</script>
+<div id="div_warehouse_newsletter_{$id}"></div>

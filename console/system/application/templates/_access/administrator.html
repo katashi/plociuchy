@@ -1,0 +1,101 @@
+<script type="text/javascript">
+{literal}
+
+// fields
+var fields = new Array('id', 'user', 'password', 'email');
+
+// store
+var config = new Object({
+	fields: fields,
+	format: 'json',
+	id: 'administrator',
+	url: base_url+'/administrator/load_all'
+});
+administrator_store = new Store();
+administrator_store.init(config);
+
+// paging toolbar
+var config = new Object({
+	store: administrator_store.display,
+	items: ['-',
+		{
+			iconCls: 'x-btn-text-icon user_add',
+			handler: administrator_add,
+			text: 'Dodaj Administratora'
+		}
+	]
+});
+administrator_pagingtoolbar = new PagingToolBar();
+administrator_pagingtoolbar.init(config);
+
+// grid
+var config = new Object({
+	store: administrator_store.display,
+	tbar: administrator_pagingtoolbar.display,
+	title: 'Administratorzy',
+	columns: [
+		{ id: 'id', dataIndex: 'id', header: 'Id', sortable: true },
+		{ id: 'user', dataIndex: 'user', header: 'Użytkownik', sortable: true },
+		{ id: 'password', dataIndex: 'password', header: 'Hasło', sortable: true },
+		{ id: 'email', dataIndex: 'email', header: 'E-mail', sortable: true },
+		{ id: 'options', header: 'Opcje', renderer: render_options, sortable: false }
+	],
+	listeners: {
+		celldblclick: function(grid, rowIndex, columnIndex, e) {
+			var record = grid.getStore().getAt(rowIndex);
+ 			var fieldName = grid.getColumnModel().getDataIndex(columnIndex);
+			var data = record.get(fieldName);
+			var data_id = record.get('id');
+			var data_user = record.get('user');
+			administrator_edit(data_id, data_user);
+		}
+	}
+});
+administrator_grid = new EditorGridPanel();
+administrator_grid.init(config);
+
+// panel
+var config = new Object({
+	items: [ administrator_grid.display ]
+});
+administrator_panel = new Panel();
+administrator_panel.init(config);
+administrator_panel.display.render(Ext.get('div_administrator'));
+
+// store load
+administrator_store.display.load({ params: { start: 0, limit: _paging_limit }});
+
+// render options
+function render_options(value, p, record) {
+	return String.format('<a href="javascript:delete_confirm(\''+base_url+'/administrator/delete/'+record.data.id+'\');"><img src="images/icon/delete.png" border="0"></a>');	
+}
+
+// delete
+function delete_confirm(url) {
+	new Helper_Delete().delete_confirm(url, 'grid', administrator_store, null);
+}
+
+// store reload
+function administrator_store_reload(index){
+	administrator_store.display.load({ params: { start: 0, limit: _paging_limit }});
+}
+
+// add
+function administrator_add() {
+	tab_id = 'administrator_add';
+	tab_title = 'Dodaj Administratora';
+	tab_url = base_url+'/administrator/display_add/';
+	center.ui.tab_add(tab_id, tab_title, tab_url);
+}
+
+// edit
+function administrator_edit(id, user) {
+	tab_id = 'administrator_edit_'+id;
+	tab_title = 'Administrator '+user;
+	tab_url = base_url+'/administrator/display_edit/'+id;
+	center.ui.tab_add(tab_id, tab_title, tab_url);
+}
+
+{/literal}
+</script>
+<div id="div_administrator"></div>

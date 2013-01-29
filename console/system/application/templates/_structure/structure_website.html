@@ -1,0 +1,69 @@
+<script type="text/javascript">
+{literal}
+
+// fields
+var fields = new Array('relations_id', 'relations_id_element', 'title', 'type', 'active');
+
+// store
+var config = new Object({
+	fields: fields,
+	format: 'json',
+	id: 'structure_website_store',
+	url: base_url+'/_structure:structure_website/load_all/{/literal}{$id}{literal}'
+});
+structure_website_store = new Store();
+structure_website_store.init(config);
+
+// paging toolbar
+var config = new Object({
+	store: structure_website_store.display
+});
+structure_website_pagingtoolbar = new PagingToolBar();
+structure_website_pagingtoolbar.init(config);
+
+// grid
+var config = new Object({
+	store: structure_website_store.display,
+	tbar: structure_website_pagingtoolbar.display,
+	title: 'Struktura (elementy strony internetowej)',
+	columns: [
+		{ id: 'relations_id', dataIndex: 'relations_id', header: 'Id Relacji', sortable: true },
+        { id: 'relations_id_element', dataIndex: 'relations_id_element', header: 'Id', sortable: true },
+		{ id: 'title', dataIndex: 'title', header: 'Tytuł', sortable: true },
+		{ id: 'type', dataIndex: 'type', header: 'Typ Elementu', sortable: true },
+		{ id: 'active', dataIndex: 'active', header: 'Aktywny', sortable: true },
+		{ id: 'options', header: 'Opcje', renderer: render_options, sortable: false }
+	]
+});
+structure_website_grid = new EditorGridPanel();
+structure_website_grid.init(config);
+
+// panel
+var config = new Object({
+	items: [ structure_website_grid.display ]
+});
+structure_website_panel = new Panel();
+structure_website_panel.init(config);
+structure_website_panel.display.render(Ext.get('div_structure_website_{/literal}{$id}{literal}'));
+
+// store load
+structure_website_store.display.load({ params: { start: 0, limit: _paging_limit }});
+
+// store reload
+function structure_website_store_reload(index){
+	structure_website_store.display.load({ params: { start: 0, limit: _paging_limit, id: index }});
+}
+
+// render options
+function render_options(value, p, record) {
+	return String.format('<a href="javascript:delete_confirm(\''+base_url+'/_structure:structure_website/delete/'+record.data.relations_id+'\');"><img src="images/icon/delete.png" border="0"></a>');
+}
+
+// delete
+function delete_confirm(url) {
+	new Helper_Delete().delete_confirm(url, 'grid', structure_website_store, west_structure_website.ui_tree);
+}
+
+{/literal}
+</script>
+<div id="div_structure_website_{$id}"></div>

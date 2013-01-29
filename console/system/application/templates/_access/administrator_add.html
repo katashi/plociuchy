@@ -1,0 +1,56 @@
+<script type="text/javascript">
+{literal}
+
+// panel
+var config = new Object({
+	title: 'Dodaj Administratora',
+	items: [{
+		allowBlank: true,
+		fieldLabel: 'Użytkownik',
+		name: 'user',
+		value: '',
+		xtype: 'textfield',
+		width: 350
+	},{
+		allowBlank: true,
+		fieldLabel: 'Hasło',
+		name: 'password',
+		value: '',
+		xtype: 'textfield',
+		width: 350
+	},{
+		allowBlank: true,
+		fieldLabel: 'E-mail',
+		name: 'email',
+		value: '',
+		xtype: 'textfield',
+		width: 350
+	}],
+	buttons: [{
+		handler: administrator_add_formpanel_submit,
+		text: 'Dodaj'
+	}]
+});
+administrator_add_formpanel = new FormPanel();
+administrator_add_formpanel.init(config);
+administrator_add_formpanel.display.render(Ext.get('div_administrator_add'));
+
+// submit
+function administrator_add_formpanel_submit() {
+	administrator_add_formpanel.display.form.submit({
+		method: 'POST',
+		url: base_url +'/administrator/add',
+		success: function() {
+			Ext.MessageBox.alert('Administrator', 'Administrator został dodany.');
+			administrator_add_formpanel.display.getForm().reset();
+			administrator_store.display.reload();
+		},
+		failure: function() {
+			Ext.MessageBox.alert('Błąd', 'Wystąpił błąd podczas dodawania Administratora.');
+		},
+		waitMsg: _waitmsg
+	});
+}
+{/literal}
+</script>
+<div id="div_administrator_add"></div>

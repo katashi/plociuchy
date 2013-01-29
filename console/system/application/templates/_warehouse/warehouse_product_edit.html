@@ -1,0 +1,310 @@
+<script type="text/javascript">
+{literal}
+
+// panel
+var config = new Object({
+	title: 'Edytuj Produkt',
+	items: [{
+		allowBlank: true,
+		fieldLabel: 'Tytuł',
+		name: 'title',
+		value: '',
+		xtype: 'textfield',
+		width: 350
+	},{
+		allowBlank: true,
+		fieldLabel: 'Nagłówek',
+		name: 'header',
+		value: '',
+		xtype: 'textarea',
+		width: 350
+	},{
+		allowBlank: true,
+		fieldLabel: 'Cena',
+		name: 'price',
+		value: '',
+		xtype: 'textfield',
+		width: 350
+	},{
+		allowBlank: true,
+		fieldLabel: 'Waga',
+		name: 'weight',
+		value: '',
+		xtype: 'textfield',
+		width: 350
+	},{
+		allowBlank: true,
+		fieldLabel: 'Treść',
+		height: 250,
+		name: 'text',
+		value: '',
+		xtype: 'htmleditor',
+		width: 550
+	},{
+		html: '<br>Tagi wykorzystywane są podczas wyszukiwania. Jednocześnie system korzysta z nich aby tworzyć powiązania między artykułami.<br>Tagi to pojedyńcze słowa rozdzielone znakiem ",".<br><br>',
+		width: 778
+	},{
+		allowBlank: true,
+		fieldLabel: 'Tagi',
+		name: 'tag',
+		value: '',
+		xtype: 'textfield',
+		width: 350
+	},{
+		html: '<br>Aktywność. Widoczność produktu w sklepie. Wartości 0 lub 1.<br><br>',
+		width: 778
+	},{
+		allowBlank: true,
+		fieldLabel: 'Aktywność',
+		name: 'active',
+		value: '1',
+		xtype: 'textfield',
+		width: 350
+	},{
+		html: '<br>Pole Tytuł, Opis oraz Słowa Kluczowe nie powinny być dłuższe <b>aniżeli 255 znaków</b>.<br>Wykorzystywane są one przy indeksacji np. w wyszukiwarce Google lub Yahoo.<br><br>',
+		width: 778
+	},{
+		allowBlank: true,
+		fieldLabel: 'Meta Tytuł',
+		name: 'meta_title',
+		value: '',
+		xtype: 'textfield',
+		width: 350
+	},{
+		allowBlank: true,
+		fieldLabel: 'Meta Opis',
+		name: 'meta_description',
+		value: '',
+		xtype: 'textfield',
+		width: 350
+	},{
+		allowBlank: true,
+		fieldLabel: 'Meta Słowa Kluczowe',
+		name: 'meta_keywords',
+		value: '',
+		xtype: 'textfield',
+		width: 350
+	},{
+		html: '<br>Obrazki. Przeciągnij wybrany obraz z części Media / Obrazy.<br><br>',
+		width: 778
+	},{
+		id: 'image1',
+		name: 'image1',
+		xtype: 'hidden'
+	},{
+		allowBlank: false,
+		fieldLabel: 'Obraz 1',
+		id: 'image_image1_wae_{/literal}{$id}{literal}',
+		name: 'image_image1_{/literal}{$id}{literal}',
+		xtype: 'box',
+		autoEl:{
+			tag:'div', 
+			children:[{
+				tag:'img',
+				src: '../media/image/default/default_80x60.jpg'
+			}]
+		}
+	},{
+        html: '<table width="778" cellpediting="10" cellspacing="0"><tr><td width="105"></td><td><img src="images/icon/delete.png" onclick="image1_delete();" align="absmiddle" style="margin-bottom:4px;"> Usuń obrazek</td></tr></table>',
+        width: 778
+	},{
+		id: 'image2',
+		name: 'image2',
+		xtype: 'hidden'
+	},{
+		allowBlank: false,
+		fieldLabel: 'Obraz 2',
+		id: 'image_image2_wae_{/literal}{$id}{literal}',
+		name: 'image_image2_{/literal}{$id}{literal}',
+		xtype: 'box',
+		autoEl:{
+			tag:'div', 
+			children:[{
+				tag:'img',
+				src: '../media/image/default/default_80x60.jpg'
+			}]
+		}
+	},{
+        html: '<table width="778" cellpediting="10" cellspacing="0"><tr><td width="105"></td><td><img src="images/icon/delete.png" onclick="image2_delete();" align="absmiddle" style="margin-bottom:4px;"> Usuń obrazek</td></tr></table>',
+        width: 778
+	},{
+		id: 'image3',
+		name: 'image3',
+		xtype: 'hidden'
+	},{
+		allowBlank: false,
+		fieldLabel: 'Obraz 3',
+		id: 'image_image3_wae_{/literal}{$id}{literal}',
+		name: 'image_image3_{/literal}{$id}{literal}',
+		xtype: 'box',
+		autoEl:{
+			tag:'div', 
+			children:[{
+				tag:'img',
+				src: '../media/image/default/default_80x60.jpg'
+			}]
+		}
+	},{
+        html: '<table width="778" cellpediting="10" cellspacing="0"><tr><td width="105"></td><td><img src="images/icon/delete.png" onclick="image3_delete();" align="absmiddle" style="margin-bottom:4px;"> Usuń obrazek</td></tr></table>',
+        width: 778
+	},{
+		html: '<br>Flagi. Dodatkowe wartości wykorzystywane w witrynie sklepu.<br>Skontaktuj się z Administratorem aby dowiedzieć się więcej.<br><br>',
+		width: 778
+	},{
+		allowBlank: true,
+		fieldLabel: 'Flaga1',
+		name: 'flag1',
+		value: '',
+		xtype: 'textfield',
+		width: 350
+	},{
+		allowBlank: true,
+		fieldLabel: 'Flaga2',
+		name: 'flag2',
+		value: '',
+		xtype: 'textfield',
+		width: 350
+	},{
+		allowBlank: true,
+		fieldLabel: 'Flaga3',
+		name: 'flag3',
+		value: '',
+		xtype: 'textfield',
+		width: 350
+	}],
+	buttons: [{
+		handler: warehouse_product_edit_formpanel_submit,
+		text: 'Zapisz'
+	}],
+	listeners: {
+		afterRender: function(form) {
+            var img1 = form.findById('image_image1_wae_{/literal}{$id}{literal}').getEl();
+            form.DropTarget1 = new Ext.dd.DropTarget(img1, {
+                copy: false,
+				ddGroup: 'media',
+				enabled: true,
+                notifyDrop: function(dd, e, data) {
+				    var field = form.findById('image_image1_wae_{/literal}{$id}{literal}');
+					field.update('<img src="../media/image/80x60/'+data.node.attributes.file_name+'" border="1">');
+					var field = form.findById('image1');
+					field.setValue(data.node.attributes.file_name);
+				}
+            });
+            var img2 = form.findById('image_image2_wae_{/literal}{$id}{literal}').getEl();
+            form.DropTarget2 = new Ext.dd.DropTarget(img2, {
+                copy: false,
+				ddGroup: 'media',
+				enabled: true,
+                notifyDrop: function(dd, e, data) {
+				    var field = form.findById('image_image2_wae_{/literal}{$id}{literal}');
+					field.update('<img src="../media/image/80x60/'+data.node.attributes.file_name+'" border="1">');
+					var field = form.findById('image2');
+					field.setValue(data.node.attributes.file_name);
+				}
+            });
+            var img3 = form.findById('image_image3_wae_{/literal}{$id}{literal}').getEl();
+            form.DropTarget3 = new Ext.dd.DropTarget(img3, {
+                copy: false,
+				ddGroup: 'media',
+				enabled: true,
+                notifyDrop: function(dd, e, data) {
+				    var field = form.findById('image_image3_wae_{/literal}{$id}{literal}');
+					field.update('<img src="../media/image/80x60/'+data.node.attributes.file_name+'" border="1">');
+					var field = form.findById('image3');
+					field.setValue(data.node.attributes.file_name);
+				}
+            });
+		}
+	}
+});
+warehouse_product_edit_formpanel = new FormPanel();
+warehouse_product_edit_formpanel.init(config);
+warehouse_product_edit_formpanel.display.render(Ext.get('div_warehouse_product_edit_{/literal}{$id}{literal}'));
+
+// submit
+function warehouse_product_edit_formpanel_submit() {
+	warehouse_product_edit_formpanel.display.form.submit({
+		method: 'POST',
+		url: base_url +'/warehouse_product/edit/{/literal}{$id}{literal}',
+		success: function() {
+			Ext.MessageBox.alert('Produkt', 'Produkt został zaktualizowany.');
+			warehouse_product_edit_formpanel.display.getForm().reset();
+			warehouse_product_store.display.reload();
+			west_warehouse_product.ui_tree.root.reload();
+			west_warehouse_product.ui_tree.path_expand();
+		},
+		failure: function() {
+			Ext.MessageBox.alert('Błąd', 'Wystąpił błąd podczas aktualizacji Produktu.');
+		},
+		waitMsg: _waitmsg
+	});
+}
+
+function warehouse_product_edit_formpanel_load() {
+	warehouse_product_edit_formpanel.display.form.load({
+		method: 'POST',
+		url: base_url +'/warehouse_product/load/{/literal}{$id}{literal}',
+		waitMsg: _waitmsg,
+		success: function() {
+			image1_update();
+            image2_update();
+            image3_update();
+		},
+		failure: function() {
+			Ext.MessageBox.alert('Błąd', 'Wystąpił błąd podczas ładowania Produktu.');
+		}
+	});
+}
+
+// image_update
+function image1_update() {
+	var form = warehouse_product_edit_formpanel.display;
+	var image = form.getForm().findField('image1').getValue();
+	if (image) {
+		var image_image = form.findById('image_image1_wae_{/literal}{$id}{literal}');
+		image_image.update('<img src="../media/image/80x60/' + image + '" border="1">');
+	}
+}
+function image2_update() {
+	var form = warehouse_product_edit_formpanel.display;
+	var image = form.getForm().findField('image2').getValue();
+	if (image) {
+		var image_image = form.findById('image_image2_wae_{/literal}{$id}{literal}');
+		image_image.update('<img src="../media/image/80x60/' + image + '" border="1">');
+	}
+}
+function image3_update() {
+	var form = warehouse_product_edit_formpanel.display;
+	var image = form.getForm().findField('image3').getValue();
+	if (image) {
+		var image_image = form.findById('image_image3_wae_{/literal}{$id}{literal}');
+		image_image.update('<img src="../media/image/80x60/' + image + '" border="1">');
+	}
+}
+
+// image delete
+function image1_delete() {
+    var form = warehouse_product_edit_formpanel.display;
+	var image = form.getForm().findField('image1').setValue('');
+    var image_image = form.findById('image_image1_wae_{/literal}{$id}{literal}');
+	image_image.update('<img src="../media/image/default/default_80x60.jpg" border="1">');
+}
+function image2_delete() {
+    var form = warehouse_product_edit_formpanel.display;
+	var image = form.getForm().findField('image2').setValue('');
+    var image_image = form.findById('image_image2_wae_{/literal}{$id}{literal}');
+	image_image.update('<img src="../media/image/default/default_80x60.jpg" border="1">');
+}
+function image3_delete() {
+    var form = warehouse_product_edit_formpanel.display;
+	var image = form.getForm().findField('image3').setValue('');
+    var image_image = form.findById('image_image3_wae_{/literal}{$id}{literal}');
+	image_image.update('<img src="../media/image/default/default_80x60.jpg" border="1">');
+}
+
+// load form panel
+warehouse_product_edit_formpanel_load();
+
+{/literal}
+</script>
+<div id="div_warehouse_product_edit_{$id}"></div>

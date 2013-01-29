@@ -1,0 +1,330 @@
+<script type="text/javascript">
+{literal}
+
+// fields
+var fields = new Array('template');
+
+// store
+var config = new Object({
+	fields: fields,
+	format: 'json',
+	id: 'newsletter_template_store',
+	url: base_url+'/newsletter_distribution/load_all_template'
+});
+newsletter_template_store = new Store();
+newsletter_template_store.init(config);
+
+// fields
+var fields = new Array('id','name');
+
+// store
+var config = new Object({
+	fields: fields,
+	format: 'json',
+	id: 'newsletter_user_group_store',
+	url: base_url+'/newsletter_user_group/load_all'
+});
+newsletter_user_group_store = new Store();
+newsletter_user_group_store.init(config);
+
+// form
+var config = new Object({
+	title: 'Dystrybucja',
+	items: [{
+		fieldLabel: 'Temat',
+		labelStyle: 'width:150px; font-weight:bold;',
+		name: 'subject',
+		value: '',
+		xtype: 'textfield',
+		width: 250	
+	},{ 
+		html:'<hr width=100% color=#bbbbbb noshade size=1>',
+		xtype: 'label' 
+	},{
+		fieldLabel: 'Od ( nazwa )',
+		labelStyle: 'width:150px; font-weight:bold;',
+		name: 'from_name',
+		value: '',
+		xtype: 'textfield',
+		width: 250
+	},{
+		fieldLabel: 'Od ( email )',
+		labelStyle: 'width:150px; font-weight:bold;',
+		name: 'from_email',
+		value: '',
+		xtype: 'textfield',
+		width: 250
+	},{
+		fieldLabel: 'Odpowiedz ( nazwa )',
+		labelStyle: 'width:150px;',
+		name: 'replyto_name',
+		value: '',
+		xtype: 'textfield',
+		width: 250
+	},{
+		fieldLabel: 'Odpowiedz ( email )',
+		labelStyle: 'width:150px;',
+		name: 'replyto_email',
+		value: '',
+		xtype: 'textfield',
+		width: 250
+	},{ 
+		html:'<hr width=100% color=#bbbbbb noshade size=1>',
+		xtype: 'label' 
+	},{
+        id: 'newsletter_id',
+	    name: 'newsletter_id',
+	    xtype: 'hidden'
+	},{
+        allowBlank: false,
+        blankText: 'Pole obowiązkowe',
+		fieldLabel: 'NEWSLETTER',
+        id: 'newsletter_title',
+		labelStyle: 'width:150px; font-weight:bold;',
+		name: 'newsletter_title',
+		value: '',
+		xtype: 'textfield',
+		width: 250
+	},{
+		html: 'Newsletter należy wybrać (przeciągnąć) z części Magazyn/Newsletter znajdującego się po lewej stronie.<br>Newsletter to zestaw połączonych artykułów, które zostaną wysłane jako jedna całość w formie listu e-mail.',
+		width: 778
+	},{ 
+		html:'<hr width=100% color=#bbbbbb noshade size=1>',
+		xtype: 'label' 
+	},{
+        id: 'newsletter_template_id',
+        value: '1',
+	    name: 'newsletter_template_id',
+	    xtype: 'hidden'
+	},{
+        allowBlank: false,
+        autoSelect: true,
+        blankText: 'Pole obowiązkowe',
+	    displayField: 'template',
+	    fieldLabel: 'SZABLON',
+        hiddenName: 'template',
+        id: 'template',
+        labelStyle: 'width:150px; font-weight:bold;',
+        name: 'template',
+        store: newsletter_template_store,
+        triggerAction: 'all',
+        width: 250,
+        valueField: 'template',
+        xtype: 'combo'
+	},{
+		html: 'Szablon jest opisem graficznym zamieszczanych w newsletterze wiadomości (artykułów).',
+		width: 778
+	},{ 
+		html:'<hr width=100% color=#bbbbbb noshade size=1>',
+		xtype: 'label' 
+	},{
+        allowBlank: false,
+        autoSelect: true,
+        blankText: 'Pole obowiązkowe',
+	    displayField: 'name',
+	    fieldLabel: 'GRUPA',
+        hiddenName: 'user_group',
+        id: 'user_group',
+        labelStyle: 'width:150px; font-weight:bold;',
+        name: 'user_group',
+        store: newsletter_user_group_store,
+        triggerAction: 'all',
+        width: 250,
+        valueField: 'id',
+        xtype: 'combo'
+	},{
+		html: 'Grupa to określony przy imporcie zestaw użytkowników podzielonych na dowolne części.',
+		width: 778
+	},{ 
+		html:'<hr width=100% color=#bbbbbb noshade size=1>',
+		xtype: 'label' 
+	},{
+        checked: true,
+		fieldLabel: 'Załącz stopkę kontaktową',
+		id: 'text_contact_attach',
+        labelStyle: 'width:150px;',
+		name: 'text_contact_attach',
+		value: 1,
+		xtype: 'checkbox',
+		width: 250
+	},{
+        disabled: true,
+		fieldLabel: 'Stopka kontaktowa',
+        height: 100,
+        id: 'text_contact',
+		labelStyle: 'width:150px;',
+		name: 'text_contact',
+		value: '',
+		xtype: 'textarea',
+		width: 450
+	},{ 
+		html:'<hr width=100% color=#bbbbbb noshade size=1>',
+		xtype: 'label' 
+	},{
+        checked: true,
+		fieldLabel: 'Załącz rezygnację (link)',
+		id: 'unsubscribe_attach',
+        labelStyle: 'width:150px;',
+		name: 'unsubscribe_attach',
+		value: 1,
+		xtype: 'checkbox',
+		width: 250
+	},{ 
+		html:'<hr width=100% color=#bbbbbb noshade size=1>',
+		xtype: 'label' 
+	},{
+		fieldLabel: 'Kodowanie',
+		labelStyle: 'width:150px;',
+		name: 'encoding',
+		value: '',
+		xtype: 'textfield',
+		width: 250
+	},{
+		fieldLabel: 'Format',
+		labelStyle: 'width:150px;',
+		name: 'format',
+		value: '',
+		xtype: 'textfield',
+		width: 250
+	},{
+		fieldLabel: 'Program Nadawczy',
+		labelStyle: 'width:150px;',
+		name: 'x-mailer',
+		value: '',
+		xtype: 'textfield',
+		width: 250
+	},{
+		fieldLabel: 'Pakiety (adresów na cykl)',
+        labelStyle: 'width: 150px',
+		name: 'packet',
+		value: '',
+		xtype: 'textfield',
+		width: 250
+	},{ 
+		html:'<hr width=100% color=#bbbbbb noshade size=1>',
+		xtype: 'label' 
+	},{
+		fieldLabel: 'Adresaci Testowi',
+		labelStyle: 'width:150px; font-weight:bold;',
+		name: 'recipient_test',
+		value: '',
+		xtype: 'textarea',
+		width: 250
+	},{
+		html: 'Użytkownicy (jeśli więcej aniżeli jeden) powinni być rozdzieleni znakiem ; (np. test@test.com;email@email.com)',
+		width: 778
+	},{ 
+		html:'<hr width=100% color=#bbbbbb noshade size=1>',
+		xtype: 'label' 
+	}],
+	buttons: [{
+		handler: send_test,
+		text: 'Wyślij Newsletter TEST',
+		width: 200
+	},{
+		handler: send_mass,
+		text: 'Wyślij Newsletter MASOWY',
+		width: 200
+	},{
+		handler: preview,
+		text: 'Podgląd',
+		width: 200
+	}],
+	listeners: {
+		render: function(grid) {
+			grid.DropTarget = new Ext.dd.DropTarget(grid.getEl(), {
+				copy: false,
+				ddGroup: 'warehouse_newsletter',
+				enabled: true,
+				notifyDrop: function(dd, e, data) {
+					var field = newsletter_distribution.display.findById('newsletter_id');
+				    field.setValue(data.node.attributes.id_element);
+					var field = newsletter_distribution.display.findById('newsletter_title');
+					field.setValue(data.node.attributes.text);
+				}
+			});
+		}
+	}
+});
+var newsletter_distribution = new FormPanel();
+newsletter_distribution.init(config);
+
+//
+// panel
+//
+var config = new Object({
+	items: [ newsletter_distribution.display ]
+})
+panel = new Panel();
+panel.init(config);
+panel.display.render(Ext.get('div_newsletter_distribution'));
+
+// send test
+function send_test() {
+	send('test');
+}
+
+// send mass 
+function send_mass() {
+	send('mass');
+}
+
+// send 
+function send(mode) {
+    newsletter_distribution.display.form.submit({
+        method: 'POST',
+		url: base_url +'/newsletter_distribution/send/'+mode,
+		waitMsg: _waitmsg,
+		success: function() {
+            if (mode == 'test') { 
+                Ext.MessageBox.alert('Newsletter', 'Email testowy został wysłany.');
+            }
+            if (mode == 'mass') {
+                Ext.MessageBox.alert('Newsletter', 'Wysyłanie zostało rozpoczęte.');
+            }
+		},
+		failure: function() {
+		}
+    });
+} 
+
+// preview
+function preview() {
+    var field = newsletter_distribution.display.findById('newsletter_id');
+    var newsletter_id = field.getValue();
+    var field = newsletter_distribution.display.findById('template');
+    var template = field.getValue();
+    var field = newsletter_distribution.display.findById('text_contact_attach');
+    var text_contact_attach = field.getValue();
+    var field = newsletter_distribution.display.findById('unsubscribe_attach');
+    var unsubscribe_attach = field.getValue();
+    if (newsletter_id != '' && template != '') {
+        var tab_id = 'newsletter_preview';
+        var tab_title = 'Podgląd';
+        var tab_url = base_url +'/newsletter_distribution/display_preview/'+newsletter_id+','+template+','+text_contact_attach+','+unsubscribe_attach;
+        center.ui.tab_add(tab_id, tab_title, tab_url);
+    } else {
+        alert('Brak wszystkich danych do stworzenia podglądu!');
+    }
+}
+
+// load data from configuration
+function newsletter_distribution_load() {
+    newsletter_distribution.display.form.load({
+		method: 'POST',
+		url: base_url +'/newsletter_configuration/load',
+		waitMsg: _waitmsg,
+		success: function() {
+		},
+		failure: function() {
+			Ext.MessageBox.alert('Błąd', 'Wystąpił błąd podczas ładowania Konfiguracji.');
+		}
+	});
+}
+
+// load
+newsletter_distribution_load();
+
+{/literal}
+</script>
+<div id="div_newsletter_distribution"></div>

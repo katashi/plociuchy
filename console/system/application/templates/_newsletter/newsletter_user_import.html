@@ -1,0 +1,164 @@
+<script type="text/javascript">
+{literal}
+
+var config = new Object({
+	fileUpload: true,
+	title: 'Import pliku CSV',
+	waitMsgTarget: true,
+	items: [{
+		allowBlank: false,
+		fieldLabel: 'Plik CSV rozdzielany znakiem ;',
+		inputType: 'file',
+		name: 'data',
+		xtype: 'textfield'
+	},{
+		html: 'Pobierz plik przykładowy ( <a href="'+site_url+'/templates/newsletter/newsletter_user_import/newsletter_user_csv_template.csv">CSV<a> ) ( <a href="'+site_url+'/templates/newsletter/newsletter_user_import/newsletter_user_csv_template.ods">ODS<a> ) ( <a href="'+site_url+'/templates/newsletter/newsletter_user_import/newsletter_user_csv_template.xls">XLS<a> )<br>'
+	}],
+	buttons: [{
+		handler: import_csv,
+		text: 'Importuj adresy'
+	}],
+	style: {
+		marginBottom: '5px'
+	},
+});
+formpanel_csv = new FormPanel();
+formpanel_csv.init(config);
+
+//
+// txt file
+//
+var config = new Object({
+	fileUpload: true,
+	title: 'Import pliku TXT',
+	waitMsgTarget: true,
+	items: [{
+		allowBlank: false,
+		fieldLabel: 'Plik TXT rozdzielany znakiem ;',
+		inputType: 'file',
+		name: 'data',
+		xtype: 'textfield'
+	},{
+		html: 'Pobierz plik przykładowy ( <a href="'+site_url+'/templates/newsletter/newsletter_user_import/newsletter_user_txt_template.txt" target="_blank">TXT<a> )<br>'
+	}],
+	buttons: [{
+		handler: import_txt,
+		text: 'Importuj adresy'
+	}],
+	style: {
+		marginBottom: '5px'
+	},
+});
+formpanel_txt = new FormPanel();
+formpanel_txt.init(config);
+
+//
+// textfield
+//
+var config = new Object({
+	defaults: {
+		maxLength: 9000
+	},
+	title: 'Import tekstu',
+	items: [{
+		allowBlank: false,
+		name: 'data',
+		fieldLabel: 'Adresy e-mail rozdzielone znakiem ;',
+		width: 500,
+		height: 100,
+		xtype: 'textarea'
+	}],
+	buttons: [{
+		handler: import_textarea,
+		text: 'Importuj adresy'
+	}],
+	style: {
+		marginBottom: '5px'
+	},
+});
+formpanel_textarea = new FormPanel();
+formpanel_textarea.init(config);
+
+//
+// export
+//
+var config = new Object({
+	title: 'Eksport bazy do pliku CSV',
+	buttons: [{
+		handler: export_csv,
+		text: 'Eksportuj adresy'
+	}]
+});
+formpanel_csv_export = new FormPanel();
+formpanel_csv_export.init(config);
+
+//
+// panel
+//
+var config = new Object({
+	items: [ formpanel_csv.display, formpanel_txt.display, formpanel_textarea.display, formpanel_csv_export.display ]
+})
+panel = new Panel();
+panel.init(config);
+panel.display.render(Ext.get('div_newsletter_user_import'));
+
+function import_csv() {
+	formpanel_csv.display.form.submit({
+		method: 'POST',
+		url: base_url +'/newsletter_user/import_csv/',
+		success: function() {
+			Ext.MessageBox.alert('Import Użytkowników', 'Rozpoczęto import adresów do bazy!');
+		},
+		failure: function() {
+			Ext.MessageBox.alert('Błąd', 'Wystąpił błąd podczas dodawania Użytkowników');
+		},
+		waitMsg: _waitmsg
+	});
+}
+
+function import_txt() {
+	formpanel_txt.display.form.submit({
+		method: 'POST',
+		url: base_url +'/newsletter_user/import_txt/',
+		success: function() {
+			Ext.MessageBox.alert('Import Użytkowników', 'Adresy zostały dodane do bazy!');
+		},
+		failure: function() {
+			Ext.MessageBox.alert('Błąd', 'Wystąpił błąd podczas dodawania Użytkowników');
+		},
+		waitMsg: _waitmsg
+	});
+}
+
+function import_textarea() {
+	formpanel_textarea.display.form.submit({
+		method: 'POST',
+		url: base_url +'/newsletter_user/import_textarea/',
+		success: function() {
+			Ext.MessageBox.alert('Import Użytkowników', 'Adresy zostały dodane do bazy!');
+			formpanel_textarea.display.getForm().reset();
+		},
+		failure: function() {
+			Ext.MessageBox.alert('Błąd', 'Wystąpił błąd podczas dodawania Użytkownika/ów');
+		},
+		waitMsg: _waitmsg
+	});
+}
+
+function export_csv() {
+	formpanel_csv_export.display.form.submit({
+		method: 'POST',
+		url: base_url +'/newsletter_user/export_csv/',
+		success: function() {
+			Ext.MessageBox.alert('Eksport Użytkowników', 'Adresy zostały wyeksportowane!');
+		},
+		failure: function() {
+			Ext.MessageBox.alert('Błąd', 'Wystąpił błąd podczas eksportowania Użytkowników');
+		},
+		waitMsg: _waitmsg
+	});
+}
+
+{/literal}
+</script>
+<div id="div_newsletter_user_import"></div>

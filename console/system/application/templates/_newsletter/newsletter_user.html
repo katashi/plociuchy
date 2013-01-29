@@ -1,0 +1,165 @@
+<script type="text/javascript">
+{literal}
+
+// fields
+var fields = new Array('id', 'name', 'address', 'city', 'district', 'email', 'phone', 'status', 'status_description');
+
+// store
+var config = new Object({
+	fields: fields,
+	format: 'json',
+	id: 'newsletter_user_store',
+	url: base_url+'/newsletter_user/load_all'
+});
+newsletter_user_store = new Store();
+newsletter_user_store.init(config);
+
+// fields
+var fields = new Array('id', 'name');
+
+// store group
+var config = new Object({
+	fields: fields,
+	format: 'json',
+	id: 'newsletter_user_group_store',
+	url: base_url+'/newsletter_user_group/load_all'
+})
+newsletter_user_group_store = new Store();
+newsletter_user_group_store.init(config);
+
+// 
+newsletter_user_group_current_index = 0;
+
+// combobox group
+var config = new Object({
+	emptyText: 'Wybierz Grupę',
+	displayField: 'name',
+	hiddenField: 'id',
+	store: newsletter_user_group_store.display,
+	triggerAction: 'all',
+	typeAhead: true,
+	valueField: 'id',
+	listeners: {
+		select: function(combo, record, index) {
+			newsletter_user_group_current_index = index;
+			newsletter_user_store_reload(newsletter_user_group_current_index);
+		}
+	}
+});
+newsletter_user_group = new ComboBox();
+newsletter_user_group.init(config);
+
+// paging toolbar
+var config = new Object({
+	store: newsletter_user_store.display,
+	items: ['-',
+		newsletter_user_group.display,'-',
+		{
+			iconCls: 'x-btn-text-icon user_add',
+			handler: newsletter_user_add,
+			text: _newsletter_user_add
+		},'-',
+		{
+			iconCls: 'x-btn-text-icon book_key',
+			handler: newsletter_user_verify,
+			text: 'Weryfikacja adresów'
+		},'-',
+		{
+			iconCls: 'x-btn-text-icon folder_user',
+			handler: newsletter_user_import,
+			text: _newsletter_user_import
+		},'-',
+		{
+			iconCls: 'x-btn-text-icon group_delete',
+			handler: newsletter_user_delete_all,
+			text: _newsletter_user_delete_all
+		}
+	],
+});
+newsletter_user_pagingtoolbar = new PagingToolBar();
+newsletter_user_pagingtoolbar.init(config);
+
+// grid
+var config = new Object({
+	store: newsletter_user_store.display,
+	tbar: newsletter_user_pagingtoolbar.display,
+	title: _newsletter_user_grid_title,
+	//url: base_url + '/newsletter_user/edit/',
+	columns: [
+		{ id: 'id', dataIndex: 'id', header: _newsletter_user_header_id, sortable: true },
+		{ id: 'name', dataIndex: 'name', header: _newsletter_user_header_name, sortable: true },
+		{ id: 'address', dataIndex: 'address', header: _newsletter_user_header_address, sortable: true },
+		{ id: 'city', dataIndex: 'city', header: _newsletter_user_header_city, sortable: true },
+		{ id: 'district', dataIndex: 'district', header: _newsletter_user_header_district, sortable: true },
+		{ id: 'email', dataIndex: 'email', header: _newsletter_user_header_email, sortable: true },
+		{ id: 'phone', dataIndex: 'phone', header: _newsletter_user_header_phone, sortable: true },
+		{ id: 'status', dataIndex: 'status', header: 'Status (kod)', sortable: true },
+        { id: 'status_description', dataIndex: 'status_description', header: 'Status (opis)', sortable: true },
+        { id: 'options', header: _newsletter_user_header_options, renderer: render_options, sortable: false }
+	]
+});
+newsletter_user_grid = new EditorGridPanel();
+newsletter_user_grid.init(config);
+
+// panel
+var config = new Object({
+	items: [ newsletter_user_grid.display ]
+});
+newsletter_user_panel = new Panel();
+newsletter_user_panel.init(config);
+newsletter_user_panel.display.render(Ext.get('div_newsletter_user'));
+
+// store load
+newsletter_user_store.display.load({ params: { start: 0, limit: _paging_limit }});
+
+// store group load
+newsletter_user_group_store.display.load({ params: { start: 0, limit: _paging_limit }});
+
+// render options
+function render_options(value, p, record) {
+	return String.format('<a href="javascript:delete_confirm(\''+base_url+'/newsletter_user/delete/'+record.data.id+'\');"><img src="images/icon/delete.png" border="0"></a>');	
+}
+
+// delete
+function delete_confirm(url) {
+	new Helper_Delete().delete_confirm(url, 'grid', newsletter_user_store, null);
+}
+
+// user add
+function newsletter_user_add() {
+	tab_id = 'newsletter_user_add';
+	tab_title = 'Dodaj Użytkownika';
+	tab_url = base_url+'/newsletter_user/display_add';
+	center.ui.tab_add(tab_id, tab_title, tab_url);
+}
+
+// user verify
+function newsletter_user_verify() {
+	tab_id = 'newsletter_user_verify';
+	tab_title = 'Weryfikacja adresów';
+	tab_url = base_url+'/newsletter_user/display_verify';
+	center.ui.tab_add(tab_id, tab_title, tab_url);
+}
+
+// user import
+function newsletter_user_import() {
+	tab_id = 'newsletter_user_import';
+	tab_title = 'Import / Eksport Użytkowników';
+	tab_url = base_url+'/newsletter_user/display_import';
+	center.ui.tab_add(tab_id, tab_title, tab_url);
+}
+
+// user delete_all
+function newsletter_user_delete_all() {
+	url = base_url+'/newsletter_user/delete_all/';
+	new Helper_Delete().delete_confirm(url, 'grid', newsletter_user_store, null);
+}
+
+// store reload
+function newsletter_user_store_reload(index){
+	newsletter_user_store.display.load({ params: { start: 0, limit: _paging_limit, id: index }});
+}
+
+{/literal}
+</script>
+<div id="div_newsletter_user"></div>

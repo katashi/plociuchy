@@ -1,0 +1,129 @@
+<script type="text/javascript">
+{literal}
+
+// fields
+var fields = new Array('id', 'title', 'header', 'price', 'image1', 'active', 'date_created', 'date_last_modified');
+
+// store
+var config = new Object({
+	fields: fields,
+	format: 'json',
+	id: 'warehouse_product_store',
+	url: base_url+'/warehouse_product/load_all/{/literal}{$id}{literal}'
+});
+warehouse_product_store = new Store();
+warehouse_product_store.init(config);
+
+// paging toolbar
+var config = new Object({
+	store: warehouse_product_store.display,
+	items: ['-',
+		{
+			iconCls: 'x-btn-text-icon page_add',
+			handler: warehouse_product_add,
+			text: 'Dodaj Produkt'
+		}
+	]
+});
+warehouse_product_pagingtoolbar = new PagingToolBar();
+warehouse_product_pagingtoolbar.init(config);
+
+// grid
+var config = new Object({
+	store: warehouse_product_store.display,
+	tbar: warehouse_product_pagingtoolbar.display,
+	title: 'Produkty',
+	columns: [
+		{ id: 'id', dataIndex: 'id', header: 'Id', sortable: true },
+		{ id: 'title', dataIndex: 'title', header: 'Tytuł', sortable: true },
+		{ id: 'header', dataIndex: 'header', header: 'Nagłówek', sortable: true },
+		{ id: 'price', dataIndex: 'price', header: 'Cena', sortable: true },
+        { id: 'image1', dataIndex: 'image1', header: 'Obrazek', renderer: render_image, sortable: true },
+		{ id: 'date_created', dataIndex: 'date_created', header: 'Stworzony', sortable: true },
+		{ id: 'date_last_modified', dataIndex: 'date_last_modified', header: 'Zmodyfikowany', sortable: true },
+        { id: 'active', dataIndex: 'active', header: 'Aktywny', renderer: render_active, sortable: true },
+        { id: 'options', header: 'Opcje', renderer: render_options, sortable: false }
+	],
+	listeners: {
+		celldblclick: function(grid, rowIndex, columnIndex, e) {
+			var record = grid.getStore().getAt(rowIndex);
+ 			var fieldName = grid.getColumnModel().getDataIndex(columnIndex);
+			var data = record.get(fieldName);
+			var data_id = record.get('id');
+			var data_title = record.get('title');
+			warehouse_product_edit(data_id, data_title);
+		}
+	}
+});
+warehouse_product_grid = new EditorGridPanel();
+warehouse_product_grid.init(config);
+
+// panel
+var config = new Object({
+	items: [ warehouse_product_grid.display ]
+});
+warehouse_product_panel = new Panel();
+warehouse_product_panel.init(config);
+warehouse_product_panel.display.render(Ext.get('div_warehouse_product_{/literal}{$id}{literal}'));
+
+// store load
+warehouse_product_store.display.load({ params: { start: 0, limit: _paging_limit }});
+
+// store reload
+function warehouse_product_store_reload(index){
+	warehouse_product_store.display.load({ params: { start: 0, limit: _paging_limit, id: index }});
+}
+
+// render image
+function render_image(value, p, record) {
+	if (record.data.image1) {
+		image1 = record.data.image1;
+		return String.format('<a href="javascript:new Helper_Ui().pretty_show(\'' + image1 + '\',\'' + image1 + '\');" title="' + image1 + '"><img src="media/images/80x60/' + image1 + '"></a>');
+	} else {
+		return String.format('<img src="media/images/default/default_80x60.jpg"></a>');
+	}
+}
+// render active
+function render_active(value, p, record) {
+	if (record.data.active == 0 ) {
+		url = '/warehouse_product/active_set/'+record.data.id+',1';
+		img = 'cancel.png';
+	} else { 
+		url = '/warehouse_product/active_set/'+record.data.id+',0';
+		img = 'accept.png';
+	}
+	return String.format('<a href="javascript:active_set_warehouse_product(\''+base_url+url+'\');"><img src="images/icon/'+img+'" border="0"></a>');	
+}
+// render options
+function render_options(value, p, record) {
+	return String.format('<a href="javascript:warehouse_product_edit('+record.data.id+',\''+record.data.title+'\');"><img src="images/icon/application_edit.png" border="0" style="margin-right:2px;" ></a><a href="javascript:delete_confirm(\''+base_url+'/warehouse_product/delete/'+record.data.id+'\');"><img src="images/icon/delete.png" border="0"></a>');	
+}
+
+// delete
+function delete_confirm(url) {
+	new Helper_Delete().delete_confirm(url, 'grid', warehouse_product_store, west_warehouse_product.ui_tree);
+}
+// active
+function active_set_warehouse_product(url) {
+	new Helper_Ui().url_call(url, 'grid', warehouse_product_store, null);
+}
+
+// product add
+function warehouse_product_add() {
+	tab_id = 'warehouse_product_add';
+	tab_title = 'Dodaj Produkt';
+	tab_url = base_url+'/warehouse_product/display_add/{/literal}{$id}{literal}';
+	center.ui.tab_add(tab_id, tab_title, tab_url);
+}
+
+// show details
+function warehouse_product_edit(id, title) {
+	tab_id = 'warehouse_product_edit_'+id;
+	tab_title = 'Produkt '+title;
+	tab_url = base_url+'/warehouse_product/display_edit/'+id;
+	center.ui.tab_add(tab_id, tab_title, tab_url);
+}
+
+{/literal}
+</script>
+<div id="div_warehouse_product_{$id}"></div>

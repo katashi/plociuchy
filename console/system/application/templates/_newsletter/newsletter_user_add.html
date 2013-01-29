@@ -1,0 +1,76 @@
+<script type="text/javascript">
+{literal}
+
+// store
+var config = new Object({
+	title: 'Dodaj Użytkownika',
+	items: [{
+		allowBlank: true,
+		fieldLabel: 'Imię/Nazwisko',
+		name: 'name',
+		value: '',
+		xtype: 'textfield',
+		width: 350
+	},{
+		allowBlank: true,
+		fieldLabel: 'Adres',
+		name: 'address',
+		value: '',
+		xtype: 'textfield',
+		width: 350
+	},{
+		allowBlank: true,
+		fieldLabel: 'Miasto',
+		name: 'city',
+		value: '',
+		xtype: 'textfield',
+		width: 350
+	},{
+		allowBlank: true,
+		fieldLabel: 'Województwo',
+		name: 'district',
+		value: '',
+		xtype: 'textfield',
+		width: 350
+	},{
+		allowBlank: false,
+		fieldLabel: 'E-mail',
+		name: 'email',
+		value: '',
+		xtype: 'textfield',
+		width: 350
+	},{
+		allowBlank: true,
+		fieldLabel: 'Telefon',
+		name: 'phone',
+		value: '',
+		xtype: 'textfield',
+		width: 350
+	}],
+	buttons: [{
+		handler: submit,
+		text: 'Dodaj Użytkownika'
+	}]
+});
+formpanel = new FormPanel();
+formpanel.init(config);
+formpanel.display.render(Ext.get('div_newsletter_user_add'));
+
+// submit
+function submit() {
+	formpanel.display.form.submit({
+		method: 'POST',
+		url: base_url +'/newsletter_user/add/',
+		success: function() {
+			Ext.MessageBox.alert('Użytkownik Dodany', 'Użytkownik został dodany.');
+			formpanel.display.getForm().reset();
+		},
+		failure: function() {
+			Ext.MessageBox.alert('Błąd', 'Wystąpił błąd podczas dodawania Użytkownika');
+		},
+		waitMsg: _waitmsg
+	});
+}
+{/literal}
+</script>
+<div id="div_newsletter_user_add"></div>

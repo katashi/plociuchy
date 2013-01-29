@@ -1,0 +1,88 @@
+<script type="text/javascript">
+{literal}
+
+// fields
+var fields = new Array('id', 'name');
+
+// store
+var config = new Object({
+	fields: fields,
+	format: 'json',
+	id: 'newsletter_user_group_store',
+	url: base_url+'/newsletter_user_group/load_all'
+});
+newsletter_user_group_store = new Store();
+newsletter_user_group_store.init(config);
+
+// paging toolbar
+var config = new Object({
+	store: newsletter_user_group_store.display,
+	items: ['-',
+		{
+			iconCls: 'x-btn-text-icon user_add',
+			handler: newsletter_user_group_add,
+			text: 'Dodaj'
+		},'-',
+		{
+			iconCls: 'x-btn-text-icon group_delete',
+			handler: newsletter_user_group_delete_all,
+			text: 'Usuń wszystkie'
+		}
+	]
+});
+newsletter_user_group_pagingtoolbar = new PagingToolBar();
+newsletter_user_group_pagingtoolbar.init(config);
+
+// grid
+var config = new Object({
+	store: newsletter_user_group_store.display,
+	tbar: newsletter_user_group_pagingtoolbar.display,
+	title: 'Grupy Odbiorców',
+	//url: base_url + '/newsletter_user/edit/',
+	columns: [
+		{ id: 'id', header: _newsletter_user_header_id, sortable: true },
+		{ id: 'name', dataIndex: 'name', header: _newsletter_user_header_name, sortable: true },
+		{ id: 'options', header: _newsletter_user_header_options, renderer: render_options, sortable: false }
+	]
+});
+newsletter_user_group_grid = new EditorGridPanel();
+newsletter_user_group_grid.init(config);
+
+// panel
+var config = new Object({
+	items: [ newsletter_user_group_grid.display ]
+});
+newsletter_user_group_panel = new Panel();
+newsletter_user_group_panel.init(config);
+newsletter_user_group_panel.display.render(Ext.get('div_newsletter_user_group'));
+
+// store load
+newsletter_user_group_store.display.load({ params: { start: 0, limit: _paging_limit }});
+
+// render options
+function render_options(value, p, record) {
+	return String.format('<a href="javascript:delete_confirm(\''+base_url+'/newsletter_user_group/delete/'+record.data.id+'\');"><img src="images/icon/delete.png" border="0"></a>');	
+}
+
+// delete
+function delete_confirm(url) {
+	new Helper_Delete().delete_confirm(url, 'grid', newsletter_user_group_store, null);
+}
+
+// user add
+function newsletter_user_group_add() {
+	tab_id = 'newsletter_user_group_add';
+	tab_title = 'Dodaj Grupę';
+	tab_url = base_url+'/newsletter_user_group/display_add';
+	center.ui.tab_add(tab_id, tab_title, tab_url);
+}
+
+// user delete_all
+function newsletter_user_group_delete_all() {
+	url = base_url+'/newsletter_user/delete_all/';
+	new Helper_Delete().delete_confirm(url, 'grid', newsletter_user_group_store, null);
+}
+
+{/literal}
+</script>
+<div id="div_newsletter_user_group"></div>

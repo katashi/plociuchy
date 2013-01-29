@@ -1,0 +1,80 @@
+<script type="text/javascript">
+{literal}
+
+// panel
+var config = new Object({
+	title: 'Edytuj Administratora',
+	items: [{
+		allowBlank: true,
+		fieldLabel: 'Użytkownik',
+		name: 'user',
+		value: '',
+		xtype: 'textfield',
+		width: 350
+	},{ 
+		html:'<hr width=100% color=#bbbbbb noshade size=1>',
+		xtype: 'label' 
+	},{
+		allowBlank: true,
+		fieldLabel: 'Hasło',
+		name: 'password',
+		value: '',
+		xtype: 'textfield',
+		width: 350
+	},{
+		html: 'Hasło to wygenerowana jednorazowo fraza. Z powodów bezpieczeństwa <b>nie możesz go edytować, a jedynie nadać nowe</b>.',
+		width: 778
+	},{ 
+		html:'<hr width=100% color=#bbbbbb noshade size=1>',
+		xtype: 'label' 
+	},{
+		allowBlank: true,
+		fieldLabel: 'E-mail',
+		name: 'email',
+		value: '',
+		xtype: 'textfield',
+		width: 350
+	}],
+	buttons: [{
+		handler: administrator_edit_formpanel_submit,
+		text: 'Zapisz'
+	}]
+});
+administrator_edit_formpanel = new FormPanel();
+administrator_edit_formpanel.init(config);
+administrator_edit_formpanel.display.render(Ext.get('div_administrator_edit_{/literal}{$id}{literal}'));
+
+// submit
+function administrator_edit_formpanel_submit() {
+	administrator_edit_formpanel.display.form.submit({
+		method: 'POST',
+		url: base_url +'/administrator/edit/{/literal}{$id}{literal}',
+		success: function() {
+			Ext.MessageBox.alert('Administrator', 'Administrator został zaktualizowany.');
+		},
+		failure: function() {
+			Ext.MessageBox.alert('Błąd', 'Wystąpił błąd podczas aktualizacji Administratora.');
+		},
+		waitMsg: _waitmsg
+	});
+}
+
+// load
+function administrator_edit_formpanel_load() {
+	administrator_edit_formpanel.display.form.load({
+		method: 'POST',
+		url: base_url +'/administrator/load/{/literal}{$id}{literal}',
+		waitMsg: _waitmsg,
+		success: function() {
+		},
+		failure: function() {
+			Ext.MessageBox.alert('Błąd', 'Wystąpił błąd podczas ładowania Administratora.');
+		}
+	});
+}
+
+// load form panel
+administrator_edit_formpanel_load();
+{/literal}
+</script>
+<div id="div_administrator_edit_{$id}"></div>

@@ -1,0 +1,102 @@
+<script type="text/javascript">
+{literal}
+
+// fields
+var fields = new Array('id', 'title', 'header', 'active', 'date_created');
+
+// store
+var config = new Object({
+	fields: fields,
+	format: 'json',
+	id: 'warehouse_gallery_store',
+	url: base_url+'/warehouse_gallery/load_all/{/literal}{$id}{literal}'
+});
+warehouse_gallery_store = new Store();
+warehouse_gallery_store.init(config);
+
+// paging toolbar
+var config = new Object({
+	store: warehouse_gallery_store.display,
+	items: ['-',
+		{
+			iconCls: 'x-btn-text-icon page_add',
+			handler: warehouse_gallery_add,
+			text: 'Dodaj Galerię'
+		}
+	]
+});
+warehouse_gallery_pagingtoolbar = new PagingToolBar();
+warehouse_gallery_pagingtoolbar.init(config);
+
+// grid
+var config = new Object({
+	store: warehouse_gallery_store.display,
+	tbar: warehouse_gallery_pagingtoolbar.display,
+	title: 'Galerie',
+	columns: [
+		{ id: 'id', dataIndex: 'id', header: 'Id', sortable: true },
+		{ id: 'title', dataIndex: 'title', header: 'Tytuł', sortable: true },
+		{ id: 'header', dataIndex: 'header', header: 'Nagłówek', sortable: true },
+		{ id: 'active', dataIndex: 'active', header: 'Aktywny', sortable: true },
+		{ id: 'date_created', dataIndex: 'date_created', header: 'Stworzony', sortable: true },
+		{ id: 'options', header: 'Opcje', renderer: render_options, sortable: false }
+	],
+	listeners: {
+		celldblclick: function(grid, rowIndex, columnIndex, e) {
+			var record = grid.getStore().getAt(rowIndex);
+ 			var fieldName = grid.getColumnModel().getDataIndex(columnIndex);
+			var data = record.get(fieldName);
+			var data_id = record.get('id');
+			var data_title = record.get('title');
+			warehouse_gallery_edit(data_id, data_title);
+		}
+	}
+});
+warehouse_gallery_grid = new EditorGridPanel();
+warehouse_gallery_grid.init(config);
+
+// panel
+var config = new Object({
+	items: [ warehouse_gallery_grid.display ]
+});
+warehouse_gallery_panel = new Panel();
+warehouse_gallery_panel.init(config);
+warehouse_gallery_panel.display.render(Ext.get('div_warehouse_gallery_{/literal}{$id}{literal}'));
+
+// store load
+warehouse_gallery_store.display.load({ params: { start: 0, limit: _paging_limit }});
+
+// store reload
+function warehouse_gallery_store_reload(index){
+	warehouse_gallery_store.display.load({ params: { start: 0, limit: _paging_limit, id: index }});
+}
+
+// render options
+function render_options(value, p, record) {
+	return String.format('<a href="javascript:warehouse_product_edit('+record.data.id+',\''+record.data.title+'\');"><img src="images/icon/application_edit.png" border="0" style="margin-right:2px;" ></a><a href="javascript:delete_confirm(\''+base_url+'/warehouse_gallery/delete/'+record.data.id+'\');"><img src="images/icon/delete.png" border="0"></a>');	
+}
+
+// delete
+function delete_confirm(url) {
+	new Helper_Delete().delete_confirm(url, 'grid', warehouse_gallery_store, west_warehouse_gallery.ui_tree);
+}
+
+// gallery add
+function warehouse_gallery_add() {
+	tab_id = 'warehouse_gallery_add';
+	tab_title = 'Dodaj Galerię';
+	tab_url = base_url+'/warehouse_gallery/display_add/{/literal}{$id}{literal}';
+	center.ui.tab_add(tab_id, tab_title, tab_url);
+}
+
+// show details
+function warehouse_gallery_edit(id, title) {
+	tab_id = 'warehouse_gallery_edit_'+id;
+	tab_title = 'Galeria '+title;
+	tab_url = base_url+'/warehouse_gallery/display_edit/'+id;
+	center.ui.tab_add(tab_id, tab_title, tab_url);
+}
+
+{/literal}
+</script>
+<div id="div_warehouse_gallery_{$id}"></div>

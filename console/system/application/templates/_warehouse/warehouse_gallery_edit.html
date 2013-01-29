@@ -1,0 +1,226 @@
+<script type="text/javascript">
+{literal}
+
+// panel
+var config = new Object({
+    collapsible: true,
+	title: 'Edytuj Galerię (element główny)',
+    titleCollapse: true,
+	items: [
+    { allowBlank: true, fieldLabel: 'Tytuł', name: 'title', xtype: 'textfield', width: 350 },
+    { allowBlank: true, fieldLabel: 'Nagłówek', name: 'header', xtype: 'textarea', width: 350 },
+    { allowBlank: true, fieldLabel: 'Treść', height: 250, name: 'text', xtype: 'htmleditor', width: 550 },
+    { allowBlank: true, fieldLabel: 'Aktywność', name: 'active', value: '1', xtype: 'textfield', width: 350 },
+    { html: '<br>Obrazek widoczny w listach czy skrótach. Przeciągnij wybrany obraz z części Media / Obrazy.<br><br>', width: 778 },
+    { id: 'image', name: 'image', xtype: 'hidden' },
+    {
+		allowBlank: false,
+		fieldLabel: 'Obraz',
+		id: 'image_image_wge_{/literal}{$id}{literal}',
+		name: 'image_image_{/literal}{$id}{literal}',
+		xtype: 'box',
+		autoEl:{
+			tag:'div', 
+			children:[{
+				tag:'img',
+				src: '../media/image/default/default_80x60.jpg'
+			}]
+		}
+	},
+    { html: '<table width="778" cellpadding="10" cellspacing="0"><tr><td width="105"></td><td><img src="images/icon/delete.png" onclick="image_delete();" align="absmiddle"> Usuń obrazek</td></tr></table>', width: 778 }
+    ],
+	buttons: [{
+		handler: warehouse_gallery_edit_formpanel_submit,
+		text: 'Zapisz'
+	}],
+    style: {
+		marginBottom: '5px'
+	},
+	listeners: {
+		render: function(form) {
+			form.DropTarget = new Ext.dd.DropTarget(form.getEl(), {
+				copy: false,
+				ddGroup: 'media',
+				enabled: true,
+				notifyDrop: function(dd, e, data) {
+					var field = form.findById('image_image_wge_{/literal}{$id}{literal}');
+					field.update('<img src="../media/image/80x60/'+data.node.attributes.file_name+'" border="1">');
+					var field = form.findById('image');
+					field.setValue(data.node.attributes.file_name);
+				}
+			});
+		}
+	}
+});
+warehouse_gallery_edit_formpanel = new FormPanel();
+warehouse_gallery_edit_formpanel.init(config);
+
+// content
+
+// fields
+var fields = new Array('id', 'id_content', 'type', 'media_image_title', 'media_image_file_name', 'media_image_orig_name');
+
+// store
+var config = new Object({
+	fields: fields,
+	format: 'json',
+	id: 'warehouse_gallery_content_store',
+	url: base_url+'/warehouse_gallery/load_content/{/literal}{$id}{literal}'
+});
+warehouse_gallery_content_store = new Store();
+warehouse_gallery_content_store.init(config);
+
+// paging toolbar
+var config = new Object({
+	store: warehouse_gallery_content_store.display
+});
+warehouse_gallery_content_pagingtoolbar = new PagingToolBar();
+warehouse_gallery_content_pagingtoolbar.init(config);
+
+// grid
+var config = new Object({
+	collapsible: true,
+	ddGroup: 'media',
+	store: warehouse_gallery_content_store.display,
+	tbar: warehouse_gallery_content_pagingtoolbar.display,
+	title: 'Przypisane elementy (media)',
+	titleCollapse: true,
+	columns: [
+		{ id: 'id_content', dataIndex: 'id_content', header: 'Id_Content' },
+        { id: 'type', dataIndex: 'type', header: 'Typ' },
+        { id: 'image', header: 'Obraz', renderer: render_image},
+		{ id: 'options', header: 'Opcje', renderer: render_options }
+	],
+	listeners: {
+		render: function(grid) {
+			grid.DropTarget = new Ext.dd.DropTarget(grid.getEl(), {
+				copy: false,
+				ddGroup: 'media',
+				enabled: true,
+				notifyDrop: function(dd, e, data) {
+					if (dd == grid.getView().dragZone) {
+						// here is order swap
+					} else {
+						// here is an assigment
+						/*var row_target_index = grid.getView().findRowIndex(Ext.lib.Event.getTarget(e));
+						var row_target = grid.getStore().getAt(row_target_index);
+                        var next_position = grid.getStore().getTotalCount() + 1;
+						if (!row_target) { 
+							row_target = new Object(); 
+							row_target['data'] = new Array(); 
+							row_target['data']['position'] = next_position; 
+						} else {
+                            row_target['data']['position'] = next_position;
+                        }*/
+						var url = base_url+'/warehouse_gallery/content_bind';
+						var params = { 
+							'id_gallery': '{/literal}{$id}{literal}',
+							'id_content': data.node.attributes['id_element'], 
+                            'type': 'media_image'
+							//'position': row_target.data['position']
+						};
+						Ext.Ajax.request({
+							params: params,
+							url: url,
+							success: function(response, request) {
+								warehouse_gallery_content_store_reload();
+							},
+							failure:function() {
+								alert("Wystąpił problem przy przenoszeniu elementu!");
+							}
+						});
+					}
+				}
+			});
+		}
+	}
+});
+warehouse_gallery_content_grid = new EditorGridPanel();
+warehouse_gallery_content_grid.init(config);
+
+// panel
+var config = new Object({
+	items: [ warehouse_gallery_edit_formpanel.display, warehouse_gallery_content_grid.display ]
+});
+warehouse_gallery_edit_panel = new Panel();
+warehouse_gallery_edit_panel.init(config);
+warehouse_gallery_edit_panel.display.render(Ext.get('div_warehouse_gallery_edit_{/literal}{$id}{literal}'));
+
+// load form panel
+warehouse_gallery_edit_formpanel_load();
+
+// submit
+function warehouse_gallery_edit_formpanel_submit() {
+	warehouse_gallery_edit_formpanel.display.form.submit({
+		method: 'POST',
+		url: base_url +'/warehouse_gallery/edit/{/literal}{$id}{literal}',
+		success: function() {
+			Ext.MessageBox.alert('Galeria zaktualizowana', 'Galeria został zaktualizowana.');
+		},
+		failure: function() {
+			Ext.MessageBox.alert('Błąd', 'Wystąpił błąd podczas aktualizacji galerii.');
+		},
+		waitMsg: _waitmsg
+	});
+}
+
+function warehouse_gallery_edit_formpanel_load() {
+	warehouse_gallery_edit_formpanel.display.form.load({
+		method: 'POST',
+		url: base_url +'/warehouse_gallery/load/{/literal}{$id}{literal}',
+		waitMsg: _waitmsg,
+		success: function() {
+			image_update();
+		},
+		failure: function() {
+			Ext.MessageBox.alert('Błąd', 'Wystąpił błąd podczas ładowania galerii.');
+		}
+	});
+}
+
+function image_update() {
+	var form = warehouse_gallery_edit_formpanel.display;
+	var image = form.getForm().findField('image').getValue();
+	if (image) {
+		var image_image = form.findById('image_image_wge_{/literal}{$id}{literal}');
+		image_image.update('<img src="../media/image/80x60/' + image + '" border="1">');
+	}
+}
+
+// image delete
+function image_delete() {
+    var form = warehouse_gallery_edit_formpanel.display;
+	var image = form.getForm().findField('image').setValue('');
+    var image_image = form.findById('image_image_{/literal}{$id}{literal}');
+	image_image.update('<img src="../media/image/default/default_80x60.jpg" border="1">');
+}
+
+// render image
+function render_image(value, p, record) {
+    if (record.data.media_image_file_name) {
+        return String.format('<a href="javascript:new Helper_Ui().pretty_show(\''+record.data.media_image_file_name+'\',\''+record.data.media_image_orig_name+'\');" title="'+record.data.media_image_title+'"><image src="../media/image/80x60/'+record.data.media_image_file_name+'"></a>');
+    } else {
+        return String.format('Brak miniatury');
+    }	
+}
+// render options
+function render_options(value, p, record) {
+	return String.format('<a href="javascript:delete_confirm_warehouse_gallery_content(\''+base_url+'/warehouse_gallery/content_delete/'+record.data.id+'\');"><img src="images/icon/delete.png" border="0"></a>');	
+}
+
+// delete
+function delete_confirm_warehouse_gallery_content(url) {
+	new Helper_Delete().delete_confirm(url, 'grid', warehouse_gallery_content_store);
+}
+
+// content store load
+warehouse_gallery_content_store.display.load({ params: { start: 0, limit: _paging_limit }});
+
+// content store reload
+function warehouse_gallery_content_store_reload(){
+	warehouse_gallery_content_store.display.load({ params: { start: 0, limit: _paging_limit }});
+}
+
+{/literal}
+</script>
+<div id="div_warehouse_gallery_edit_{$id}"></div>
