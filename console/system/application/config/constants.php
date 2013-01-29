@@ -6,7 +6,7 @@
 */
 
 // site url for an application (access for back office console )
-define('SITE_URL', 'http://vertesprojekty.pl/hurtownia');
+define('SITE_URL', 'http://plo-ciuchy.pl');
 
 // config file
 define('CONFIGURATION', 'katashi');
@@ -16,10 +16,10 @@ define('API_DEBUG', 0);
 define('API_DATAFORMAT', 'OBJECT'); // OBJECT, JSON
 
 // database access
-define('DB_HOSTNAME','sql.vertesdesign.nazwa.pl:3307');
-define('DB_USERNAME','vertesdesign_58');
-define('DB_PASSWORD','HUrt#12345');
-define('DB_DATABASE','vertesdesign_58');
+define('DB_HOSTNAME','sql.knsdes.nazwa.pl');
+define('DB_USERNAME','knsdes_40');
+define('DB_PASSWORD','Bzkai32S#@Aas@');
+define('DB_DATABASE','knsdes_40');
 
 // image resize method
 define('MEDIA_DIM', 'both'); //both, width, height

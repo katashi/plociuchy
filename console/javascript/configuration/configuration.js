@@ -1,7 +1,7 @@
 //
 // main configuration
 //
-var site_url = 'http://vertesprojekty.pl/hurtownia';
+var site_url = 'http://plo-ciuchy.pl';
 var base_url = 'index.php/main/run';
 
 //
