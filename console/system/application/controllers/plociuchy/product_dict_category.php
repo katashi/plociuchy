@@ -53,10 +53,4 @@ class Product_Dict_Category extends Main {
         echo '{"success":' . $result . '}';
     }
 
-    // active
-    function active_set($id = null, $state = false) {
-        $result = $this->product_dict_category_model->active_set($id, $state);
-        echo 'grid';
-    }
-
 }
