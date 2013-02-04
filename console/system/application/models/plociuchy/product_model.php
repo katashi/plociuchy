@@ -73,8 +73,6 @@ class Product_Model extends Main_Model {
     function active_set($id, $state) {
         $this->db->where('id', $id);
         $this->db->set('active', $state);
-        if ($state == 1)
-            $this->db->set('date_activated', date("Y-m-d H:i:s"));
         $this->db->update($this->table_name);
         return '{"success": true}';
     }

@@ -11,19 +11,17 @@ $config['autoload_controller_katashi'] = array();
 | UI - Available Admin
 | -------------------------------------------------------------------------
 */
-$config['admin_hq'] = array(
-    0 => array('iconCls'=>'group_gear', 'text'=>'Produkt', 'type'=>'tab', 'url'=>APP_URL.'/wh:product'),
-    1 => array('iconCls'=>'group_gear', 'text'=>'Klient', 'type'=>'tab', 'url'=>APP_URL.'/wh:client'),
-    2 => array('iconCls'=>'group_gear', 'text'=>'Zamówienie', 'type'=>'tab', 'url'=>APP_URL.'/wh:order')
-);
-$config['admin_office'] = array(
-    0 => array('iconCls'=>'group_gear', 'text'=>'List', 'type'=>'tab', 'url'=>APP_URL.'/wh:letter'),
-    1 => array('iconCls'=>'group_gear', 'text'=>'Faktura', 'type'=>'tab', 'url'=>APP_URL.'/wh:invoice'),
-    2 => array('iconCls'=>'group_gear', 'text'=>'Rozliczenie', 'type'=>'tab', 'url'=>APP_URL.'/wh:account'),
-);
-$config['admin_dms'] = array(
-    0 => array('iconCls'=>'group_gear', 'text'=>'Obieg', 'type'=>'tab', 'url'=>APP_URL.'/wh:dms'),
-    1 => array('iconCls'=>'group_gear', 'text'=>'Archiwum', 'type'=>'tab', 'url'=>APP_URL.'/wh:archive')
+$config['plociuchy'] = array(
+    0 => array('iconCls'=>'brick', 'text'=>'Partner', 'type'=>'tab', 'url'=>APP_URL.'/plociuchy:partner'),
+    1 => array('iconCls'=>'brick', 'text'=>'Produkt', 'type'=>'tab', 'url'=>APP_URL.'/plociuchy:product'),
+    2 => array('iconCls'=>'brick', 'text'=>'Produkt - Kategoria', 'type'=>'tab', 'url'=>APP_URL.'/plociuchy:product_dict_category'),
+    3 => array('iconCls'=>'brick', 'text'=>'Produkt - Komentarz', 'type'=>'tab', 'url'=>APP_URL.'/plociuchy:product_comment'),
+    4 => array('iconCls'=>'brick', 'text'=>'Produkt - Producent', 'type'=>'tab', 'url'=>APP_URL.'/plociuchy:product_dict_vendor'),
+    5 => array('iconCls'=>'brick', 'text'=>'Przelew24 Partner', 'type'=>'tab', 'url'=>APP_URL.'/plociuchy:payment_p24_partner'),
+    6 => array('iconCls'=>'brick', 'text'=>'Przelew24 Użytkownik', 'type'=>'tab', 'url'=>APP_URL.'/plociuchy:payment_p24_user'),
+    7 => array('iconCls'=>'brick', 'text'=>'Rezerwacja', 'type'=>'tab', 'url'=>APP_URL.'/plociuchy:reservation'),
+    8 => array('iconCls'=>'brick', 'text'=>'Rezerwacja - Komentarz', 'type'=>'tab', 'url'=>APP_URL.'/plociuchy:reservation_comment'),
+    9 => array('iconCls'=>'brick', 'text'=>'Użytkownik', 'type'=>'tab', 'url'=>APP_URL.'/plociuchy:user')
 );
 
 /*
@@ -35,20 +33,7 @@ $config['system'] = array(
     0 => array('iconCls'=>'group_gear', 'id'=>'administrator', 'text'=>'Administrator', 'type'=>'tab', 'url'=>APP_URL.'/_access:administrator/display'),
     1 => array('-'),
     2 => array('iconCls'=>'door_out', 'text'=>'Wyloguj', 'type'=>'href', 'url'=>APP_URL.'/_access:administrator/logout')
-    /*2 => array('iconCls'=>'database_connect', 'id'=>'data_import', 'text'=>'Import Danych', 'type'=>'tab', 'url'=>APP_URL.'/data_import/display')*/
 );
-
-/*
-| -------------------------------------------------------------------------
-| UI - Available newsletter
-| -------------------------------------------------------------------------
-*/
-/*$config['newsletter'] = array(
-    0 => array('iconCls'=>'user', 'id'=>'newsletter_user', 'text'=>'Użytkownicy', 'type'=>'tab', 'url'=>APP_URL.'/newsletter_user/display'),
-    1 => array('iconCls'=>'group_add', 'id'=>'newsletter_user_group', 'text'=>'Użytkownicy - Grupy', 'type'=>'tab', 'url'=>APP_URL.'/newsletter_user_group/display'),
-    2 => array('iconCls'=>'wand', 'id'=>'newsletter_configuration', 'text'=>'Konfiguracja', 'type'=>'tab', 'url'=>APP_URL.'/newsletter_configuration/display'),
-    3 => array('iconCls'=>'newspaper_go', 'id'=>'newsletter_distribution', 'text'=>'Dystrybucja', 'type'=>'tab', 'url'=>APP_URL.'/newsletter_distribution/display')
-);*/
 
 /*
 |--------------------------------------------------------------------------

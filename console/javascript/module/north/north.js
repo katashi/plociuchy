@@ -31,20 +31,10 @@ function North() {
 		//
 		// custom components
 		//
-        if (window._north_admin_hq) {
-            north_admin_hq = new North_Admin_Hq();
-            north_admin_hq.init();
-            new Helper_Ui().add_ui(this.ui.display, north_admin_hq.ui.display);
-        }
-        if (window._north_admin_office) {
-            north_admin_office = new North_Admin_Office();
-            north_admin_office.init();
-            new Helper_Ui().add_ui(this.ui.display, north_admin_office.ui.display);
-        }
-        if (window._north_admin_dms) {
-            north_admin_dms = new North_Admin_Dms();
-            north_admin_dms.init();
-            new Helper_Ui().add_ui(this.ui.display, north_admin_dms.ui.display);
+        if (window._north_plociuchy) {
+            north_plociuchy = new North_Plociuchy();
+            north_plociuchy.init();
+            new Helper_Ui().add_ui(this.ui.display, north_plociuchy.ui.display);
         }
 
         //

@@ -48,14 +48,14 @@ administrator_edit_formpanel.display.render(Ext.get('div_administrator_edit_{/li
 function administrator_edit_formpanel_submit() {
 	administrator_edit_formpanel.display.form.submit({
 		method: 'POST',
-		url: base_url +'/administrator/edit/{/literal}{$id}{literal}',
+		url: base_url +'/_access:administrator/edit/{/literal}{$id}{literal}',
 		success: function() {
 			Ext.MessageBox.alert('Administrator', 'Administrator został zaktualizowany.');
 		},
 		failure: function() {
 			Ext.MessageBox.alert('Błąd', 'Wystąpił błąd podczas aktualizacji Administratora.');
 		},
-		waitMsg: _waitmsg
+		waitMsg: 'Oczekiwanie'
 	});
 }
 
@@ -63,8 +63,8 @@ function administrator_edit_formpanel_submit() {
 function administrator_edit_formpanel_load() {
 	administrator_edit_formpanel.display.form.load({
 		method: 'POST',
-		url: base_url +'/administrator/load/{/literal}{$id}{literal}',
-		waitMsg: _waitmsg,
+		url: base_url +'/_access:administrator/load/{/literal}{$id}{literal}',
+		waitMsg: 'Oczekiwanie',
 		success: function() {
 		},
 		failure: function() {
@@ -75,6 +75,7 @@ function administrator_edit_formpanel_load() {
 
 // load form panel
 administrator_edit_formpanel_load();
+
 {/literal}
 </script>
 <div id="div_administrator_edit_{$id}"></div>

@@ -1,0 +1,139 @@
+<script type="text/javascript">
+{literal}
+
+// shortcuts
+var controller = '/plociuchy:product';
+
+// panel
+var config = new Object({
+	title: 'Dodaj',
+	items: [{
+		allowBlank: false,
+		fieldLabel: 'Id_Partner',
+		name: 'id_partner',
+		xtype: 'textfield',
+		width: 350
+	},{
+		allowBlank: false,
+		fieldLabel: 'Id_Category',
+		name: 'id_category',
+		xtype: 'textfield',
+		width: 350
+	},{
+		allowBlank: false,
+		fieldLabel: 'Id_Vendor',
+		name: 'id_vendor',
+		xtype: 'textfield',
+		width: 350
+	},{
+		allowBlank: false,
+		fieldLabel: 'Nazwa',
+		name: 'text1',
+		xtype: 'textfield',
+		width: 350
+	},{
+		allowBlank: true,
+		fieldLabel: 'Nagłówek',
+		name: 'header',
+		xtype: 'textarea',
+		width: 350
+	},{
+		allowBlank: true,
+		fieldLabel: 'Treść',
+		height: 250,
+		name: 'text',
+		xtype: 'htmleditor',
+		width: 550
+	},{
+        allowBlank: false,
+        fieldLabel: 'Cena',
+        name: 'price',
+        xtype: 'textfield',
+        width: 350
+    },{
+        allowBlank: false,
+        fieldLabel: 'Promocja (0/1)',
+        name: 'promote',
+        xtype: 'textfield',
+        width: 350
+    },{
+        allowBlank: true,
+        fieldLabel: 'Zdjęcie',
+        name: 'image1',
+        buttonText: 'Wybierz plik',
+        xtype: 'fileuploadfield'
+    },{
+        allowBlank: true,
+        fieldLabel: 'Zdjęcie',
+        name: 'image2',
+        buttonText: 'Wybierz plik',
+        xtype: 'fileuploadfield'
+    },{
+        allowBlank: true,
+        fieldLabel: 'Zdjęcie',
+        name: 'image3',
+        buttonText: 'Wybierz plik',
+        xtype: 'fileuploadfield'
+    },{
+        allowBlank: true,
+        fieldLabel: 'Zdjęcie',
+        name: 'image4',
+        buttonText: 'Wybierz plik',
+        xtype: 'fileuploadfield'
+    },{
+        allowBlank: true,
+        fieldLabel: 'Zdjęcie',
+        name: 'image5',
+        buttonText: 'Wybierz plik',
+        xtype: 'fileuploadfield'
+    },{
+        allowBlank: false,
+        fieldLabel: 'Odrzucony (0/1)',
+        name: 'reject',
+        xtype: 'textfield',
+        width: 350
+    },{
+        allowBlank: false,
+        fieldLabel: 'Aktywny (0/1)',
+        name: 'active',
+        xtype: 'textfield',
+        width: 350
+    },{
+        fieldLabel: 'Aktywny Od',
+        format:'Y-m-d H:i:s',
+        name: 'active_from',
+        xtype: 'datefield'
+    },{
+        fieldLabel: 'Aktywny Do',
+        format:'Y-m-d H:i:s',
+        name: 'active_to',
+        xtype: 'datefield'
+    }],
+	buttons: [{
+		handler: product_add_fps,
+		text: 'Dodaj'
+	}]
+});
+product_add_fp = new FormPanel();
+product_add_fp.init(config);
+product_add_fp.display.render(Ext.get('div_product_add'));
+
+// submit
+function product_add_fps() {
+	product_add_fp.display.form.submit({
+		method: 'POST',
+		url: base_url+controller+'/add',
+		success: function() {
+			Ext.MessageBox.alert('Informacja', 'Gotowe');
+			product_add_fp.display.getForm().reset();
+            product_store.display.reload();
+		},
+		failure: function() {
+			Ext.MessageBox.alert('Informacja', 'Błąd');
+		},
+		waitMsg: 'Oczekiwanie'
+	});
+}
+{/literal}
+</script>
+<div id="div_product_add"></div>

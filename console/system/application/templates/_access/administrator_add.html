@@ -39,16 +39,16 @@ administrator_add_formpanel.display.render(Ext.get('div_administrator_add'));
 function administrator_add_formpanel_submit() {
 	administrator_add_formpanel.display.form.submit({
 		method: 'POST',
-		url: base_url +'/administrator/add',
+		url: base_url +'/_access:administrator/add',
 		success: function() {
-			Ext.MessageBox.alert('Administrator', 'Administrator został dodany.');
+			Ext.MessageBox.alert('Administrator', 'Administrator został dodany');
 			administrator_add_formpanel.display.getForm().reset();
 			administrator_store.display.reload();
 		},
 		failure: function() {
-			Ext.MessageBox.alert('Błąd', 'Wystąpił błąd podczas dodawania Administratora.');
+			Ext.MessageBox.alert('Błąd', 'Wystąpił błąd podczas dodawania Administratora');
 		},
-		waitMsg: _waitmsg
+		waitMsg: 'Oczekiwanie'
 	});
 }
 {/literal}
