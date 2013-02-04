@@ -9,7 +9,7 @@ var config = new Object({
 	fields: fields,
 	format: 'json',
 	id: 'administrator',
-	url: base_url+'/administrator/load_all'
+	url: base_url+'/_access:administrator/load_all'
 });
 administrator_store = new Store();
 administrator_store.init(config);
@@ -67,7 +67,7 @@ administrator_store.display.load({ params: { start: 0, limit: _paging_limit }});
 
 // render options
 function render_options(value, p, record) {
-	return String.format('<a href="javascript:delete_confirm(\''+base_url+'/administrator/delete/'+record.data.id+'\');"><img src="images/icon/delete.png" border="0"></a>');	
+	return String.format('<a href="javascript:delete_confirm(\''+base_url+'/_access:administrator/delete/'+record.data.id+'\');"><img src="images/icon/delete.png" border="0"></a>');
 }
 
 // delete
@@ -84,7 +84,7 @@ function administrator_store_reload(index){
 function administrator_add() {
 	tab_id = 'administrator_add';
 	tab_title = 'Dodaj Administratora';
-	tab_url = base_url+'/administrator/display_add/';
+	tab_url = base_url+'/_access:administrator/display_add/';
 	center.ui.tab_add(tab_id, tab_title, tab_url);
 }
 
@@ -92,7 +92,7 @@ function administrator_add() {
 function administrator_edit(id, user) {
 	tab_id = 'administrator_edit_'+id;
 	tab_title = 'Administrator '+user;
-	tab_url = base_url+'/administrator/display_edit/'+id;
+	tab_url = base_url+'/_access:administrator/display_edit/'+id;
 	center.ui.tab_add(tab_id, tab_title, tab_url);
 }
 
