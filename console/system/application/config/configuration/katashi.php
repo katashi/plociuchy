@@ -13,7 +13,7 @@ $config['autoload_controller_katashi'] = array();
 */
 $config['plociuchy'] = array(
     0 => array('iconCls'=>'brick', 'text'=>'Partner', 'type'=>'tab', 'url'=>APP_URL.'/plociuchy:partner'),
-    1 => array('iconCls'=>'brick', 'text'=>'Produkt', 'type'=>'tab', 'url'=>APP_URL.'/plociuchy:produkt'),
+    1 => array('iconCls'=>'brick', 'text'=>'Produkt', 'type'=>'tab', 'url'=>APP_URL.'/plociuchy:product'),
     2 => array('iconCls'=>'brick', 'text'=>'Produkt - Kategoria', 'type'=>'tab', 'url'=>APP_URL.'/plociuchy:product_dict_category'),
     3 => array('iconCls'=>'brick', 'text'=>'Produkt - Komentarz', 'type'=>'tab', 'url'=>APP_URL.'/plociuchy:product_comment'),
     4 => array('iconCls'=>'brick', 'text'=>'Produkt - Producent', 'type'=>'tab', 'url'=>APP_URL.'/plociuchy:product_dict_vendor'),
