@@ -76,10 +76,6 @@ class Main extends Controller {
 		// now we will create new class instance including desired controller ( which will include required model )
 		if ($command_module) { $$command_module = $this->run_factory($command_module_directory, $command_module); }
 		if ($command_method) { call_user_func_array(array($$command_module, $command_method), $command_arguments); }
-        //echo '<font color="#FFFFFF"><pre>';
-        //print_r($this->session->userdata);
-        //echo '</pre></font>';
-
 	}
 
     // load
@@ -226,6 +222,7 @@ class Main extends Controller {
 		}
 	}
 
+    /*
     // fb
     function fb_init() {
         $this->fb = new Fb($this);
@@ -706,6 +703,6 @@ class Main extends Controller {
     function smarty_redirect_variables($template = null, $title_call = null, $variable = null) {
         $path = 'Location: '. APP_URL .'/run/'.$template.'/'.$variable;
         header($path);
-    }
+    }*/
 
 }
