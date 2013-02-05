@@ -1,0 +1,29 @@
+<form class="select" action="{$app_url}run/arrange/filter_set" method="post" style="width: 498px;">
+    <p class="select transform">
+        <select name="arrange_filter1" onchange="this.form.submit();">
+            <option value="0" {if $filter_arrange.filter1 == 0}selected{/if}>Wszystkie (sortuj)</option>
+            <option value="1" {if $filter_arrange.filter1 == 1}selected{/if}>Najnowsze</option>
+            <option value="2" {if $filter_arrange.filter1 == 2}selected{/if}>Najczęściej komentowane</option>
+            <!--<option value="3" {if $filter_arrange.filter1 == 3}selected{/if}>Najwyżej oceniane</option>-->
+            <!--<option value="4" {if $filter_arrange.filter1 == 4}selected{/if}>Najczęściej używane</option>-->
+            <option value="5" {if $filter_arrange.filter1 == 5}selected{/if}>Najczęściej słuchane</option>
+        </select>
+    </p>
+    <p class="select transform">
+        <select name="arrange_filter2" onchange="this.form.submit();">
+            <option value="0">Wszystkie (gatunek)</option>
+            {foreach from=$genre item=genre}
+            <option value="{$genre.id}" {if $filter_arrange.filter2 == $genre.id}selected{/if}>{$genre.name}</option>
+            {/foreach}
+        </select>
+    </p>
+    <p class="select transform">
+        <select name="arrange_filter3" onchange="this.form.submit();">
+            <option value="0" {if $filter_arrange.filter3 == 0}selected{/if}>Wszystkie (okres)</option>
+            <option value="1" {if $filter_arrange.filter3 == 1}selected{/if}>Miesiąc</option>
+            <option value="2" {if $filter_arrange.filter3 == 2}selected{/if}>Tydzień</option>
+            <option value="3" {if $filter_arrange.filter3 == 3}selected{/if}>Dzień</option>
+        </select>
+    </p>
+    <p><input type="submit" class="submit submit_search3" /></p>
+</form>

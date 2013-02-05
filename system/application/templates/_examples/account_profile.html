@@ -1,0 +1,28 @@
+{include file="extension/header.html"}
+        <div id="content">
+            <div class="content_left">
+                <div class="box_sub" style="margin-left: -2px;">
+                    <div class="box_header2">
+                        {if $account.facebook_auth}
+                            <img src="{$account.facebook_avatar}" alt="" />
+                        {else}
+                            {if $account.image == 'default.jpg'}
+                                <img src="{$media_url}image/default/default.jpg" alt="" />
+                            {else}
+                                <img src="{$media_url}image/46x35/{$account.image}" alt="" style="border: solid 1px #ccc; margin-bottom: 5px;" width="46" height="46" />
+                            {/if}
+                        {/if}
+                        <h2 style="margin-top: 12px; margin-left: 10px;">{$tab_title} / {$account.nick}</h2>
+                    </div>
+                    <div class="box_content" style="margin-left: 6px; width: 645px;">
+                        {include file="account/menu_profile.html"}
+                        {include file="account/$tab.html"}
+                    </div>
+                </div>
+            </div>
+            <div class="content_right">
+                {include file="extension/column_account.html"}
+            </div>
+        </div>
+    </div>
+{include file="extension/footer.html"}

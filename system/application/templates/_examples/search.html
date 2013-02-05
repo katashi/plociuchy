@@ -1,0 +1,99 @@
+{include file="extension/header.html"}
+        <div id="content">
+            <div class="content_left">
+                {if $search.song|@count == 0 and $search.arrange|@count == 0 and $search.text|@count == 0}
+                <div class="box_sub">
+                    <div class="box_header" style="height: 47px; margin-bottom: 6px;">
+                        <h2 style="margin-top: 8px;">Brak wyników</h2>
+                    </div>
+                    <div class="box_content">
+                        <p style="margin-bottom: 5px;">Spróbuj użyć innej frazy lub słowa kluczowego.</p>
+                    </div>
+                </div>
+                {else}
+                {foreach from=$search.song item=ss}
+                <div class="box_sub">
+                    <div class="box_header" style="height: 47px; margin-bottom: 6px;">
+                        <h2 style="margin-top: 8px;">{$ss.title}</h2>
+                        <div style="width: 46px; float: right;">
+                            {if $ss.image == 'default_120x90.jpg'}
+                            <img src="{$media_url}image/default/default.jpg" alt="" width="46" height="46" />
+                            {else}
+                            <img src="{$media_url}image/46x35/{$ss.image}" alt="" width="46" height="46" />
+                            {/if}
+                        </div>
+                    </div>
+                    <div class="box_content">
+                        <p style="margin-bottom: 5px;"><strong>{$ss.header}</strong></p>
+                        <p style="margin-bottom: 5px;">{$ss.text|truncate:128:"..."}</p>
+                        <p>Typ: <b>Piosenka</b>, Rodzaj: <b>{$ss.genre}</b>, Data dodania: <b>{$ss.date_added}</b>, <a href="{$app_url}run/song/display_player/{$ss.id}">Zobacz więcej</a></p>
+                    </div>
+                </div>
+                {/foreach}
+                {foreach from=$search.arrange item=sa}
+                <div class="box_sub">
+                    <div class="box_header" style="height: 47px; margin-bottom: 6px;">
+                        <h2 style="margin-top: 8px;">{$sa.title}</h2>
+                        <div style="width: 46px; float: right;">
+                            {if $sa.image == 'default.jpg'}
+                            <img src="{$media_url}image/default/default.jpg" alt="" width="46" height="46" />
+                            {else}
+                            <img src="{$media_url}image/46x35/{$sa.image}" alt="" width="46" height="46" />
+                            {/if}
+                        </div>
+                    </div>
+                    <div class="box_content">
+                        <p style="margin-bottom: 5px;"><strong>{$sa.header}</strong></p>
+                        <p style="margin-bottom: 5px;">{$sa.text|truncate:128:"..."}</p>
+                        <p>Typ: <b>Aranż</b>, Rodzaj: <b>{$sa.genre}</b>, Data dodania: <b>{$sa.date_added}</b>, <a href="{$app_url}run/arrange/display_player/{$sa.id}">Zobacz więcej</a></p>
+                    </div>
+                </div>
+                {/foreach}
+                {foreach from=$search.text item=st}
+                <div class="box_sub">
+                    <div class="box_header" style="height: 47px; margin-bottom: 6px;">
+                        <h2 style="margin-top: 8px;">{$st.title}</h2>
+                        <div style="width: 46px; float: right;">
+                            {if $st.image == 'default.jpg'}
+                            <img src="{$media_url}image/default/default.jpg" alt="" width="46" height="46" />
+                            {else}
+                            <img src="{$media_url}image/46x35/{$st.image}" alt="" width="46" height="46" />
+                            {/if}
+                        </div>
+                    </div>
+                    <div class="box_content">
+                        <p style="margin-bottom: 5px;"><strong>{$st.header}</strong></p>
+                        <p style="margin-bottom: 5px;">{$st.text|truncate:128:"..."}</p>
+                        <p>Typ: <b>Tekst</b>, Rodzaj: <b>{$st.genre}</b>, Data dodania: <b>{$st.date_added}</b>, <a href="{$app_url}run/text/display_player/{$st.id}">Zobacz więcej</a></p>
+                    </div>
+                </div>
+                {/foreach}
+                <!--{foreach from=$search.user item=su}
+                <div class="box_sub">
+                    <div class="box_header" style="height: 47px; margin-bottom: 6px;">
+                        <h2 style="margin-top: 8px;">{$su.nick}</h2>
+                        <div style="width: 46px; float: right;">
+                            {if $su.image == 'default.jpg'}
+                            <img src="{$media_url}image/default/default.jpg" alt="" width="46" height="46" />
+                            {else}
+                            <img src="{$media_url}image/46x35/{$su.image}" alt="" width="46" height="46" />
+                            {/if}
+                        </div>
+                    </div>
+                    <div class="box_content">
+                        <p style="margin-bottom: 5px;"><strong><a href="mailto:{$su.user}">{$su.user}</a></strong></p>
+                        <p style="margin-bottom: 5px;">{$su.about_me}</p>
+                    </div>
+                </div>
+                {/foreach}
+                <br>-->
+                {/if}
+            </div>
+            <div class="content_right">
+                {include file="extension/column.html"}
+                {include file="extension/column_howto1.html"}
+            </div>
+        </div>
+        {include file="extension/bar.html"}
+    </div>
+{include file="extension/footer.html"}

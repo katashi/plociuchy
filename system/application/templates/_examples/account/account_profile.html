@@ -1,0 +1,25 @@
+<div class="account_content">
+    <form class="account" id="account_form" name="form" action="">
+        <fieldset>
+            <p><label>Nick - <b>{$account.nick}</b></label></p>
+            <p><label>W Kreomaniaku od - <b>{$account.date_added}</b></label></p>
+            <p><label>Ostatnio dodane dzieło - <b>{$account_profile_detail.last_added_date[0].date_added}</b></label></p>
+        </fieldset>
+        <fieldset>
+            <b>Dzieła Użytkownika</b><br><br>
+            {if $account_profile_element_count.song > 0}
+            <p style="margin-bottom: 2px;"><label>Piosenki - <b>{$account_profile_element_count.song}</b></label></p>
+            {/if}
+            {if $account_profile_element_count.arrange > 0}
+            <p style="margin-bottom: 2px;"><label>Aranże - <b>{$account_profile_element_count.arrange}</b></label></p>
+            {/if}
+            {if $account_profile_element_count.text > 0}
+            <p style="margin-bottom: 2px;"><label>Teksty - <b>{$account_profile_element_count.text}</b></label></p>
+            {/if}
+        </fieldset>
+        <fieldset>
+            <b>O Użytkowniku {$account.nick}</b><br><br>
+            <p>{$account.about}</p>
+        </fieldset>
+    </form>
+</div>

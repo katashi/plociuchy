@@ -1,0 +1,17 @@
+<ul>
+    {if $paginate.page_current > 1}
+    <li class="prev0"><a href="{$app_url}run/{$paginate_controller}/display/1">Początek</a></li>
+    <li class="prev"><a href="{$app_url}run/{$paginate_controller}/display/{$paginate.page_current-1}">Poprzedni</a></li>
+    {/if}
+    {section name=page start=$paginate_from loop=$paginate_to step=1}
+        {if $paginate.page_current == $smarty.section.page.index}
+            <li {if $smarty.section.page.first}style="background: none;"{/if}><b><a>{$smarty.section.page.index}</a></b></li>
+        {else}
+            <li {if $smarty.section.page.first}style="background: none;"{/if}><a href="{$app_url}run/{$paginate_controller}/display/{$smarty.section.page.index}">{$smarty.section.page.index}</a></li>
+        {/if}
+    {/section}
+    {if $paginate.page_current < $paginate.page_total}
+    <li class="next"><a href="{$app_url}run/{$paginate_controller}/display/{$paginate.page_current+1}" style="width: 68px;">Następny</a></li>
+    <li class="next0"><a href="{$app_url}run/{$paginate_controller}/display/{$paginate.page_total}" style="width: 10px;">Koniec</a></li>
+    {/if}
+</ul>

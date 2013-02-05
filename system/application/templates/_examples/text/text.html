@@ -1,0 +1,26 @@
+<li>
+    <div class="aranza">
+        {if $account_mode == 1}
+        <div class="edit_mode" style="position: absolute; background-color: rgba(0, 0, 0, 0.7); padding: 5px; color: #fff; font-size: 10px;"><!--<a href="{$app_url}run/account/display_text_edit/{$text.id}">Edytuj</a> | --><a href="{$app_url}run/account/delete_text_ui/{$text.id}">Usuń</a></div>
+        {/if}
+        {if $briefcase_mode == 1}
+        <div class="edit_mode" style="position: absolute; background-color: rgba(0, 0, 0, 0.7); padding: 5px; color: #fff; font-size: 10px;"><a href="{$app_url}run/account/delete_briefcase_ui/{$text.id},2">Usuń</a></div>
+        {/if}
+        {if $favorite_mode == 1}
+        <div class="edit_mode" style="position: absolute; background-color: rgba(0, 0, 0, 0.7); padding: 5px; color: #fff; font-size: 10px;"><a href="{$app_url}run/account/delete_favorite_ui/{$user_id},{$text.id},2">Usuń</a></div>
+        {/if}
+        <a href="{$app_url}run/text/display_player/{$text.id}">
+        {if $text.image == 'default.jpg'}
+            <img src="{$media_url}image/default/default.jpg" alt="" />
+        {else}
+            <img src="{$media_url}image/46x35/{$text.image}" alt="" width="46" height="46" />
+        {/if}
+        </a>
+    </div>
+    <a href="{$app_url}run/account/display_account_profile/{$text.id_user}" class="autor">{$text.author}</a> <a href="{$app_url}run/text/display_player/{$text.id}" class="title">{$text.title}</a>
+    <p class="genre">{$text.genre}</p>
+    <div class="watch">
+        <p class="opinion"><span>{$text.rate_computed}</span>/{$text.rate_total}</p>
+        <p class="views">{$text.display}</p>
+    </div>
+</li>

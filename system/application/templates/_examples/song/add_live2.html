@@ -1,0 +1,80 @@
+{include file="extension/header.html"}
+        {literal}
+        <script type="text/javascript">
+            // external interface
+            var jsReady = false;
+            function isReady() { return jsReady; }
+            // variables
+            var file_name = '';
+            // FROM FLASH:
+            function file_name_set(file) {
+                file_name = file;
+            }
+            // form submit
+            function form_submit() {
+                var f = document.forms['form'];
+                f['file_name'].value = file_name;
+                f.submit();
+            }
+            // swf object definition
+            var flashvars = {
+                file_audio: '{/literal}{$arrange_file_name}{literal}',
+                id_user: '{/literal}{$user_id}{literal}',
+                id_text: '{/literal}{$text_id}{literal}'
+            };
+            var params = {};
+            var attributes = {};
+            swfobject.embedSWF("{/literal}{$site_url}{literal}flash/recorder/recorder.swf", "recorder", "950", "375", "9.0.0", "expressInstall.swf", flashvars, params, attributes);
+        </script>
+        {/literal}
+        <div id="content" class="bgnone">
+            <div class="content_left">
+                <div class="box_sub">
+                    <div class="box_header3">
+                        <h2>DODAJ NOWĄ PIOSENKĘ</h2>
+                        <p>Krok 2 <span>/3</span></p>
+                    </div>
+                    <div class="box_content">
+                        <p class="big">Jeżeli jesteś gotowy możesz przejść do nagrania piosenki.</p>
+                        
+                    </div>
+            </div>
+        </div>
+        <div class="content_right">
+            {include file="extension/column_account.html"}
+        </div>
+        <div class="content_main">
+                        <ul class="idTabs"></ul>
+                        <div id="tab2" class="account_content">
+                        <!--{$arrange_file_name},{$arrange_id},{$arrange_id_user},{$arrange_id_file},{$text_id},{$text_id_user}-->
+                        <p class="big">Skorzystaj z nagrywarki aby stworzyć swoją piosenkę. możesz dołączyć obraz z kamery video i zostać gwiazdą MTV.</p>
+                            <div class="column-left">
+                                <h3>Nagrywarka Kreomaniak 2012:</h3>
+                                <div id="recorder">Flash?</div>
+                            </div>
+                            <!--<div class="column-right">
+                                <h3>Treść piosenki do zaśpiewania:</h3>
+                                <div class="tekst">
+                                    <div class="tekst_top">
+                                        <div class="tekst_bottom">
+                                            <p>{$text.text}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>-->
+                            <div class="btns">
+                                <form action="{$app_url}run/song/display_add_live3" method="post" id="form">
+                                <input type="hidden" name="file_name">
+                                <input type="hidden" name="arrange_id" value="{$arrange_id}">
+                                <input type="hidden" name="arrange_id_user" value="{$arrange_id_user}">
+                                <input type="hidden" name="arrange_id_file" value="{$arrange_id_file}">
+                                <input type="hidden" name="text_id" value="{$text_id}">
+                                <input type="hidden" name="text_id_user" value="{$text_id_user}">
+                                <!--<a href="javascript:form_submit();" class="btn go">przejdź do kroku 3</a>-->
+                                </form>
+                            </div>
+                        </div>
+             </div>
+        </div>
+    </div>
+{include file="extension/footer.html"}

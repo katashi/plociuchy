@@ -1,0 +1,164 @@
+{include file="extension/header.html"}
+        <div id="content">
+            <div class="content_left">
+                <div class="box" style="margin-left: 10px;">
+                    <div class="box_header" style="margin-bottom: 5px; border-bottom: 1px solid #e5e5e5; margin-left: 0px;">
+                        <h2>TOP 10 KREOMANIAKA</span></h2>
+                    </div>
+                    {literal}
+                    <script type="text/javascript">
+                        var flashvars = {};
+                        var params = {};
+                        var attributes = {};
+                        swfobject.embedSWF("{/literal}{$site_url}{literal}flash/top/top.swf", "top10", "640", "365", "9.0.0", "expressInstall.swf", flashvars, params, attributes);
+                    </script>
+                    {/literal}
+                    <div id="top10" style="width: 640px; height: 365px;"></div>
+                </div>
+                <div class="box">
+                    <div class="box_header">
+                        <h2><span>Ostatnio dodane!</span></h2>
+                    </div>
+                    <div class="box_content">
+                        {assign var="song_backup" value=$song}
+                        {assign var="arrange_backup" value=$arrange}
+                        {assign var="text_backup" value=$text}
+                        {foreach from=$last_added item=last_added}
+                                {if $last_added.source == 'kreomaniak_song'}
+                                    <ul class="creation2">
+                                    {assign var="song" value=$last_added}
+                                    {include file="song/song_last_added.html"}
+                                    </ul>
+                                {/if}
+                                {if $last_added.source == 'kreomaniak_arrange'}
+                                    <ul class="creation2">
+                                    {assign var="arrange" value=$last_added}
+                                    {include file="arrange/arrange.html"}
+                                    </ul>
+                                {/if}
+                                {if $last_added.source == 'kreomaniak_text'}
+                                    <ul class="creation3">
+                                    {assign var="text" value=$last_added}
+                                    {include file="text/text.html"}
+                                    </ul>
+                                {/if}
+                            {/foreach}
+                        </ul>
+                        {assign var="song" value=$song_backup}
+                        {assign var="arrange" value=$arrange_backup}
+                        {assign var="text" value=$text_backup}
+                    </div>
+                </div>
+                <div>
+                    <div class="box_half" style="float: left;">
+                        <div class="box_header">
+                            <h2><span>Dołączyli do nas</span></h2>
+                        </div>
+                        <div class="box_content">
+                            <ul class="creation4">
+                                {foreach from=$client item=client}
+                                    {include file="client/client.html"}
+                                {/foreach}
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="box_half">
+                        <div class="box_header">
+                            <h2><span>{$article.title}</span></h2><div style="float:right; color: #aaa; font-size: 10px; margin-top: 15px;">{$article.date_created}</div>
+                        </div>
+                        <div class="box_content" style="margin-left: 10px; width: 310px; min-height: 220px;">
+                            <p><strong>{$article.header}</strong></p>
+                            <p>
+                                {if $article.image != ''}
+                                <img src="{$media_url}/image/120x90/{$article.image}" align="right">
+                                {/if}
+                                {$article.text|truncate:220:""} ... [ <a href="{$app_url}run/article/display/45">Zobacz cały artykuł</a> ]
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <br><br><br>
+                <div class="box">
+                    <div class="box_header">
+                        <h2><span>Ostatnio dodane</span> Piosenki</h2>
+                        <a href="{$app_url}run/song/display" class="btn more">zobacz wszystkie</a>
+                    </div>
+                    <div class="box_content">
+                        <ul class="creation">
+                            {counter start=0 assign=c}
+                            {foreach from=$song item=song}
+                                {counter assign=c}
+                                {if $c <= 4}
+                                    {include file="song/song.html"}
+                                {/if}
+                            {/foreach}
+                        </ul>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="box_header">
+                        <h2><span>Ostatnio dodane</span> Aranże</h2>
+                        <a href="{$app_url}run/arrange/display" class="btn more">zobacz wszystkie</a>
+                    </div>
+                    <div class="box_content">
+                        <ul class="creation2">
+                            {counter start=0 assign=c}
+                            {foreach from=$arrange item=arrange}
+                                {counter assign=c}
+                                {if $c <= 4}
+                                    {include file="arrange/arrange.html"}
+                                {/if}
+                            {/foreach}
+                        </ul>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="box_header">
+                        <h2><span>Ostatnio dodane</span> Teksty</h2>
+                        <a href="{$app_url}run/text/display" class="btn more">zobacz wszystkie</a>
+                    </div>
+                    <div class="box_content">
+                        <ul class="creation3">
+                            {counter start=0 assign=c}
+                            {foreach from=$text item=text}
+                                {counter assign=c}
+                                {if $c <= 4}
+                                    {include file="text/text.html"}
+                                {/if}
+                            {/foreach}
+                        </ul>
+                    </div>
+                </div>
+                <div class="box box-bottom">
+                    {if $song_top}
+                    <div class="recording">
+                        <div class="song">
+                            <a href="{$app_url}run/song/display_player/{$song_top.id}">
+                                {if $song_top.image == 'default_120x90.jpg'}
+                                <img src="{$media_url}image/default/default_120x90.jpg" alt="" />
+                                {else}
+                                <img src="{$media_url}image/200x150/{$song_top.image}" alt="" width="120" height="90" />
+                                {/if}
+                            </a>
+                        </div>
+                        <div class="song_info">
+                            <a href="{$app_url}run/account/display_profile/{$song_top.id_user}" class="autor">{$song_top.author}</a> <a href="#" class="title">{$song_top.title}</a>
+                            <p class="genre">{$song_top.genre}</p>
+                            <div class="watch">
+                                <p class="opinion"><span>{$song_top.rate_computed}</span>/{$song_top.rate_total}</p>
+                                <p class="views">{$song_top.display}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {/if}
+                    <a href="{$app_url}run/article/display_full/46,109" class="instruction">
+                        <img src="{$site_url}images/jak_to_dziala.jpg" alt="" /></a>
+                </div>
+            </div>
+            <div class="content_right">
+                {include file="extension/column.html"}
+            </div>
+        </div>
+        {include file="extension/bar.html"}
+    </div>
+{include file="extension/footer.html"}

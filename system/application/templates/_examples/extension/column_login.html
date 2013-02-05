@@ -1,0 +1,19 @@
+<div id="panel_login">
+    <form action="{$app_url}run/client/login" class="form_login" method="post">
+        <p>
+            <label>E-mail:</label>
+            <input type="text" class="text" value="" name="user" />
+        </p>
+        <p>
+            <label>Hasło:</label>
+            <input type="password" class="text" value="" name="password" />
+        </p>
+        <ul class="login-link">
+            <li><a href="{$app_url}run/register" class="sing_up">Zarejestruj się</a></li>
+            <li><a href="{$app_url}run/password_reset" class="forgot">Resetuj hasło</a></li>
+        </ul>
+        <p class="psubmit">
+            <input type="submit" class="submit" />
+        </p>
+    </form>
+</div>

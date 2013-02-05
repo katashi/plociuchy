@@ -1,0 +1,38 @@
+{include file="extension/header.html"}
+        <div id="content">
+            <div class="content_left">
+                <div class="box_sub">
+                    <div class="box_header">
+                        <h2>{$article.title}</h2><div style="float:right; color: #aaa; font-size: 10px; margin-top: 15px;">{$article.date_created}</div>
+                    </div>
+                    <div class="box_content">
+                            <p><strong>{$article.header}</strong></p>
+                            <p>
+                            {if $article.image != ''}
+                            <img src="{$media_url}/image/200x150/{$article.image}" align="right">
+                            {/if}
+                            {$article.text}
+                            </p>
+                    </div>
+                </div>
+                {if $article.id == 105}
+                <!-- report a problem form -->
+                <div style="margin-left: 9px;">
+                <form action="{$app_url}run/" method="post">
+                Temat<br>
+                <input type="text" name="rp1" style="width: 250px; margin-bottom: 5px; margin-top: 5px; "><br>
+                Treść wiadomości<br>
+                <textarea name="rp2" style="width: 500px; height: 150px; margin-bottom: 5px; margin-top: 5px;"></textarea> <br>
+                <input type="submit" value="Wyślij">
+                </form>
+                </div>
+                {/if}
+            </div>
+            <div class="content_right">
+                {include file="extension/column.html"}
+                {include file="extension/column_howto1.html"}
+            </div>
+        </div>
+        {include file="extension/bar.html"}
+    </div>
+{include file="extension/footer.html"}

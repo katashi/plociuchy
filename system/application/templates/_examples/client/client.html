@@ -1,0 +1,11 @@
+<li>
+    <div class="song">
+        {if $client.image == 'default.jpg'}
+            <img src="{$media_url}image/default/default_120x90.jpg" alt="" />
+        {else}
+            <img src="{$media_url}image/200x150/{$client.image}" alt="" width="120" height="90" />
+        {/if}
+    </div>
+    <a href="#" class="title" style="height: 51px">{if $client.nick != ''}{$client.nick}{else}{$client.name} {$client.surname}{/if}</a>
+    <p class="genre">{$client.date_added}</p>
+</li>
