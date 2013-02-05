@@ -6,4 +6,3 @@ Uzytkownik bazy (login): knsdes_40
 Haslo: Bzkai32S#@Aas@
 --
 GIT: https://github.com/katashi/plociuchy.git
---
