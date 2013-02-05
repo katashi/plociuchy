@@ -11,7 +11,7 @@ class Product_Reservation_Comment_Model extends Main_Model
             $this->db = $this->ci->db;
         }
         //
-        $this->table_name = 'pc_product_reservation_comment';
+        $this->table_name = 'pc_reservation_comment';
     }
 
     // load

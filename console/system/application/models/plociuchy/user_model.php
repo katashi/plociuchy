@@ -2,7 +2,7 @@
 class User_Model extends Main_Model
 {
 
-    function Product_Model()
+    function User_Model()
     {
         // Call the Model constructor
         parent::Model();
