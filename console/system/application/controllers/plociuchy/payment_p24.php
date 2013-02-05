@@ -131,8 +131,9 @@ class Payment_P24 extends Main
     }
 
     function sample_form2(){
-
-    $_POST['test'] = '1';
+        $_POST['test'] = '1';
+        $_POST['p24_session_id'] = 'a';
+        var_dump($_POST);
         $url = 'https://sandbox.przelewy24.pl/index.php';
         $user_agent = "Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)";
         $ch = curl_init();
