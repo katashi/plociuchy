@@ -1,0 +1,24 @@
+<div id="panel_user">
+    {if $fb_status == 1}
+        <p><a class="btn account2" href="{$app_url}run/account">Moje konto</a> <a class="btn logout2" href="{$fb_logout_url}">Wyloguj</a>
+    {/if}
+    {if $user_status == 1}
+        <p><a class="btn account2" href="{$app_url}run/account">Moje konto</a> <a class="btn logout2" href="{$app_url}run/client/logout">Wyloguj</a>
+    {/if}
+    </p>
+    <ul class="adder">
+        <li><a href="{$app_url}run/song/display_add_live1">Dodaj piosenkę</a></li>
+        <li><a href="{$app_url}run/arrange/display_add">Dodaj aranż</a></li>
+        <li><a href="{$app_url}run/text/display_add">Dodaj tekst</a></li>
+    </ul>
+    <ul class="my">
+        <li><a href="{$app_url}run/account/display_song">Moje piosenki</a></li>
+        <li><a href="{$app_url}run/account/display_arrange">Moje aranże</a></li>
+        <li><a href="{$app_url}run/account/display_text">Moje teksty</a></li>
+    </ul>
+    <ul class="bottom">
+        <li><a href="{$app_url}run/account/display_favorite">Ulubione</a></li>
+        <li class="bl"><a href="{$app_url}run/account/display_briefcase">Kreownia</a></li>
+        <li class="bl"><div style="font-family: tahoma; font-size: 11px; color:#A28AAE; width: 94px;"><a href="{$app_url}run/account/display_payment">Punkty: {$point} <span style="color:#0f0;">+</span></a></div></li>
+    </ul>
+</div>

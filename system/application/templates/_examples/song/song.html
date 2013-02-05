@@ -1,0 +1,26 @@
+<li>
+    <div class="song">
+        {if $account_mode == 1}
+        <div class="edit_mode" style="position: absolute; background-color: rgba(0, 0, 0, 0.7); padding: 5px; color: #fff; font-size: 10px;"><!--<a href="{$app_url}run/account/display_song_edit/{$song.id}">Edytuj</a> | --><a href="{$app_url}run/account/delete_song_ui/{$song.id}">Usuń</a></div>
+        {/if}
+        {if $briefcase_mode == 1}
+        <div class="edit_mode" style="position: absolute; background-color: rgba(0, 0, 0, 0.7); padding: 5px; color: #fff; font-size: 10px;"><a href="{$app_url}run/account/delete_briefcase_ui/{$song.id},0">Usuń</a></div>
+        {/if}
+        {if $favorite_mode == 1}
+        <div class="edit_mode" style="position: absolute; background-color: rgba(0, 0, 0, 0.7); padding: 5px; color: #fff; font-size: 10px;"><a href="{$app_url}run/account/delete_favorite_ui/{$user_id},{$song.id},0">Usuń</a></div>
+        {/if}
+        <a href="{$app_url}run/song/display_player/{$song.id}">
+        {if $song.image == 'default_120x90.jpg'}
+            <img src="{$media_url}image/default/default_120x90.jpg" alt="" />
+        {else}
+            <img src="{$media_url}image/200x150/{$song.image}" alt="" width="120" height="90" />
+        {/if}
+        </a>
+    </div>
+    <a href="{$app_url}run/account/display_account_profile/{$song.id_user}" class="autor">{$song.author}&nbsp;</a> <a href="{$app_url}run/song/display_player/{$song.id}" class="title">{$song.title}</a>
+    <p class="genre">{$song.genre}</p>
+    <div class="watch">
+        <p class="opinion"><span>{$song.rate_computed}</span>/{$song.rate_total}</p>
+        <p class="views">{$song.display}</p>
+    </div>
+</li>

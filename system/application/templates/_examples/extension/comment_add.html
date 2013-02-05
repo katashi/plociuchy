@@ -1,0 +1,32 @@
+<div class="comment">
+    {literal}
+    <script type="text/javascript">
+        function comment_check(form) {
+            if (form.text.value != '') {
+                $(function() {
+                        var text = $("textarea#text").val();
+                        var dataString = 'text='+text;
+                        $.ajax({
+                            type: "POST",
+                            url: "{/literal}{$app_url}{literal}run/hub/comment_add/{/literal}{$user_id},{$id_element},{$type}{literal}",
+                            data: dataString,
+                            success: function() {
+                                $('#result').html("Komentarz dodany! Pojawi się po odświeżeniu strony.");
+
+                            }
+                        });
+                        return false;
+                });
+            } else {
+                alert('Komentarz nie może być pusty!');
+            }
+        }
+    </script>
+    {/literal}
+    Dodaj Komentarz<br><br>
+    <form action="{$app_url}run/hub/comment_add/{$user_id},{$id_element},{$type}" method="post" name="comment_add" id="comment_add" class="comment_add">
+        <textarea rows="5" cols="5" id="text" name="text" class="text" style="width: 400px;"></textarea><br><br>
+        <input type="button" id="button" name="button" class="button" value="Dodaj komentarz" onclick="comment_check(this.form);"><br><br>
+    </form>
+    <div id="result" style="margin-left: 2px; color:#00aa00; margin-bottom: 10px; font-weight: bold;"></div>
+</div>

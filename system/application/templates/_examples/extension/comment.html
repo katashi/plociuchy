@@ -1,0 +1,15 @@
+<div class="comment">
+    <div class="user_photo">
+        {if $comment.facebook_auth}
+        <img src="{$comment.facebook_avatar}" alt="" width="46" height="46" />
+        {elseif $comment.image != 'default.jpg'}
+        <img src="{$media_url}image/46x35/{$comment.image}" alt="" width="46" height="46" />
+        {else}
+        <img src="{$media_url}image/default/default.jpg" alt="" />
+        {/if}
+    </div>
+    <div class="comment-right">
+        <p>{$comment.text}</p>
+        <p class="header"><span class="hour br">{$comment.date_added}</span>{$comment.nick} {if $comment.id_user == $user_id} [ <a href="{$app_url}run/hub/comment_delete/{$comment.id},{$id_element},{$type}">Usuń</a> ]{/if}</p>
+    </div>
+</div>

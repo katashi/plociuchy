@@ -1,0 +1,9 @@
+<div class="login_bar">
+    <!--<a href="#" class="btn login">Zaloguj</a>-->
+    {if $fb_status == 0}
+    <a href="{$fb_login_url}" class="btn facebook">Facebook connect</a>
+    <a href="{$app_url}run/register/display" class="btn register">Zarejestruj się</a>
+    {else}
+    <!--<a href="{$fb_logout_url}" class="btn login">Wyloguj</a>-->
+    {/if}
+</div>

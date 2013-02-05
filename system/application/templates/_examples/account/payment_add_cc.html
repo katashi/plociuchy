@@ -1,0 +1,39 @@
+<div class="account_content" style="padding: 0px; overflow: visible; margin-left: -5px;">
+    <br><br>
+    <div class="box_header4" style="margin-right: 0px; width: 652px;">
+        <h2>Dokonaj płatności</h2>
+    </div>
+    <div class="box_content" style="margin-left: 0px;  width: 665px;">
+        <ul class="creation2" style="padding-left: 10px; padding-bottom: 15px;">
+            {literal}
+            <style>
+                .pay_t1 {
+                    color: #000;
+                    font-size: 40px;
+                }
+            </style>
+            {/literal}
+            <div class="pay_t1">Kwota przelewu: <b>{$payu_amount_zl}zł</b></div>
+            <form action="https://www.platnosci.pl/paygw/ISO/NewPayment" method="post" name="payform">
+                <input type="hidden" name="pos_id" value="{$payu_posid}">
+                <input type="hidden" name="pos_auth_key" value="{$payu_posauthkey}">
+                <input type="hidden" name="order_id" value="{$payu_id_order}">
+                <input type="hidden" name="session_id" value="{$payu_id_session}">
+                <input type="hidden" name="amount" value="{$payu_amount_gr}">
+                <input type="hidden" name="desc" value="desc1">
+                <input type="hidden" name="desc2" value="desc2">
+                <input type="hidden" name="client_ip" value="{$payu_ip}">
+                <input type="hidden" name="js" value="0">
+                <input type="hidden" name="first_name" value="{$user.name}"><br/>
+                <input type="hidden" name="last_name" value="{$user.surname}"><br/>
+                <input type="hidden" name="email" value="{$user.user}"><br/>
+                <input type="submit" value="Zapłać poprzez Platnosci.pl">
+            </form>
+            {literal}
+            <script language="JavaScript" type="text/javascript">
+                document.forms['payform'].js.value=1;
+            </script>
+            {/literal}
+        </ul>
+    </div>
+</div>

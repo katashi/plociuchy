@@ -1,0 +1,39 @@
+<div class="user_bar">
+    <p  style="width:320px;"><span class="btn">Zalogowany</span>
+    {if $fb_status == 1}
+        <img src="{$user_image}" alt="" width="46" height="46" />
+        <span class="user" style="margin-top:3px;">{$user_nick}</span>
+        <span class="user" style="margin-top:-2px; font-weight: normal; color: #ccc;"><a href="{$app_url}run/account/display_payment" style="color:#ccc; text-decoration: none;">Twoje punkty: {$point} <span style="color:#0f0;">+</span></a></span>
+    {/if}
+    {if $user_status == 1}
+        {if $user_image == 'default.jpg'}
+        <img src="{$media_url}image/default/default.jpg" alt="" />
+        {else}
+        <img src="{$media_url}image/46x35/{$user_image}" alt="" width="46" height="46" style="border: solid 1px #4c4356; border-top: none;" />
+        {/if}
+        <span class="user" style="margin-top:3px;">{$user_nick}</span>
+        <span class="user" style="margin-top:-2px; font-weight: normal; color: #ccc;"><a href="{$app_url}run/account/display_payment" style="color:#ccc; text-decoration: none;">Twoje punkty: {$point} <span style="color:#0f0;">+</span></a></span>
+    {/if}
+    </p>
+    <div style="width:148px; height: 35px;">
+        {if $account_header_element_count.song > 0}
+        <a href="{$app_url}run/account/display_song"><span class="icon1">{$account_header_element_count.song}</span></a>
+        {/if}
+        {if $account_header_element_count.arrange > 0}
+        <a href="{$app_url}run/account/display_arrange"><span class="icon2">{$account_header_element_count.arrange}</span></a>
+        {/if}
+        {if $account_header_element_count.text > 0}
+        <a href="{$app_url}run/account/display_text"><span class="icon3" style="padding-left: 28px;">{$account_header_element_count.text}</span></a>
+        {/if}
+    </div>
+    <ul>
+        <li><a href="{$app_url}run/account/display_favorite">Ulubione</a> </li>
+        <li class="bl"><a href="{$app_url}run/account/display_briefcase">Kreownia</a> </li>
+    </ul>
+    {if $fb_status == 1}
+    <a href="{$fb_logout_url}" class="btn logout">Wyloguj</a> <a href="{$app_url}run/account" class="btn account">Moje konto</a>
+    {/if}
+    {if $user_status == 1}
+        <a href="{$app_url}run/client/logout" class="btn logout">Wyloguj</a> <a href="{$app_url}run/account" class="btn account">Moje konto</a>
+    {/if}
+</div>

@@ -1,0 +1,90 @@
+{include file="extension/header.html"}
+        <div id="content">
+            <div class="content_left">
+                <div class="box_sub">
+                    <div class="box_header3">
+                        <h2>DODAJ NOWY TEKST</h2>
+                        <p><span></span></p>
+                    </div>
+                    <div class="box_content">
+                        <p class="big">Dodaj stworzony przez siebie tekst, który być może w przyszłości stanie się podstawą nagrania piosenki.</p>
+                        <div id="Div1" class="account_content">
+                            {literal}
+                            <script type="text/javascript">
+                                function check() {
+                                    var f = document.forms['text_add_form'];
+                                    var valid = true;
+                                    if (f['title'].value == '') {
+                                        alert('Musisz wprowadzić tytuł.');
+                                        valid = false;
+                                    }
+                                    if (f['text'].value == '') {
+                                        alert('Musisz wprowadzić tekst piosenki.');
+                                        valid = false;
+                                    }
+                                    if (!f['ownership'].checked) {
+                                        alert('Musisz wyrazić oświadczenie o prawach do tekstu.');
+                                        valid = false;
+                                    }
+                                    if (f['id_genre'].selectedIndex == 0) {
+                                        alert('Musisz określić gatunek tekstu!');
+                                        valid = false;
+                                    }
+                                    //
+                                    if (valid) {
+                                        f.submit();
+                                    }
+                                }
+                            </script>
+                            {/literal}
+                            <form class="account" action="{$app_url}run/text/add" method="post" enctype="multipart/form-data" name="text_add_form">
+                            <input type="hidden" name="id_user" value="{$user_id}">
+                            <input type="hidden" name="author" value="{$user_nick}">
+                            <input type="hidden" name="user_id_media_file" value="{$user_id_media_file}">
+                            <input type="hidden" name="user_id_media_image" value="{$user_id_media_image}">
+                            <fieldset>
+                                <p>
+                                    <input class="text" type="text" name="title" maxlength="25" /><label>Tytuł</label></p>
+                                <p>
+                                    <textarea cols="20" rows="20" name="text" style="width: 500px; height: 200px;"></textarea><label>Tekst</label></p>
+                                <p>
+                                    <textarea cols="5" rows="5" name="header" style="width: 500px; height: 50px;"></textarea><label>Opis</label></p>
+                                <p>
+                                    <input class="text" type="text" value="{$user_nick}" disabled /><label>Autor</label></p>
+                                <p>
+                                    <input class="text" type="text" name="tag" /><label>Tagi</label></p>
+                                <p class="select transform">
+                                    <select name="id_genre">
+                                        <option value="0">-- Wybierz gatunek --</option>
+                                        {foreach from=$genre item=genre}
+                                            <option value="{$genre.id}">{$genre.name}</option>
+                                        {/foreach}
+                                    </select>
+                                    <label>Wybierz gatunek tekstu</label></p>
+                                <p class="checkbox transform checkbox1">
+                                    <input type="checkbox" class="checkbox" name="explicit" value="1" /><label>Tekst z niecenzuralnym słownictwem.</label>
+                                </p>
+                            </fieldset>
+                            <fieldset>
+                                    <p>
+                                        <input class="file" type="file" value="wybierz miniaturę do tekstu" name="userfile" /><label>wybierz
+                                        miniaturę do tekstu - plik *.jpg z dysku lokalnego <span>(do 500 kB)</span></label></p>
+                            </fieldset>
+                            <fieldset>
+                                <p class="checkbox transform">
+                                    <input type="checkbox" class="checkbox" name="ownership" value="1" checked /><label>Oświadczam, iż posiadam pełne prawa do dodawanego tekstu.</label>
+                                </p>
+                            </fieldset>
+                            <p>
+                                <input type="button" class="submit save_text" onclick="check();" /></p>
+                            </form>
+                        </div>
+                    </div>
+            </div>
+        </div>
+        <div class="content_right">
+            {include file="extension/column_account.html"}
+        </div>
+    </div>
+    </div>
+    {include file="extension/footer.html"}

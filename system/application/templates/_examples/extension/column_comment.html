@@ -1,0 +1,23 @@
+<div class="comments">
+    <div class="box">
+        <div class="box_header">
+            <h2><span>Ostatnie komentarze</span></h2>
+            <!--<a href="#" class="btn more">zobacz wszystkie</a>-->
+        </div>
+        <div class="box_content">
+            {foreach from=$comment_last item=comment_last}
+            <div class="comment">
+                <p class="header"><span class="hour br">{$comment_last.date_added}</span>{$comment_last.nick}</p>
+                <p>{$comment_last.text} ...
+                {if $comment_last.type == 0}
+                    <a href="{$app_url}run/song/display_player/{$comment_last.id_element}">Zobacz Piosenkę</a>
+                {elseif $comment_last.type == 1}
+                    <a href="{$app_url}run/arrange/display_player/{$comment_last.id_element}">Zobacz Aranż</a>
+                {elseif $comment_last.type == 2}
+                    <a href="{$app_url}run/text/display_player/{$comment_last.id_element}">Zobacz Tekst</a>
+                {/if}
+            </div>
+            {/foreach}
+        </div>
+    </div>
+</div>

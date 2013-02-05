@@ -1,0 +1,96 @@
+{include file="extension/header.html"}
+        <div id="content">
+            operation = {$operation}<br>
+            {if $operation}
+            <div class="content_left">
+                <div class="box_sub">
+                    Tymczasowe wyniki operacji dodawania piosenki<br>
+                    {$operation}, {$result}, {$code}
+                </div>
+            </div>
+            {else}
+            <div class="content_left">
+                <div class="box_sub">
+                    <div class="box_header2">
+                        <h2>DODAJ NOWĄ PIOSENKĘ</h2>
+                    </div>
+                    <div class="box_content">
+                        <p class="big">Krótki tekst informacyjny o zasadach dodawania piosenki.</p>
+                        <ul class="idTabs"></ul>
+                        <div id="tab1" class="account_content">
+                            <p class="big">Dodaj nową piosenkę. zdefiniuj pola i wybierz plik *.mp3 ze swojegu dysku</p>
+                            {literal}
+                            <script type="text/javascript">
+                                function check() {
+                                    var fileElement = document.getElementById("userfile");
+                                    if (fileElement != null && fileElement.value != '') {
+                                        var fileExtension = "";
+                                        if (fileElement.value.lastIndexOf(".") > 0) {
+                                            fileExtension = fileElement.value.substring(fileElement.value.lastIndexOf(".") + 1, fileElement.value.length);
+                                        }
+                                        if (fileExtension == "mp3" || fileExtension == 'flv') {
+                                            document.forms['form'].submit();
+                                        }
+                                        else {
+                                            alert("Musisz wybrać plik MP3 lub FLV.");
+                                        }
+                                    } else {
+                                        alert('Musisz wybrać plik piosenki.');
+                                    }
+                                }
+                            </script>
+                            {/literal}
+                            <form class="account" action="{$app_url}run/song/add_hdd" method="post" name="form" enctype="multipart/form-data">
+                            <input type="hidden" name="id_user" value="{$user_id}">
+                            <input type="hidden" name="user_id_media_file" value="{$user_id_media_file}">
+                            <input type="hidden" name="user_id_media_image" value="{$user_id_media_image}">
+                            <input type="hidden" name="user_id_media_video" value="{$user_id_media_video}">
+                            <fieldset>
+                                <p>
+                                    <input class="text" value="Tytuł" type="text" name="title" /><label>Tytuł piosenki</label></p>
+                                <p>
+                                    <textarea cols="5" rows="5" style="width: 500px;" name="text">Opis</textarea><label>Opis piosenki</label></p>
+                                <p>
+                                    <input class="text" type="text" name="author" value="{$user_nick}" /><label>Autor Piosenki</label></p>
+                                <p>
+                                    <input class="text" value="" type="text" name="author_arrange" /><label>Autor Muzyki</label></p>
+                                <p>
+                                    <input class="text" value="" type="text" name="author_text" /><label>Autor Tekstu</label></p>
+                                <p>
+                                    <input class="text" type="text" name="tag" /><label>Tagi</label></p>
+                                <p class="select transform">
+                                    <select name="id_genre">
+                                        <option value="1">Romans</option>
+                                        <option value="2">Zabawa</option>
+                                        <option value="3">Nostalgia</option>
+                                    </select>
+                                    <label>Wybierz gatunek muzyczny aranżu</label></p>
+                                <p class="checkbox transform checkbox1">
+                                    <input type="checkbox" class="checkbox" name="public" value="1" /><label>Piosenka dostępna dla Użytkowników</label>
+                                </p>
+                            </fieldset>
+                            <fieldset>
+                                <p>
+                                    <input class="file" type="file" value="wybierz plik MP3 z Dysku" id="userfile" name="userfile" /><label>wybierz piosenkę - plik *.mp3, *.flv z dysku lokalnego<span></span></label></p>
+                                <p>
+                                    <input class="file" type="file" value="wybierz miniaturę do piosenki" name="userfile2" /><label>wybierz miniaturę do piosenki - plik *.jpg z dysku lokalnego<span></span></label></p>
+                            </fieldset>
+                            <fieldset>
+                                <p class="checkbox transform">
+                                    <input type="checkbox" class="checkbox" name="ownership" value="1" /><label>Oświadczam o prawach do piosenki</label>
+                                </p>
+                            </fieldset>
+                            <p>
+                                <input type="button" class="submit add_sound" onclick="check();" /></p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {/if}
+            <div class="content_right">
+                {include file="extension/column_account.html"}
+            </div>
+        </div>
+    </div>
+{include file="extension/footer.html"}

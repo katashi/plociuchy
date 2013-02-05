@@ -1,0 +1,5 @@
+<li style="background: url('{if $text.image == "default.jpg"}{$media_url}image/default/default.jpg{else}{$media_url}image/46x35/{$text.image}{/if}') no-repeat scroll 0 0 transparent; background-size:46px;">
+    <div class="li_left">
+        <a href="{$app_url}run/account/display_account_profile/{$text.id_user}" class="autor">{$text.author}</a> <a href="{$app_url}run/text/display_player/{$text.id}" class="title" target="_blank">{$text.title}</a>
+    </div>
+    <a href="javascript:textPlay('{$text.id}','{$text.id_user}','{$text.text|truncate:400}','{$text.author}','{$text.title}');" class="btn more">Wyświetl</a></li>

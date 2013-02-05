@@ -1,0 +1,66 @@
+<div class="account_content" style="padding: 0px; overflow: visible; margin-left: -5px;">
+    <br><br>
+    <div class="box_header4" style="margin-right: 0px; width: 652px;">
+        <h2>Doładuj konto</h2>
+    </div>
+    <div class="box_content" style="margin-left: 0px;  width: 665px;">
+        <ul class="creation2" style="padding-left: 10px; padding-bottom: 15px;">
+            Aby dodawać piosenki, teksty, aranże oraz pobierać zawartość musisz posiadać odpowiednią ilość punktów.<br>
+            <br>
+            <b>Doładuj konto</b> ( przelew kartą kredytową / przelewem )<br><br>
+            {literal}
+            <style>
+                .pay_header1 { width: 100px; padding: 15px; border: 1px solid #aaa; background-color: #4d2667; font-weight: bold; }
+                .pay_header2 { width: 250px; padding: 15px; border: 1px solid #aaa; background-color: #4d2667; font-weight: bold; }
+                .pay_header3 { width: 100px; padding: 15px;  }
+                .pay1 { width: 100px; padding: 15px; border: 1px solid #aaa; background-color: #3e2151; }
+                .pay2 { width: 250px; padding: 15px; border: 1px solid #aaa; background-color: #3e2151; }
+                .pay3 { width: 100px; padding: 15px; border: 1px solid #aaa; font-weight: bold; background-color: #3e2151; }
+            </style>
+            {/literal}
+            <table>
+                <tr style="color: #fff;"><td class="pay_header1">Punkty</td><td class="pay_header2">Koszt</td><td class="pay_header3"></td></tr>
+                <tr style="color: #fff;"><td class="pay1">10 pkt</td><td class="pay2">18 zł (1,8zł/pkt)</td><td class="pay3" align="center"><a href="{$app_url}run/account/display_payment_add_cc/18" style="color: #fff;">KUPUJ</a></td></tr>
+                <tr style="color: #fff;"><td class="pay1">20 pkt</td><td class="pay2">34 zł (1,7zł/pkt)</td><td class="pay3" align="center"><a href="{$app_url}run/account/display_payment_add_cc/34" style="color: #fff;">KUPUJ</a></td></tr>
+                <tr style="color: #fff;"><td class="pay1">50 pkt</td><td class="pay2">80 zł (1,6zł/pkt)</td><td class="pay3" align="center"><a href="{$app_url}run/account/display_payment_add_cc/80" style="color: #fff;">KUPUJ</a></td></tr>
+                <tr style="color: #fff;"><td class="pay1">100 pkt</td><td class="pay2">145 zł (1,45zł/pkt)</td><td class="pay3" align="center"><a href="{$app_url}run/account/display_payment_add_cc/145" style="color: #fff;">KUPUJ</a></td></tr>
+                <tr style="color: #fff;"><td class="pay1">500 pkt</td><td class="pay2">700 zł (1,4zł/pkt)</td><td class="pay3" align="center"><a href="{$app_url}run/account/display_payment_add_cc/700" style="color: #fff;">KUPUJ</a></td></tr>
+                <!--<tr><td class="pay1">1000 pkt</td><td class="pay2">1300zł (1,3zł/pkt)</td><td class="pay3">[ <a href="{$app_url}run/account/display_payment_add_cc/1300">KUPUJ</a> ]</td></tr>
+                <tr><td class="pay1">5000 pkt</td><td class="pay2">5500zł (1,1zł/pkt)</td><td class="pay3">[ <a href="{$app_url}run/account/display_payment_add_cc/5500">KUPUJ</a> ]</td></tr>
+                <tr><td class="pay1">10000 pkt</td><td class="pay2">10000zł (1zł/pkt)</td><td class="pay3">[ <a href="{$app_url}run/account/display_payment_add_cc/10000">KUPUJ</a> ]</td></tr>-->
+            </table>
+            <br>
+            Przelew realizowany za pośrednictwem <a href="http://www.payu.pl/" target="_blank">PAYU.PL S.A.</a><br>
+            <br><br>
+            {literal}
+            <script type="text/javascript">
+                function history_switch() {
+                    var h = document.getElementById('history');
+                    if (h.style.display == 'none') {
+                        h.style.display = 'block';
+                    } else {
+                        h.style.display = 'none';
+                    }
+                }
+            </script>
+            {/literal}
+            <b>Historia przeprowadzonych transakcji</b> [ <a href="javascript:history_switch();">pokaż/ukryj</a> ]<br><br>
+            {literal}
+            <style>
+                .payt0 { width: 20px; padding: 5px; border: 1px solid #aaa; background-color: #f3f3f3; color: #555; font-size: 10px; }
+                .payt1 { width: 60px; padding: 5px; border: 1px solid #aaa; background-color: #f3f3f3; color: #555; font-size: 10px; }
+                .payt2 { width: 50px; padding: 5px; border: 1px solid #aaa; background-color: #eee; color: #555; font-size: 10px; }
+                .payt3 { width: 120px; padding: 5px; border: 1px solid #aaa; background-color: #f3f3f3; color: #555; font-size: 10px; }
+                .payt4 { width: 300px; padding: 5px; border: 1px solid #aaa; color: #555; font-size: 10px; }
+            </style>
+            {/literal}
+            <table id="history" style="padding: 0px; border: 0px solid #aaa; display: none; width: 542px;">
+                <tr><td class="payt0">Nr</td><td class="payt1">Id</td><td class="payt2">Kwota</td><td class="payt3">Data</td><td class="payt4">Informacje</td></tr>
+                {foreach from=$payment_operation item=payment}
+                    <tr><td class="payt0">{counter}</td><td class="payt1">{$payment.id_trans}</td><td class="payt2">{$payment.amount} zł</td><td class="payt1">{$payment.date_added}</td><td class="payt4">{if $payment.status == 99}OK{else}Wystąpiły błędy lub transakcja w toku{/if}</td></tr>
+                {/foreach}
+            </table>
+            <br>
+        </ul>
+    </div>
+</div>

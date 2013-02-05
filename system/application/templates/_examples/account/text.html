@@ -1,0 +1,17 @@
+<div class="account_content" style="padding: 0px; overflow: visible; margin-left: -5px;">
+    <br><br>
+    <div class="box_header4" style="margin-right: 0px; width: 652px;">
+        <h2>Teksty</h2>
+    </div>
+    <div class="box_content" style="margin-left: 0px;  width: 665px;">
+        <ul class="creation2">
+            {foreach from=$text item=text}
+                {include file="text/text.html"}
+            {/foreach}
+            {if !$text}<div style="margin-left: 10px; margin-bottom: 12px;">Brak tekstów</div>{/if}
+        </ul>
+    </div>
+    <div class="pagination" style="margin-left: 5px; width: 665px;">
+        {include file="extension/pagination.html"}
+    </div>
+</div>

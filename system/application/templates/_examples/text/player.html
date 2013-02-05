@@ -1,0 +1,119 @@
+{include file="extension/header.html"}
+        <div id="content">
+            <div class="content_left">
+                <div class="box_sub">
+                    <div class="box_header6">
+                        <h2>{$text.title}</h2>
+                    </div>
+                    <div class="song_header">
+                        {if $user.facebook_auth}
+                        <img src="{$user.facebook_avatar}" alt="" width="46" height="46" />
+                        {elseif $user.image != 'default.jpg'}
+                        <img src="{$media_url}image/46x35/{$user.image}" alt="" width="46" height="46" />
+                        {else}
+                        <img src="{$media_url}image/default/default.jpg" alt="" />
+                        {/if}
+                        <span class="dane_autora"><a href="{$app_url}run/account/display_account_profile/{$text.id_user}">{$text.author}</a></span>
+                        <span class="date">Dodano: {$text.date_added}</span>
+                        <span class="genre">Gatunek: <span>{$text.genre}</span></span>
+                    </div>
+                    <div class="box_content">
+                        <div class="box_content_left">
+                            <div class="player">
+                                <div class="tekst_big">
+                                    <div class="tekst_top_big">
+                                        <div class="tekst_bottom_big">
+                                            <p>{$text.text}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="big">{$text.header}</p>
+                                <!--<a href="#" class="expand">Rozwiń więcej</a>-->
+                            </div>
+                            <div class="comments2">
+                                <p class="big"><strong>Komentarze</strong></p>
+                                {assign var="id_element" value=$text.id}
+                                {assign var="type" value=2}
+                                {assign var="comment_count" value=$comment|@count}
+                                {if $comment|@count == 0}
+                                    Brak komentarzy<br><br>
+                                {else}
+                                    {foreach from=$comment item=comment}
+                                        {include file="extension/comment.html"}
+                                    {/foreach}
+                                {/if}
+                            </div>
+                            {if $fb_status == 1 or $user_status == 1}
+                                {include file="extension/comment_add.html"}
+                            {else}
+                                Zaloguj się aby dodawać komentarze.<br><br>
+                            {/if}
+                            <!--<a href="#" class="expand">Więcej komentarzy</a>-->
+                        </div>
+                        <div class="box_content_right">
+                            {if $text.image == 'default.jpg'}
+                            <img class="icon" src="{$media_url}image/default/default_200x50.jpg" alt="" width="200" height="50" style="padding-bottom: 3px;" />
+                            {else}
+                            <img class="icon" src="{$media_url}image/200x150/{$text.image}" alt="" width="205" height="150" style="padding-bottom: 3px;" />
+                            {/if}
+                            {if $fb_status == 1 or $user_status == 1}
+                            <div class="ocen">
+                                {if $rate_enabled}
+                                <form id="star_form" method="post" action="{$app_url}run/hub/rate_set/{$user_id},{$text.id},2">
+                                    <p class="star">
+                                        <input name="rate" type="radio" value="1" class="star" {if $rate.rate_computed_round == 1}checked{/if} />
+                                        <input name="rate" type="radio" value="2" class="star" {if $rate.rate_computed_round == 2}checked{/if}/>
+                                        <input name="rate" type="radio" value="3" class="star" {if $rate.rate_computed_round == 3}checked{/if}/>
+                                        <input name="rate" type="radio" value="4" class="star" {if $rate.rate_computed_round == 4}checked{/if}/>
+                                        <input name="rate" type="radio" value="5" class="star" {if $rate.rate_computed_round == 5}checked{/if}/>
+                                    </p>
+                                </form>
+                                {else}
+                                <div class="ocen_done">Głos został oddany</div>
+                                {/if}
+                                <p class="ocena"><span>{$rate.rate_computed}</span> ({$rate.total})</p>
+                            </div>
+                            {else}
+                            <div class="ocen2">
+                                <p class="ocena"><span>{$rate.rate_computed}</span> ({$rate.total})</p>
+                            </div>
+                            {/if}
+                            <div class="watch_big">
+                                <p class="wys">{$text.display}</p>
+                                <p class="com">{$comment_count}</p>
+                            </div>
+                            <div class="about_text">
+                                <a class="autor" href="{$app_url}run/account/display_account_profile/{$text.id_user}">{$text.author}</a>
+                                <!--<a class="title" href="#">{$text.about}</a>-->
+                            </div>
+                            <div class="social">
+                            <p>Podziel się</p>
+                                <!-- AddThis Button BEGIN -->
+                                <div class="addthis_toolbox addthis_default_style" style="margin-top: 10px; padding-bottom: 10px;">
+                                    <a class="addthis_button_preferred_1"></a>
+                                    <a class="addthis_button_preferred_2"></a>
+                                    <a class="addthis_button_preferred_3"></a>
+                                    <a class="addthis_button_preferred_4"></a>
+                                    <a class="addthis_button_preferred_5"></a>
+                                    <a class="addthis_button_preferred_6"></a>
+                                    <a class="addthis_button_compact"></a>
+                                    <a class="addthis_counter addthis_bubble_style"></a>
+                                </div>
+                                <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4f7df6fa742f55d3"></script>
+                                <!-- AddThis Button END -->
+                            </div>
+                            {if $fb_status == 1 or $user_status == 1}
+                            <a href="{$app_url}run/account/add_favorite_ui/{$user_id},{$text.id},2" class="btn more fb">Dodaj do ulubionych</a>
+                            <a href="{$app_url}run/account/add_briefcase_ui/{$text.id},2" class="btn more fb">Dodaj do kreowni</a>
+                            {/if}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content_right">
+                {include file="extension/column.html"}
+                {include file="extension/column_howto1.html"}
+            </div>
+        </div>
+    </div>
+{include file="extension/footer.html"}

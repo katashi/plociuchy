@@ -1,0 +1,34 @@
+{include file="extension/header.html"}
+        <div id="content">
+            <div class="content_left">
+                <div class="box" style="min-height: 250px;">
+                    <div class="box_header4">
+                        <h2>PIOSENKI</h2>
+                        {include file="song/filter1.html"}
+                    </div>
+                    <div class="box_content">
+                        <ul class="creation">
+                            {if $song|@count > 0}
+                                {foreach from=$song item=song}
+                                    {include file="song/song.html"}
+                                {/foreach}
+                            {else}
+                                <div style="margin-left: 10px; margin-bottom: 10px;">Brak piosenek. Zmień sposób filtrowania.</div>
+                            {/if}
+                        </ul>
+                    </div>
+                    {if $song|@count > 0}
+                        <div class="pagination">
+                            {include file="extension/pagination.html"}
+                        </div>
+                    {/if}
+                </div>
+
+            </div>
+            <div class="content_right">
+                {include file="extension/column.html"}
+                {include file="extension/column_howto1.html"}
+            </div>
+        </div>
+    </div>
+{include file="extension/footer.html"}

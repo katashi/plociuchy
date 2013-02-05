@@ -1,0 +1,76 @@
+<div class="account_content" style="padding: 0px; overflow: visible; margin-left: -5px;">
+    <br><br>
+    <div class="box_header4" style="margin-right: 0px; width: 652px;">
+        <h2>Kreownia</h2>
+    </div>
+    <div class="box_content" style="margin-left: 0px;  width: 665px;">
+            {if $briefcase.song|@count == 0 and $briefcase.arrange|@count == 0 and $briefcase.text|@count == 0}
+            <div class="box_sub">
+                <div class="box_content">
+                    <p style="margin-bottom: 5px;">Brak elementów w kreowni.</p><br>
+                </div>
+            </div>
+            {else}
+            <div class="box">
+                <div class="box_header">
+                    <h2><span>Piosenki</h2>
+                </div>
+                {if $briefcase.song|@count == 0}
+                <div class="box_content">
+                    <ul class="creation3">
+                        Brak piosenek w kreowni.<br><br><br>
+                    </ul>
+                </div>
+                {else}
+                <div class="box_content" style="margin-left: 0px; width: 665px;">
+                    <ul class="creation">
+                        {foreach from=$briefcase.song item=song}
+                            {include file="song/song.html"}
+                        {/foreach}
+                    </ul>
+                </div>
+                {/if}
+            </div>
+            <div class="box">
+                <div class="box_header">
+                    <h2><span>Aranże</h2>
+                </div>
+                {if $briefcase.arrange|@count == 0}
+                <div class="box_content">
+                    <ul class="creation3">
+                        Brak aranży w kreowni.<br><br>
+                    </ul>
+                </div>
+                {else}
+                <div class="box_content" style="margin-left: 0px; width: 665px;">
+                    <ul class="creation2">
+                        {foreach from=$briefcase.arrange item=arrange}
+                            {include file="arrange/arrange.html"}
+                        {/foreach}
+                    </ul>
+                </div>
+                {/if}
+            </div>
+            <div class="box">
+                <div class="box_header">
+                    <h2><span>Teksty</h2>
+                </div>
+                {if $briefcase.text|@count == 0}
+                <div class="box_content">
+                    <ul class="creation3">
+                        Brak tekstów w kreowni.<br><br>
+                    </ul>
+                </div>
+                {else}
+                <div class="box_content" style="margin-left: 0px; width: 665px;">
+                    <ul class="creation3">
+                        {foreach from=$briefcase.text item=text}
+                        {include file="text/text.html"}
+                        {/foreach}
+                    </ul>
+                </div>
+                {/if}
+            </div>
+            {/if}
+    </div>
+</div>

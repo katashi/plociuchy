@@ -1,0 +1,30 @@
+{include file="extension/header.html"}
+        {$article_count}
+        <div id="content">
+            <div class="content_left">
+                {foreach from=$article item=article}
+                <div class="box_sub">
+                    <div class="box_header">
+                        <h2>{$article.title}</h2><div style="float:right; color: #aaa; font-size: 10px; margin-top: 15px;">{$article.date_created}</div>
+                    </div>
+                    <div class="box_content">
+                            <p><strong>{$article.header}</strong></p>
+                            <p>
+                            {if $article.image != ''}
+                            <img src="{$media_url}/image/200x150/{$article.image}" align="right">
+                            {/if}
+                            {$article.text}
+                            </p>
+                    </div>
+                </div>
+                <br><br>
+                {/foreach}
+            </div>
+            <div class="content_right">
+                {include file="extension/column.html"}
+                {include file="extension/column_howto1.html"}
+            </div>
+        </div>
+        {include file="extension/bar.html"}
+    </div>
+{include file="extension/footer.html"}

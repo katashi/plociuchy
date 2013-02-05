@@ -1,0 +1,50 @@
+<!--{$result},{$operation},{$code}-->
+<div class="bar login" id="bar_login" style="display: none;">
+    <h3>
+        {if $operation == 'song_add' && $code == 'ok'}Piosenka została dodana{/if}
+        {if $operation == 'arrange_add' && $code == 'ok'}Aranż został dodany{/if}
+        {if $operation == 'text_add' && $code == 'ok'}Tekst został dodany{/if}
+        {if $operation == 'account_update' && $code == 'ok'}Konto zostało zaktualizowane{/if}
+        {if $operation == 'user_add' && $code == 'ok'}Użytkownik dodany! Odbierz email!{/if}
+        {if $operation == 'user_add_facebook' && $code == 'ok'}Konto Facebook połączone!{/if}
+        {if $operation == 'user_add_facebook' && $code == 'facebook_add'}Konto Facebook połączone!{/if}
+        {if $operation == 'user_add_facebook' && $code == 'facebook_update'}Użytkownik zalogowany! Witamy!{/if}
+        {if $operation == 'activate' && $code == 'ok'}Konto zostało aktywowane!{/if}
+        {if $operation == 'login' && $code == 'ok'}Użytkownik zalogowany! Witamy!{/if}
+        {if $operation == 'logout' && $code == 'ok'}Użytkownik wylogowany! Do zobaczenia!{/if}
+        {if $operation == 'payment_add_positive' && $code == 'ok'}Przetwarzanie płatności! Dziękujemy!{/if}
+        {if $operation == 'payment_add_positive' && $code == 'updated'}Płatność jest już przetwarzana!{/if}
+        {if $operation == 'favorite_add' && $code == 'ok'}Element został dodany do ulubionych!{/if}
+        {if $operation == 'briefcase_add' && $code == 'ok'}Element został dodany do kreowni!{/if}
+        {if $operation == 'password_reset' && $code == 'password_reset'}Reset Hasła. Odbierz e-mail!{/if}
+        {if $operation == 'password_reset' && $code == 'password_changed'}Hasło zostało zmienione. Odbierz e-mail!{/if}
+        {if $operation == 'password_reset' && $code == 'ok'}Hasło zostało zmienione! Zaloguj się.{/if}
+    </h3>
+    <a href="javascript:barHide1();" class="btn close">Zamknij</a>
+</div>
+<div class="bar logout" id="bar_logout" style="display: none;">
+    <h3>
+        {if $operation == 'user_add' && $code == 'user_missing'}Brak wymaganych danych do rejestracji.{/if}
+        {if $operation == 'login' && $code == 'not_found'}Użytkownik nieodnaleziony lub błąd hasła!{/if}
+        {if $operation == 'login' && $code == 'unactive'}Konto istnieje i nie aktywne!{/if}
+        {if $operation == 'login' && $code == 'no_data'}Brak danych logowania!{/if}
+        {if $operation == 'nick_missing'}Uwaga! Uzupełnij Nick w danych konta!{/if}
+        {if $operation == 'payment_add_negative'}Błąd!
+            {if $code == 206}Kwota transakcji większa od wartości maksymalnej!{/if}
+            {if $code == 502}Transakcja rozpoczęta wcześniej!{/if}
+            ({$code})
+        {/if}
+        {if $operation == 'favorite_add' && $code == 'already_exist'}Element istnieje już w ulubionych!{/if}
+        {if $operation == 'briefcase_add' && $code == 'already_exist'}Element istnieje już w kreowni!{/if}
+        {if $operation == 'redirect' && $code == 'unauthorised'}Musisz być zalogowany! Być może sesja wygasła?{/if}
+        {if $operation == 'account_update' && $code == 'nick_exists'}Podany Nick już istnieje.{/if}
+        {if $operation == 'password_reset' && $code == 'user_missing'}Brak Użytkownika lub błędny adres e-mail!{/if}
+    </h3>
+    <a href="javascript:barHide2();" class="btn close">Zamknij</a>
+</div>
+{if $operation && $result == 1}
+{literal}<script type="text/javascript">barShow1();</script>{/literal}
+{/if}
+{if $operation && $result == 0}
+{literal}<script type="text/javascript">barShow2();</script>{/literal}
+{/if}

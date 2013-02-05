@@ -1,0 +1,36 @@
+{include file="extension/header.html"}
+        <div id="content">
+            <div class="content_left">
+                <div class="box_sub">
+                    <div class="box_header2">
+                        <h2>DODAJ PIOSENKĘ / ARANŻ / TEKST</h2>
+                    </div>
+                    <div class="box_content">
+                        <p class="big">Kreomaniaku, w tej zakładce musisz podjąć decyzję, jaką czynność chcesz wykonać.<br>Możesz nagrać nową piosenkę, dodać aranż bądź tekst.</p>
+                        <ul class="idTabs">
+                            <!--<a href="{$app_url}run/song/display_add_hdd" class="selected">Dodaj Piosenke z Dysku</a><br><br>-->
+                            {if $point >= 2}
+                                <a href="{$app_url}run/song/display_add_live1" class="selected"><img src="{$site_url}images/add1.jpg"></a><br><br>
+                            {else}
+                                <a href="{$app_url}run/account/display_payment"><img src="{$site_url}images/add1off.jpg"></a><br><br>
+                            {/if}
+                            {if $point >= 1}
+                                <a href="{$app_url}run/arrange/display_add"  class="selected"><img src="{$site_url}images/add2.jpg"></a><br><br>
+                            {else}
+                                <a href="{$app_url}run/account/display_payment"><img src="{$site_url}images/add2off.jpg"></a><br><br>
+                            {/if}
+                            {if $point >= 1}
+                                <a href="{$app_url}run/text/display_add" class="selected"><img src="{$site_url}images/add3.jpg"></a><br><br>
+                            {else}
+                                <a href="{$app_url}run/account/display_payment"><img src="{$site_url}images/add3off.jpg"></a><br><br>
+                            {/if}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="content_right">
+                {include file="extension/column_account.html"}
+            </div>
+        </div>
+    </div>
+{include file="extension/footer.html"}

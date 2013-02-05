@@ -1,0 +1,51 @@
+<div class="container-foot">
+    <div class="foot">
+        <div id="footer">
+            <ul class="menu">
+                <li class="bb"><a href="{$site_url}">Strona główna</a></li>
+                <li><a href="{$app_url}run/song/display">Piosenki</a></li>
+                <li><a href="{$app_url}run/arrange/display">Aranże</a></li>
+                <li><a href="{$app_url}run/text/display">Teksty</a></li>
+                <li class="bt"><a href="{$app_url}run/register/display">Rejestracja</a></li>
+            </ul>
+            <ul class="menu cms">
+                {if $tmp}
+                <li><a href="#">CMS 1</a>
+                    <ul>
+                        <li><a href="#">Subpage 1</a></li>
+                        <li><a href="#">Subpage 2 lorem ipsum</a></li>
+                        <li><a href="#">Subpage 3 dolor</a></li>
+                        <li><a href="#">Subpage 4 sit amet</a></li>
+                        <li><a href="#">Subpage 5</a></li>
+                    </ul>
+                </li>
+                <li class="last"><a href="#">Więcej</a> </li>
+                {/if}
+            </ul>
+            <ul class="menu cms">
+                {if $tmp}
+                <li><a href="#">CMS 2</a>
+                    <ul>
+                        <li><a href="#">Subpage 1</a></li>
+                        <li><a href="#">Subpage 2 lorem ipsum</a></li>
+                        <li><a href="#">Subpage 3 dolor</a></li>
+                        <li><a href="#">Subpage 4 sit amet</a></li>
+                        <li><a href="#">Subpage 5</a></li>
+                    </ul>
+                </li>
+                <li class="last"><a href="#">Więcej</a> </li>
+                {/if}
+            </ul>
+        </div>
+        <div class="footer-bottom">
+            <ul>
+                <li><a href="mailto:kreomaniak@kreomaniak.pl">Zgłoś problem</a></li><!--{$app_url}run/article/display_full/47,105-->
+                <li><a href="{$app_url}run/article/display_full/47,106">Polityka prywatności</a></li>
+                <li class="last"><a href="{$app_url}run/article/display_full/47,107">Zastrzeżenia prawne</a></li>
+            </ul>
+            <p class="right">Copyright 2013 @ Kreomaniak |  Powered by <a href="http://www.katashi.pl" target="_blank">Katashi</a></p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

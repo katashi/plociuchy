@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>Kreomaniak</title>
+    <meta name="Description" content="Piosenkarze, kompozytorzy, tekściarze. Nadchodzi czas, w którym wyciągamy do Was rękę i będziemy wspierać w muzycznych działaniach. Oddajemy do dyspozycji narzędzie w postaci portalu „Kreomaniak”. To tutaj wielu z Was będzie czerpało natchnienie do tworzenia nowych dzieł muzycznych." />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="Keywords" content="Kreomaniak, tworzenie piosenek, tworzenie tekstów, tworzenie aranży, kompozycje, muzyka, serwis muzyczny" />
+    <meta name="robots" content="index, follow" />
+    <meta http-equiv="Window-target" content="_top" />
+    <meta name="revisit-after" content="7 days" />
+
+    {if $song.title != ''}
+    <meta property="og:title" content="Kreomaniak - {$song.title}" />
+    <meta property="og:description" content="{$song.text}" />
+    {if $arrange.image == 'default.jpg'}
+    <meta property="og:image" content="{$media_url}image/default/default_120x90.jpg" />
+    {else}
+    <meta property="og:image" content="{$media_url}image/200x150/{$song.image}" />
+    {/if}
+    {elseif $arrange.title != ''}
+    <meta property="og:title" content="Kreomaniak - {$arrange.title}" />
+    <meta property="og:description" content="{$arrange.text}" />
+    {if $arrange.image == 'default.jpg'}
+    <meta property="og:image" content="{$media_url}image/default/default_120x90.jpg" />
+    {else}
+    <meta property="og:image" content="{$media_url}image/200x150/{$arrange.image}" />
+    {/if}
+    {elseif $text.title != ''}
+    <meta property="og:title" content="Kreomaniak - {$text.title}" />
+    <meta property="og:description" content="{$text.header}" />
+    {if $arrange.image == 'default.jpg'}
+    <meta property="og:image" content="{$media_url}image/default/default_120x90.jpg" />
+    {else}
+    <meta property="og:image" content="{$media_url}image/200x150/{$text.image}" />
+    {/if}
+    {/if}
+
+    <link href="{$site_url}css/style.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="{$site_url}css/colorbox.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="{$site_url}css/jqtransform.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="{$site_url}css/jquery.rating.css" rel="stylesheet" type="text/css" media="screen" />
+    <script type="text/javascript" src="{$site_url}js/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="{$site_url}js/cufon-yui.js"></script>
+    <script type="text/javascript" src="{$site_url}js/Incised901EU_400.font.js"></script>
+    <script type="text/javascript" src="{$site_url}js/layout1.js"></script>
+    <script type="text/javascript" src="{$site_url}js/Incised901CtEU_400.font.js"></script>
+    <script type="text/javascript" src="{$site_url}js/layout2.js"></script>
+    <script type="text/javascript" src="{$site_url}js/swfobject.js"></script>
+    <!--[if lte IE 7]><link href="{$site_url}css/ie7.css" rel="stylesheet" type="text/css" /><![endif]-->
+    <script type="text/javascript" src="{$site_url}js/jquery.jqtransform.js"></script>
+    <script type="text/javascript" src="{$site_url}js/jquery.validate.js"></script>
+    <script type="text/javascript" src="{$site_url}js/jquery.rating.js"></script>
+    {literal}
+    <script type="text/javascript" language="javascript">
+        $(function() {
+            $('form p.transform').jqTransform({ imgPath: 'jqtransformplugin/img/' });
+        });
+    </script>
+    <script type="text/javascript" language="javascript">
+        function pageInit() {
+           jsReady = true;
+        }
+        function barHide1() {
+            $('#bar_login').fadeOut(750);
+        }
+        function barShow1() {
+            $('#bar_login').fadeIn(750);
+            setTimeout(function(){
+                $("#bar_login").fadeOut(750);
+            },14000);
+        }
+        function barHide2() {
+            $('#bar_logout').fadeOut(750);
+        }
+        function barShow2() {
+            $('#bar_logout').fadeIn(750);
+            setTimeout(function(){
+                $("#bar_logout").fadeOut(750);
+            },14000);
+        }
+    </script>
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-36851107-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' :
+                    'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+
+    </script>
+    {/literal}
+</head>
+<body onload="pageInit();">
+<!--FB={$fb_status},FBLOGIN={$fb_login_urlk},FBLOGOUT={$fb_logout_urlk},USER={$user_status}-->
+<div id="page">
+    <div id="top">
+        <a href="{$site_url}" id="logo">
+            <img src="{$site_url}images/logo.png" alt="" /></a>
+        <div class="top_right">
+            {if $user_status == 1 or $fb_status == 1}
+                {include file='account/header_account.html'}
+            {else}
+                {include file='account/header_login.html'}
+            {/if}
+            <ul id="menu">
+                <li><a href="{$app_url}run/song/display">Piosenki</a></li>
+                <li><a href="{$app_url}run/arrange/display">Aranże</a></li>
+                <li><a href="{$app_url}run/text/display">Teksty</a></li>
+                <li><a href="{$app_url}run/article/display/45">Aktualności</a></li>
+                <li><a href="{$app_url}run/article/display_full/46,109">Jak to działa</a></li>
+                {if $user_status == 1 or $fb_status == 1}
+                <li><a href="{$app_url}run/add/display" class="add">Dodaj</a></li>
+                {else}
+                <li><a href="{$app_url}run/register/display" class="add">Dodaj</a></li>
+                {/if}
+            </ul>
+            <div id="search">
+                <form class="search_form" action="{$app_url}run/hub/search" method="post">
+                    <p>
+                        <input type="text" class="text" name="query" />
+                        <input type="submit" class="submit" value="" />
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div id="slider">
+        {literal}
+        <script type="text/javascript">
+            var flashvars = {};
+            var params = {
+                wmode: 'transparent'
+            };
+            var attributes = {};
+            swfobject.embedSWF("{/literal}{$site_url}{literal}flash/header1.swf", "header", "990", "295", "9.0.0", "expressInstall.swf", flashvars, params, attributes);
+        </script>
+        {/literal}
+        <div id="header" style="width: 990px; height: 295px;">Flash?</div>
+    </div>
+    {include file='extension/bar.html'}
