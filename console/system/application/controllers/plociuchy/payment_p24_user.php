@@ -12,6 +12,7 @@ class Payment_P24_User extends Main
         // load models
         $this->load->model('main_model');
         $this->load->model('plociuchy/payment_p24_user_model');
+        //
     }
 
     // display
