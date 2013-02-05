@@ -6,33 +6,24 @@
 */
 
 // site url for an application (access for back office console )
-define('SITE_URL', 'http://kreomaniak.pl/front');
+define('SITE_URL', 'http://plo-ciuchy.pl');
 
 // console path
-define('CONSOLE_URL', 'http://kreomaniak.pl/console/index.php/main/run');
-define('MEDIA_URL', 'http://kreomaniak.pl/media');
+define('CONSOLE_URL', 'http://plo-ciuchy.pl/console/index.php/main/run');
+define('MEDIA_URL', 'http://plo-ciuchy.pl/media');
 
 // configuration
-define('CONFIGURATION', 'kreomaniak');
+define('CONFIGURATION', 'katashi');
 
 // config api
 define('API_DEBUG', 0);
 define('API_DATAFORMAT', 'OBJECT'); // OBJECT, JSON
 
-// config fb app
-define('FB_APP1_APPID', '363097613773798');
-define('FB_APP1_SECRET', '1a7b1b2378ca51178fe50ae0ba847fff');
-
 // config payu access
-define('PLATNOSCI_POSID', '101657');
-define('PLATNOSCI_1MD5', '6bdadc0db7f01232a6397b3a8b7cab02');
-define('PLATNOSCI_2MD5', '70fe0953881517e7b02c54f6818849d5');
-define('PLATNOSCI_POSAUTHKEY', 'KRWWIyg');
-
-// limits
-define('SONG_LIMIT', 16);
-define('ARRANGE_LIMIT', 16);
-define('TEXT_LIMIT', 16);
+//define('PLATNOSCI_POSID', '101657');
+//define('PLATNOSCI_1MD5', '6bdadc0db7f01232a6397b3a8b7cab02');
+//define('PLATNOSCI_2MD5', '70fe0953881517e7b02c54f6818849d5');
+//define('PLATNOSCI_POSAUTHKEY', 'KRWWIyg');
 
 //
 //

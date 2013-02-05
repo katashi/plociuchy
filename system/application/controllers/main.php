@@ -16,7 +16,7 @@ class Main extends Controller {
 		ini_set('log_errors', true);
 		ini_set('error_log', dirname(__FILE__) . '/../../../error_log.txt');
         //
-        $this->include_controller('hub');
+        /*$this->include_controller('hub');
         $this->include_controller('home');
         $this->include_controller('article');
         $this->include_controller('client');
@@ -36,12 +36,12 @@ class Main extends Controller {
         if (($this->fb_login_status || $this->user_status) && isset($this->session->userdata['user_authorised'])) {
             $this->smarty->assign('account_header_element_count', $this->account_header_load_element_count());
             $this->smarty->assign('point', $this->point_get($this->session->userdata['user_id']));
-        }
+        }*/
 	}
 
 	// index
 	function index() {
-        header('location: index.php/main/run/home');
+        //header('location: index.php/main/run/home');
 	}
 
 	// run
