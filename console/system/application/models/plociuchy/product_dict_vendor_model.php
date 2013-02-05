@@ -1,5 +1,5 @@
 <?php
-class Product_Dict_Verndor_Model extends Main_Model
+class Product_Dict_Vendor_Model extends Main_Model
 {
 
     function Product_Dict_Vendor_Model()

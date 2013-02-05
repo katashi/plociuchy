@@ -1,0 +1,87 @@
+<script type="text/javascript">
+{literal}
+
+// shortcuts
+var controller = '/plociuchy:product_dict_vendor';
+
+// fields
+var fields = new Array('id', 'title');
+var config = new Object({
+	fields: fields,
+	format: 'json',
+	id: 'product_dv_store',
+	url: base_url+controller+'/load_all'
+});
+product_dv_store = new Store();
+product_dv_store.init(config);
+
+// paging toolbar
+var config = new Object({
+	store: product_dv_store.display,
+	items: ['-',
+		{
+			iconCls: 'x-btn-text-icon page_add',
+			handler: add,
+			text: 'Dodaj'
+		}
+	]
+});
+product_dv_ptb = new PagingToolBar();
+product_dv_ptb.init(config);
+
+// grid
+var config = new Object({
+	store: product_dv_store.display,
+	tbar: product_dv_ptb.display,
+	title: 'Produkt Vendor',
+	columns: [
+		{ id: 'id', dataIndex: 'id', header: 'Id', sortable: true },
+		{ id: 'title', dataIndex: 'title', header: 'Tytuł', sortable: true },
+		{ id: 'options', header: 'Opcje', renderer: render_options, sortable: false }
+	]
+});
+product_grid = new EditorGridPanel();
+product_grid.init(config);
+
+// panel
+var config = new Object({
+	items: [ product_grid.display ]
+});
+product_panel = new Panel();
+product_panel.init(config);
+product_panel.display.render(Ext.get('div_product_dv'));
+
+// store
+product_dv_store.display.load({ params: { start: 0, limit: _paging_limit }});
+function product_dv_store_reload(index){
+    product_dv.store.display.load({ params: { start: 0, limit: _paging_limit, id: index }});
+}
+
+// options
+function render_options(value, p, record) {
+    if (record.data.active == 0 ) {
+        url = base_url+controller+'/active_set/'+record.data.id+',1';
+        img = 'cancel.png';
+    } else {
+        url = base_url+controller+'/active_set/'+record.data.id+',0';
+        img = 'accept.png';
+    }
+    return String.format('<a href="javascript:delete_confirm(\''+base_url+controller+'/delete/'+record.data.id+'\');"><img src="images/icon/delete.png" border="0"></a>');
+}
+
+// add
+function add() {
+    tab_id = 'product_dv_add';
+    tab_title = 'Dodaj';
+    tab_url = base_url+controller+'/display_add';
+    center.ui.tab_add(tab_id, tab_title, tab_url);
+}
+
+// delete
+function delete_confirm(url) {
+    new Helper_Delete().delete_confirm(url, 'grid', product_store, null);
+}
+
+{/literal}
+</script>
+<div id="div_product_dv"></div>

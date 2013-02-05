@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4d2d2da6-d4f4-4865-b5bc-03e5e8403702" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/console/system/application/templates/plociuchy/product_dict_vendor.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/console/system/application/models/plociuchy/product_dict_vendor.php" afterPath="$PROJECT_DIR$/console/system/application/models/plociuchy/product_dict_vendor.php" />
     </list>
     <ignored path="plociuchy.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -23,17 +25,7 @@
     <favorites_list name="plociuchy" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="payment_p24.php" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/console/system/application/controllers/plociuchy/payment_p24.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="134" column="8" selection-start="4993" selection-end="4993" vertical-scroll-proportion="0.4814815">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -54,22 +46,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/console/system/application/controllers/plociuchy/payment_p24.php" />
-        <option value="$PROJECT_DIR$/console/javascript/configuration/ui_katashi.js" />
-        <option value="$PROJECT_DIR$/console/javascript/module/north/north_plociuchy.js" />
-        <option value="$PROJECT_DIR$/console/javascript/module/north/north.js" />
-        <option value="$PROJECT_DIR$/console/system/application/templates/_access/administrator_add.html" />
         <option value="$PROJECT_DIR$/console/system/application/config/configuration/katashi.php" />
         <option value="$PROJECT_DIR$/console/system/application/models/plociuchy/product_model.php" />
         <option value="$PROJECT_DIR$/console/system/application/templates/plociuchy/product.html" />
         <option value="$PROJECT_DIR$/console/system/application/templates/plociuchy/product_add.html" />
         <option value="$PROJECT_DIR$/_index.php" />
-        <option value="$PROJECT_DIR$/system/application/config/constants.php" />
-        <option value="$PROJECT_DIR$/system/application/controllers/main.php" />
-        <option value="$PROJECT_DIR$/system/application/templates/home.html" />
         <option value="$PROJECT_DIR$/system/application/templates/extension/footer.html" />
         <option value="$PROJECT_DIR$/system/application/templates/extension/header.html" />
         <option value="$PROJECT_DIR$/system/application/controllers/home.php" />
+        <option value="$PROJECT_DIR$/console/system/application/controllers/plociuchy/payment_p24.php" />
+        <option value="$PROJECT_DIR$/system/application/controllers/main.php" />
+        <option value="$PROJECT_DIR$/system/application/templates/home.html" />
+        <option value="$PROJECT_DIR$/system/application/config/constants.php" />
+        <option value="$PROJECT_DIR$/system/application/controllers/test_payment.php" />
+        <option value="$PROJECT_DIR$/system/application/templates/test_payment.html" />
+        <option value="$PROJECT_DIR$/console/system/application/templates/plociuchy/product_dict_vendor.html" />
+        <option value="$PROJECT_DIR$/console/system/application/models/plociuchy/product_dict_vendor.php" />
       </list>
     </option>
   </component>
@@ -200,7 +192,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="controllers" />
+              <option name="myItemId" value="models" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -226,7 +218,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="controllers" />
+              <option name="myItemId" value="models" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -419,9 +411,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Lab\plociuchy\console\system\application\templates\plociuchy" />
+      <recent name="C:\Lab\plociuchy\system\application\templates" />
+      <recent name="C:\Lab\plociuchy\system\application\controllers" />
       <recent name="C:\Lab\plociuchy" />
       <recent name="C:\Lab\plociuchy\console\javascript\module\north" />
-      <recent name="C:\Lab\plociuchy\console\system\application\controllers\plociuchy" />
     </key>
   </component>
   <component name="RunManager">
@@ -465,20 +459,20 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39599383" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.28505394" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28505394" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32852808" sideWeight="0.6702619" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32973805" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32973805" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27617604" sideWeight="0.6702619" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.41805765" sideWeight="0.7149461" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -523,7 +517,7 @@
     <option name="INCLUDE_TEXT_INTO_SHELF" value="false" />
     <option name="CREATE_PATCH_EXPAND_DETAILS_DEFAULT" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="FrontEnd - Init (wgranie plików sterujących FrontOffice) + Home" />
+    <option name="LAST_COMMIT_MESSAGE" value="Platnosci Testowe do FO" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -542,53 +536,105 @@
     <MESSAGE value="FrontEnd - Init (wgranie plików sterujących FrontOffice)" />
     <MESSAGE value="Produkt - TPL + model drobna poprawka do active set" />
     <MESSAGE value="FrontEnd - Init (wgranie plików sterujących FrontOffice) + Home" />
+    <MESSAGE value="Workspace" />
+    <MESSAGE value="Platnosci Testowe do FO" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/../hurtownia/console/system/application/templates/wh_admin/client.html">
+    <entry file="file://C:/2/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="69" column="4" selection-start="2338" selection-end="2467" vertical-scroll-proportion="0.3136" />
+        <state line="28" column="0" selection-start="1351" selection-end="2261" vertical-scroll-proportion="-1.3744">
+          <folding>
+            <marker date="1360069328268" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1360069328268" expanded="true" signature="-1:-1" placeholder="..." />
+          </folding>
+        </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/console/system/application/models/plociuchy/product_model.php">
+    <entry file="file://$PROJECT_DIR$/console/system/application/controllers/plociuchy/payment_p24.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="74" column="41" selection-start="2055" selection-end="2055" vertical-scroll-proportion="0.6481481" />
+        <state line="129" column="23" selection-start="3505" selection-end="4945" vertical-scroll-proportion="0.7672552">
+          <folding>
+            <element signature="n#sample_form2#0;n#Payment_P24#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/console/system/application/config/configuration/katashi.php">
+    <entry file="file://$PROJECT_DIR$/system/application/controllers/main.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="102" selection-start="730" selection-end="730" vertical-scroll-proportion="0.32407406" />
+        <state line="43" column="8" selection-start="1632" selection-end="1676" vertical-scroll-proportion="0.53858024">
+          <folding>
+            <element signature="n#Main#0;n#Main#0;n#!!top" expanded="true" />
+            <element signature="e#606#1589#0" expanded="false" />
+            <element signature="n#run#0;n#Main#0;n#!!top" expanded="true" />
+            <element signature="e#4669#4771#0" expanded="false" />
+            <element signature="e#5009#5147#0" expanded="false" />
+            <element signature="e#7853#7916#0" expanded="false" />
+            <element signature="e#8181#8305#0" expanded="false" />
+            <element signature="e#8406#8529#0" expanded="false" />
+          </folding>
+        </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/console/system/application/templates/plociuchy/product_add.html">
+    <entry file="file://$PROJECT_DIR$/system/application/templates/test_payment.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="109" column="26" selection-start="2412" selection-end="2412" vertical-scroll-proportion="0.216" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/console/system/application/templates/plociuchy/product.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="0" selection-start="43" selection-end="94" vertical-scroll-proportion="0.0672" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/config/autoload.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.86419755">
+        <state line="1" column="24" selection-start="63" selection-end="63" vertical-scroll-proportion="0.022875817">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.php">
+    <entry file="file://$PROJECT_DIR$/system/application/controllers/test_payment.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+        <state line="29" column="18" selection-start="1343" selection-end="1343" vertical-scroll-proportion="0.6265432">
+          <folding>
+            <element signature="n#Test_Payment#0;n#Test_Payment#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/console/system/application/config/constants.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="33" column="22" selection-start="959" selection-end="959" vertical-scroll-proportion="0.712963">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/config/constants.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="21" selection-start="597" selection-end="597" vertical-scroll-proportion="0.3888889">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/controllers/home.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="41" selection-start="142" selection-end="306" vertical-scroll-proportion="0.25925925">
+          <folding>
+            <element signature="n#Home#0;n#Home#0;n#!!top" expanded="true" />
+            <element signature="n#display_redirect#0;n#Home#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/application/templates/home.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1" column="43" selection-start="48" selection-end="82" vertical-scroll-proportion="0.0224">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../kreomaniak/front/system/application/controllers/account.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="171" column="41" selection-start="8031" selection-end="8914" vertical-scroll-proportion="0.7777778">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/controllers/hub.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="43" column="1" selection-start="1535" selection-end="1535" vertical-scroll-proportion="0.92901236">
+        <state line="43" column="1" selection-start="1535" selection-end="1535" vertical-scroll-proportion="0.8703704">
           <folding>
             <element signature="n#Hub#0;n#Hub#0;n#!!top" expanded="true" />
             <element signature="n#smarty_display#0;n#Hub#0;n#!!top" expanded="true" />
@@ -599,110 +645,53 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/config/config.php">
+    <entry file="file://$PROJECT_DIR$/../_katashi/console/system/application/controllers/_warehouse/warehouse_newsletter.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/config/constants.php">
+    <entry file="file://$PROJECT_DIR$/console/system/application/models/plociuchy/product_dict_vendor.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="0" selection-start="652" selection-end="652" vertical-scroll-proportion="0.43209878">
+        <state line="1" column="21" selection-start="27" selection-end="27" vertical-scroll-proportion="0.021604938">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/controllers/main.php">
+    <entry file="file://$PROJECT_DIR$/console/system/application/controllers/plociuchy/product_dict_vendor.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="78" column="10" selection-start="3653" selection-end="3653" vertical-scroll-proportion="1.7196851">
+        <state line="37" column="5" selection-start="974" selection-end="974" vertical-scroll-proportion="0.82098764">
           <folding>
-            <element signature="n#Main#0;n#Main#0;n#!!top" expanded="true" />
-            <element signature="n#index#0;n#Main#0;n#!!top" expanded="true" />
-            <element signature="n#load_controller#0;n#Main#0;n#!!top" expanded="true" />
-            <element signature="n#load_template#0;n#Main#0;n#!!top" expanded="true" />
-            <element signature="n#run_factory#0;n#Main#0;n#!!top" expanded="true" />
-            <element signature="n#include_controller#0;n#Main#0;n#!!top" expanded="true" />
-            <element signature="n#include_autoload_controller#0;n#Main#0;n#!!top" expanded="true" />
-            <element signature="n#api_call#0;n#Main#0;n#!!top" expanded="true" />
-            <element signature="n#php2js#0;n#Main#0;n#!!top" expanded="true" />
-            <element signature="n#fb_init#0;n#Main#0;n#!!top" expanded="true" />
-            <element signature="n#fb_access_token#0;n#Main#0;n#!!top" expanded="true" />
-            <element signature="n#fb_user_id#0;n#Main#0;n#!!top" expanded="true" />
-            <element signature="n#fb_user_picture#0;n#Main#0;n#!!top" expanded="true" />
-            <element signature="n#fb_login_status#0;n#Main#0;n#!!top" expanded="true" />
-            <element signature="n#fb_generate_login_url#0;n#Main#0;n#!!top" expanded="true" />
-            <element signature="n#fb_generate_logout_url#0;n#Main#0;n#!!top" expanded="true" />
-            <element signature="n#user_status#0;n#Main#0;n#!!top" expanded="true" />
-            <element signature="n#session_create_facebook#0;n#Main#0;n#!!top" expanded="true" />
-            <element signature="n#session_create_user#0;n#Main#0;n#!!top" expanded="true" />
-            <element signature="n#session_destroy_user#0;n#Main#0;n#!!top" expanded="true" />
-            <element signature="n#user_get#0;n#Main#0;n#!!top" expanded="true" />
-            <element signature="n#display_increment#0;n#Main#0;n#!!top" expanded="true" />
-            <element signature="n#genre_get_all#0;n#Main#0;n#!!top" expanded="true" />
-            <element signature="n#genre_get#0;n#Main#0;n#!!top" expanded="true" />
-            <element signature="n#rate_compute#0;n#Main#0;n#!!top" expanded="true" />
-            <element signature="n#rate_compute_single#0;n#Main#0;n#!!top" expanded="true" />
-            <element signature="n#rate_sort#0;n#Main#0;n#!!top" expanded="true" />
-            <element signature="n#rate_sort_loop#0;n#Main#0;n#!!top" expanded="true" />
-            <element signature="n#rate_enabled#0;n#Main#0;n#!!top" expanded="true" />
-            <element signature="n#rate_get#0;n#Main#0;n#!!top" expanded="true" />
-            <element signature="n#rate_set#0;n#Main#0;n#!!top" expanded="true" />
-            <element signature="n#comment_load_all#0;n#Main#0;n#!!top" expanded="true" />
-            <element signature="n#comment_load_last#0;n#Main#0;n#!!top" expanded="true" />
-            <element signature="n#comment_add#0;n#Main#0;n#!!top" expanded="true" />
-            <element signature="n#comment_delete#0;n#Main#0;n#!!top" expanded="true" />
-            <element signature="n#account_header_load_element_count#0;n#Main#0;n#!!top" expanded="true" />
-            <element signature="n#account_header_load_element_profile_count#0;n#Main#0;n#!!top" expanded="true" />
-            <element signature="n#search#0;n#Main#0;n#!!top" expanded="true" />
-            <element signature="n#paginate_init#0;n#Main#0;n#!!top" expanded="true" />
-            <element signature="n#paginate_from#0;n#Main#0;n#!!top" expanded="true" />
-            <element signature="n#paginate_get#0;n#Main#0;n#!!top" expanded="true" />
-            <element signature="n#paginate_page_current_set#0;n#Main#0;n#!!top" expanded="true" />
-            <element signature="n#paginate_page_current_get#0;n#Main#0;n#!!top" expanded="true" />
-            <element signature="n#point_get#0;n#Main#0;n#!!top" expanded="true" />
-            <element signature="n#point_reduce#0;n#Main#0;n#!!top" expanded="true" />
-            <element signature="n#last_added#0;n#Main#0;n#!!top" expanded="true" />
-            <element signature="n#last_added_date#0;n#Main#0;n#!!top" expanded="true" />
-            <element signature="n#smarty_redirect_variables#0;n#Main#0;n#!!top" expanded="true" />
+            <element signature="n#Product_Dict_Vendor#0;n#Product_Dict_Vendor#0;n#!!top" expanded="true" />
+            <element signature="n#display#0;n#Product_Dict_Vendor#0;n#!!top" expanded="true" />
+            <element signature="n#display_add#0;n#Product_Dict_Vendor#0;n#!!top" expanded="true" />
+            <element signature="n#display_edit#0;n#Product_Dict_Vendor#0;n#!!top" expanded="true" />
+            <element signature="n#load_all#0;n#Product_Dict_Vendor#0;n#!!top" expanded="true" />
+            <element signature="n#load_all_user#0;n#Product_Dict_Vendor#0;n#!!top" expanded="true" />
+            <element signature="n#load#0;n#Product_Dict_Vendor#0;n#!!top" expanded="true" />
+            <element signature="n#add#0;n#Product_Dict_Vendor#0;n#!!top" expanded="true" />
+            <element signature="n#edit#0;n#Product_Dict_Vendor#0;n#!!top" expanded="true" />
+            <element signature="n#delete#0;n#Product_Dict_Vendor#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/controllers/home.php">
+    <entry file="file://$PROJECT_DIR$/console/system/application/templates/plociuchy/product_dict_vendor.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="0" selection-start="307" selection-end="307" vertical-scroll-proportion="0.2808642">
+        <state line="86" column="23" selection-start="2259" selection-end="2259" vertical-scroll-proportion="1.5824">
           <folding>
-            <element signature="n#Home#0;n#Home#0;n#!!top" expanded="true" />
-            <element signature="n#display_redirect#0;n#Home#0;n#!!top" expanded="true" />
+            <element signature="e#1335#1431#0" expanded="true" />
+            <element signature="e#1486#1911#0" expanded="true" />
+            <element signature="e#1935#2095#0" expanded="true" />
+            <element signature="e#2136#2213#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/templates/home.html">
+    <entry file="file://$PROJECT_DIR$/console/system/application/templates/plociuchy/product.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="12" selection-start="51" selection-end="51" vertical-scroll-proportion="0.0224">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/templates/extension/header.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="17" selection-start="1318" selection-end="1318" vertical-scroll-proportion="0.48039216">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/application/templates/extension/footer.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/console/system/application/controllers/plociuchy/payment_p24.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="134" column="8" selection-start="4993" selection-end="4993" vertical-scroll-proportion="0.4814815">
+        <state line="11" column="19" selection-start="292" selection-end="292" vertical-scroll-proportion="0.2464">
           <folding />
         </state>
       </provider>
