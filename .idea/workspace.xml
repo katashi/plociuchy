@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4d2d2da6-d4f4-4865-b5bc-03e5e8403702" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/console/system/application/templates/plociuchy/product_dict_vendor.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/console/system/application/models/plociuchy/product_dict_vendor.php" afterPath="$PROJECT_DIR$/console/system/application/models/plociuchy/product_dict_vendor.php" />
     </list>
     <ignored path="plociuchy.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -31,7 +33,7 @@
     </FindUsagesManager>
   </component>
   <component name="Git.Push.Settings">
-    <option name="myUpdateMethod" />
+    <option name="myUpdateMethod" value="REBASE" />
   </component>
   <component name="Git.Settings">
     <option name="CHECKOUT_INCLUDE_TAGS" value="false" />
@@ -81,7 +83,7 @@
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
   <component name="ProjectReloadState">
-    <option name="STATE" value="0" />
+    <option name="STATE" value="1" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1" splitterProportion="0.5">
@@ -114,61 +116,119 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="plociuchy" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="plociuchy" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="console" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="plociuchy" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="plociuchy" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="console" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="system" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="plociuchy" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="plociuchy" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="console" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="system" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="plociuchy" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="plociuchy" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="console" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="system" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="models" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="plociuchy" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="plociuchy" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="console" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="system" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="models" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="plociuchy" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
-      <pane id="Scope">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="plociuchy">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="plociuchy">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT=".idea">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-        <subPane subId="Problems" />
-        <subPane subId="Project Files">
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="plociuchy">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-        <subPane subId="All">
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="plociuchy">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -183,7 +243,7 @@
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="WebServerToolWindowPanel.toolwindow.highlight.mappings" value="true" />
   </component>
-  <component name="PublishConfig" promptOnRemoteOverwrite="CHECK_CONTENT" serverName="Plociuchy" serverId="5e9c4403-73a1-4f55-99c3-e3439158d541" stopOnFirstError="true" preserveTimestamps="false" deleteMissingItems="true" createEmptyFolders="true" uploadOnCheckin="5e9c4403-73a1-4f55-99c3-e3439158d541" exclude=".svn;.cvs;.DS_Store;.git;.hg;.idea;" autoUpload="true" autoUploadExternalChanges="true" notifyRemoteChanges="true">
+  <component name="PublishConfig" promptOnRemoteOverwrite="CHECK_CONTENT" serverName="Plociuchy" serverId="5e9c4403-73a1-4f55-99c3-e3439158d541" stopOnFirstError="true" preserveTimestamps="false" deleteMissingItems="true" createEmptyFolders="true" uploadOnCheckin="5e9c4403-73a1-4f55-99c3-e3439158d541" autoUpload="true" autoUploadExternalChanges="true" notifyRemoteChanges="true">
     <servers>
       <server id="03682ceb-b566-4bfc-bc86-c077861483d3">
         <serverdata>
@@ -401,23 +461,23 @@
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39599383" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28505394" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32852808" sideWeight="0.6702619" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32973805" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32973805" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32852808" sideWeight="0.7149461" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.43474963" sideWeight="0.7149461" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32973805" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.41805765" sideWeight="0.7149461" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32973805" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -457,7 +517,7 @@
     <option name="INCLUDE_TEXT_INTO_SHELF" value="false" />
     <option name="CREATE_PATCH_EXPAND_DETAILS_DEFAULT" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="Usunięcie IDEA" />
+    <option name="LAST_COMMIT_MESSAGE" value="Platnosci Testowe do FO" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -478,7 +538,6 @@
     <MESSAGE value="FrontEnd - Init (wgranie plików sterujących FrontOffice) + Home" />
     <MESSAGE value="Workspace" />
     <MESSAGE value="Platnosci Testowe do FO" />
-    <MESSAGE value="Usunięcie IDEA" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -486,72 +545,155 @@
   <component name="editorHistoryManager">
     <entry file="file://C:/2/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="0" selection-start="1351" selection-end="2261" vertical-scroll-proportion="-1.3744" />
+        <state line="28" column="0" selection-start="1351" selection-end="2261" vertical-scroll-proportion="-1.3744">
+          <folding>
+            <marker date="1360069328268" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1360069328268" expanded="true" signature="-1:-1" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/console/system/application/controllers/plociuchy/payment_p24.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="129" column="23" selection-start="3505" selection-end="4945" vertical-scroll-proportion="0.7672552">
+          <folding>
+            <element signature="n#sample_form2#0;n#Payment_P24#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/controllers/main.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="43" column="8" selection-start="1632" selection-end="1676" vertical-scroll-proportion="0.53858024" />
+        <state line="43" column="8" selection-start="1632" selection-end="1676" vertical-scroll-proportion="0.53858024">
+          <folding>
+            <element signature="n#Main#0;n#Main#0;n#!!top" expanded="true" />
+            <element signature="e#606#1589#0" expanded="false" />
+            <element signature="n#run#0;n#Main#0;n#!!top" expanded="true" />
+            <element signature="e#4669#4771#0" expanded="false" />
+            <element signature="e#5009#5147#0" expanded="false" />
+            <element signature="e#7853#7916#0" expanded="false" />
+            <element signature="e#8181#8305#0" expanded="false" />
+            <element signature="e#8406#8529#0" expanded="false" />
+          </folding>
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/templates/test_payment.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="24" selection-start="63" selection-end="63" vertical-scroll-proportion="0.022875817" />
+        <state line="1" column="24" selection-start="63" selection-end="63" vertical-scroll-proportion="0.022875817">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/controllers/test_payment.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="18" selection-start="1343" selection-end="1343" vertical-scroll-proportion="0.6265432" />
+        <state line="29" column="18" selection-start="1343" selection-end="1343" vertical-scroll-proportion="0.6265432">
+          <folding>
+            <element signature="n#Test_Payment#0;n#Test_Payment#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/console/system/application/config/constants.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="33" column="22" selection-start="959" selection-end="959" vertical-scroll-proportion="0.712963" />
+        <state line="33" column="22" selection-start="959" selection-end="959" vertical-scroll-proportion="0.712963">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/config/constants.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="21" selection-start="597" selection-end="597" vertical-scroll-proportion="0.3888889" />
+        <state line="18" column="21" selection-start="597" selection-end="597" vertical-scroll-proportion="0.3888889">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/controllers/home.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="41" selection-start="142" selection-end="306" vertical-scroll-proportion="0.25925925" />
+        <state line="12" column="41" selection-start="142" selection-end="306" vertical-scroll-proportion="0.25925925">
+          <folding>
+            <element signature="n#Home#0;n#Home#0;n#!!top" expanded="true" />
+            <element signature="n#display_redirect#0;n#Home#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/templates/home.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="43" selection-start="48" selection-end="82" vertical-scroll-proportion="0.0224" />
+        <state line="1" column="43" selection-start="48" selection-end="82" vertical-scroll-proportion="0.0224">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../kreomaniak/front/system/application/controllers/account.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="171" column="41" selection-start="8031" selection-end="8914" vertical-scroll-proportion="0.7777778" />
+        <state line="171" column="41" selection-start="8031" selection-end="8914" vertical-scroll-proportion="0.7777778">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/system/application/controllers/hub.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="43" column="1" selection-start="1535" selection-end="1535" vertical-scroll-proportion="0.8703704" />
+        <state line="43" column="1" selection-start="1535" selection-end="1535" vertical-scroll-proportion="0.8703704">
+          <folding>
+            <element signature="n#Hub#0;n#Hub#0;n#!!top" expanded="true" />
+            <element signature="n#smarty_display#0;n#Hub#0;n#!!top" expanded="true" />
+            <element signature="n#smarty_redirect#0;n#Hub#0;n#!!top" expanded="true" />
+            <element signature="n#smarty_redirect_variables#0;n#Hub#0;n#!!top" expanded="true" />
+            <element signature="n#assign_template_titlecall#0;n#Hub#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../_katashi/console/system/application/controllers/_warehouse/warehouse_newsletter.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/console/system/application/models/plociuchy/product_dict_vendor.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1" column="21" selection-start="27" selection-end="27" vertical-scroll-proportion="0.021604938">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/console/system/application/controllers/plociuchy/product_dict_vendor.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="37" column="5" selection-start="974" selection-end="974" vertical-scroll-proportion="0.82098764" />
+        <state line="37" column="5" selection-start="974" selection-end="974" vertical-scroll-proportion="0.82098764">
+          <folding>
+            <element signature="n#Product_Dict_Vendor#0;n#Product_Dict_Vendor#0;n#!!top" expanded="true" />
+            <element signature="n#display#0;n#Product_Dict_Vendor#0;n#!!top" expanded="true" />
+            <element signature="n#display_add#0;n#Product_Dict_Vendor#0;n#!!top" expanded="true" />
+            <element signature="n#display_edit#0;n#Product_Dict_Vendor#0;n#!!top" expanded="true" />
+            <element signature="n#load_all#0;n#Product_Dict_Vendor#0;n#!!top" expanded="true" />
+            <element signature="n#load_all_user#0;n#Product_Dict_Vendor#0;n#!!top" expanded="true" />
+            <element signature="n#load#0;n#Product_Dict_Vendor#0;n#!!top" expanded="true" />
+            <element signature="n#add#0;n#Product_Dict_Vendor#0;n#!!top" expanded="true" />
+            <element signature="n#edit#0;n#Product_Dict_Vendor#0;n#!!top" expanded="true" />
+            <element signature="n#delete#0;n#Product_Dict_Vendor#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/console/system/application/templates/plociuchy/product_dict_vendor.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="86" column="23" selection-start="2259" selection-end="2259" vertical-scroll-proportion="1.5824" />
+        <state line="86" column="23" selection-start="2259" selection-end="2259" vertical-scroll-proportion="1.5824">
+          <folding>
+            <element signature="e#1335#1431#0" expanded="true" />
+            <element signature="e#1486#1911#0" expanded="true" />
+            <element signature="e#1935#2095#0" expanded="true" />
+            <element signature="e#2136#2213#0" expanded="true" />
+          </folding>
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/console/system/application/templates/plociuchy/product.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="19" selection-start="292" selection-end="292" vertical-scroll-proportion="0.2464" />
+        <state line="11" column="19" selection-start="292" selection-end="292" vertical-scroll-proportion="0.2464">
+          <folding />
+        </state>
       </provider>
     </entry>
   </component>
