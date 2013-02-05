@@ -1,8 +1,8 @@
 <?php
-class Payment_P24_Payment_Partner_Model extends Main_Model
+class Payment_P24_Partner_Model extends Main_Model
 {
 
-    function Payment_P24_Payment_Partner_Model()
+    function Payment_P24_Partner_Model()
     {
         // Call the Model constructor
         parent::Model();

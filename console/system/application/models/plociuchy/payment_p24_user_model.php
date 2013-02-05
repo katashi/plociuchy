@@ -1,8 +1,8 @@
 <?php
-class Payment_P24_Payment_User_Model extends Main_Model
+class Payment_P24_User_Model extends Main_Model
 {
 
-    function Payment_P24_Payment_User_Model()
+    function Payment_P24_User_Model()
     {
         // Call the Model constructor
         parent::Model();
