@@ -16,9 +16,9 @@ class Main extends Controller {
 		ini_set('log_errors', true);
 		ini_set('error_log', dirname(__FILE__) . '/../../../error_log.txt');
         //
-        /*$this->include_controller('hub');
+        $this->include_controller('hub');
         $this->include_controller('home');
-        $this->include_controller('article');
+        /*$this->include_controller('article');
         $this->include_controller('client');
         $this->include_controller('fb');
         $this->include_controller('song');
@@ -41,7 +41,7 @@ class Main extends Controller {
 
 	// index
 	function index() {
-        //header('location: index.php/main/run/home');
+        header('location: index.php/main/run/home');
 	}
 
 	// run
@@ -73,17 +73,6 @@ class Main extends Controller {
         // correction of command arguments - we will put in front name of a title_call and template from menu
         array_splice($command_arguments, 0, 0, $title_call);
         array_splice($command_arguments, 0, 0, $template);
-        // redirect force ( modification of run function 15.10.2012
-        if (isset($this->nick_missing)) {
-            $variable = array();
-            $variable['nick_missing'] = 1;
-            $variable['operation'] = 'nick_missing';
-            $variable['result'] = 0;
-            //
-            if ($title_call != 'account') {
-                $this->smarty_redirect_variables('account/display_account', 'account', $variable);
-            }
-        }
 		// now we will create new class instance including desired controller ( which will include required model )
 		if ($command_module) { $$command_module = $this->run_factory($command_module_directory, $command_module); }
 		if ($command_method) { call_user_func_array(array($$command_module, $command_method), $command_arguments); }
@@ -142,7 +131,7 @@ class Main extends Controller {
 
     // api call
     function api_call($url='', $data='', $upload='') {
-        require_once '../console/system/application/config/configuration/'.CONFIGURATION.'.php';
+        require_once 'console/system/application/config/configuration/'.CONFIGURATION.'.php';
         //
         if ($upload) {
             // first file

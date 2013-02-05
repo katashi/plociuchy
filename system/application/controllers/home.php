@@ -10,8 +10,9 @@ class Home extends Hub {
     // display
     function display($template = null, $title_call = null) {
         $this->assign_template_titlecall($template, $title_call);
+        $this->smarty_display($template);
 
-        $last_added = $this->last_added();
+        /*$last_added = $this->last_added();
         $this->ci->smarty->assign('last_added', $last_added['data']);
 
         $article = new Article($this->ci);
@@ -52,7 +53,7 @@ class Home extends Hub {
         $text = $this->rate_compute($text, 2);
         $this->ci->smarty->assign('text', $text);
 
-        $this->smarty_display($template);
+        $this->smarty_display($template);*/
     }
     function display_redirect($template = null, $title_call = null, $variable = null) {
         $result = unserialize($variable);
