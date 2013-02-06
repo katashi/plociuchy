@@ -52,7 +52,7 @@ var config = new Object({
 			var data = record.get(fieldName);
 			var data_id = record.get('id');
 			var data_title = record.get('text1');
-			product_edit(data_id, data_title);
+			edit(data_id, data_title);
 		}
 	}
 });
@@ -82,7 +82,7 @@ function render_options(value, p, record) {
         url = base_url+controller+'/active_set/'+record.data.id+',0';
         img = 'accept.png';
     }
-    return String.format('<a href="javascript:active(\''+url+'\');"><img src="images/icon/'+img+'" border="0"></a> <a href="javascript:edit('+record.data.id+',\''+record.data.user+'\');"><img src="images/icon/page_edit.png"></a> <a href="javascript:delete_confirm(\''+base_url+controller+'/delete/'+record.data.id+'\');"><img src="images/icon/delete.png" border="0"></a>');
+    return String.format('<a href="javascript:active(\''+url+'\');"><img src="images/icon/'+img+'" border="0"></a> <a href="javascript:edit('+record.data.id+',\''+record.data.text1+'\');"><img src="images/icon/page_edit.png"></a> <a href="javascript:delete_confirm(\''+base_url+controller+'/delete/'+record.data.id+'\');"><img src="images/icon/delete.png" border="0"></a>');
 }
 
 // add
@@ -95,7 +95,7 @@ function add() {
 
 // edit
 function edit(id, title) {
-    tab_id = 'product_edit_'+id;
+    tab_id = 'product_edit';
     tab_title = title;
     tab_url = base_url+controller+'/display_edit/'+id;
     center.ui.tab_add(tab_id, tab_title, tab_url);
