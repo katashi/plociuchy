@@ -1,17 +1,13 @@
 <script type="text/javascript">
 {literal}
 
-// parameters
-var daf = new Date();
-var dat = new Date();
-dat.setMonth(daf.getMonth()+1);
-
 // shortcuts
 var controller = '/plociuchy:product';
 
 // store
 var fields = new Array('id', 'nick');
 var config = new Object({
+    //autoLoad: true,
     fields: fields,
     format: 'json',
     id: 'partner_store',
@@ -49,7 +45,7 @@ var config = new Object({
         displayField: 'nick',
         editable: false,
         fieldLabel: 'Partner',
-        hiddenName: 'id_partner',
+        hiddenName: 'id',
         name: 'id_parter',
         store: partner_store,
         triggerAction: 'all',
@@ -151,7 +147,6 @@ var config = new Object({
         width: 350
     },{
         allowBlank: false,
-        checked: true,
         fieldLabel: 'Aktywny',
         inputValue: 1,
         name: 'active',
@@ -162,40 +157,65 @@ var config = new Object({
         fieldLabel: 'Aktywny Od',
         format:'Y-m-d H:i:s',
         name: 'active_from',
-        value: daf,
         xtype: 'datefield'
     },{
         fieldLabel: 'Aktywny Do',
         format:'Y-m-d H:i:s',
         name: 'active_to',
-        value: dat,
         xtype: 'datefield'
+    },{
+        disabled: true,
+        fieldLabel: 'Data dodania',
+        name: 'date_added',
+        xtype: 'textfield'
+    },{
+        disabled: true,
+        fieldLabel: 'Data modyfikacji',
+        name: 'date_last_modified',
+        xtype: 'textfield'
     }],
 	buttons: [{
-		handler: product_add_fps,
-		text: 'Dodaj'
+		handler: product_edit_fps,
+		text: 'Zapisz'
 	}]
 });
-product_add_fp = new FormPanel();
-product_add_fp.init(config);
-product_add_fp.display.render(Ext.get('div_product_add'));
+product_edit_fp = new FormPanel();
+product_edit_fp.init(config);
+product_edit_fp.display.render(Ext.get('div_product_edit'));
 
 // submit
-function product_add_fps() {
-	product_add_fp.display.form.submit({
-		method: 'POST',
-		url: base_url+controller+'/add',
-		success: function() {
-			Ext.MessageBox.alert('Informacja', 'Gotowe');
-			product_add_fp.display.getForm().reset();
+function product_edit_fps() {
+    product_edit_fp.display.form.submit({
+        method: 'POST',
+        url: base_url+controller+'/edit/{/literal}{$id}{literal}',
+        success: function() {
+            Ext.MessageBox.alert('Informacja', 'Obiekt zapisany');
             product_store.display.reload();
-		},
-		failure: function() {
-			Ext.MessageBox.alert('Informacja', 'Błąd');
-		},
-		waitMsg: 'Oczekiwanie'
-	});
+        },
+        failure: function() {
+            Ext.MessageBox.alert('Informacja', 'Błąd');
+        },
+        waitMsg: 'Oczekiwanie'
+    });
 }
+
+// load
+function product_edit_load() {
+    product_edit_fp.display.form.load({
+        method: 'POST',
+        url: base_url+controller+'/load/{/literal}{$id}{literal}',
+        waitMsg: 'Oczekiwanie',
+        success: function() {
+        },
+        failure: function() {
+            Ext.MessageBox.alert('Informacja', 'Błąd');
+        }
+    });
+}
+
+// load
+product_edit_load();
+
 {/literal}
 </script>
-<div id="div_product_add"></div>
+<div id="div_product_edit"></div>
