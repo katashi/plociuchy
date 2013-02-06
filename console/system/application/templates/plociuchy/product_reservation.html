@@ -2,22 +2,22 @@
 {literal}
 
 // shortcuts
-var controller = '/plociuchy:product';
+var controller = '/plociuchy:product_reservation';
 
 // fields
-var fields = new Array('id', 'id_partner', 'id_vendor', 'text1', 'text2', 'price', 'active', 'date_created');
+var fields = new Array('id', 'id_user', 'id_partner', 'id_product', 'id_payment_24_user', 'status', 'reject','active','date_from','date_to','date_added', 'date_added','date_last_modified');
 var config = new Object({
 	fields: fields,
 	format: 'json',
-	id: 'product_store',
+	id: 'product_reservation_store',
 	url: base_url+controller+'/load_all'
 });
-product_store = new Store();
-product_store.init(config);
+product_reservation_store = new Store();
+product_reservation_store.init(config);
 
 // paging toolbar
 var config = new Object({
-	store: product_store.display,
+	store: product_reservation_store.display,
 	items: ['-',
 		{
 			iconCls: 'x-btn-text-icon page_add',
@@ -26,23 +26,27 @@ var config = new Object({
 		}
 	]
 });
-product_ptb = new PagingToolBar();
-product_ptb.init(config);
+product_reservation_ptb = new PagingToolBar();
+product_reservation_ptb.init(config);
 
 // grid
 var config = new Object({
-	store: product_store.display,
-	tbar: product_ptb.display,
+	store: product_reservation_store.display,
+	tbar: product_reservation_ptb.display,
 	title: 'Produkt',
 	columns: [
 		{ id: 'id', dataIndex: 'id', header: 'Id', sortable: true },
+        { id: 'id_user', dataIndex: 'id_user', header: 'Id_User', sortable: true },
 		{ id: 'id_partner', dataIndex: 'id_partner', header: 'Id_Partner', sortable: true },
-		{ id: 'id_vendor', dataIndex: 'id_vendor', header: 'Id_Vendor', sortable: true },
-		{ id: 'text1', dataIndex: 'text1', header: 'Tytuł', sortable: true },
-		{ id: 'text2', dataIndex: 'text2', header: 'Nagłówek', sortable: true },
-		{ id: 'price', dataIndex: 'price', header: 'Cena', sortable: true },
+		{ id: 'id_product', dataIndex: 'id_product', header: 'Id_Product', sortable: true },
+		{ id: 'id_payment_p24_user', dataIndex: 'id_payment_p24_user', header: 'id_payment_p24_user', sortable: true },
+		{ id: 'status', dataIndex: 'status', header: 'Status', sortable: true },
+        { id: 'rejected', dataIndex: 'rejected', header: 'Odrzucony', sortable: true },
 		{ id: 'active', dataIndex: 'active', header: 'Aktywny', sortable: true },
-		{ id: 'date_created', dataIndex: 'date_created', header: 'Stworzony', sortable: true },
+        { id: 'date_form', dataIndex: 'date_from', header: 'Od', sortable: true },
+        { id: 'date_to', dataIndex: 'date_to', header: 'Do', sortable: true },
+        { id: 'date_added', dataIndex: 'date_added', header: 'Stworzony', sortable: true },
+		{ id: 'date_last_modiefied', dataIndex: 'date_last_modiefied', header: 'Edytowany', sortable: true },
 		{ id: 'options', header: 'Opcje', renderer: render_options, sortable: false }
 	],
 	listeners: {
@@ -56,21 +60,21 @@ var config = new Object({
 		}
 	}
 });
-product_grid = new EditorGridPanel();
-product_grid.init(config);
+product_reservation_grid = new EditorGridPanel();
+product_reservation_grid.init(config);
 
 // panel
 var config = new Object({
-	items: [ product_grid.display ]
+	items: [ product_reservation_grid.display ]
 });
-product_panel = new Panel();
-product_panel.init(config);
-product_panel.display.render(Ext.get('div_product'));
+product_reservation_panel = new Panel();
+product_reservation_panel.init(config);
+product_reservation_panel.display.render(Ext.get('div_product_reservation'));
 
 // store
-product_store.display.load({ params: { start: 0, limit: _paging_limit }});
-function product_store_reload(index){
-    product.store.display.load({ params: { start: 0, limit: _paging_limit, id: index }});
+product_reservation_store.display.load({ params: { start: 0, limit: _paging_limit }});
+function product_reservation_store_reload(index){
+    product_reservation.store.display.load({ params: { start: 0, limit: _paging_limit, id: index }});
 }
 
 // options
@@ -87,7 +91,7 @@ function render_options(value, p, record) {
 
 // add
 function add() {
-    tab_id = 'product_add';
+    tab_id = 'product_reservation_add';
     tab_title = 'Dodaj';
     tab_url = base_url+controller+'/display_add';
     center.ui.tab_add(tab_id, tab_title, tab_url);
@@ -95,7 +99,7 @@ function add() {
 
 // edit
 function edit(id, title) {
-    tab_id = 'product_edit';
+    tab_id = 'product_reservation_edit';
     tab_title = title;
     tab_url = base_url+controller+'/display_edit/'+id;
     center.ui.tab_add(tab_id, tab_title, tab_url);
@@ -103,14 +107,14 @@ function edit(id, title) {
 
 // delete
 function delete_confirm(url) {
-    new Helper_Delete().delete_confirm(url, 'grid', product_store, null);
+    new Helper_Delete().delete_confirm(url, 'grid', product_reservation_store, null);
 }
 
 // active
 function active(url) {
-    new Helper_Ui().url_call(url, 'grid', product_store, null);
+    new Helper_Ui().url_call(url, 'grid', product_reservation_store, null);
 }
 
 {/literal}
 </script>
-<div id="div_product"></div>
+<div id="div_product_reservation"></div>

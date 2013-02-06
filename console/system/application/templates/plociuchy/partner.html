@@ -1,0 +1,119 @@
+<script type="text/javascript">
+{literal}
+
+// partnershortcuts
+var controller = '/plociuchy:partner';
+
+// fields
+var fields = new Array('id', 'nick', 'user', 'name', 'surname', 'zip', 'city', 'date_added');
+var config = new Object({
+	fields: fields,
+	format: 'json',
+	id: 'partner_store',
+	url: base_url+controller+'/load_all'
+});
+partner_store = new Store();
+partner_store.init(config);
+
+// paging toolbar
+var config = new Object({
+	store: partner_store.display,
+	items: ['-',
+		{
+			iconCls: 'x-btn-text-icon page_add',
+			handler: add,
+			text: 'Dodaj'
+		}
+	]
+});
+partner_ptb = new PagingToolBar();
+partner_ptb.init(config);
+
+// grid
+var config = new Object({
+	store: partner_store.display,
+	tbar: partner_ptb.display,
+	title: 'partner',
+	columns: [
+		{ id: 'id', dataIndex: 'id', header: 'Id', sortable: true },
+		{ id: 'nick', dataIndex: 'nick', header: 'nick', sortable: true },
+		{ id: 'user', dataIndex: 'user', header: 'user', sortable: true },
+		{ id: 'name', dataIndex: 'name', header: 'Imie', sortable: true },
+		{ id: 'surname', dataIndex: 'surname', header: 'Nazwisko', sortable: true },
+		{ id: 'zip', dataIndex: 'zip', header: 'Zip', sortable: true },
+		{ id: 'city', dataIndex: 'city', header: 'Miasto', sortable: true },
+		{ id: 'address', dataIndex: 'address', header: 'Aders', sortable: true },
+        { id: 'city', dataIndex: 'city', header: 'Miasto', sortable: true },
+        { id: 'address', dataIndex: 'address', header: 'Aders', sortable: true },
+        { id: 'date_added', dataIndex: 'date_added', header: 'Data dodania', sortable: true },
+		{ id: 'options', header: 'Opcje', renderer: render_options, sortable: false }
+	],
+	listeners: {
+		celldblclick: function(grid, rowIndex, columnIndex, e) {
+			var record = grid.getStore().getAt(rowIndex);
+ 			var fieldName = grid.getColumnModel().getDataIndex(columnIndex);
+			var data = record.get(fieldName);
+			var data_id = record.get('id');
+			var data_title = record.get('text1');
+			edit(data_id, data_title);
+		}
+	}
+});
+partner_grid = new EditorGridPanel();
+partner_grid.init(config);
+
+// panel
+var config = new Object({
+	items: [ partner_grid.display ]
+});
+partner_panel = new Panel();
+partner_panel.init(config);
+partner_panel.display.render(Ext.get('div_partner'));
+
+// store
+partner_store.display.load({ params: { start: 0, limit: _paging_limit }});
+function partner_store_reload(index){
+    partner.store.display.load({ params: { start: 0, limit: _paging_limit, id: index }});
+}
+
+// options
+function render_options(value, p, record) {
+    if (record.data.active == 0 ) {
+        url = base_url+controller+'/active_set/'+record.data.id+',1';
+        img = 'cancel.png';
+    } else {
+        url = base_url+controller+'/active_set/'+record.data.id+',0';
+        img = 'accept.png';
+    }
+    return String.format('<a href="javascript:active(\''+url+'\');"><img src="images/icon/'+img+'" border="0"></a> <a href="javascript:edit('+record.data.id+',\''+record.data.user+'\');"><img src="images/icon/page_edit.png"></a> <a href="javascript:delete_confirm(\''+base_url+controller+'/delete/'+record.data.id+'\');"><img src="images/icon/delete.png" border="0"></a>');
+}
+
+// add
+function add() {
+    tab_id = 'partner_add';
+    tab_title = 'Dodaj';
+    tab_url = base_url+controller+'/display_add';
+    center.ui.tab_add(tab_id, tab_title, tab_url);
+}
+
+// edit
+function edit(id, title) {
+    tab_id = 'partner_edit';
+    tab_title = title;
+    tab_url = base_url+controller+'/display_edit/'+id;
+    center.ui.tab_add(tab_id, tab_title, tab_url);
+}
+
+// delete
+function delete_confirm(url) {
+    new Helper_Delete().delete_confirm(url, 'grid', partner_store, null);
+}
+
+// active
+function active(url) {
+    new Helper_Ui().url_call(url, 'grid', partner_store, null);
+}
+
+{/literal}
+</script>
+<div id="div_partner"></div>

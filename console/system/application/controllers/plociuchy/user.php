@@ -1,10 +1,10 @@
 <?php
 if (!defined('BASEPATH')) die;
 
-class Product extends Main
+class User extends Main
 {
 
-    function Product($_ci = '')
+    function User($_ci = '')
     {
         parent::Controller();
         //

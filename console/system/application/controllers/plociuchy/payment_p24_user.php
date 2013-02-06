@@ -29,6 +29,7 @@ class Payment_P24_User extends Main
         $this->p24_session_id = md5(time());
         $this->p24_id_sprzedawcy = '18592';
         $this->p24_crc = '51e016ba07cd389e';
+
     }
 
     // display
@@ -85,32 +86,52 @@ class Payment_P24_User extends Main
         echo '{"success":' . $result . '}';
     }
 
+    function add_user_ui()
+    {
+        $_POST['p24_session_id'] = $this->p24_session_id;
+        $_POST['p24_id_sprzedawcy'] = $this->p24_id_sprzedawcy;
+        $_POST['p24_kwota'] = number_format($_POST['p24_kwota'], 2, '.', '') * 100;
+        $_POST['p24_crc'] = md5($this->p24_session_id . '|' . $this->p24_id_sprzedawcy . '|' . $_POST['p24_kwota'] . '|' . $this->p24_crc);
+        //Dodajemy zamowienie do usera
+        $this->payment_p24_user_model->add();
+        $data = $_POST;
+        echo '{"success":"true","data":' . json_encode($data) . '}';
+    }
+
+    function add_reservation_ui()
+    {
+        $this->product_reservation_model->add();
+        echo '{"success":"true"}';
+    }
+
     /*
     * Funkcja pozytywnej odpowiedzi z P24
     */
-    function payment_p24_ok()
+    function payment_p24_ok_ui()
     {
         //pobieramy dane z $_POST
         $p24_session_id = $_POST["p24_session_id"];
         $p24_order_id = $_POST["p24_order_id"];
-        $p24_id_sprzedawcy = $this->p24_id_sprzedawcy;
-        $kwota = $_POST['p24_kwota'] . '<br/>';
+        $p24_id_sprzedawcy = $_POST['p24_id_sprzedawcy'];
         //pobiermay cene z bazy
-        $this->payment_p24_user_model->load_where_session_id($p24_session_id);
-
-
-        //$kwota = number_format($_POST['p24_kwota'], 2, '.', '') * 100; //WYNIK POBRANY Z TWOJEJ BAZY(w WALUTA / 100)
+        $obj = $this->payment_p24_user_model->load($p24_session_id, 'p24_session_id');
+        $p24_kwota = $obj['p24_kwota'];
         //Weryfikujemy
-        $WYNIK = $this->payment_p24_weryfikacja($id_sprzedawcy, $session_id, $order_id, $kwota);
+        $WYNIK = $this->payment_p24_weryfikacja($p24_id_sprzedawcy, $p24_session_id, $p24_order_id, $p24_kwota);
 
+        unset($_POST);
         if ($WYNIK[0] == "TRUE") {
             // transakcja prawidłowa
-            echo 'tranzakcja prawidwa';
+            $_POST['status'] = '1';
+            $this->payment_p24_user_model->edit($obj['id']);
+            echo 'tranzakcja prawidłowa';
         } else {
             // transakcja błędna
-            echo 'transakcja błedna';
             // $WYNIK[1] - kod błędu
             // $WYNIK[2] - opis
+            $_POST['status'] = '-1';
+            $this->payment_p24_user_model->update($obj['id']);
+            echo 'tranzakcja nieprawidlowa';
         }
 
     }
@@ -118,11 +139,10 @@ class Payment_P24_User extends Main
     /*
      * Funkcja negatywnej odpowiedzi z P24
      */
-    function payment_p24_error()
+    function payment_p24_error_ui()
     {
         echo 'error';
     }
-
 
     function payment_p24_weryfikacja($p24_id_sprzedawcy, $p24_session_id, $p24_order_id, $p24_kwota)
     {
@@ -156,36 +176,5 @@ class Payment_P24_User extends Main
         }
         return $RET;
     }
-
-    function sample_form()
-    {
-        /*
-         * przelewy 24;
-         */
-        $session_id = $this->p24_session_id;
-        echo $p24_id_sprzedawcy = $this->p24_id_sprzedawcy;
-        $price = 10.32;
-        $cena = $price;// number_format($price, 2, '.', '') * 100;
-
-        $crc = md5($session_id . '|' . $p24_id_sprzedawcy . '|' . $cena . '|' . $this->p24_crc);
-        echo '<form action="https://sandbox.przelewy24.pl/index.php" method="post" class="form">
-                <input type="text" name="p24_session_id" value="' . $session_id . '" />
-                <input type="text" name="p24_id_sprzedawcy" value="' . $p24_id_sprzedawcy . '" />
-                <input type="text" name="p24_kwota" value="' . $cena . '" />
-                <input type="text" name="p24_opis" value="TYTUŁ" />
-                <input type="text" name="p24_klient" value="Jan Kowalski" />
-                <input type="text" name="p24_adres" value="ul. Polska 33/33" />
-                <input type="text" name="p24_kod" value="66-777" />
-                <input type="text" name="p24_miasto" value="Poznań" />
-                <input type="text" name="p24_kraj" value="PL" />
-                <input type="text" name="p24_email" value="robert.osiadacz@tworzeniestron.pl" />
-                <input type="text" name="p24_language" value="pl" />
-                <input type="text" name="p24_return_url_ok" value="http://www.plo-ciuchy.pl/console/index.php/main/run/plociuchy:payment_p24/payment_p24_ok" />
-                <input type="text" name="p24_return_url_error" value="http://www.plo-ciuchy.pl/console/index.php/main/run/plociuchy:payment_p24/payment_p24_error" />
-                <input type="hidden" name="p24_crc" value="' . $crc . '" />
-                <input name="submit_send" value="wyślij" type="submit" />
-                </form>';
-    }
-
 
 }

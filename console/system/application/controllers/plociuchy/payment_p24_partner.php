@@ -4,7 +4,7 @@ if (!defined('BASEPATH')) die;
 class Payment_P24_Partner extends Main
 {
 
-    function Payment_P24_User($_ci = '')
+    function Payment_P24_Partner($_ci = '')
     {
         parent::Controller();
         //

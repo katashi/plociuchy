@@ -1,6 +1,11 @@
 <script type="text/javascript">
 {literal}
 
+// parameters
+var daf = new Date();
+var dat = new Date();
+dat.setMonth(daf.getMonth()+1);
+
 // shortcuts
 var controller = '/plociuchy:product';
 
@@ -52,9 +57,10 @@ var config = new Object({
         width: 350
     },{
         allowBlank: false,
-        fieldLabel: 'Promocja (0/1)',
+        fieldLabel: 'Promocja',
         name: 'promote',
-        xtype: 'textfield',
+        value: 1,
+        xtype: 'checkbox',
         width: 350
     },{
         allowBlank: true,
@@ -88,25 +94,30 @@ var config = new Object({
         xtype: 'fileuploadfield'
     },{
         allowBlank: false,
-        fieldLabel: 'Odrzucony (0/1)',
+        fieldLabel: 'Odrzucony',
         name: 'reject',
-        xtype: 'textfield',
+        value: 1,
+        xtype: 'checkbox',
         width: 350
     },{
         allowBlank: false,
-        fieldLabel: 'Aktywny (0/1)',
+        checked: true,
+        fieldLabel: 'Aktywny',
         name: 'active',
-        xtype: 'textfield',
+        value: 1,
+        xtype: 'checkbox',
         width: 350
     },{
         fieldLabel: 'Aktywny Od',
         format:'Y-m-d H:i:s',
         name: 'active_from',
+        value: daf,
         xtype: 'datefield'
     },{
         fieldLabel: 'Aktywny Do',
         format:'Y-m-d H:i:s',
         name: 'active_to',
+        value: dat,
         xtype: 'datefield'
     }],
 	buttons: [{

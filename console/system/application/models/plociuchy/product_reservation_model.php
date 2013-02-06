@@ -11,7 +11,7 @@ class Product_Reservation_Model extends Main_Model
             $this->db = $this->ci->db;
         }
         //
-        $this->table_name = 'pc_reservation';
+        $this->table_name = 'pc_product_reservation';
     }
 
     // load

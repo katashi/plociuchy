@@ -1,10 +1,10 @@
 <?php
 if (!defined('BASEPATH')) die;
 
-class Product_Reservation extends Main
+class Product_Reservation_Comment extends Main
 {
 
-    function Product($_ci = '')
+    function Product_Reservation_Comment($_ci = '')
     {
         parent::Controller();
         //

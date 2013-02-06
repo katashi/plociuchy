@@ -2,22 +2,22 @@
 {literal}
 
 // shortcuts
-var controller = '/plociuchy:product';
+var controller = '/plociuchy:product_comment';
 
 // fields
-var fields = new Array('id', 'id_partner', 'id_vendor', 'text1', 'text2', 'price', 'active', 'date_created');
+var fields = new Array('id', 'id_partner', 'id_product_comment', 'text1', 'text2', 'date_added');
 var config = new Object({
 	fields: fields,
 	format: 'json',
-	id: 'product_store',
+	id: 'product_comment_store',
 	url: base_url+controller+'/load_all'
 });
-product_store = new Store();
-product_store.init(config);
+product_comment_store = new Store();
+product_comment_store.init(config);
 
 // paging toolbar
 var config = new Object({
-	store: product_store.display,
+	store: product_comment_store.display,
 	items: ['-',
 		{
 			iconCls: 'x-btn-text-icon page_add',
@@ -26,23 +26,21 @@ var config = new Object({
 		}
 	]
 });
-product_ptb = new PagingToolBar();
-product_ptb.init(config);
+product_comment_ptb = new PagingToolBar();
+product_comment_ptb.init(config);
 
 // grid
 var config = new Object({
-	store: product_store.display,
-	tbar: product_ptb.display,
-	title: 'Produkt',
+	store: product_comment_store.display,
+	tbar: product_comment_ptb.display,
+	title: 'Produkt Komentarze',
 	columns: [
 		{ id: 'id', dataIndex: 'id', header: 'Id', sortable: true },
 		{ id: 'id_partner', dataIndex: 'id_partner', header: 'Id_Partner', sortable: true },
-		{ id: 'id_vendor', dataIndex: 'id_vendor', header: 'Id_Vendor', sortable: true },
+		{ id: 'id_product_comment', dataIndex: 'id_vendor', header: 'Id_Vendor', sortable: true },
 		{ id: 'text1', dataIndex: 'text1', header: 'Tytuł', sortable: true },
 		{ id: 'text2', dataIndex: 'text2', header: 'Nagłówek', sortable: true },
-		{ id: 'price', dataIndex: 'price', header: 'Cena', sortable: true },
-		{ id: 'active', dataIndex: 'active', header: 'Aktywny', sortable: true },
-		{ id: 'date_created', dataIndex: 'date_created', header: 'Stworzony', sortable: true },
+		{ id: 'date_addded', dataIndex: 'date_added', header: 'Stworzony', sortable: true },
 		{ id: 'options', header: 'Opcje', renderer: render_options, sortable: false }
 	],
 	listeners: {
@@ -56,21 +54,21 @@ var config = new Object({
 		}
 	}
 });
-product_grid = new EditorGridPanel();
-product_grid.init(config);
+product_comment_grid = new EditorGridPanel();
+product_comment_grid.init(config);
 
 // panel
 var config = new Object({
-	items: [ product_grid.display ]
+	items: [ product_comment_grid.display ]
 });
-product_panel = new Panel();
-product_panel.init(config);
-product_panel.display.render(Ext.get('div_product'));
+product_comment_panel = new Panel();
+product_comment_panel.init(config);
+product_comment_panel.display.render(Ext.get('div_product_comment'));
 
 // store
-product_store.display.load({ params: { start: 0, limit: _paging_limit }});
-function product_store_reload(index){
-    product.store.display.load({ params: { start: 0, limit: _paging_limit, id: index }});
+product_comment_store.display.load({ params: { start: 0, limit: _paging_limit }});
+function product_comment_store_reload(index){
+    product_comment.store.display.load({ params: { start: 0, limit: _paging_limit, id: index }});
 }
 
 // options
@@ -82,12 +80,12 @@ function render_options(value, p, record) {
         url = base_url+controller+'/active_set/'+record.data.id+',0';
         img = 'accept.png';
     }
-    return String.format('<a href="javascript:active(\''+url+'\');"><img src="images/icon/'+img+'" border="0"></a> <a href="javascript:edit('+record.data.id+',\''+record.data.text1+'\');"><img src="images/icon/page_edit.png"></a> <a href="javascript:delete_confirm(\''+base_url+controller+'/delete/'+record.data.id+'\');"><img src="images/icon/delete.png" border="0"></a>');
+    return String.format('<a href="javascript:active(\''+url+'\');"><img src="images/icon/'+img+'" border="0"></a> <a href="javascript:edit('+record.data.id+',\''+record.data.user+'\');"><img src="images/icon/page_edit.png"></a> <a href="javascript:delete_confirm(\''+base_url+controller+'/delete/'+record.data.id+'\');"><img src="images/icon/delete.png" border="0"></a>');
 }
 
 // add
 function add() {
-    tab_id = 'product_add';
+    tab_id = 'product_comment_add';
     tab_title = 'Dodaj';
     tab_url = base_url+controller+'/display_add';
     center.ui.tab_add(tab_id, tab_title, tab_url);
@@ -95,7 +93,7 @@ function add() {
 
 // edit
 function edit(id, title) {
-    tab_id = 'product_edit';
+    tab_id = 'product_comment_edit';
     tab_title = title;
     tab_url = base_url+controller+'/display_edit/'+id;
     center.ui.tab_add(tab_id, tab_title, tab_url);
@@ -103,14 +101,14 @@ function edit(id, title) {
 
 // delete
 function delete_confirm(url) {
-    new Helper_Delete().delete_confirm(url, 'grid', product_store, null);
+    new Helper_Delete().delete_confirm(url, 'grid', product_comment_store, null);
 }
 
 // active
 function active(url) {
-    new Helper_Ui().url_call(url, 'grid', product_store, null);
+    new Helper_Ui().url_call(url, 'grid', product_comment_store, null);
 }
 
 {/literal}
 </script>
-<div id="div_product"></div>
+<div id="div_product_comment"></div>

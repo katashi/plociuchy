@@ -19,8 +19,8 @@ $config['plociuchy'] = array(
     4 => array('iconCls'=>'brick', 'text'=>'Produkt - Producent', 'type'=>'tab', 'url'=>APP_URL.'/plociuchy:product_dict_vendor'),
     5 => array('iconCls'=>'brick', 'text'=>'Przelew24 Partner', 'type'=>'tab', 'url'=>APP_URL.'/plociuchy:payment_p24_partner'),
     6 => array('iconCls'=>'brick', 'text'=>'Przelew24 Użytkownik', 'type'=>'tab', 'url'=>APP_URL.'/plociuchy:payment_p24_user'),
-    7 => array('iconCls'=>'brick', 'text'=>'Rezerwacja', 'type'=>'tab', 'url'=>APP_URL.'/plociuchy:reservation'),
-    8 => array('iconCls'=>'brick', 'text'=>'Rezerwacja - Komentarz', 'type'=>'tab', 'url'=>APP_URL.'/plociuchy:reservation_comment'),
+    7 => array('iconCls'=>'brick', 'text'=>'Rezerwacja', 'type'=>'tab', 'url'=>APP_URL.'/plociuchy:product_reservation'),
+    8 => array('iconCls'=>'brick', 'text'=>'Rezerwacja - Komentarz', 'type'=>'tab', 'url'=>APP_URL.'/plociuchy:product_reservation_comment'),
     9 => array('iconCls'=>'brick', 'text'=>'Użytkownik', 'type'=>'tab', 'url'=>APP_URL.'/plociuchy:user')
 );
 

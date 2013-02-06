@@ -45,9 +45,9 @@ class Payment_P24_User_Model extends Main_Model
         return $record;
     }
 
-    function load($id)
+    function load($id,$where = 'id')
     {
-        $this->db->where('id', $id);
+        $this->db->where($where, $id);
         $query = $this->db->get($this->table_name);
         $record = $query->row_array();
         return $record;
