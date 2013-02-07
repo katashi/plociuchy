@@ -44,7 +44,7 @@ class Product_Reservation extends Main
 
     function load($id = null)
     {
-        echo '{"success": 1, "data":' . json_encode($this->product_reservation_model>load($id)) . '}';
+        echo '{"success": 1, "data":' . json_encode($this->product_reservation_model->load($id)) . '}';
     }
 
     // add
@@ -66,6 +66,12 @@ class Product_Reservation extends Main
     {
         $result = $this->product_reservation_model->delete($id);
         echo '{"success":' . $result . '}';
+    }
+
+    // active
+    function active_set($id = null, $state = false) {
+        $result = $this->product_reservation_model->active_set($id, $state);
+        echo 'grid';
     }
 
 }

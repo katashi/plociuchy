@@ -1,0 +1,175 @@
+<script type="text/javascript">
+{literal}
+
+// panel
+var config = new Object({
+    title: 'Edytuj Partnera',
+    items: [{
+        allowBlank: false,
+        fieldLabel: 'Nick',
+        name: 'nick',
+        width: 350,
+        xtype: 'textfield'
+    },{
+        allowBlank: false,
+        fieldLabel: 'Użytkownik',
+        name: 'user',
+        width: 350,
+        xtype: 'textfield'
+    },{
+        allowBlank: false,
+        fieldLabel: 'Hasło',
+        name: 'password',
+        width: 350,
+        xtype: 'textfield'
+    },{
+        allowBlank: false,
+        fieldLabel: 'Imie',
+        name: 'name',
+        width: 350,
+        xtype: 'textfield'
+    },{
+        allowBlank: false,
+        fieldLabel: 'Nazwisko',
+        name: 'surname',
+        width: 350,
+        xtype: 'textfield'
+    },{
+        fieldLabel: 'Adres',
+        name: 'address',
+        width: 350,
+        xtype: 'textfield'
+    },{
+        fieldLabel: 'Miasto',
+        name: 'city',
+        width: 350,
+        xtype: 'textfield'
+    },{
+        fieldLabel: 'Zip',
+        name: 'zip',
+        width: 350,
+        xtype: 'textfield'
+    },{
+        fieldLabel: 'Kraj',
+        name: 'country',
+        width: 350,
+        xtype: 'textfield'
+    },{
+        fieldLabel: 'mobile',
+        name: 'mobile',
+        width: 350,
+        xtype: 'textfield'
+    },{
+        fieldLabel: 'Data urodzenia',
+        name: 'birth_year',
+        width: 350,
+        xtype: 'datefield'
+    },{
+        fieldLabel: 'płeć',
+        name: 'gender',
+        width: 350,
+        xtype: 'textfield'
+    },{
+        fieldLabel: 'Info',
+        name: 'about',
+        width: 550,
+        height: 250,
+        xtype: 'htmleditor'
+    },{
+        fieldLabel: 'Firma',
+        name: 'company',
+        width: 350,
+        xtype: 'textfield'
+    },{
+        fieldLabel: 'Firma Nazwa',
+        name: 'company_name',
+        width: 350,
+        xtype: 'textfield'
+    },{
+        fieldLabel: 'Nip',
+        name: 'company_nip',
+        width: 350,
+        xtype: 'textfield'
+    },{
+        fieldLabel: 'Firma Adres',
+        name: 'company_address',
+        width: 350,
+        xtype: 'textfield'
+    },{
+        fieldLabel: 'Firma Miasto',
+        name: 'company_city',
+        width: 350,
+        xtype: 'textfield'
+    },{
+        fieldLabel: 'Firmy Zip',
+        name: 'company_zip',
+        width: 350,
+        xtype: 'textfield'
+    },{
+        fieldLabel: 'Firma Tel.',
+        name: 'company_phone',
+        width: 350,
+        xtype: 'textfield'
+    },{
+        fieldLabel: 'Marketing',
+        name: 'checkbox_marketing',
+        xtype: 'checkbox'
+    },{
+        fieldLabel: 'Newsletter',
+        name: 'checkbox_newsletter',
+        xtype: 'checkbox'
+    },{
+        fieldLabel: 'Zdjęcie',
+        name: 'image',
+        buttonText: 'Wybierz plik',
+        xtype: 'fileuploadfield'
+    },{
+        fieldLabel: 'Aktywny',
+        name: 'active',
+        xtype: 'checkbox'
+    }],
+    buttons: [{
+        handler: partner_edit_fps,
+        text: 'Zapisz'
+    }]
+});
+partner_edit_fp = new FormPanel();
+partner_edit_fp.init(config);
+partner_edit_fp.display.render(Ext.get('div_partner_edit'));
+
+// submit
+function partner_edit_fps() {
+    partner_edit_fp.display.form.submit({
+        method: 'POST',
+        url: base_url+'/plociuchy:partner'+'/edit/{/literal}{$id}{literal}',
+        success: function() {
+            Ext.MessageBox.alert('Informacja', 'Obiekt zapisany');
+            partner_store.display.reload();
+        },
+        failure: function() {
+            Ext.MessageBox.alert('Informacja', 'Błąd');
+        },
+        waitMsg: 'Oczekiwanie'
+    });
+}
+
+// load
+function partner_edit_load() {
+    partner_edit_fp.display.form.load({
+        method: 'POST',
+        url: base_url+'/plociuchy:partner'+'/load/{/literal}{$id}{literal}',
+        waitMsg: 'Oczekiwanie',
+        success: function() {
+        },
+        failure: function() {
+            Ext.MessageBox.alert('Informacja', 'Błąd');
+        }
+    });
+}
+
+// load
+partner_edit_load();
+
+{/literal}
+</script>
+<div id="div_partner_edit"></div>

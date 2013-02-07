@@ -1,0 +1,116 @@
+<script type="text/javascript">
+{literal}
+
+// fields
+var fields = new Array('id', 'id_partner', 'id_vendor', 'text1', 'text2', 'price', 'active', 'date_created');
+var config = new Object({
+	fields: fields,
+	format: 'json',
+	id: 'user_store',
+	url: base_url+'/plociuchy:user'+'/load_all'
+});
+user_store = new Store();
+user_store.init(config);
+
+// paging toolbar
+var config = new Object({
+	store: user_store.display,
+	items: ['-',
+		{
+			iconCls: 'x-btn-text-icon page_add',
+			handler: user_add,
+			text: 'Dodaj'
+		}
+	]
+});
+user_ptb = new PagingToolBar();
+user_ptb.init(config);
+
+// grid
+var config = new Object({
+	store: user_store.display,
+	tbar: user_ptb.display,
+	title: 'Produkt',
+	columns: [
+        { id: 'id', dataIndex: 'id', header: 'Id', sortable: true },
+        { id: 'nick', dataIndex: 'nick', header: 'nick', sortable: true },
+        { id: 'user', dataIndex: 'user', header: 'user', sortable: true },
+        { id: 'name', dataIndex: 'name', header: 'Imie', sortable: true },
+        { id: 'surname', dataIndex: 'surname', header: 'Nazwisko', sortable: true },
+        { id: 'zip', dataIndex: 'zip', header: 'Zip', sortable: true },
+        { id: 'city', dataIndex: 'city', header: 'Miasto', sortable: true },
+        { id: 'address', dataIndex: 'address', header: 'Aders', sortable: true },
+        { id: 'city', dataIndex: 'city', header: 'Miasto', sortable: true },
+        { id: 'address', dataIndex: 'address', header: 'Aders', sortable: true },
+        { id: 'date_added', dataIndex: 'date_added', header: 'Data dodania', sortable: true },
+        { id: 'options', header: 'Opcje', renderer: render_options, sortable: false }
+	],
+	listeners: {
+		celldblclick: function(grid, rowIndex, columnIndex, e) {
+			var record = grid.getStore().getAt(rowIndex);
+ 			var fieldName = grid.getColumnModel().getDataIndex(columnIndex);
+			var data = record.get(fieldName);
+			var data_id = record.get('id');
+			var data_title = record.get('text1');
+			user_edit(data_id, data_title);
+		}
+	}
+});
+user_grid = new EditorGridPanel();
+user_grid.init(config);
+
+// panel
+var config = new Object({
+	items: [ user_grid.display ]
+});
+user_panel = new Panel();
+user_panel.init(config);
+user_panel.display.render(Ext.get('div_user'));
+
+// store
+user_store.display.load({ params: { start: 0, limit: _paging_limit }});
+function user_store_reload(index){
+    user.store.display.load({ params: { start: 0, limit: _paging_limit, id: index }});
+}
+
+// options
+function render_options(value, p, record) {
+    if (record.data.active == 0 ) {
+        url = base_url+'/plociuchy:user'+'/active_set/'+record.data.id+',1';
+        img = 'cancel.png';
+    } else {
+        url = base_url+'/plociuchy:user'+'/active_set/'+record.data.id+',0';
+        img = 'accept.png';
+    }
+    return String.format('<a href="javascript:active(\''+url+'\');"><img src="images/icon/'+img+'" border="0"></a> <a href="javascript:user_edit('+record.data.id+',\''+record.data.text1+'\');"><img src="images/icon/page_edit.png"></a> <a href="javascript:delete_confirm(\''+base_url+'/plociuchy:user'+'/delete/'+record.data.id+'\');"><img src="images/icon/delete.png" border="0"></a>');
+}
+
+// add
+function user_add() {
+    tab_id = 'user_add';
+    tab_title = 'Dodaj';
+    tab_url = base_url+'/plociuchy:user'+'/display_add';
+    center.ui.tab_add(tab_id, tab_title, tab_url);
+}
+
+// edit
+function user_edit(id, title) {
+    tab_id = 'user_edit';
+    tab_title = title;
+    tab_url = base_url+'/plociuchy:user'+'/display_edit/'+id;
+    center.ui.tab_add(tab_id, tab_title, tab_url);
+}
+
+// delete
+function delete_confirm(url) {
+    new Helper_Delete().delete_confirm(url, 'grid', user_store, null);
+}
+
+// active
+function active(url) {
+    new Helper_Ui().url_call(url, 'grid', user_store, null);
+}
+
+{/literal}
+</script>
+<div id="div_user"></div>

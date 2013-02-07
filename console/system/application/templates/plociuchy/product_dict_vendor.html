@@ -1,87 +1,100 @@
 <script type="text/javascript">
-{literal}
+    {literal}
 
-// shortcuts
-var controller = '/plociuchy:product_dict_vendor';
+    // fields
+    var fields = new Array('id', 'title');
+    var config = new Object({
+        fields: fields,
+        format: 'json',
+        id: 'product_dict_vendor_store',
+        url: base_url+'/plociuchy:product_dict_vendor'+'/load_all'
+    });
+    product_dict_vendor_store = new Store();
+    product_dict_vendor_store.init(config);
 
-// fields
-var fields = new Array('id', 'title');
-var config = new Object({
-	fields: fields,
-	format: 'json',
-	id: 'product_dv_store',
-	url: base_url+controller+'/load_all'
-});
-product_dv_store = new Store();
-product_dv_store.init(config);
+    // paging toolbar
+    var config = new Object({
+        store: product_dict_vendor_store.display,
+        items: ['-',
+            {
+                iconCls: 'x-btn-text-icon page_add',
+                handler: product_dict_vendor_add,
+                text: 'Dodaj'
+            }
+        ]
+    });
+    product_dict_vendor_ptb = new PagingToolBar();
+    product_dict_vendor_ptb.init(config);
 
-// paging toolbar
-var config = new Object({
-	store: product_dv_store.display,
-	items: ['-',
-		{
-			iconCls: 'x-btn-text-icon page_add',
-			handler: add,
-			text: 'Dodaj'
-		}
-	]
-});
-product_dv_ptb = new PagingToolBar();
-product_dv_ptb.init(config);
+    // grid
+    var config = new Object({
+        store: product_dict_vendor_store.display,
+        tbar: product_dict_vendor_ptb.display,
+        title: 'Producenci',
+        columns: [
+            { id: 'id', dataIndex: 'id', header: 'Id', sortable: true },
+            { id: 'title', dataIndex: 'title', header: 'Tytuł', sortable: true },
+            { id: 'options', header: 'Opcje', renderer: render_options, sortable: false }
+        ],
+        listeners: {
+            celldblclick: function(grid, rowIndex, columnIndex, e) {
+                var record = grid.getStore().getAt(rowIndex);
+                var fieldName = grid.getColumnModel().getDataIndex(columnIndex);
+                var data = record.get(fieldName);
+                var data_id = record.get('id');
+                var data_title = record.get('title');
+                product_dict_vendor_edit(data_id, data_title);
+            }
+        }
+    });
+    product_dict_vendor_grid = new EditorGridPanel();
+    product_dict_vendor_grid.init(config);
 
-// grid
-var config = new Object({
-	store: product_dv_store.display,
-	tbar: product_dv_ptb.display,
-	title: 'Produkt Vendor',
-	columns: [
-		{ id: 'id', dataIndex: 'id', header: 'Id', sortable: true },
-		{ id: 'title', dataIndex: 'title', header: 'Tytuł', sortable: true },
-		{ id: 'options', header: 'Opcje', renderer: render_options, sortable: false }
-	]
-});
-product_grid = new EditorGridPanel();
-product_grid.init(config);
+    // panel
+    var config = new Object({
+        items: [ product_dict_vendor_grid.display ]
+    });
+    product_dict_vendor_panel = new Panel();
+    product_dict_vendor_panel.init(config);
+    product_dict_vendor_panel.display.render(Ext.get('div_product_dict_vendor'));
 
-// panel
-var config = new Object({
-	items: [ product_grid.display ]
-});
-product_panel = new Panel();
-product_panel.init(config);
-product_panel.display.render(Ext.get('div_product_dv'));
-
-// store
-product_dv_store.display.load({ params: { start: 0, limit: _paging_limit }});
-function product_dv_store_reload(index){
-    product_dv.store.display.load({ params: { start: 0, limit: _paging_limit, id: index }});
-}
-
-// options
-function render_options(value, p, record) {
-    if (record.data.active == 0 ) {
-        url = base_url+controller+'/active_set/'+record.data.id+',1';
-        img = 'cancel.png';
-    } else {
-        url = base_url+controller+'/active_set/'+record.data.id+',0';
-        img = 'accept.png';
+    // store
+    product_dict_vendor_store.display.load({ params: { start: 0, limit: _paging_limit }});
+    function product_dict_vendor_store_reload(index){
+        product_dict_vendor.store.display.load({ params: { start: 0, limit: _paging_limit, id: index }});
     }
-    return String.format('<a href="javascript:delete_confirm(\''+base_url+controller+'/delete/'+record.data.id+'\');"><img src="images/icon/delete.png" border="0"></a>');
-}
 
-// add
-function add() {
-    tab_id = 'product_dv_add';
-    tab_title = 'Dodaj';
-    tab_url = base_url+controller+'/display_add';
-    center.ui.tab_add(tab_id, tab_title, tab_url);
-}
+    // options
+    function render_options(value, p, record) {
+        return String.format(' <a href="javascript:product_dict_vendor_edit('+record.data.id+',\''+record.data.title+'\');"><img src="images/icon/page_edit.png"></a> <a href="javascript:delete_confirm(\''+base_url+'/plociuchy:product_dict_vendor'+'/delete/'+record.data.id+'\');"><img src="images/icon/delete.png" border="0"></a>');
+    }
 
-// delete
-function delete_confirm(url) {
-    new Helper_Delete().delete_confirm(url, 'grid', product_store, null);
-}
+    // add
+    function product_dict_vendor_add() {
+        tab_id = 'product_dict_vendor_add';
+        tab_title = 'Dodaj';
+        tab_url = base_url+'/plociuchy:product_dict_vendor'+'/display_add';
+        center.ui.tab_add(tab_id, tab_title, tab_url);
+    }
 
-{/literal}
+    // edit
+    function product_dict_vendor_edit(id, title) {
+        tab_id = 'product_dict_vendor_edit';
+        tab_title = title;
+        tab_url = base_url+'/plociuchy:product_dict_vendor'+'/display_edit/'+id;
+        center.ui.tab_add(tab_id, tab_title, tab_url);
+    }
+
+    // delete
+    function delete_confirm(url) {
+        new Helper_Delete().delete_confirm(url, 'grid', product_dict_vendor_store, null);
+    }
+
+    // active
+    function active(url) {
+        new Helper_Ui().url_call(url, 'grid', product_dict_vendor_store, null);
+    }
+
+    {/literal}
 </script>
-<div id="div_product_dv"></div>
+<div id="div_product_dict_vendor"></div>

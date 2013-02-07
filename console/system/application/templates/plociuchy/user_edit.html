@@ -172,22 +172,22 @@ var config = new Object({
         xtype: 'textfield'
     }],
 	buttons: [{
-		handler: product_edit_fps,
+		handler: user_edit_fps,
 		text: 'Zapisz'
 	}]
 });
-product_edit_fp = new FormPanel();
-product_edit_fp.init(config);
-product_edit_fp.display.render(Ext.get('div_product_edit'));
+user_edit_fp = new FormPanel();
+user_edit_fp.init(config);
+user_edit_fp.display.render(Ext.get('div_user_edit'));
 
 // submit
-function product_edit_fps() {
-    product_edit_fp.display.form.submit({
+function user_edit_fps() {
+    user_edit_fp.display.form.submit({
         method: 'POST',
-        url: base_url+'/plociuchy:product'+'/edit/{/literal}{$id}{literal}',
+        url: base_url+'/plociuchy:user'+'/edit/{/literal}{$id}{literal}',
         success: function() {
             Ext.MessageBox.alert('Informacja', 'Obiekt zapisany');
-            product_store.display.reload();
+            user_store.display.reload();
         },
         failure: function() {
             Ext.MessageBox.alert('Informacja', 'Błąd');
@@ -197,8 +197,8 @@ function product_edit_fps() {
 }
 
 // load
-function product_edit_load() {
-    product_edit_fp.display.form.load({
+function user_edit_load() {
+    user_edit_fp.display.form.load({
         method: 'POST',
         url: base_url+controller+'/load/{/literal}{$id}{literal}',
         waitMsg: 'Oczekiwanie',
@@ -211,8 +211,8 @@ function product_edit_load() {
 }
 
 // load
-product_edit_load();
+user_edit_load();
 
 {/literal}
 </script>
-<div id="div_product_edit"></div>
+<div id="div_user_edit"></div>

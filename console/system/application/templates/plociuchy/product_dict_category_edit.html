@@ -1,0 +1,58 @@
+<script type="text/javascript">
+{literal}
+
+// panel
+var config = new Object({
+    title: 'Edytuj Kategorie',
+    items: [{
+        allowBlank: false,
+        fieldLabel: 'Tytuł',
+        name: 'title',
+        width: 350,
+        xtype: 'textfield'
+    }],
+    buttons: [{
+        handler: product_dict_category_edit_fps,
+        text: 'Zapisz'
+    }]
+});
+product_dict_category_edit_fp = new FormPanel();
+product_dict_category_edit_fp.init(config);
+product_dict_category_edit_fp.display.render(Ext.get('div_product_dict_category_edit'));
+
+// submit
+function product_dict_category_edit_fps() {
+    product_dict_category_edit_fp.display.form.submit({
+        method: 'POST',
+        url: base_url+'/plociuchy:product_dict_category'+'/edit/{/literal}{$id}{literal}',
+        success: function() {
+            Ext.MessageBox.alert('Informacja', 'Obiekt zapisany');
+            product_dict_category_store.display.reload();
+        },
+        failure: function() {
+            Ext.MessageBox.alert('Informacja', 'Błąd');
+        },
+        waitMsg: 'Oczekiwanie'
+    });
+}
+
+// load
+function product_dict_category_edit_load() {
+    product_dict_category_edit_fp.display.form.load({
+        method: 'POST',
+        url: base_url+'/plociuchy:product_dict_category'+'/load/{/literal}{$id}{literal}',
+        waitMsg: 'Oczekiwanie',
+        success: function() {
+        },
+        failure: function() {
+            Ext.MessageBox.alert('Informacja', 'Błąd');
+        }
+    });
+}
+
+// load
+product_dict_category_edit_load();
+
+{/literal}
+</script>
+<div id="div_product_dict_category_edit"></div>

@@ -1,0 +1,46 @@
+<script type="text/javascript">
+{literal}
+
+// parameters
+var daf = new Date();
+var dat = new Date();
+dat.setMonth(daf.getMonth()+1);
+
+// panel
+var config = new Object({
+	title: 'Dodaj Producenta',
+	items: [{
+        allowBlank: false,
+        fieldLabel: 'Nazwa',
+        name: 'title',
+        width: 350,
+        xtype: 'textfield'
+    }],
+	buttons: [{
+		handler: product_dict_vendor_add_fps,
+		text: 'Dodaj'
+	}]
+});
+product_dict_vendor_add_fp = new FormPanel();
+product_dict_vendor_add_fp.init(config);
+product_dict_vendor_add_fp.display.render(Ext.get('div_product_dict_vendor_add'));
+
+// submit
+function product_dict_vendor_add_fps() {
+	product_dict_vendor_add_fp.display.form.submit({
+		method: 'POST',
+		url: base_url+'/plociuchy:product_dict_vendor'+'/add',
+		success: function() {
+			Ext.MessageBox.alert('Informacja', 'Gotowe');
+			product_dict_vendor_add_fp.display.getForm().reset();
+            product_dict_vendor_store.display.reload();
+		},
+		failure: function() {
+			Ext.MessageBox.alert('Informacja', 'Błąd');
+		},
+		waitMsg: 'Oczekiwanie'
+	});
+}
+{/literal}
+</script>
+<div id="div_product_dict_vendor_add"></div>

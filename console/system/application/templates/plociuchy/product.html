@@ -1,16 +1,13 @@
 <script type="text/javascript">
 {literal}
 
-// shortcuts
-var controller = '/plociuchy:product';
-
 // fields
 var fields = new Array('id', 'id_partner', 'id_vendor', 'text1', 'text2', 'price', 'active', 'date_created');
 var config = new Object({
 	fields: fields,
 	format: 'json',
 	id: 'product_store',
-	url: base_url+controller+'/load_all'
+	url: base_url+'/plociuchy:product'+'/load_all'
 });
 product_store = new Store();
 product_store.init(config);
@@ -21,7 +18,7 @@ var config = new Object({
 	items: ['-',
 		{
 			iconCls: 'x-btn-text-icon page_add',
-			handler: add,
+			handler: product_add,
 			text: 'Dodaj'
 		}
 	]
@@ -52,7 +49,7 @@ var config = new Object({
 			var data = record.get(fieldName);
 			var data_id = record.get('id');
 			var data_title = record.get('text1');
-			edit(data_id, data_title);
+			product_edit(data_id, data_title);
 		}
 	}
 });
@@ -76,28 +73,28 @@ function product_store_reload(index){
 // options
 function render_options(value, p, record) {
     if (record.data.active == 0 ) {
-        url = base_url+controller+'/active_set/'+record.data.id+',1';
+        url = base_url+'/plociuchy:product'+'/active_set/'+record.data.id+',1';
         img = 'cancel.png';
     } else {
-        url = base_url+controller+'/active_set/'+record.data.id+',0';
+        url = base_url+'/plociuchy:product'+'/active_set/'+record.data.id+',0';
         img = 'accept.png';
     }
-    return String.format('<a href="javascript:active(\''+url+'\');"><img src="images/icon/'+img+'" border="0"></a> <a href="javascript:edit('+record.data.id+',\''+record.data.text1+'\');"><img src="images/icon/page_edit.png"></a> <a href="javascript:delete_confirm(\''+base_url+controller+'/delete/'+record.data.id+'\');"><img src="images/icon/delete.png" border="0"></a>');
+    return String.format('<a href="javascript:active(\''+url+'\');"><img src="images/icon/'+img+'" border="0"></a> <a href="javascript:edit('+record.data.id+',\''+record.data.text1+'\');"><img src="images/icon/page_edit.png"></a> <a href="javascript:delete_confirm(\''+base_url+'/plociuchy:product'+'/delete/'+record.data.id+'\');"><img src="images/icon/delete.png" border="0"></a>');
 }
 
 // add
-function add() {
+function product_add() {
     tab_id = 'product_add';
     tab_title = 'Dodaj';
-    tab_url = base_url+controller+'/display_add';
+    tab_url = base_url+'/plociuchy:product'+'/display_add';
     center.ui.tab_add(tab_id, tab_title, tab_url);
 }
 
 // edit
-function edit(id, title) {
+function product_edit(id, title) {
     tab_id = 'product_edit';
     tab_title = title;
-    tab_url = base_url+controller+'/display_edit/'+id;
+    tab_url = base_url+'/plociuchy:product'+'/display_edit/'+id;
     center.ui.tab_add(tab_id, tab_title, tab_url);
 }
 

@@ -1,16 +1,13 @@
 <script type="text/javascript">
 {literal}
 
-// shortcuts
-var controller = '/plociuchy:product_dict_category';
-
 // fields
 var fields = new Array('id', 'title');
 var config = new Object({
 	fields: fields,
 	format: 'json',
 	id: 'product_dict_category_store',
-	url: base_url+controller+'/load_all'
+	url: base_url+'/plociuchy:product_dict_category'+'/load_all'
 });
 product_dict_category_store = new Store();
 product_dict_category_store.init(config);
@@ -21,7 +18,7 @@ var config = new Object({
 	items: ['-',
 		{
 			iconCls: 'x-btn-text-icon page_add',
-			handler: add,
+			handler: product_dict_category_add,
 			text: 'Dodaj'
 		}
 	]
@@ -45,8 +42,8 @@ var config = new Object({
  			var fieldName = grid.getColumnModel().getDataIndex(columnIndex);
 			var data = record.get(fieldName);
 			var data_id = record.get('id');
-			var data_title = record.get('text1');
-			edit(data_id, data_title);
+			var data_title = record.get('title');
+            product_dict_category_edit(data_id, data_title);
 		}
 	}
 });
@@ -69,29 +66,22 @@ function product_dict_category_store_reload(index){
 
 // options
 function render_options(value, p, record) {
-    if (record.data.active == 0 ) {
-        url = base_url+controller+'/active_set/'+record.data.id+',1';
-        img = 'cancel.png';
-    } else {
-        url = base_url+controller+'/active_set/'+record.data.id+',0';
-        img = 'accept.png';
-    }
-    return String.format('<a href="javascript:active(\''+url+'\');"><img src="images/icon/'+img+'" border="0"></a> <a href="javascript:edit('+record.data.id+',\''+record.data.user+'\');"><img src="images/icon/page_edit.png"></a> <a href="javascript:delete_confirm(\''+base_url+controller+'/delete/'+record.data.id+'\');"><img src="images/icon/delete.png" border="0"></a>');
+    return String.format(' <a href="javascript:product_dict_category_edit('+record.data.id+',\''+record.data.title+'\');"><img src="images/icon/page_edit.png"></a> <a href="javascript:delete_confirm(\''+base_url+'/plociuchy:product_dict_category'+'/delete/'+record.data.id+'\');"><img src="images/icon/delete.png" border="0"></a>');
 }
 
 // add
-function add() {
+function product_dict_category_add() {
     tab_id = 'product_dict_category_add';
     tab_title = 'Dodaj';
-    tab_url = base_url+controller+'/display_add';
+    tab_url = base_url+'/plociuchy:product_dict_category'+'/display_add';
     center.ui.tab_add(tab_id, tab_title, tab_url);
 }
 
 // edit
-function edit(id, title) {
+function product_dict_category_edit(id, title) {
     tab_id = 'product_dict_category_edit';
     tab_title = title;
-    tab_url = base_url+controller+'/display_edit/'+id;
+    tab_url = base_url+'/plociuchy:product_dict_category'+'/display_edit/'+id;
     center.ui.tab_add(tab_id, tab_title, tab_url);
 }
 
