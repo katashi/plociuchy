@@ -44,7 +44,7 @@ class Product_Reservation_Comment extends Main
 
     function load($id = null)
     {
-        echo '{"success": 1, "data":' . json_encode($this->product_reservation_comment_model>load($id)) . '}';
+        echo '{"success": 1, "data":' . json_encode($this->product_reservation_comment_model->load($id)) . '}';
     }
 
     // add

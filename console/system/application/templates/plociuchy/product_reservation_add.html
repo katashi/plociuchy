@@ -88,15 +88,27 @@ var config = new Object({
         width: 350,
         xtype: 'textfield'
     },{
-        fieldLabel: 'Rejected',
+        fieldLabel: 'Odrzucona',
         name: 'reject',
         width: 350,
-        xtype: 'textfield'
+        xtype: 'checkbox'
     },{
         fieldLabel: 'Aktywna',
         name: 'active',
         width: 350,
-        xtype: 'textfield'
+        xtype: 'checkbox'
+    },{
+        fieldLabel: 'Aktywny Od',
+        format:'Y-m-d H:i:s',
+        name: 'date_from',
+        value: daf,
+        xtype: 'datefield'
+    },{
+        fieldLabel: 'Aktywny Do',
+        format:'Y-m-d H:i:s',
+        name: 'date_to',
+        value: dat,
+        xtype: 'datefield'
     }],
 	buttons: [{
 		handler: product_reservation_add_fps,

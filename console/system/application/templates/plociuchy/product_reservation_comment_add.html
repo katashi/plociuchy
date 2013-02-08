@@ -1,0 +1,100 @@
+<script type="text/javascript">
+{literal}
+
+// parameters
+var daf = new Date();
+var dat = new Date();
+dat.setMonth(daf.getMonth()+1);
+
+// store
+var fields = new Array('id', 'nick');
+var config = new Object({
+    fields: fields,
+    format: 'json',
+    id: 'user_store',
+    url: base_url+'/plociuchy:user/load_all'
+});
+user_store = new Store();
+user_store.init(config);
+
+// store
+var fields = new Array('id', 'id');
+var config = new Object({
+    fields: fields,
+    format: 'json',
+    id: 'reservation_store',
+    url: base_url+'/plociuchy:product_reservation/load_all'
+});
+reservation_store = new Store();
+reservation_store.init(config);
+
+// panel
+var config = new Object({
+	title: 'Dodaj Komentarz do Rezerwacji',
+    items: [{
+        allowBlank: false,
+        fieldLabel: 'User',
+        name: 'id_user',
+        displayField: 'nick',
+        hiddenName: 'id_user',
+        editable: false,
+        store: user_store,
+        triggerAction: 'all',
+        width: 350,
+        valueField: 'id',
+        xtype: 'combo'
+    },{
+        allowBlank: false,
+        fieldLabel: 'Id Rezerwacji',
+        name: 'id_reservation',
+        displayField: 'id',
+        editable: false,
+        store: reservation_store,
+        triggerAction: 'all',
+        hiddenName: 'id_reservation',
+        width: 350,
+        valueField: 'id',
+        xtype: 'combo'
+    },{
+        allowBlank: false,
+        fieldLabel: 'Tytuł',
+        name: 'text1',
+        width: 550,
+        height: 250,
+        xtype: 'htmleditor'
+    },{
+        allowBlank: false,
+        fieldLabel: 'Nagłówek',
+        name: 'text2',
+        width: 550,
+        height: 250,
+        xtype: 'textarea'
+    }],
+	buttons: [{
+		handler: product_reservation_add_fps,
+		text: 'Dodaj'
+	}]
+});
+product_reservation_add_fp = new FormPanel();
+product_reservation_add_fp.init(config);
+product_reservation_add_fp.display.render(Ext.get('div_product_reservation_comment_add'));
+
+// submit
+function product_reservation_add_fps() {
+    product_reservation_add_fp.display.form.submit({
+		method: 'POST',
+		url: base_url+'/plociuchy:product_reservation_comment'+'/add',
+		success: function() {
+			Ext.MessageBox.alert('Informacja', 'Gotowe');
+            product_reservation_add_fp.display.getForm().reset();
+            product_reservation_store.display.reload();
+		},
+		failure: function() {
+			Ext.MessageBox.alert('Informacja', 'Błąd');
+		},
+		waitMsg: 'Oczekiwanie'
+	});
+}
+{/literal}
+</script>
+<div id="div_product_reservation_comment_add"></div>
