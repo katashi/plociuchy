@@ -33,7 +33,7 @@
         title: 'Producenci',
         columns: [
             { id: 'id', dataIndex: 'id', header: 'Id', sortable: true },
-            { id: 'title', dataIndex: 'title', header: 'Tytuł', sortable: true },
+            { id: 'title', dataIndex: 'title', header: 'Nazwa Producenta', sortable: true },
             { id: 'options', header: 'Opcje', renderer: render_options, sortable: false }
         ],
         listeners: {
@@ -72,7 +72,7 @@
     // add
     function product_dict_vendor_add() {
         tab_id = 'product_dict_vendor_add';
-        tab_title = 'Dodaj';
+        tab_title = 'Dodaj Producenta';
         tab_url = base_url+'/plociuchy:product_dict_vendor'+'/display_add';
         center.ui.tab_add(tab_id, tab_title, tab_url);
     }
@@ -80,7 +80,7 @@
     // edit
     function product_dict_vendor_edit(id, title) {
         tab_id = 'product_dict_vendor_edit';
-        tab_title = title;
+        tab_title = 'Edycja Producenta "'+title+'"';
         tab_url = base_url+'/plociuchy:product_dict_vendor'+'/display_edit/'+id;
         center.ui.tab_add(tab_id, tab_title, tab_url);
     }

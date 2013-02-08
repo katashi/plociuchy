@@ -46,7 +46,7 @@ var config = new Object({
  			var fieldName = grid.getColumnModel().getDataIndex(columnIndex);
 			var data = record.get(fieldName);
 			var data_id = record.get('id');
-			var data_title = record.get('text1');
+			var data_title = record.get('id');
             product_comment_edit(data_id, data_title);
 		}
 	}
@@ -70,13 +70,13 @@ function product_comment_store_reload(index){
 
 // options
 function render_options(value, p, record) {
-    return String.format('<a href="javascript:product_comment_edit('+record.data.id+',\''+record.data.text1+'\');"><img src="images/icon/page_edit.png"></a> <a href="javascript:delete_confirm(\''+base_url+'/plociuchy:product_comment'+'/delete/'+record.data.id+'\');"><img src="images/icon/delete.png" border="0"></a>');
+    return String.format('<a href="javascript:product_comment_edit('+record.data.id+',\''+record.data.id+'\');"><img src="images/icon/page_edit.png"></a> <a href="javascript:delete_confirm(\''+base_url+'/plociuchy:product_comment'+'/delete/'+record.data.id+'\');"><img src="images/icon/delete.png" border="0"></a>');
 }
 
 // add
 function product_comment_add() {
     tab_id = 'product_comment_add';
-    tab_title = 'Dodaj';
+    tab_title = 'Dodaj Komentarz';
     tab_url = base_url+'/plociuchy:product_comment'+'/display_add';
     center.ui.tab_add(tab_id, tab_title, tab_url);
 }
@@ -84,7 +84,7 @@ function product_comment_add() {
 // edit
 function product_comment_edit(id, title) {
     tab_id = 'product_comment_edit';
-    tab_title = title;
+    tab_title = 'Edycja Komentarza ID "'+title+'"';
     tab_url = base_url+'/plociuchy:product_comment'+'/display_edit/'+id;
     center.ui.tab_add(tab_id, tab_title, tab_url);
 }

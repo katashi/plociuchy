@@ -37,7 +37,7 @@ pdv_store.init(config);
 
 // panel
 var config = new Object({
-	title: 'Dodaj',
+	title: 'Edycja Productu',
 	items: [{
         displayField: 'nick',
         editable: false,
@@ -200,7 +200,7 @@ function product_edit_fps() {
 function product_edit_load() {
     product_edit_fp.display.form.load({
         method: 'POST',
-        url: base_url+controller+'/load/{/literal}{$id}{literal}',
+        url: base_url+'/plociuchy:product'+'/load/{/literal}{$id}{literal}',
         waitMsg: 'Oczekiwanie',
         success: function() {
         },

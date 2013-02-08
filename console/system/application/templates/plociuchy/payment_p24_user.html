@@ -80,7 +80,7 @@
             url = base_url+'/plociuchy:payment_p24_user'+'/active_set/'+record.data.id+',0';
             img = 'accept.png';
         }
-        return String.format('<a href="javascript:active(\''+url+'\');"><img src="images/icon/'+img+'" border="0"></a> <a href="javascript:payment_p24_user_edit('+record.data.id+',\''+record.data.text1+'\');"><img src="images/icon/page_edit.png"></a> <a href="javascript:delete_confirm(\''+base_url+'/plociuchy:payment_p24_user'+'/delete/'+record.data.id+'\');"><img src="images/icon/delete.png" border="0"></a>');
+        return String.format('<a href="javascript:active(\''+url+'\');"><img src="images/icon/'+img+'" border="0"></a> <a href="javascript:payment_p24_user_edit('+record.data.id+',\''+record.data.p24_klient+'\');"><img src="images/icon/page_edit.png"></a> <a href="javascript:delete_confirm(\''+base_url+'/plociuchy:payment_p24_user'+'/delete/'+record.data.id+'\');"><img src="images/icon/delete.png" border="0"></a>');
     }
 
     // add
