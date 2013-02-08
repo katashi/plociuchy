@@ -29,28 +29,32 @@
     var config = new Object({
         store: payment_p24_partner_store.display,
         tbar: payment_p24_partner_ptb.display,
-        title: 'Produkt',
+        title: 'Płatności24 Partner',
         columns: [
             { id: 'id', dataIndex: 'id', header: 'Id', sortable: true },
             { id: 'id_partner', dataIndex: 'id_partner', header: 'Id_Partner', sortable: true },
             { id: 'p24_id_sprzedawcy', dataIndex: 'p24_id_sprzedawcy', header: 'Id_sprzedawcy', sortable: true },
             { id: 'p24_klient', dataIndex: 'p24_klient', header: 'Klient', sortable: true },
+            { id: 'p24_email', dataIndex: 'p24_email', header: 'Email', sortable: true },
+            { id: 'p24_opis', dataIndex: 'p24_opis', header: 'Opis', sortable: true },
             { id: 'p24_adres', dataIndex: 'p24_adres', header: 'Adres', sortable: true },
             { id: 'p24_miasto', dataIndex: 'p24_miasto', header: 'Miasto', sortable: true },
+            { id: 'p24_kod', dataIndex: 'p24_kod', header: 'Kod pocztowy', sortable: true },
+            { id: 'p24_kraj', dataIndex: 'p24_kraj', header: 'Kraj', sortable: true },
             { id: 'p24_kwota', dataIndex: 'p24_kwota', header: 'Kwota', sortable: true },
             { id: 'status', dataIndex: 'status', header: 'Stauts', sortable: true },
             { id: 'date_created', dataIndex: 'date_created', header: 'Stworzony', sortable: true },
-            { id: 'options', header: 'Opcje', renderer: render_options, sortable: false }
+            //{ id: 'options', header: 'Opcje', renderer: render_options, sortable: false }
         ],
         listeners: {
-            celldblclick: function(grid, rowIndex, columnIndex, e) {
-                var record = grid.getStore().getAt(rowIndex);
-                var fieldName = grid.getColumnModel().getDataIndex(columnIndex);
-                var data = record.get(fieldName);
-                var data_id = record.get('id');
-                var data_title = record.get('p24_klient');
-                payment_p24_partner_edit(data_id, data_title);
-            }
+//            celldblclick: function(grid, rowIndex, columnIndex, e) {
+//                var record = grid.getStore().getAt(rowIndex);
+//                var fieldName = grid.getColumnModel().getDataIndex(columnIndex);
+//                var data = record.get(fieldName);
+//                var data_id = record.get('id');
+//                var data_title = record.get('p24_klient');
+//                payment_p24_partner_edit(data_id, data_title);
+//            }
         }
     });
     payment_p24_partner_grid = new EditorGridPanel();
@@ -79,8 +83,8 @@
             url = base_url+'/plociuchy:payment_p24_partner'+'/active_set/'+record.data.id+',0';
             img = 'accept.png';
         }
-        return String.format('<a href="javascript:active(\''+url+'\');"><img src="images/icon/'+img+'" border="0"></a> <a href="javascript:payment_p24_partner_edit('+record.data.id+',\''+record.data.p24_klient+'\');"><img src="images/icon/page_edit.png"></a> <a href="javascript:delete_confirm(\''+base_url+'/plociuchy:payment_p24_partner'+'/delete/'+record.data.id+'\');"><img src="images/icon/delete.png" border="0"></a>');
-    }
+        //return String.format('<a href="javascript:active(\''+url+'\');"><img src="images/icon/'+img+'" border="0"></a> <a href="javascript:payment_p24_user_edit('+record.data.id+',\''+record.data.p24_klient+'\');"><img src="images/icon/page_edit.png"></a> <a href="javascript:delete_confirm(\''+base_url+'/plociuchy:payment_p24_user'+'/delete/'+record.data.id+'\');"><img src="images/icon/delete.png" border="0"></a>');
+        return String.format('<a href="javascript:active(\''+url+'\');"><img src="images/icon/'+img+'" border="0"></a>');}
 
     // add
     function payment_p24_partner_add() {

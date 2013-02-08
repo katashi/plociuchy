@@ -1,16 +1,13 @@
 <script type="text/javascript">
 {literal}
 
-// shortcuts
-var controller = '/plociuchy:product_reservation_comment';
-
 // fields
-var fields = new Array('id', 'id_user', 'id_product', 'text1', 'text2', 'date_added');
+var fields = new Array('id', 'id_user', 'id_reservation', 'text1', 'text2', 'date_added');
 var config = new Object({
 	fields: fields,
 	format: 'json',
 	id: 'product_reservation_comment_store',
-	url: base_url+controller+'/load_all'
+	url: base_url+'/plociuchy:product_reservation_comment'+'/load_all'
 });
 product_reservation_comment_store = new Store();
 product_reservation_comment_store.init(config);
@@ -21,7 +18,7 @@ var config = new Object({
 	items: ['-',
 		{
 			iconCls: 'x-btn-text-icon page_add',
-			handler: add,
+			handler: product_reservation_comment_add,
 			text: 'Dodaj'
 		}
 	]
@@ -33,11 +30,11 @@ product_reservation_comment_ptb.init(config);
 var config = new Object({
 	store: product_reservation_comment_store.display,
 	tbar: product_reservation_comment_ptb.display,
-	title: 'Produkt',
+	title: 'Komentarze Rezerwacji',
 	columns: [
 		{ id: 'id', dataIndex: 'id', header: 'Id', sortable: true },
-		{ id: 'id_user', dataIndex: 'id_user', header: 'Id_User', sortable: true },
-		{ id: 'id_product', dataIndex: 'id_vendor', header: 'Id_Product', sortable: true },
+		{ id: 'id_user', dataIndex: 'id_user', header: 'Id Użytkownika', sortable: true },
+		{ id: 'id_reservation', dataIndex: 'id_reservation', header: 'Id Rezerwacji', sortable: true },
 		{ id: 'text1', dataIndex: 'text1', header: 'Tytuł', sortable: true },
 		{ id: 'text2', dataIndex: 'text2', header: 'Nagłówek', sortable: true },
 		{ id: 'date_added', dataIndex: 'date_added', header: 'Stworzony', sortable: true },
@@ -49,8 +46,8 @@ var config = new Object({
  			var fieldName = grid.getColumnModel().getDataIndex(columnIndex);
 			var data = record.get(fieldName);
 			var data_id = record.get('id');
-			var data_title = record.get('text1');
-			edit(data_id, data_title);
+			var data_title = record.get('id');
+            product_reservation_comment_edit(data_id, data_title);
 		}
 	}
 });
@@ -73,29 +70,22 @@ function product_reservation_comment_store_reload(index){
 
 // options
 function render_options(value, p, record) {
-    if (record.data.active == 0 ) {
-        url = base_url+controller+'/active_set/'+record.data.id+',1';
-        img = 'cancel.png';
-    } else {
-        url = base_url+controller+'/active_set/'+record.data.id+',0';
-        img = 'accept.png';
-    }
-    return String.format('<a href="javascript:active(\''+url+'\');"><img src="images/icon/'+img+'" border="0"></a> <a href="javascript:edit('+record.data.id+',\''+record.data.text1+'\');"><img src="images/icon/page_edit.png"></a> <a href="javascript:delete_confirm(\''+base_url+controller+'/delete/'+record.data.id+'\');"><img src="images/icon/delete.png" border="0"></a>');
+    return String.format('<a href="javascript:product_reservation_comment_edit('+record.data.id+',\''+record.data.id+'\');"><img src="images/icon/page_edit.png"></a> <a href="javascript:delete_confirm(\''+base_url+'/plociuchy:product_reservation_comment'+'/delete/'+record.data.id+'\');"><img src="images/icon/delete.png" border="0"></a>');
 }
 
 // add
-function add() {
+function product_reservation_comment_add() {
     tab_id = 'product_reservation_comment_add';
-    tab_title = 'Dodaj';
-    tab_url = base_url+controller+'/display_add';
+    tab_title = 'Dodaj Komentarz do Rezerwacji';
+    tab_url = base_url+'/plociuchy:product_reservation_comment'+'/display_add';
     center.ui.tab_add(tab_id, tab_title, tab_url);
 }
 
 // edit
-function edit(id, title) {
+function product_reservation_comment_edit(id, title) {
     tab_id = 'product_reservation_comment_edit';
-    tab_title = title;
-    tab_url = base_url+controller+'/display_edit/'+id;
+    tab_title = 'Edycja Komentarza Rezerwacji ID "'+title+'"';
+    tab_url = base_url+'/plociuchy:product_reservation_comment'+'/display_edit/'+id;
     center.ui.tab_add(tab_id, tab_title, tab_url);
 }
 

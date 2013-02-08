@@ -84,14 +84,34 @@ var config = new Object({
         width: 350,
         xtype: 'textfield'
     },{
-        fieldLabel: 'Rejected',
+        fieldLabel: 'Odrzucona',
         name: 'reject',
         width: 350,
-        xtype: 'textfield'
+        xtype: 'checkbox'
     },{
         fieldLabel: 'Aktywna',
         name: 'active',
         width: 350,
+        xtype: 'checkbox'
+    },{
+        fieldLabel: 'Aktywny Od',
+        format:'Y-m-d H:i:s',
+        name: 'date_from',
+        xtype: 'datefield'
+    },{
+        fieldLabel: 'Aktywny Do',
+        format:'Y-m-d H:i:s',
+        name: 'date_to',
+        xtype: 'datefield'
+    },{
+        disabled: true,
+        fieldLabel: 'Data dodania',
+        name: 'date_added',
+        xtype: 'textfield'
+    },{
+        disabled: true,
+        fieldLabel: 'Data modyfikacji',
+        name: 'date_last_modified',
         xtype: 'textfield'
     }],
     buttons: [{
