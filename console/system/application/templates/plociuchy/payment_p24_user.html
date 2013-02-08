@@ -1,16 +1,13 @@
 <script type="text/javascript">
     {literal}
 
-    // shortcuts
-    var controller = '/plociuchy:payment_p24_user';
-
     // fields
     var fields = new Array('id', 'id_user', 'id_session', 'p24_session_id', 'p24_id_sprzedawcy','p24_kwota','p24_klient','p24_adres','p24_adres','p24_kod','p24_miasto','p24_kraj','p24_email','p24_metoda','p24_opis','p24_crc','p24_return_session_id','p24_return_order_id','p24_return_kwota','p24_return_error_code','p24_return_order_id_full','p24_return_karta','status','date_added','date_last_modified');
     var config = new Object({
         fields: fields,
         format: 'json',
         id: 'payment_p24_user_store',
-        url: base_url+controller+'/load_all'
+        url: base_url+'/plociuchy:payment_p24_user'+'/load_all'
     });
     payment_p24_user_store = new Store();
     payment_p24_user_store.init(config);
@@ -18,12 +15,12 @@
     // paging toolbar
     var config = new Object({
         store: payment_p24_user_store.display,
-        items: ['-',
-            {
-                iconCls: 'x-btn-text-icon page_add',
-                handler: add,
-                text: 'Dodaj'
-            }
+        items: ['-'
+//            {
+//                iconCls: 'x-btn-text-icon page_add',
+//                handler: payment_p24_user_add,
+//                text: 'Dodaj'
+//            }
         ]
     });
     payment_p24_user_ptb = new PagingToolBar();
@@ -43,7 +40,7 @@
             { id: 'p24_miasto', dataIndex: 'p24_miasto', header: 'Miasto', sortable: true },
             { id: 'p24_kwota', dataIndex: 'p24_kwota', header: 'Kwota', sortable: true },
             { id: 'status', dataIndex: 'status', header: 'Stauts', sortable: true },
-            { id: 'date_created', dataIndex: 'date_created', header: 'Stworzony', sortable: true },
+            { id: 'date_added', dataIndex: 'date_added', header: 'Stworzony', sortable: true },
             { id: 'options', header: 'Opcje', renderer: render_options, sortable: false }
         ],
         listeners: {
@@ -52,8 +49,8 @@
                 var fieldName = grid.getColumnModel().getDataIndex(columnIndex);
                 var data = record.get(fieldName);
                 var data_id = record.get('id');
-                var data_title = record.get('text1');
-                edit(data_id, data_title);
+                var data_title = record.get('p24_klient');
+                payment_p24_user_edit(data_id, data_title);
             }
         }
     });
@@ -77,28 +74,28 @@
     // options
     function render_options(value, p, record) {
         if (record.data.active == 0 ) {
-            url = base_url+controller+'/active_set/'+record.data.id+',1';
+            url = base_url+'/plociuchy:payment_p24_user'+'/active_set/'+record.data.id+',1';
             img = 'cancel.png';
         } else {
-            url = base_url+controller+'/active_set/'+record.data.id+',0';
+            url = base_url+'/plociuchy:payment_p24_user'+'/active_set/'+record.data.id+',0';
             img = 'accept.png';
         }
-        return String.format('<a href="javascript:active(\''+url+'\');"><img src="images/icon/'+img+'" border="0"></a> <a href="javascript:edit('+record.data.id+',\''+record.data.text1+'\');"><img src="images/icon/page_edit.png"></a> <a href="javascript:delete_confirm(\''+base_url+controller+'/delete/'+record.data.id+'\');"><img src="images/icon/delete.png" border="0"></a>');
+        return String.format('<a href="javascript:active(\''+url+'\');"><img src="images/icon/'+img+'" border="0"></a> <a href="javascript:payment_p24_user_edit('+record.data.id+',\''+record.data.text1+'\');"><img src="images/icon/page_edit.png"></a> <a href="javascript:delete_confirm(\''+base_url+'/plociuchy:payment_p24_user'+'/delete/'+record.data.id+'\');"><img src="images/icon/delete.png" border="0"></a>');
     }
 
     // add
-    function add() {
+    function payment_p24_user_add() {
         tab_id = 'payment_p24_user_add';
         tab_title = 'Dodaj';
-        tab_url = base_url+controller+'/display_add';
+        tab_url = base_url+'/plociuchy:payment_p24_user'+'/display_add';
         center.ui.tab_add(tab_id, tab_title, tab_url);
     }
 
     // edit
-    function edit(id, title) {
+    function payment_p24_user_edit(id, title) {
         tab_id = 'payment_p24_user_edit';
         tab_title = title;
-        tab_url = base_url+controller+'/display_edit/'+id;
+        tab_url = base_url+'/plociuchy:payment_p24_user'+'/display_edit/'+id;
         center.ui.tab_add(tab_id, tab_title, tab_url);
     }
 

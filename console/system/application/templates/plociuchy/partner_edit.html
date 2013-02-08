@@ -68,7 +68,11 @@ var config = new Object({
         fieldLabel: 'płeć',
         name: 'gender',
         width: 350,
-        xtype: 'textfield'
+        xtype: 'radiogroup',
+        items: [
+            {boxLabel: 'Mężczyzna', name: 'gender', inputValue: 1},
+            {boxLabel: 'Kobieta', name: 'gender', inputValue: 2}
+        ]
     },{
         fieldLabel: 'Info',
         name: 'about',
@@ -79,7 +83,7 @@ var config = new Object({
         fieldLabel: 'Firma',
         name: 'company',
         width: 350,
-        xtype: 'textfield'
+        xtype: 'checkbox'
     },{
         fieldLabel: 'Firma Nazwa',
         name: 'company_name',

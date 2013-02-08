@@ -1,175 +1,136 @@
 <script type="text/javascript">
 {literal}
 
-// store
-var fields = new Array('id', 'nick');
-var config = new Object({
-    //autoLoad: true,
-    fields: fields,
-    format: 'json',
-    id: 'partner_store',
-    url: base_url+'/plociuchy:partner/load_all'
-});
-partner_store = new Store();
-partner_store.init(config);
-
-// store
-var fields = new Array('id', 'title');
-var config = new Object({
-    fields: fields,
-    format: 'json',
-    id: 'pdc_store',
-    url: base_url+'/plociuchy:product_dict_category/load_all'
-});
-pdc_store = new Store();
-pdc_store.init(config);
-
-// store
-var fields = new Array('id', 'title');
-var config = new Object({
-    fields: fields,
-    format: 'json',
-    id: 'pdv_store',
-    url: base_url+'/plociuchy:product_dict_vendor/load_all'
-});
-pdv_store = new Store();
-pdv_store.init(config);
-
 // panel
 var config = new Object({
-	title: 'Dodaj',
-	items: [{
-        displayField: 'nick',
-        editable: false,
-        fieldLabel: 'Partner',
-        hiddenName: 'id',
-        name: 'id_parter',
-        store: partner_store,
-        triggerAction: 'all',
+	title: 'Edytuj',
+    items: [{
+        allowBlank: false,
+        fieldLabel: 'Nick',
+        name: 'nick',
         width: 350,
-        valueField: 'id',
-        xtype: 'combo'
+        xtype: 'textfield'
     },{
-        displayField: 'title',
-        editable: false,
-        fieldLabel: 'Kategoria',
-        hiddenName: 'id_category',
-        name: 'id_category',
-        store: pdc_store,
-        triggerAction: 'all',
+        allowBlank: false,
+        fieldLabel: 'Użytkownik',
+        name: 'user',
         width: 350,
-        valueField: 'id',
-        xtype: 'combo'
+        xtype: 'textfield'
     },{
-        displayField: 'title',
-        editable: false,
-        fieldLabel: 'Producent',
-        hiddenName: 'id_vendor',
-        name: 'id_vendor',
-        store: pdv_store,
-        triggerAction: 'all',
+        allowBlank: false,
+        fieldLabel: 'Hasło',
+        name: 'password',
         width: 350,
-        valueField: 'id',
-        xtype: 'combo'
-    },{
-		allowBlank: false,
-		fieldLabel: 'Nazwa',
-		name: 'text1',
-		xtype: 'textfield',
-		width: 350
-	},{
-		allowBlank: true,
-		fieldLabel: 'Nagłówek',
-		name: 'text2',
-		xtype: 'textarea',
-		width: 350
-	},{
-		allowBlank: true,
-		fieldLabel: 'Treść',
-		height: 250,
-		name: 'text3',
-		xtype: 'htmleditor',
-		width: 550
-	},{
-        allowBlank: false,
-        fieldLabel: 'Cena',
-        name: 'price',
-        xtype: 'textfield',
-        width: 350
+        xtype: 'textfield'
     },{
         allowBlank: false,
-        fieldLabel: 'Promocja',
-        inputValue: 1,
-        name: 'promote',
-        value: 1,
-        xtype: 'checkbox',
-        width: 350
-    },{
-        allowBlank: true,
-        fieldLabel: 'Zdjęcie',
-        name: 'image1',
-        buttonText: 'Wybierz plik',
-        xtype: 'fileuploadfield'
-    },{
-        allowBlank: true,
-        fieldLabel: 'Zdjęcie',
-        name: 'image2',
-        buttonText: 'Wybierz plik',
-        xtype: 'fileuploadfield'
-    },{
-        allowBlank: true,
-        fieldLabel: 'Zdjęcie',
-        name: 'image3',
-        buttonText: 'Wybierz plik',
-        xtype: 'fileuploadfield'
-    },{
-        allowBlank: true,
-        fieldLabel: 'Zdjęcie',
-        name: 'image4',
-        buttonText: 'Wybierz plik',
-        xtype: 'fileuploadfield'
-    },{
-        allowBlank: true,
-        fieldLabel: 'Zdjęcie',
-        name: 'image5',
-        buttonText: 'Wybierz plik',
-        xtype: 'fileuploadfield'
+        fieldLabel: 'Imie',
+        name: 'name',
+        width: 350,
+        xtype: 'textfield'
     },{
         allowBlank: false,
-        fieldLabel: 'Odrzucony',
-        inputValue: 1,
-        name: 'reject',
-        value: 1,
-        xtype: 'checkbox',
-        width: 350
+        fieldLabel: 'Nazwisko',
+        name: 'surname',
+        width: 350,
+        xtype: 'textfield'
     },{
-        allowBlank: false,
+        fieldLabel: 'Adres',
+        name: 'address',
+        width: 350,
+        xtype: 'textfield'
+    },{
+        fieldLabel: 'Miasto',
+        name: 'city',
+        width: 350,
+        xtype: 'textfield'
+    },{
+        fieldLabel: 'Zip',
+        name: 'zip',
+        width: 350,
+        xtype: 'textfield'
+    },{
+        fieldLabel: 'Kraj',
+        name: 'country',
+        width: 350,
+        xtype: 'textfield'
+    },{
+        fieldLabel: 'mobile',
+        name: 'mobile',
+        width: 350,
+        xtype: 'textfield'
+    },{
+        fieldLabel: 'Data urodzenia',
+        name: 'birth_year',
+        width: 350,
+        xtype: 'datefield'
+    },{
+        fieldLabel: 'płeć',
+        name: 'gender',
+        width: 350,
+        xtype: 'radiogroup',
+        items: [
+            {boxLabel: 'Mężczyzna', name: 'gender', inputValue: 1},
+            {boxLabel: 'Kobieta', name: 'gender', inputValue: 2}
+        ]
+    },{
+        fieldLabel: 'Info',
+        name: 'about',
+        width: 550,
+        height: 250,
+        xtype: 'htmleditor'
+    },{
+        fieldLabel: 'Firma',
+        name: 'company',
+        width: 350,
+        xtype: 'checkbox'
+    },{
+        fieldLabel: 'Firma Nazwa',
+        name: 'company_name',
+        width: 350,
+        xtype: 'textfield'
+    },{
+        fieldLabel: 'Nip',
+        name: 'company_nip',
+        width: 350,
+        xtype: 'textfield'
+    },{
+        fieldLabel: 'Firma Adres',
+        name: 'company_address',
+        width: 350,
+        xtype: 'textfield'
+    },{
+        fieldLabel: 'Firma Miasto',
+        name: 'company_city',
+        width: 350,
+        xtype: 'textfield'
+    },{
+        fieldLabel: 'Firmy Zip',
+        name: 'company_zip',
+        width: 350,
+        xtype: 'textfield'
+    },{
+        fieldLabel: 'Firma Tel.',
+        name: 'company_phone',
+        width: 350,
+        xtype: 'textfield'
+    },{
+        fieldLabel: 'Marketing',
+        name: 'checkbox_marketing',
+        xtype: 'checkbox'
+    },{
+        fieldLabel: 'Newsletter',
+        name: 'checkbox_newsletter',
+        xtype: 'checkbox'
+    },{
+        fieldLabel: 'Zdjęcie',
+        name: 'image',
+        buttonText: 'Wybierz plik',
+        xtype: 'fileuploadfield'
+    },{
         fieldLabel: 'Aktywny',
-        inputValue: 1,
         name: 'active',
-        value: 1,
-        xtype: 'checkbox',
-        width: 350
-    },{
-        fieldLabel: 'Aktywny Od',
-        format:'Y-m-d H:i:s',
-        name: 'active_from',
-        xtype: 'datefield'
-    },{
-        fieldLabel: 'Aktywny Do',
-        format:'Y-m-d H:i:s',
-        name: 'active_to',
-        xtype: 'datefield'
-    },{
-        disabled: true,
-        fieldLabel: 'Data dodania',
-        name: 'date_added',
-        xtype: 'textfield'
-    },{
-        disabled: true,
-        fieldLabel: 'Data modyfikacji',
-        name: 'date_last_modified',
-        xtype: 'textfield'
+        xtype: 'checkbox'
     }],
 	buttons: [{
 		handler: user_edit_fps,
@@ -200,7 +161,7 @@ function user_edit_fps() {
 function user_edit_load() {
     user_edit_fp.display.form.load({
         method: 'POST',
-        url: base_url+controller+'/load/{/literal}{$id}{literal}',
+        url: base_url+'/plociuchy:user'+'/load/{/literal}{$id}{literal}',
         waitMsg: 'Oczekiwanie',
         success: function() {
         },

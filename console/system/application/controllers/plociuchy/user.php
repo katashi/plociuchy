@@ -34,7 +34,7 @@ class User extends Main
     // load
     function load_all()
     {
-        echo '{"total":' . json_encode($this->user_model->load_all_count()) . ', "data":' . json_encode($this->user_model-->load_all()) . '}';
+        echo '{"total":' . json_encode($this->user_model->load_all_count()) . ', "data":' . json_encode($this->user_model->load_all()) . '}';
     }
 
     function load_all_user($id = null)

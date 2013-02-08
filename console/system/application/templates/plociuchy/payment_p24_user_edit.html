@@ -1,0 +1,134 @@
+<script type="text/javascript">
+{literal}
+
+// panel
+var config = new Object({
+    title: 'Edytuj',
+    items: [{
+        disabled: true,
+        allowBlank: false,
+        fieldLabel: 'Użytkownik',
+        name: 'id_user',
+        width: 350,
+        xtype: 'textfield'
+    },{
+        disabled: true,
+        allowBlank: false,
+        fieldLabel: 'Sprzedawca',
+        name: 'p24_id_sprzedawcy',
+        width: 350,
+        xtype: 'textfield'
+    },{
+        disabled: true,
+        allowBlank: false,
+        fieldLabel: 'Kwota',
+        name: 'p24_kwota',
+        width: 350,
+        xtype: 'textfield'
+    },{
+        allowBlank: false,
+        fieldLabel: 'Klient',
+        name: 'p24_klient',
+        width: 350,
+        xtype: 'textfield'
+    },{
+        allowBlank: false,
+        fieldLabel: 'Adres',
+        name: 'p24_adres',
+        width: 350,
+        xtype: 'textfield'
+    },{
+        fieldLabel: 'Kod',
+        name: 'p24_kod',
+        width: 350,
+        xtype: 'textfield'
+    },{
+        fieldLabel: 'Miasto',
+        name: 'p24_miasto',
+        width: 350,
+        xtype: 'textfield'
+    },{
+        fieldLabel: 'Kraj',
+        name: 'p24_kraj',
+        width: 350,
+        xtype: 'textfield'
+    },{
+        fieldLabel: 'Email',
+        name: 'p24_email',
+        width: 350,
+        xtype: 'textfield'
+    },{
+        fieldLabel: 'Metoda',
+        name: 'p24_metoda',
+        width: 350,
+        xtype: 'textfield'
+    },{
+        fieldLabel: 'Opis',
+        name: 'p24_opis',
+        width: 350,
+        xtype: 'textfield'
+    },{
+        fieldLabel: 'Status',
+        name: 'status',
+        width: 350,
+        xtype: 'textfield'
+    },{
+        disabled: true,
+        fieldLabel: 'Data dodania',
+        name: 'date_added',
+        width: 350,
+        format:'Y-m-d H:i:s',
+        xtype: 'datefield'
+    },{
+        disabled: true,
+        fieldLabel: 'Data modyfikacji',
+        name: 'date_last_modified',
+        width: 350,
+        format:'Y-m-d H:i:s',
+        xtype: 'datefield'
+    }],
+    buttons: [{
+        handler: payment_p24_user_edit_fps,
+        text: 'Zapisz'
+    }]
+});
+payment_p24_user_edit_fp = new FormPanel();
+payment_p24_user_edit_fp.init(config);
+payment_p24_user_edit_fp.display.render(Ext.get('div_payment_p24_user_edit'));
+
+// submit
+function payment_p24_user_edit_fps() {
+    payment_p24_user_edit_fp.display.form.submit({
+        method: 'POST',
+        url: base_url+'/plociuchy:payment_p24_user'+'/edit/{/literal}{$id}{literal}',
+        success: function() {
+            Ext.MessageBox.alert('Informacja', 'Obiekt zapisany');
+            payment_p24_user_store.display.reload();
+        },
+        failure: function() {
+            Ext.MessageBox.alert('Informacja', 'Błąd');
+        },
+        waitMsg: 'Oczekiwanie'
+    });
+}
+
+// load
+function payment_p24_user_edit_load() {
+    payment_p24_user_edit_fp.display.form.load({
+        method: 'POST',
+        url: base_url+'/plociuchy:payment_p24_user'+'/load/{/literal}{$id}{literal}',
+        waitMsg: 'Oczekiwanie',
+        success: function() {
+        },
+        failure: function() {
+            Ext.MessageBox.alert('Informacja', 'Błąd');
+        }
+    });
+}
+
+// load
+payment_p24_user_edit_load();
+
+{/literal}
+</script>
+<div id="div_payment_p24_user_edit"></div>
