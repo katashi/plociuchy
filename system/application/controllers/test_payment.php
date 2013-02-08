@@ -13,7 +13,7 @@ class Test_Payment extends Hub
     function display($template = null, $title_call = null)
     {
         $this->assign_template_titlecall($template, $title_call);
-        // add reservation
+
         // add payment
         $data['id_user'] = '1';
         $data['id_session'] = $this->ci->session->userdata['session_id'];

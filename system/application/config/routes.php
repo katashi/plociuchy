@@ -40,9 +40,24 @@
 |
 */
 
-
 $route['default_controller'] = "main";
 $route['scaffolding_trigger'] = "";
+
+// routing
+/*$route['artykul/(:any)'] = "main/run/article/display_single/$1";
+$route['kontakt/(:any)'] = "main/run/kontakt/display/$1";
+$route['kontakt/send'] = "main/run/kontakt/send";
+$route['contact_en/(:any)'] = "main/run/contact_en/display/$1";
+$route['contact_en/send'] = "main/run/contact_en/send";
+$route['kontakt_de/(:any)'] = "main/run/kontakt_de/display/$1";
+$route['kontakt_de/send'] = "main/run/kontakt_de/send";
+$route['glowna/(:any)'] = "main/run/glowna/language_set/$1";
+$route['home/(:any)'] = "main/run/home/language_set/$1";
+$route['zuhause/(:any)'] = "main/run/zuhause/language_set/$1";
+$route['pl'] = "main/run/glowna/language_set/pl";
+$route['en'] = "main/run/home/language_set/en";
+$route['de'] = "main/run/zuhause/language_set/de";*/
+$route['(:any)'] = "main/run/$1";;
 
 /* End of file routes.php */
 /* Location: ./system/application/config/routes.php */

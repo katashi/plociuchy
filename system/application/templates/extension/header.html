@@ -1,22 +1,117 @@
 ﻿<!DOCTYPE html>
 <html lang="en" xmlns:m="http://schemas.microsoft.com/office/2004/12/omml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
 <head>
-<title>Plo-ciuchy.pl - wypożyczanie eksluzywnych sukienek, płaszczy, kurtek</title>
-<meta charset="utf-8">
-<meta name="description" content="Your description">
-<meta name="keywords" content="Your keywords">
-<meta name="author" content="Your name">
-<link rel="stylesheet" href="css/style.css">
-<link rel="icon" href="images/favicon.ico" type="image/x-icon">
-<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
-<script src="js/jquery-1.7.1.min.js"></script>
-<script src="js/script.js"></script>
+    <title>Plo-ciuchy.pl - wypożyczanie eksluzywnych sukienek, płaszczy, kurtek</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Your description">
+    <meta name="keywords" content="Your keywords">
+    <meta name="author" content="TworzenieStron.pl">
+    <link rel="stylesheet" href="{$site_url}css/style.css">
+    <link rel="icon" href="{$site_url}images/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="{$site_url}images/favicon.ico" type="image/x-icon"/>
+    <script src="{$site_url}js/jquery-1.7.1.min.js"></script>
+    <script src="{$site_url}js/script.js"></script>
     <!--[if lt IE 8]>
-    <div style=' clear: both; text-align:center; position: relative;'><a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode"><img src="http://storage.ie6countdown.com/assets/100/images/banners/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today." /></a></div>
+    <div style=' clear: both; text-align:center; position: relative;'>
+        <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+            <img src="http://storage.ie6countdown.com/assets/100/images/banners/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."/>
+        </a>
+    </div>
     <![endif]-->
     <!--[if lt IE 9]>
-    <script src="js/html5.js"></script>
-    <link rel="stylesheet" href="css/ie.css">
-	<![endif]-->
+    <script src="{$site_url}js/html5.js"></script>
+    <link rel="stylesheet" href="{$site_url}css/ie.css">
+    <![endif]-->
 </head>
 <body id="page1">
+<div class="box-main">
+    <header>
+        <div style="height:120px; overflow:hidden; width:980px;">
+            {literal}
+            <script type="text/javascript">
+                /* <![CDATA[ */
+                $(function () {
+                    var input = document.createElement("input");
+                    if (('placeholder' in input) == false) {
+                        $('[placeholder]').focus(
+                                function () {
+                                    var i = $(this);
+                                    if (i.val() == i.attr('placeholder')) {
+                                        i.val('').removeClass('placeholder');
+                                        if (i.hasClass('password')) {
+                                            i.removeClass('password');
+                                            this.type = 'password';
+                                        }
+                                    }
+                                }).blur(
+                                function () {
+                                    var i = $(this);
+                                    if (i.val() == '' || i.val() == i.attr('placeholder')) {
+                                        if (this.type == 'password') {
+                                            i.addClass('password');
+                                            this.type = 'text';
+                                        }
+                                        i.addClass('placeholder').val(i.attr('placeholder'));
+                                    }
+                                }).blur().parents('form').submit(function () {
+                                    $(this).find('[placeholder]').each(function () {
+                                        var i = $(this);
+                                        if (i.val() == i.attr('placeholder'))
+                                            i.val('');
+                                    })
+                                });
+                    }
+                });
+                /* ]]> */
+            </script>
+            {/literal}
+            <div class="row-logo">
+                <h1 class="logo"><a href="" title="Plo-ciuchy.pl - zostańmy przyjaciółkami"></a></h1>
+            </div>
+            <div id="row2" class="row2" style="width:200px;float:right; padding:0 10px 0 10px;text-align:right;">
+                <a href="#">Zaloguj się</a> | <a href="#">Rejestracja</a><br/><br/>
+
+                <form method="get" action="szukaj">
+                    <input type="text" name="search" placeholder="Wpisz frazę">
+                    <input type="submit" id="submit" value="Szukaj">
+                </form>
+            </div>
+            <div class="row2" id="row2" style="width:250px;float:right; padding:0 10px 0 10px;">
+                <img alt="koszyk" height="24" src="images/carticon.png" width="28" style="float:left"/>
+                Twoje zamówienie: <Br/><a href="#">Spódnica Armani 32 wieczorowa</a>
+            </div>
+        </div>
+        <div class="row-nav">
+            <nav>
+                <ul class="sf-menu">
+                    <li class="<?
+                $tytul = '';
+                if (strpos('' . $_SERVER['PHP_SELF'], 'index.php')) $tytul .= 'current';
+                echo $tytul;
+                ?> first"><a href="index.php"><strong>strona</strong><span>główna</span></a></li>
+                    <li class="<?
+                $tytul = '';
+                if (strpos('' . $_SERVER['PHP_SELF'], 'jak-dziala-serwis.php')) $tytul .= 'current';
+                echo $tytul;
+                ?>"><a href="jak-dziala-serwis"><strong>Jak działa</strong><span>nasz serwis</span></a>
+                    </li>
+                    <li class="<?
+                $tytul = '';
+                if (strpos('' . $_SERVER['PHP_SELF'], 'regulamin-serwisu.php')) $tytul .= 'current';
+                echo $tytul;
+                ?>"><a href="regulamin"><strong>Regulamin</strong><span>Serwisu</span></a></li>
+                    <li class="<?
+                $tytul = '';
+                if (strpos('' . $_SERVER['PHP_SELF'], 'przesylka.php')) $tytul .= 'current';
+                echo $tytul;
+                ?>"><a href="przesylka"><strong>Przesyłka</strong><span>ubrań</span></a></li>
+                    <li class="<?
+                $tytul = '';
+                if (strpos('' . $_SERVER['PHP_SELF'], 'kontakt.php')) $tytul .= 'current';
+                echo $tytul;
+                ?> last"><a href="kontakt"><strong>Kontakt</strong><span>z nami</span></a></li>
+                </ul>
+            </nav>
+            <div class="clear"></div>
+        </div>
+    </header>

@@ -1,0 +1,31 @@
+﻿<article class="grid_2 padd-1">
+    <div class="title-1 p">Kategorie ubrań</div>
+    <ul class="list-1 p1">
+        <li><a href="produkt.php">sukienki</a></li>
+        <li><a href="more.html">spódnice </a></li>
+        <li><a href="more.html">żakiety</a></li>
+        <li><a href="more.html">kurtki</a></li>
+        <li><a href="more.html">płaszcze</a></li>
+        <li><a href="more.html">spodnie</a></li>
+        <li><a href="more.html">swetry</a></li>
+        <li><a href="more.html">kożuchy</a></li>
+    </ul>
+    <div class="title-1 p"><Br/>Dodatki</div>
+    <ul class="list-1 p1">
+        <li><a href="more.html">torebki</a></li>
+        <li><a href="more.html">paski</a></li>
+        <li><a href="more.html">biżuteria</a></li>
+    </ul>
+    <div class="border-horiz"></div>
+    <div class="title-1">Wybierz markę</div>
+    <ul class="list-1 p1">
+        {if $vendor|@count > 0}
+            {foreach from=$vendor item=vendor}
+                <li><a href="">{$vendor.title}</a></li>
+            {/foreach}
+        {else}
+            Brak producentów
+        {/if}
+    </ul>
+</article>
+        

@@ -10,7 +10,14 @@ class Home extends Hub {
     // display
     function display($template = null, $title_call = null) {
         $this->assign_template_titlecall($template, $title_call);
+
+        // vendor
+        $this->ci->smarty->assign('vendor', $this->vendor_load_all());
+
+        // display
         $this->smarty_display($template);
+
+
 
         /*$last_added = $this->last_added();
         $this->ci->smarty->assign('last_added', $last_added['data']);
@@ -63,6 +70,17 @@ class Home extends Hub {
         $this->ci->smarty->assign('operation', $result['operation']);
         //
         $this->display('home');
+    }
+
+    // vendor
+    function vendor_load_all($field = null, $value = null) {
+        $url = CONSOLE_URL.'/plociuchy:product_dict_vendor/load_all';
+        $result = $this->api_call($url);
+        if ($result['total'] > 0) {
+            return $result['data'];
+        } else {
+            return 0;
+        }
     }
 
 }
