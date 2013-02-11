@@ -31,22 +31,7 @@ function West_Warehouse() {
 			west_warehouse_article.init(); 
 			new Helper_Ui().add_ui(this.ui.display, west_warehouse_article.ui.display);
 		}
-        if (window._west_warehouse_gallery) { 
-			west_warehouse_gallery = new West_Warehouse_Gallery();
-			west_warehouse_gallery.init(); 
-			new Helper_Ui().add_ui(this.ui.display, west_warehouse_gallery.ui.display);
-		}
-		if (window._west_warehouse_newsletter) { 
-			west_warehouse_newsletter = new West_Warehouse_Newsletter();
-			west_warehouse_newsletter.init(); 
-			new Helper_Ui().add_ui(this.ui.display, west_warehouse_newsletter.ui.display);
-		}
-		if (window._west_warehouse_product) { 
-			west_warehouse_product = new West_Warehouse_Product();
-			west_warehouse_product.init(); 
-			new Helper_Ui().add_ui(this.ui.display, west_warehouse_product.ui.display);
-		}        
-		
+
 	}
 	
 }
