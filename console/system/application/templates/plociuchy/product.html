@@ -2,7 +2,7 @@
 {literal}
 
 // fields
-var fields = new Array('id', 'id_partner', 'id_vendor', 'text1', 'text2', 'price', 'active', 'date_created');
+var fields = new Array('id', 'id_partner', 'id_vendor', 'text1', 'text2', 'price', 'reject', 'active', 'date_added');
 var config = new Object({
 	fields: fields,
 	format: 'json',
@@ -38,8 +38,8 @@ var config = new Object({
 		{ id: 'text1', dataIndex: 'text1', header: 'Tytuł', sortable: true },
 		{ id: 'text2', dataIndex: 'text2', header: 'Nagłówek', sortable: true },
 		{ id: 'price', dataIndex: 'price', header: 'Cena', sortable: true },
-		{ id: 'active', dataIndex: 'active', header: 'Aktywny', sortable: true },
-		{ id: 'date_created', dataIndex: 'date_created', header: 'Stworzony', sortable: true },
+		{ id: 'reject', dataIndex: 'reject', header: 'Odrzucony', renderer: render_reject, sortable: true },
+		{ id: 'date_added', dataIndex: 'date_added', header: 'Stworzony', sortable: true },
 		{ id: 'options', header: 'Opcje', renderer: render_options, sortable: false }
 	],
 	listeners: {
@@ -81,6 +81,16 @@ function render_options(value, p, record) {
     }
     return String.format('<a href="javascript:active(\''+url+'\');"><img src="images/icon/'+img+'" border="0"></a> <a href="javascript:product_edit('+record.data.id+',\''+record.data.text1+'\');"><img src="images/icon/page_edit.png"></a> <a href="javascript:delete_confirm(\''+base_url+'/plociuchy:product'+'/delete/'+record.data.id+'\');"><img src="images/icon/delete.png" border="0"></a>');
 }
+function render_reject(value, p, record) {
+    if (value == 1) {
+        return String.format('OK');
+    } else
+    if (value == -1) {
+        return String.format('ODRZUCONY');
+    } else {
+        return String.format('<a href="javascript:reject('+record.data.id+',1);"><img src="images/icon/accept.png" border="0"></a> <a href="javascript:reject('+record.data.id+',-1);"><img src="images/icon/cancel.png" border="0"></a>');
+    }
+}
 
 // add
 function product_add() {
@@ -106,6 +116,18 @@ function delete_confirm(url) {
 // active
 function active(url) {
     new Helper_Ui().url_call(url, 'grid', product_store, null);
+}
+
+// reject
+function reject(id, mode) {
+    if (mode == 1) {
+        url = base_url+'/plociuchy:product'+'/reject_set/'+id+','+mode;
+        new Helper_Ui().url_call(url, 'grid', product_store, null);
+    }
+    if (mode == -1) {
+        url = base_url+'/plociuchy:product'+'/reject_display/'+id;
+        new Helper_Ui().add_window('product_reject', 'Odrzuć produkt', url);
+    }
 }
 
 {/literal}
