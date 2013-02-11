@@ -10,57 +10,18 @@ class Home extends Hub {
     // display
     function display($template = null, $title_call = null) {
         $this->assign_template_titlecall($template, $title_call);
-
+        echo $template.','.$title_call;
+        // article
+        $article = new Article($this->ci);
+        $article = $article->load_all_title_call($title_call);
+        $this->ci->smarty->assign('article_total', $article['total']);
+        $this->ci->smarty->assign('article', $article['data']);
+        // category
+        $this->ci->smarty->assign('category', $this->category_load_all());
         // vendor
         $this->ci->smarty->assign('vendor', $this->vendor_load_all());
-
         // display
         $this->smarty_display($template);
-
-
-
-        /*$last_added = $this->last_added();
-        $this->ci->smarty->assign('last_added', $last_added['data']);
-
-        $article = new Article($this->ci);
-        $article = $article->load_last_ui(45);
-        $this->ci->smarty->assign('article', $article);
-
-        $client = new Client($this->ci);
-        $client = $client->client_last_registered();
-        $this->ci->smarty->assign('client', $client);
-
-        $song_top = new Song($this->ci);
-        $song_top = $song_top->load_top_ui();
-        $song_top = $this->rate_compute($song_top, 0);
-        $song_top = $this->rate_sort($song_top, 0);
-        $this->ci->smarty->assign('song_top', $song_top);
-
-        $song = new Song($this->ci);
-        $condition = array();
-        $condition['limit'] = 10;
-        $condition['order'] = 'date_added';
-        $song = $song->load_all_ui(serialize($condition));
-        $song = $this->rate_compute($song, 0);
-        $this->ci->smarty->assign('song', $song);
-
-        $arrange = new Arrange($this->ci);
-        $condition = array();
-        $condition['limit'] = 10;
-        $condition['order'] = 'date_added';
-        $arrange = $arrange->load_all_ui(serialize($condition));
-        $arrange = $this->rate_compute($arrange, 1);
-        $this->ci->smarty->assign('arrange', $arrange);
-
-        $text = new Text($this->ci);
-        $condition = array();
-        $condition['limit'] = 10;
-        $condition['order'] = 'date_added';
-        $text = $text->load_all_ui(serialize($condition));
-        $text = $this->rate_compute($text, 2);
-        $this->ci->smarty->assign('text', $text);
-
-        $this->smarty_display($template);*/
     }
     function display_redirect($template = null, $title_call = null, $variable = null) {
         $result = unserialize($variable);
@@ -72,6 +33,16 @@ class Home extends Hub {
         $this->display('home');
     }
 
+    // category
+    function category_load_all($field = null, $value = null) {
+        $url = CONSOLE_URL.'/plociuchy:product_dict_category/load_all';
+        $result = $this->api_call($url);
+        if ($result['total'] > 0) {
+            return $result['data'];
+        } else {
+            return 0;
+        }
+    }
     // vendor
     function vendor_load_all($field = null, $value = null) {
         $url = CONSOLE_URL.'/plociuchy:product_dict_vendor/load_all';
