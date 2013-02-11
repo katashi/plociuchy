@@ -44,8 +44,8 @@ $route['default_controller'] = "main";
 $route['scaffolding_trigger'] = "";
 
 // routing
-/*$route['artykul/(:any)'] = "main/run/article/display_single/$1";
-$route['kontakt/(:any)'] = "main/run/kontakt/display/$1";
+$route['artykul/(:any)'] = "main/run/article/display_single/$1";
+/*$route['kontakt/(:any)'] = "main/run/kontakt/display/$1";
 $route['kontakt/send'] = "main/run/kontakt/send";
 $route['contact_en/(:any)'] = "main/run/contact_en/display/$1";
 $route['contact_en/send'] = "main/run/contact_en/send";

@@ -12,31 +12,18 @@ class Main extends Controller {
         $this->phpVersion = substr(phpversion(),0,1);
 		$this->controllers = array();
 		//
-		ini_set('display_errors', false);
+		ini_set('display_errors', true);
 		ini_set('log_errors', true);
 		ini_set('error_log', dirname(__FILE__) . '/../../../error_log.txt');
         //
         $this->include_controller('hub');
         $this->include_controller('home');
         $this->include_controller('article');
-        /*$this->include_controller('client');
-        $this->include_controller('fb');
-        $this->include_controller('song');
-        $this->include_controller('arrange');
-        $this->include_controller('text');
-        $this->include_controller('account');
-        // fb check
-        $this->fb_init();
-        $this->fb_login_status = $this->fb_login_status($this->fb_user_id());
-        // user check
-        $this->user_status = $this->user_status();
-        // last comments
-        $this->smarty->assign('comment_last', $this->comment_load_last());
-        // count elements for account header
-        if (($this->fb_login_status || $this->user_status) && isset($this->session->userdata['user_authorised'])) {
-            $this->smarty->assign('account_header_element_count', $this->account_header_load_element_count());
-            $this->smarty->assign('point', $this->point_get($this->session->userdata['user_id']));
-        }*/
+        // category
+        $this->smarty->assign('category', $this->category_load_all());
+        // vendor
+        $this->smarty->assign('vendor', $this->vendor_load_all());
+
 	}
 
 	// index
@@ -222,5 +209,27 @@ class Main extends Controller {
 			return '{' . join(',', $result) . '}';
 		}
 	}
+
+    // category
+    function category_load_all($field = null, $value = null) {
+        $url = CONSOLE_URL.'/plociuchy:product_dict_category/load_all';
+        $result = $this->api_call($url);
+        if ($result['total'] > 0) {
+            return $result['data'];
+        } else {
+            return 0;
+        }
+    }
+
+    // vendor
+    function vendor_load_all($field = null, $value = null) {
+        $url = CONSOLE_URL.'/plociuchy:product_dict_vendor/load_all';
+        $result = $this->api_call($url);
+        if ($result['total'] > 0) {
+            return $result['data'];
+        } else {
+            return 0;
+        }
+    }
 
 }

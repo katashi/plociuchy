@@ -6,12 +6,23 @@
             {include file="extension/addon_menuleft.html"}
             <!--==============================end lewa strona====================================-->
             <br>
+            TOTAL - {$article_total}<br>
             <article class="grid_9 prefix_1">
+                LINK - <a href="{$site_url}artykul/{$article[0].id}">ID {$article[0].id}</a><br><br><br>
                 <h2 class="border-bot"><span lang="pl">{$article[0].title}</span></h2>
                 <div class="wrapper">
                     <div class="overflow">
                         <div class="txt-1 p11">{$article[0].header}</div>
                         <p class="MsoNormal">{$article[0].text}</p>
+                        <p>&nbsp;</p>
+                    </div>
+                </div>
+                dla 1<br><br><br>
+                <h2 class="border-bot"><span lang="pl">{$article.title}</span></h2>
+                <div class="wrapper">
+                    <div class="overflow">
+                        <div class="txt-1 p11">{$article.header}</div>
+                        <p class="MsoNormal">{$article.text}</p>
                         <p>&nbsp;</p>
                     </div>
                 </div>
