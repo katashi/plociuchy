@@ -2,7 +2,7 @@
 {literal}
 
 // fields
-var fields = new Array('id', 'id_partner', 'id_vendor', 'text1', 'text2', 'price', 'active', 'date_created');
+var fields = new Array('id', 'id_partner', 'id_vendor', 'text1', 'text2', 'price', 'reject', 'active', 'date_added');
 var config = new Object({
 	fields: fields,
 	format: 'json',
@@ -12,6 +12,55 @@ var config = new Object({
 product_store = new Store();
 product_store.init(config);
 
+// filter field
+var config = new Object({
+    allowBlank: true,
+    enableKeyEvents: true,
+    id: 'product_filter_keyword',
+    name: 'product_filter_keyword',
+    value: '',
+    xtype: 'textfield',
+    width: 100,
+    listeners: {
+        specialkey: function(field, e) {
+            if (e.getKey() == e.ENTER) {
+                product_filter_search_add(field.getValue());
+            }
+        }
+    },
+});
+filter = new Ext.form.TextField(config);
+// filter search button
+var config = new Object({
+    id: 'product_filter_search',
+    iconCls: 'magnifier',
+    style: 'padding-left:3px;',
+    text: 'Filtruj',
+    listeners: {
+        click: function(button, e) {
+            query = Ext.getCmp('product_filter_keyword');
+            filter_search_add(query.getValue());
+        }
+    }
+});
+filter_search = new Button();
+filter_search.init(config);
+// filter delete button
+var config = new Object({
+    id: 'product_filter_delete',
+    iconCls: 'delete',
+    text: 'Wyczyść',
+    listeners: {
+        click: function(button, e) {
+            query = Ext.getCmp('product_filter_keyword');
+            query.setValue('');
+            product_filter_search_remove();
+        }
+    }
+});
+filter_delete = new Button();
+filter_delete.init(config);
+
 // paging toolbar
 var config = new Object({
 	store: product_store.display,
@@ -20,7 +69,12 @@ var config = new Object({
 			iconCls: 'x-btn-text-icon page_add',
 			handler: product_add,
 			text: 'Dodaj'
-		}
+		},
+        '-',
+        filter,
+        filter_search.display,
+        '-',
+        filter_delete.display
 	]
 });
 product_ptb = new PagingToolBar();
@@ -38,8 +92,8 @@ var config = new Object({
 		{ id: 'text1', dataIndex: 'text1', header: 'Tytuł', sortable: true },
 		{ id: 'text2', dataIndex: 'text2', header: 'Nagłówek', sortable: true },
 		{ id: 'price', dataIndex: 'price', header: 'Cena', sortable: true },
-		{ id: 'active', dataIndex: 'active', header: 'Aktywny', sortable: true },
-		{ id: 'date_created', dataIndex: 'date_created', header: 'Stworzony', sortable: true },
+		{ id: 'reject', dataIndex: 'reject', header: 'Odrzucony', renderer: render_reject, sortable: true },
+		{ id: 'date_added', dataIndex: 'date_added', header: 'Stworzony', sortable: true },
 		{ id: 'options', header: 'Opcje', renderer: render_options, sortable: false }
 	],
 	listeners: {
@@ -81,6 +135,16 @@ function render_options(value, p, record) {
     }
     return String.format('<a href="javascript:active(\''+url+'\');"><img src="images/icon/'+img+'" border="0"></a> <a href="javascript:product_edit('+record.data.id+',\''+record.data.text1+'\');"><img src="images/icon/page_edit.png"></a> <a href="javascript:delete_confirm(\''+base_url+'/plociuchy:product'+'/delete/'+record.data.id+'\');"><img src="images/icon/delete.png" border="0"></a>');
 }
+function render_reject(value, p, record) {
+    if (value == 1) {
+        return String.format('OK');
+    } else
+    if (value == -1) {
+        return String.format('ODRZUCONY');
+    } else {
+        return String.format('<a href="javascript:reject('+record.data.id+',1);"><img src="images/icon/accept.png" border="0"></a> <a href="javascript:reject('+record.data.id+',-1);"><img src="images/icon/cancel.png" border="0"></a>');
+    }
+}
 
 // add
 function product_add() {
@@ -106,6 +170,30 @@ function delete_confirm(url) {
 // active
 function active(url) {
     new Helper_Ui().url_call(url, 'grid', product_store, null);
+}
+
+// reject
+function reject(id, mode) {
+    if (mode == 1) {
+        url = base_url+'/plociuchy:product'+'/reject_set/'+id+','+mode;
+        new Helper_Ui().url_call(url, 'grid', product_store, null);
+    }
+    if (mode == -1) {
+        url = base_url+'/plociuchy:product'+'/reject_display/'+id;
+        new Helper_Ui().add_window('product_reject', 'Odrzuć produkt', url);
+    }
+}
+
+// filter
+function product_filter_search_add(query) {
+    lastOptions = product_store.display.lastOptions;
+    lastOptions.params['query'] = query;
+    product_ptb.display.changePage(0);
+}
+function product_filter_search_remove() {
+    lastOptions = product_store.display.lastOptions;
+    lastOptions.params['query'] = '';
+    product_ptb.display.changePage(0);
 }
 
 {/literal}

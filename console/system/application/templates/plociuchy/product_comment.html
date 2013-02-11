@@ -99,6 +99,19 @@ function active(url) {
     new Helper_Ui().url_call(url, 'grid', product_comment_store, null);
 }
 
+// filter
+function product_comment_filter_search_add(query) {
+    lastOptions = product_comment_store.display.lastOptions;
+    lastOptions.params['query'] = query;
+    product_comment_ptb.display.changePage(0);
+}
+function product_comment_filter_search_remove() {
+    lastOptions = product_comment_store.display.lastOptions;
+    lastOptions.params['query'] = '';
+    product_comment_ptb.display.changePage(0);
+}
+
+
 {/literal}
 </script>
 <div id="div_product_comment"></div>

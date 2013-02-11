@@ -14,6 +14,20 @@ class User_Model extends Main_Model
         $this->table_name = 'pc_user';
     }
 
+    // filter check
+    function filter_check() {
+        if (isset($_REQUEST['query']) && $_REQUEST['query'] != '') {
+            $this->db->like('nick', $_REQUEST['query']);
+            $this->db->or_like('user', $_REQUEST['query']);
+            $this->db->or_like('name', $_REQUEST['query']);
+            $this->db->or_like('surname', $_REQUEST['query']);
+            $this->db->or_like('address', $_REQUEST['query']);
+            $this->db->or_like('company_name', $_REQUEST['query']);
+            $this->db->or_like('company_address', $_REQUEST['query']);
+            $this->db->or_like('company_nip', $_REQUEST['query']);
+        }
+    }
+
     // load
     function load_all_count()
     {
@@ -24,6 +38,8 @@ class User_Model extends Main_Model
     function load_all()
     {
         $this->limit_check();
+        $this->filter_check();
+        $this->sort_check();
         $query = $this->db->get($this->table_name);
         $record = $query->result_array();
         return $record;

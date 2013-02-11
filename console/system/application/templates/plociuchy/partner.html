@@ -17,50 +17,50 @@ partner_store.init(config);
 var config = new Object({
     allowBlank: true,
     enableKeyEvents: true,
-    id: 'filter_keyword',
-    name: 'filter_keyword',
+    id: 'partner_filter_keyword',
+    name: 'partner_filter_keyword',
     value: '',
     xtype: 'textfield',
     width: 100,
     listeners: {
         specialkey: function(field, e) {
             if (e.getKey() == e.ENTER) {
-                filter_search_add(field.getValue());
+                partner_filter_search_add(field.getValue());
             }
         }
     },
 });
-filter = new Ext.form.TextField(config);
+partner_filter = new Ext.form.TextField(config);
 // filter search button
 var config = new Object({
-    id: 'filter_search',
+    id: 'partner_filter_search',
     iconCls: 'magnifier',
     style: 'padding-left:3px;',
     text: 'Filtruj',
     listeners: {
         click: function(button, e) {
-            query = Ext.getCmp('filter_keyword');
-            filter_search_add(query.getValue());
+            query = Ext.getCmp('partner_filter_keyword');
+            partner_filter_search_add(query.getValue());
         }
     }
 });
-filter_search = new Button();
-filter_search.init(config);
+partner_filter_search = new Button();
+partner_filter_search.init(config);
 // filter delete button
 var config = new Object({
-    id: 'filter_delete',
+    id: 'partner_filter_delete',
     iconCls: 'delete',
-    text: 'Wszystko',
+    text: 'Wyczyść',
     listeners: {
         click: function(button, e) {
-            query = Ext.getCmp('filter_keyword');
+            query = Ext.getCmp('partner_filter_keyword');
             query.setValue('');
-            filter_search_remove();
+            partner_filter_search_remove();
         }
     }
 });
-filter_delete = new Button();
-filter_delete.init(config);
+partner_filter_delete = new Button();
+partner_filter_delete.init(config);
 
 // paging toolbar
 var config = new Object({
@@ -72,10 +72,10 @@ var config = new Object({
 			text: 'Dodaj'
 		},
         '-',
-        filter,
-        filter_search.display,
+        partner_filter,
+        partner_filter_search.display,
         '-',
-        filter_delete.display
+        partner_filter_delete.display
 	]
 });
 partner_ptb = new PagingToolBar();
@@ -85,7 +85,7 @@ partner_ptb.init(config);
 var config = new Object({
 	store: partner_store.display,
 	tbar: partner_ptb.display,
-	title: 'partner',
+	title: 'Partner',
 	columns: [
 		{ id: 'id', dataIndex: 'id', header: 'Id', sortable: true },
 		{ id: 'nick', dataIndex: 'nick', header: 'nick', sortable: true },
@@ -140,6 +140,14 @@ function render_options(value, p, record) {
     return String.format('<a href="javascript:account('+record.data.id+',\''+record.data.nick+'\');"><img src="images/icon/book_open.png" border="0"></a> <a href="javascript:active(\''+url+'\');"><img src="images/icon/'+img+'" border="0"></a> <a href="javascript:partner_edit('+record.data.id+',\''+record.data.nick+'\');"><img src="images/icon/page_edit.png"></a> <a href="javascript:delete_confirm(\''+base_url+'/plociuchy:partner'+'/delete/'+record.data.id+'\');"><img src="images/icon/delete.png" border="0"></a>');
 }
 
+// account
+function account(id, title) {
+    tab_id = 'account';
+    tab_title = 'Konto '+title;
+    tab_url = base_url+'/plociuchy:partner_account/display';
+    center.ui.tab_add(tab_id, tab_title, tab_url);
+}
+
 // add
 function partner_add() {
     tab_id = 'partner_add';
@@ -167,12 +175,12 @@ function active(url) {
 }
 
 // filter
-function filter_search_add(query) {
+function partner_filter_search_add(query) {
     lastOptions = partner_store.display.lastOptions;
     lastOptions.params['query'] = query;
     partner_ptb.display.changePage(0);
 }
-function filter_search_remove() {
+function partner_filter_search_remove() {
     lastOptions = partner_store.display.lastOptions;
     lastOptions.params['query'] = '';
     partner_ptb.display.changePage(0);

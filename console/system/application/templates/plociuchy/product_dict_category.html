@@ -12,6 +12,56 @@ var config = new Object({
 product_dict_category_store = new Store();
 product_dict_category_store.init(config);
 
+// filter field
+var config = new Object({
+    allowBlank: true,
+    enableKeyEvents: true,
+    id: 'product_dict_category_filter_keyword',
+    name: 'product_dict_category_filter_keyword',
+    value: '',
+    xtype: 'textfield',
+    width: 100,
+    listeners: {
+        specialkey: function(field, e) {
+            if (e.getKey() == e.ENTER) {
+                product_dict_category_filter_search_add(field.getValue());
+            }
+        }
+    },
+});
+product_dict_category_filter = new Ext.form.TextField(config);
+// filter search button
+var config = new Object({
+    id: 'product_dict_category_filter_search',
+    iconCls: 'magnifier',
+    style: 'padding-left:3px;',
+    text: 'Filtruj',
+    listeners: {
+        click: function(button, e) {
+            query = Ext.getCmp('product_dict_category_filter_keyword');
+            filter_search_add(query.getValue());
+        }
+    }
+});
+product_dict_category_filter_search = new Button();
+product_dict_category_filter_search.init(config);
+// filter delete button
+var config = new Object({
+    id: 'product_dict_category_filter_delete',
+    iconCls: 'delete',
+    text: 'Wyczyść',
+    listeners: {
+        click: function(button, e) {
+            query = Ext.getCmp('product_dict_category_filter_keyword');
+            query.setValue('');
+            product_dict_category_filter_search_remove();
+        }
+    }
+});
+product_dict_category_filter_delete = new Button();
+product_dict_category_filter_delete.init(config);
+
+
 // paging toolbar
 var config = new Object({
 	store: product_dict_category_store.display,
@@ -20,7 +70,12 @@ var config = new Object({
 			iconCls: 'x-btn-text-icon page_add',
 			handler: product_dict_category_add,
 			text: 'Dodaj'
-		}
+		},
+        '-',
+        product_dict_category_filter,
+        product_dict_category_filter_search.display,
+        '-',
+        product_dict_category_filter_delete.display
 	]
 });
 product_dict_category_ptb = new PagingToolBar();
@@ -93,6 +148,18 @@ function delete_confirm(url) {
 // active
 function active(url) {
     new Helper_Ui().url_call(url, 'grid', product_dict_category_store, null);
+}
+
+// filter
+function product_dict_category_filter_search_add(query) {
+    lastOptions = product_dict_category_store.display.lastOptions;
+    lastOptions.params['query'] = query;
+    product_dict_category_ptb.display.changePage(0);
+}
+function product_dict_category_filter_search_remove() {
+    lastOptions = product_dict_category_store.display.lastOptions;
+    lastOptions.params['query'] = '';
+    product_dict_category_ptb.display.changePage(0);
 }
 
 {/literal}

@@ -14,6 +14,13 @@ class Product_Dict_Category_Model extends Main_Model
         $this->table_name = 'pc_product_dict_category';
     }
 
+    // filter check
+    function filter_check() {
+        if (isset($_REQUEST['query']) && $_REQUEST['query'] != '') {
+            $this->db->like('title', $_REQUEST['query']);
+        }
+    }
+
     // load
     function load_all_count()
     {
@@ -24,6 +31,8 @@ class Product_Dict_Category_Model extends Main_Model
     function load_all()
     {
         $this->limit_check();
+        $this->filter_check();
+        $this->sort_check();
         $query = $this->db->get($this->table_name);
         $record = $query->result_array();
         return $record;

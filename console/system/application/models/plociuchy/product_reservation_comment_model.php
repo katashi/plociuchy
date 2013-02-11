@@ -14,6 +14,15 @@ class Product_Reservation_Comment_Model extends Main_Model
         $this->table_name = 'pc_product_reservation_comment';
     }
 
+    // filter check
+    function filter_check() {
+        if (isset($_REQUEST['query']) && $_REQUEST['query'] != '') {
+            $this->db->like('id_reservation', $_REQUEST['query']);
+            $this->db->or_like('text1', $_REQUEST['query']);
+            $this->db->or_like('text2', $_REQUEST['query']);
+        }
+    }
+
     // load
     function load_all_count()
     {
@@ -24,6 +33,8 @@ class Product_Reservation_Comment_Model extends Main_Model
     function load_all()
     {
         $this->limit_check();
+        $this->filter_check();
+        $this->sort_check();
         $query = $this->db->get($this->table_name);
         $record = $query->result_array();
         return $record;
