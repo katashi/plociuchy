@@ -50,7 +50,7 @@ filter_search.init(config);
 var config = new Object({
     id: 'filter_delete',
     iconCls: 'delete',
-    text: 'Wszystko',
+    text: 'Wyczyść',
     listeners: {
         click: function(button, e) {
             query = Ext.getCmp('filter_keyword');
@@ -85,7 +85,7 @@ partner_ptb.init(config);
 var config = new Object({
 	store: partner_store.display,
 	tbar: partner_ptb.display,
-	title: 'partner',
+	title: 'Partner',
 	columns: [
 		{ id: 'id', dataIndex: 'id', header: 'Id', sortable: true },
 		{ id: 'nick', dataIndex: 'nick', header: 'nick', sortable: true },
@@ -138,6 +138,14 @@ function render_options(value, p, record) {
         img = 'accept.png';
     }
     return String.format('<a href="javascript:account('+record.data.id+',\''+record.data.nick+'\');"><img src="images/icon/book_open.png" border="0"></a> <a href="javascript:active(\''+url+'\');"><img src="images/icon/'+img+'" border="0"></a> <a href="javascript:partner_edit('+record.data.id+',\''+record.data.nick+'\');"><img src="images/icon/page_edit.png"></a> <a href="javascript:delete_confirm(\''+base_url+'/plociuchy:partner'+'/delete/'+record.data.id+'\');"><img src="images/icon/delete.png" border="0"></a>');
+}
+
+// account
+function account(id, title) {
+    tab_id = 'account';
+    tab_title = 'Konto '+title;
+    tab_url = base_url+'/plociuchy:partner_account/display';
+    center.ui.tab_add(tab_id, tab_title, tab_url);
 }
 
 // add

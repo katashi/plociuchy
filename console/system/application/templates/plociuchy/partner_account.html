@@ -1,0 +1,52 @@
+<script type="text/javascript">
+{literal}
+
+// fields
+var fields = new Array('id', 'date_added');
+var config = new Object({
+	fields: fields,
+	format: 'json',
+	id: 'partner_account_store',
+    remoteSort: true,
+	url: base_url+'/plociuchy:partner_account/load_all'
+});
+partner_account_store = new Store();
+partner_account_store.init(config);
+
+// paging toolbar
+var config = new Object({
+	store: partner_account_store.display
+});
+partner_account_ptb = new PagingToolBar();
+partner_account_ptb.init(config);
+
+// grid
+var config = new Object({
+	store: partner_account_store.display,
+	tbar: partner_account_ptb.display,
+	title: 'Partner Konto',
+	columns: [
+		{ id: 'id', dataIndex: 'id', header: 'Id', sortable: true },
+        { id: 'date_added', dataIndex: 'date_added', header: 'Data dodania', sortable: true }
+	]
+});
+partner_account_grid = new EditorGridPanel();
+partner_account_grid.init(config);
+
+// panel
+var config = new Object({
+	items: [ partner_account_grid.display ]
+});
+partner_account_panel = new Panel();
+partner_account_panel.init(config);
+partner_account_panel.display.render(Ext.get('div_partner_account'));
+
+// store
+partner_account_store.display.load({ params: { start: 0, limit: _paging_limit }});
+function partner_account_store_reload(index){
+    partner.store.display.load({ params: { start: 0, limit: _paging_limit, id: index }});
+}
+
+{/literal}
+</script>
+<div id="div_partner_account"></div>
