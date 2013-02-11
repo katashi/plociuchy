@@ -7,10 +7,60 @@ var config = new Object({
 	fields: fields,
 	format: 'json',
 	id: 'partner_store',
+    remoteSort: true,
 	url: base_url+'/plociuchy:partner'+'/load_all'
 });
 partner_store = new Store();
 partner_store.init(config);
+
+// filter field
+var config = new Object({
+    allowBlank: true,
+    enableKeyEvents: true,
+    id: 'filter_keyword',
+    name: 'filter_keyword',
+    value: '',
+    xtype: 'textfield',
+    width: 100,
+    listeners: {
+        specialkey: function(field, e) {
+            if (e.getKey() == e.ENTER) {
+                filter_search_add(field.getValue());
+            }
+        }
+    },
+});
+filter = new Ext.form.TextField(config);
+// filter search button
+var config = new Object({
+    id: 'filter_search',
+    iconCls: 'magnifier',
+    style: 'padding-left:3px;',
+    text: 'Filtruj',
+    listeners: {
+        click: function(button, e) {
+            query = Ext.getCmp('filter_keyword');
+            filter_search_add(query.getValue());
+        }
+    }
+});
+filter_search = new Button();
+filter_search.init(config);
+// filter delete button
+var config = new Object({
+    id: 'filter_delete',
+    iconCls: 'delete',
+    text: 'Wszystko',
+    listeners: {
+        click: function(button, e) {
+            query = Ext.getCmp('filter_keyword');
+            query.setValue('');
+            filter_search_remove();
+        }
+    }
+});
+filter_delete = new Button();
+filter_delete.init(config);
 
 // paging toolbar
 var config = new Object({
@@ -20,7 +70,12 @@ var config = new Object({
 			iconCls: 'x-btn-text-icon page_add',
 			handler: partner_add,
 			text: 'Dodaj'
-		}
+		},
+        '-',
+        filter,
+        filter_search.display,
+        '-',
+        filter_delete.display
 	]
 });
 partner_ptb = new PagingToolBar();
@@ -30,14 +85,14 @@ partner_ptb.init(config);
 var config = new Object({
 	store: partner_store.display,
 	tbar: partner_ptb.display,
-	title: 'Partner',
+	title: 'partner',
 	columns: [
 		{ id: 'id', dataIndex: 'id', header: 'Id', sortable: true },
 		{ id: 'nick', dataIndex: 'nick', header: 'nick', sortable: true },
 		{ id: 'user', dataIndex: 'user', header: 'user', sortable: true },
 		{ id: 'name', dataIndex: 'name', header: 'Imie', sortable: true },
 		{ id: 'surname', dataIndex: 'surname', header: 'Nazwisko', sortable: true },
-		{ id: 'zip', dataIndex: 'zip', header: 'Kod Pocztowy', sortable: true },
+		{ id: 'zip', dataIndex: 'zip', header: 'Zip', sortable: true },
 		{ id: 'city', dataIndex: 'city', header: 'Miasto', sortable: true },
 		{ id: 'address', dataIndex: 'address', header: 'Aders', sortable: true },
         { id: 'city', dataIndex: 'city', header: 'Miasto', sortable: true },
@@ -82,13 +137,13 @@ function render_options(value, p, record) {
         url = base_url+'/plociuchy:partner'+'/active_set/'+record.data.id+',0';
         img = 'accept.png';
     }
-    return String.format('<a href="javascript:active(\''+url+'\');"><img src="images/icon/'+img+'" border="0"></a> <a href="javascript:partner_edit('+record.data.id+',\''+record.data.nick+'\');"><img src="images/icon/page_edit.png"></a> <a href="javascript:delete_confirm(\''+base_url+'/plociuchy:partner'+'/delete/'+record.data.id+'\');"><img src="images/icon/delete.png" border="0"></a>');
+    return String.format('<a href="javascript:account('+record.data.id+',\''+record.data.nick+'\');"><img src="images/icon/book_open.png" border="0"></a> <a href="javascript:active(\''+url+'\');"><img src="images/icon/'+img+'" border="0"></a> <a href="javascript:partner_edit('+record.data.id+',\''+record.data.nick+'\');"><img src="images/icon/page_edit.png"></a> <a href="javascript:delete_confirm(\''+base_url+'/plociuchy:partner'+'/delete/'+record.data.id+'\');"><img src="images/icon/delete.png" border="0"></a>');
 }
 
 // add
 function partner_add() {
     tab_id = 'partner_add';
-    tab_title = 'Dodaj Partnera';
+    tab_title = 'Dodaj';
     tab_url = base_url+'/plociuchy:partner'+'/display_add';
     center.ui.tab_add(tab_id, tab_title, tab_url);
 }
@@ -96,7 +151,7 @@ function partner_add() {
 // edit
 function partner_edit(id, title) {
     tab_id = 'partner_edit';
-    tab_title = 'Edycja Partnera "'+title+'"';
+    tab_title = title;
     tab_url = base_url+'/plociuchy:partner'+'/display_edit/'+id;
     center.ui.tab_add(tab_id, tab_title, tab_url);
 }
@@ -109,6 +164,18 @@ function delete_confirm(url) {
 // active
 function active(url) {
     new Helper_Ui().url_call(url, 'grid', partner_store, null);
+}
+
+// filter
+function filter_search_add(query) {
+    lastOptions = partner_store.display.lastOptions;
+    lastOptions.params['query'] = query;
+    partner_ptb.display.changePage(0);
+}
+function filter_search_remove() {
+    lastOptions = partner_store.display.lastOptions;
+    lastOptions.params['query'] = '';
+    partner_ptb.display.changePage(0);
 }
 
 {/literal}

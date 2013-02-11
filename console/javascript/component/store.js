@@ -57,7 +57,8 @@ function Store() {
             autoLoad: this.config.autoLoad,
 			method: 'POST',
 			proxy: this.proxy,
-			reader: this.reader
+			reader: this.reader,
+            remoteSort: this.config.remoteSort
 		});
 	}
 	

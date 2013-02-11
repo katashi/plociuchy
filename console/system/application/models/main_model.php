@@ -17,5 +17,14 @@ class Main_Model extends Model {
         }
     }
 
+    // sort check
+    function sort_check() {
+        if (isset($_REQUEST['sort']) && isset($_REQUEST['sort'])) {
+            $this->db->order_by($_REQUEST['sort'], $_REQUEST['dir']);
+        } else {
+            $this->db->order_by('id', 'DESC');
+        }
+    }
+
 }
 ?>

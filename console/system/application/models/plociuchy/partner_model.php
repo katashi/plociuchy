@@ -14,6 +14,16 @@ class Partner_Model extends Main_Model
         $this->table_name = 'pc_partner';
     }
 
+    // filter check
+    function filter_check() {
+        if (isset($_REQUEST['query']) && $_REQUEST['query'] != '') {
+            $this->db->like('nick', $_REQUEST['query']);
+            $this->db->or_like('user', $_REQUEST['query']);
+            $this->db->or_like('name', $_REQUEST['query']);
+            $this->db->or_like('surname', $_REQUEST['query']);
+        }
+    }
+
     // load
     function load_all_count()
     {
@@ -24,6 +34,8 @@ class Partner_Model extends Main_Model
     function load_all()
     {
         $this->limit_check();
+        $this->filter_check();
+        $this->sort_check();
         $query = $this->db->get($this->table_name);
         $record = $query->result_array();
         return $record;
