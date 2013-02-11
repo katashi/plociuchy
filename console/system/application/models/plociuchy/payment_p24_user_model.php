@@ -14,6 +14,15 @@ class Payment_P24_User_Model extends Main_Model
         $this->table_name = 'pc_payment_p24_user';
     }
 
+    // filter check
+    function filter_check() {
+        if (isset($_REQUEST['query']) && $_REQUEST['query'] != '') {
+            $this->db->like('p24_klient', $_REQUEST['query']);
+            $this->db->or_like('p24_email', $_REQUEST['query']);
+            $this->db->or_like('p24_adres', $_REQUEST['query']);
+        }
+    }
+
     // load
     function load_all_count()
     {
@@ -24,6 +33,8 @@ class Payment_P24_User_Model extends Main_Model
     function load_all()
     {
         $this->limit_check();
+        $this->filter_check();
+        $this->sort_check();
         $query = $this->db->get($this->table_name);
         $record = $query->result_array();
         return $record;

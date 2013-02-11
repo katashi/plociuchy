@@ -12,6 +12,55 @@ var config = new Object({
 product_store = new Store();
 product_store.init(config);
 
+// filter field
+var config = new Object({
+    allowBlank: true,
+    enableKeyEvents: true,
+    id: 'product_filter_keyword',
+    name: 'product_filter_keyword',
+    value: '',
+    xtype: 'textfield',
+    width: 100,
+    listeners: {
+        specialkey: function(field, e) {
+            if (e.getKey() == e.ENTER) {
+                product_filter_search_add(field.getValue());
+            }
+        }
+    },
+});
+filter = new Ext.form.TextField(config);
+// filter search button
+var config = new Object({
+    id: 'product_filter_search',
+    iconCls: 'magnifier',
+    style: 'padding-left:3px;',
+    text: 'Filtruj',
+    listeners: {
+        click: function(button, e) {
+            query = Ext.getCmp('product_filter_keyword');
+            filter_search_add(query.getValue());
+        }
+    }
+});
+filter_search = new Button();
+filter_search.init(config);
+// filter delete button
+var config = new Object({
+    id: 'product_filter_delete',
+    iconCls: 'delete',
+    text: 'Wyczyść',
+    listeners: {
+        click: function(button, e) {
+            query = Ext.getCmp('product_filter_keyword');
+            query.setValue('');
+            product_filter_search_remove();
+        }
+    }
+});
+filter_delete = new Button();
+filter_delete.init(config);
+
 // paging toolbar
 var config = new Object({
 	store: product_store.display,
@@ -128,6 +177,18 @@ function reject(id, mode) {
         url = base_url+'/plociuchy:product'+'/reject_display/'+id;
         new Helper_Ui().add_window('product_reject', 'Odrzuć produkt', url);
     }
+}
+
+// filter
+function product_filter_search_add(query) {
+    lastOptions = product_store.display.lastOptions;
+    lastOptions.params['query'] = query;
+    product_ptb.display.changePage(0);
+}
+function product_filter_search_remove() {
+    lastOptions = product_store.display.lastOptions;
+    lastOptions.params['query'] = '';
+    product_ptb.display.changePage(0);
 }
 
 {/literal}

@@ -12,15 +12,69 @@
     payment_p24_user_store = new Store();
     payment_p24_user_store.init(config);
 
+    // filter field
+    var config = new Object({
+        allowBlank: true,
+        enableKeyEvents: true,
+        id: 'payment_p24_user_filter_keyword',
+        name: 'payment_p24_user_filter_keyword',
+        value: '',
+        xtype: 'textfield',
+        width: 100,
+        listeners: {
+            specialkey: function(field, e) {
+                if (e.getKey() == e.ENTER) {
+                    payment_p24_user_filter_search_add(field.getValue());
+                }
+            }
+        },
+    });
+    payment_p24_user_filter = new Ext.form.TextField(config);
+    // filter search button
+    var config = new Object({
+        id: 'payment_p24_user_filter_search',
+        iconCls: 'magnifier',
+        style: 'padding-left:3px;',
+        text: 'Filtruj',
+        listeners: {
+            click: function(button, e) {
+                query = Ext.getCmp('payment_p24_user_filter_keyword');
+                payment_p24_user_filter_search_add(query.getValue());
+            }
+        }
+    });
+    payment_p24_user_filter_search = new Button();
+    payment_p24_user_filter_search.init(config);
+    // filter delete button
+    var config = new Object({
+        id: 'payment_p24_user_filter_delete',
+        iconCls: 'delete',
+        text: 'Wyczyść',
+        listeners: {
+            click: function(button, e) {
+                query = Ext.getCmp('payment_p24_user_filter_keyword');
+                query.setValue('');
+                payment_p24_user_filter_search_remove();
+            }
+        }
+    });
+    payment_p24_user_filter_delete = new Button();
+    payment_p24_user_filter_delete.init(config);
+
     // paging toolbar
     var config = new Object({
         store: payment_p24_user_store.display,
-        items: ['-'
+        items: ['-',
 //            {
 //                iconCls: 'x-btn-text-icon page_add',
 //                handler: payment_p24_user_add,
 //                text: 'Dodaj'
 //            }
+            '-',
+            payment_p24_user_filter,
+            payment_p24_user_filter_search.display,
+            '-',
+            payment_p24_user_filter_delete.display
         ]
     });
     payment_p24_user_ptb = new PagingToolBar();
@@ -43,7 +97,7 @@
             { id: 'p24_kod', dataIndex: 'p24_kod', header: 'Kod pocztowy', sortable: true },
             { id: 'p24_kraj', dataIndex: 'p24_kraj', header: 'Kraj', sortable: true },
             { id: 'p24_kwota', dataIndex: 'p24_kwota', header: 'Kwota', sortable: true },
-            { id: 'status', dataIndex: 'status', header: 'Stauts', sortable: true },
+            { id: 'status', dataIndex: 'status', header: 'Status', sortable: true },
             { id: 'date_created', dataIndex: 'date_created', header: 'Stworzony', sortable: true },
             //{ id: 'options', header: 'Opcje', renderer: render_options, sortable: false }
         ],
@@ -112,6 +166,18 @@
     // active
     function active(url) {
         new Helper_Ui().url_call(url, 'grid', payment_p24_user_store, null);
+    }
+
+    // filter
+    function payment_p24_user_filter_search_add(query) {
+        lastOptions = payment_p24_user_store.display.lastOptions;
+        lastOptions.params['query'] = query;
+        payment_p24_user_ptb.display.changePage(0);
+    }
+    function payment_p24_user_filter_search_remove() {
+        lastOptions = payment_p24_user_store.display.lastOptions;
+        lastOptions.params['query'] = '';
+        payment_p24_user_ptb.display.changePage(0);
     }
 
     {/literal}

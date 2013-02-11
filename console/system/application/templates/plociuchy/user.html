@@ -12,6 +12,56 @@ var config = new Object({
 user_store = new Store();
 user_store.init(config);
 
+// filter field
+var config = new Object({
+    allowBlank: true,
+    enableKeyEvents: true,
+    id: 'user_filter_keyword',
+    name: 'user_filter_keyword',
+    value: '',
+    xtype: 'textfield',
+    width: 100,
+    listeners: {
+        specialkey: function(field, e) {
+            if (e.getKey() == e.ENTER) {
+                filter_search_add(field.getValue());
+            }
+        }
+    },
+});
+user_filter = new Ext.form.TextField(config);
+// filter search button
+var config = new Object({
+    id: 'user_filter_search',
+    iconCls: 'magnifier',
+    style: 'padding-left:3px;',
+    text: 'Filtruj',
+    listeners: {
+        click: function(button, e) {
+            query = Ext.getCmp('user_filter_keyword');
+            user_filter_search_add(query.getValue());
+        }
+    }
+});
+user_filter_search = new Button();
+user_filter_search.init(config);
+// filter delete button
+var config = new Object({
+    id: 'user_filter_delete',
+    iconCls: 'delete',
+    text: 'Wyczyść',
+    listeners: {
+        click: function(button, e) {
+            query = Ext.getCmp('user_filter_keyword');
+            query.setValue('');
+            user_filter_search_remove();
+        }
+    }
+});
+user_filter_delete = new Button();
+user_filter_delete.init(config);
+
+
 // paging toolbar
 var config = new Object({
 	store: user_store.display,
@@ -20,7 +70,12 @@ var config = new Object({
 			iconCls: 'x-btn-text-icon page_add',
 			handler: user_add,
 			text: 'Dodaj'
-		}
+		},
+        '-',
+        user_filter,
+        user_filter_search.display,
+        '-',
+        user_filter_delete.display
 	]
 });
 user_ptb = new PagingToolBar();
@@ -108,6 +163,18 @@ function delete_confirm(url) {
 // active
 function active(url) {
     new Helper_Ui().url_call(url, 'grid', user_store, null);
+}
+
+// filter
+function user_filter_search_add(query) {
+    lastOptions = user_store.display.lastOptions;
+    lastOptions.params['query'] = query;
+    user_ptb.display.changePage(0);
+}
+function user_filter_search_remove() {
+    lastOptions = user_store.display.lastOptions;
+    lastOptions.params['query'] = '';
+    user_ptb.display.changePage(0);
 }
 
 {/literal}
