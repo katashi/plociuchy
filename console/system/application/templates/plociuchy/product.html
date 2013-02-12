@@ -27,9 +27,9 @@ var config = new Object({
                 product_filter_search_add(field.getValue());
             }
         }
-    },
+    }
 });
-filter = new Ext.form.TextField(config);
+product_filter = new Ext.form.TextField(config);
 // filter search button
 var config = new Object({
     id: 'product_filter_search',
@@ -43,8 +43,8 @@ var config = new Object({
         }
     }
 });
-filter_search = new Button();
-filter_search.init(config);
+product_filter_search = new Button();
+product_filter_search.init(config);
 // filter delete button
 var config = new Object({
     id: 'product_filter_delete',
@@ -58,8 +58,8 @@ var config = new Object({
         }
     }
 });
-filter_delete = new Button();
-filter_delete.init(config);
+product_filter_delete = new Button();
+product_filter_delete.init(config);
 
 // paging toolbar
 var config = new Object({
@@ -69,7 +69,12 @@ var config = new Object({
 			iconCls: 'x-btn-text-icon page_add',
 			handler: product_add,
 			text: 'Dodaj'
-		}
+		},
+        '-',
+        product_filter,
+        product_filter_search.display,
+        '-',
+        product_filter_delete.display
 	]
 });
 product_ptb = new PagingToolBar();

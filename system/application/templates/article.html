@@ -5,31 +5,49 @@
             <!--==============================lewa strona====================================-->
             {include file="extension/addon_menuleft.html"}
             <!--==============================end lewa strona====================================-->
-            <br>
-            TOTAL - {$article_total}<br>
             <article class="grid_9 prefix_1">
-                LINK - <a href="{$site_url}artykul/{$article[0].id}">ID {$article[0].id}</a><br><br><br>
-                <h2 class="border-bot"><span lang="pl">{$article[0].title}</span></h2>
                 <div class="wrapper">
+                    {if !$article}
+                    nieznaleziono artykułu
+                    {elseif $article_total == 1}
+                            <!-- początek art -->
+                            <div id="art-calosc">
+                            <h3>{$article.title}</h3>
+                            <span style="margin-top:-5px; font-size:1.1em">({$article.date_created})</span>
+                            <Br/>
+                            <Br/>
+                            <img alt="" height="205" src="{$media_url}image/80x60/{$article.image}"
+                                 width="170"><strong>{$article.text}</strong><span lang="pl"><strong>...</strong><br>
+                            <br>{$article.text}</span><Br/><Br/>
+                            <a class="button2" href="{$site_url}artykuly" style="float:right;">spis artykułów</a>
+                            <!-- koniec art art -->
+                    {else}
+                        {foreach from=$article item=article}
+                        <!-- początek art -->
+                        <div id="art-jeden">
+                            <h3>
+                                <img alt="" height="150" src="{$media_url}image/80x60/{$article.image}" width="112">
+                                <span lang="pl">{$article.title}</span></h3>
+                            <span style="margin-top:-5px; font-size:1.1em">({$article.date_created})</span><Br/>
+                            <Br/>
+                            {$article.text}<Br/><Br/>
+                            <a class="button3" href="{$site_url}artykul/{$article.id}">czytaj więcej</a>
+                        </div>
+                        <div id="linia"></div>
+                        <!-- koniec art art -->
+                        {/foreach}
+                            {if ($current_page-1) != 0}
+                                <a class="button2" href="{$site_url}artykuly,{$current_page-1}" style="float:left;">wstecz</a>
+                            {/if}
+                            {if !(($current_page+1) > $all_pages)}
+                                <a class="button2" href="{$site_url}artykuly,{$current_page+1}" style="float:left; margin-left:3px;">dalej</a>
+                            {/if}
+                        </div>
+                    {/if}
                     <div class="overflow">
-                        <div class="txt-1 p11">{$article[0].header}</div>
-                        <p class="MsoNormal">{$article[0].text}</p>
                         <p>&nbsp;</p>
                     </div>
                 </div>
-                dla 1<br><br><br>
-                <h2 class="border-bot"><span lang="pl">{$article.title}</span></h2>
-                <div class="wrapper">
-                    <div class="overflow">
-                        <div class="txt-1 p11">{$article.header}</div>
-                        <p class="MsoNormal">{$article.text}</p>
-                        <p>&nbsp;</p>
-                    </div>
-                </div>
-                <!--==============================end content====================================-->
-        </div>
-        </article>
-    </div>
-    {include file="extension/footer_section.html"}
+                {include file="extension/footer_section.html"}
 </section>
 {include file="extension/footer.html"}
