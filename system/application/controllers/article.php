@@ -10,17 +10,18 @@ class Article extends Hub {
     // display
     function display($template = null, $title_call = null) {
         $this->assign_template_titlecall($template, $title_call);
-        // load all article
-        $result = $this->load_all_title_call($title_call);
-
+        //Set limit
         $limit = 10;
         $req = explode(',',$title_call);
+        $title_call = $req[0];
         $current_page = (isset($req['1']) ? $req['1'] : 1 );
         $all_pages = 0;
+        // load all article
+        $result = $this->load_all_title_call($title_call,$current_page,$limit);
+
         if($result['total'] >= $limit){
             $all_pages = ceil($result['total']/$limit);
         }
-
 
         $this->ci->smarty->assign('article_total', $result['total']);
         $this->ci->smarty->assign('article', $result['data']);
@@ -41,8 +42,8 @@ class Article extends Hub {
     }
 
     // load
-    function load_all_title_call($title_call = null) {
-        $url = CONSOLE_URL.'/_structure:structure_website/load_all_title_call_paginate/'.$title_call;
+    function load_all_title_call($title_call = null, $page = 1 , $limit = 10) {
+        $url = CONSOLE_URL.'/_structure:structure_website/load_all_title_call_paginate/'.$title_call.','.$page.','.$limit;
         $result = $this->api_call($url);
         return $result;
     }

@@ -5,9 +5,136 @@
             <!--==============================lewa strona====================================-->
             {include file="extension/addon_menuleft.html"}
             <!--==============================end lewa strona====================================-->
+            {if $product_view}
 
-            widok produktów
-                <!--==============================end content====================================-->
+            <article class="grid_9 prefix_1">
+                <div style="float:left;width:474px; margin-left:10px;">
+                    <h2 class="border-bot"
+                        style="left: 0px; top: 0px; width: 496px; font-size:2em; padding-bottom:10px; margin-bottom:10px;">
+                        <span lang="pl">{$product.text1}</span></h2>
+                    <span style="font-size:1.4em;">{$product.text2}</span><Br/>(należy
+                    do: właściciel serwisu)
+                </div>
+
+                <div style="float:right;width:175px; margin-left:10px; text-align:right; background:#F5F5F5; padding:10px; color:black;">
+			  <span lang="pl"> 	  <span lang="pl"><strong>
+                  <div class="title-1" style="padding-bottom:8px;">Cena wypożyczenia</div>
+              </strong>na weekend: {$product.price} zł<br>
+			  na tydzień: {$product.price} zł<br>Cena w sklepie: {$product.price} zł</span></div>
+                <div class="wrapper">
+                    <div id="opis">
+                        <div style="width:297px; float:left;margin-right:15px;"><a href="#">
+                            <img alt="" height="349" src="produkty/zdjecie-male.png" width="253"></a>
+		        <span lang="pl">
+		        <a href="#"><img alt="" height="103" src="produkty/zdjecie-male3.png" width="71"></a><a href="#">
+                <img alt="" height="103" src="produkty/zdjecie-male3.png" width="71"></a>
+                <a href="#"><img alt="" height="103" src="produkty/zdjecie-male3.png" width="71"></a>
+                </span></div>
+                        <div style="width:354px; float:right;margin-right:15px;">
+   	            <span lang="pl"><strong>
+             <div class="title-1 p">Opis</div>
+            </strong></span>{$product.text3}<br><br><br>
+
+
+                            <div id="choose_date">
+                                <div style="text-align: left" id="times">
+                                    <form id="cart_form" method="post" action="#">
+                                        <input type="text" id="cart_available_from" name="cart[available][from]"
+                                               size="8" readonly="readonly" class="hasDatepicker"> <img alt=""
+                                                                                                        height="32"
+                                                                                                        src="images/Calendar-Logo-32x32.png"
+                                                                                                        width="32"
+                                                                                                        style="border:0px;  padding:10px;"/><select
+                                            id="cart_available_to" name="cart[available][to]">
+                                        <option value="0">weekend</option>
+                                        <option value="1">tydzień</option>
+                                    </select> <input type="hidden" id="cart__csrf_token"
+                                                     value="d3ecc2569b732d4ca317cd66dcb51af0" name="cart[_csrf_token]">
+                                        <br><br> <a href="o-firmie.php" class="button2">Zarezerwuj</a></form>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                    <div id="komentarz" style="width:980px; overflow:hidden;display:block;">
+        	  <span lang="pl"><div class="title-1 p"><br>KomentarzE</div>
+                {if !$product_comments}
+                Brak komentarzy.
+                {else}
+                {foreach from=$product_comments item=comment}
+                    {$comment.text1}:{$comment.text2}<br/>
+                {/foreach}
+                {/if}
+                  <div class="title-1 p">
+                    <br>Wypowiedz się!
+                </div>
+
+	<iframe scrolling="no" frameborder="0" style=" width: 837px; height: 191px;" src="{$site_url}comment_form/display_form/{$product.id}"
+            marginheight="0" marginwidth="0" name="I1" class="auto-style1">
+    </iframe>
+
+                    </div>
+
+
+                    <br/>
+
+                    <div class="overflow">
+                        <p>&nbsp;</p>
+                    </div>
+                </div>
+
+
+                {else}
+                <article class="grid_9 prefix_1">
+                    <h2 class="border-bot">Produkty<span lang="pl"> {$title}</span></h2>
+
+                    <div class="wrapper">
+                        <div id="marki" style="height: 298px">
+                            {foreach from=$products item=product key='test' name='loop'}
+                            <!-- poczatek produktu -->
+                            <div id="jeden-produkt{if $smarty.foreach.loop.iteration % 4 == 0}-koncowy{/if}">
+                                <strong>
+                                    <div class="title-1" style="padding-bottom:3px;">
+                                        <a href="produkt.php">
+                                            <img alt="" height="200" src="produkty/zdjecie-male4.png" width="150"></a>{$product.text1}
+                                    </div>
+                                </strong>
+
+                                <div id="jeden-produkt-opis">
+                                    <a href="{$site_url}product/{$product.id}" class="link-3">
+
+                                        {$product.text2}</a></div>
+                                Cena od: {$product.price} zł
+                                <br/>
+                                <br/>
+                                <a class="button2" href="">Zarezerwuj</a>
+                            </div>
+                            <!-- finish produktu -->
+                            {/foreach}
+                            <Br/>
+
+                        </div>
+                        <div id="nawig">
+                            {if ($current_page-1) != 0}
+                            <a class="button2" href="{$site_url}{$route_name}/{$id},{$current_page-1}"
+                               style="float:right; ">wstecz</a>
+                            {/if}
+                            {if !(($current_page+1) > $all_pages)}
+                            <a class="button2" href="{$site_url}{$route_name}/{$id},{$current_page+1}"
+                               style="float:right;margin-right:3px;">dalej</a>
+                            {/if}
+                        </div>
+                        <br/> <br/>
+
+                        <div class="overflow">
+                            <p>&nbsp;</p>
+                        </div>
+                    </div>
+                    {/if}
+                    <!--==============================end content====================================-->
         </div>
         </article>
     </div>
