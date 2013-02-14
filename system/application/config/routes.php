@@ -44,7 +44,12 @@ $route['default_controller'] = "main";
 $route['scaffolding_trigger'] = "";
 
 // routing
+$route['artykul'] = "main/run/article/display/$1";
 $route['artykul/(:any)'] = "main/run/article/display_single/$1";
+$route['product/(:any)'] = "main/run/product/display_product_single/$1";
+$route['kategoria/(:any)'] = "main/run/product/display_category_single_list/$1";
+$route['marka/(:any)'] = "main/run/product/display_vendor_single_list/$1";
+$route['wyszukaj/(:any)'] = "main/run/product/display_search_list/$1";
 /*$route['kontakt/(:any)'] = "main/run/kontakt/display/$1";
 $route['kontakt/send'] = "main/run/kontakt/send";
 $route['contact_en/(:any)'] = "main/run/contact_en/display/$1";

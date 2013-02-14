@@ -38,6 +38,13 @@ class Product extends Main {
         echo '{"success": 1, "data":'.json_encode($this->product_model->load_promote()).'}';
     }
 
+    function load_all_product($id , $where = 'id', $page = null , $limit = 10){
+        if($page >= 1){
+            $_REQUEST['start'] = ($page-1) * $limit;
+            $_REQUEST['limit'] = $limit;
+        }
+        echo '{"total":'.json_encode($this->product_model->load_all_product_count($id,$where)).', "data":'.json_encode($this->product_model->load_all_product($id,$where)).'}';
+    }
     // add
     function add() {
         $result = $this->product_model->add();

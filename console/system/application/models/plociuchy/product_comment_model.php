@@ -39,6 +39,20 @@ class Product_Comment_Model extends Main_Model
         return $record;
     }
 
+    function load_all_product_comments_count($id, $where = 'id') {
+        $this->limit_check();
+        $this->db->where($where, $id);
+        $this->db->from($this->table_name);
+        return $record = $this->db->count_all_results();
+    }
+
+    function load_all_product_comments($id, $where = 'id') {
+        $this->limit_check();
+        $this->db->where($where, $id);
+        $query = $this->db->get($this->table_name);
+        return $record = $query->result_array();
+    }
+
     function load_all_user_count($id = null)
     {
         $this->db->where('id', $id);

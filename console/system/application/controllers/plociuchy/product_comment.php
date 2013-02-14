@@ -35,11 +35,18 @@ class Product_Comment extends Main {
     function load_all_user($id = null) {
         echo '{"total":' . json_encode($this->product_comment_model->load_all_user_count($id)) . ', "data":' . json_encode($this->product_comment_model->load_all_user($id)) . '}';
     }
-    function load($id = null) {
-        echo '{"success": 1, "data":' . json_encode($this->product_comment_model->load($id)) . '}';
+    function load($id = null,$where = 'id') {
+        echo '{"success": 1, "data":' . json_encode($this->product_comment_model->load($id,$where)) . '}';
     }
     function load_promote() {
         echo '{"success": 1, "data":' . json_encode($this->product_comment_model->load_promote()) . '}';
+    }
+    function load_all_comments($id , $where = 'id', $page = null , $limit = 10){
+        if($page >= 1){
+            $_REQUEST['start'] = ($page-1) * $limit;
+            $_REQUEST['limit'] = $limit;
+        }
+        echo '{"total":'.json_encode($this->product_comment_model->load_all_product_comments_count($id,$where)).', "data":'.json_encode($this->product_comment_model->load_all_product_comments($id,$where)).'}';
     }
 
 
