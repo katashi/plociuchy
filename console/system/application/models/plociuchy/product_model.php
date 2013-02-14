@@ -26,7 +26,6 @@ class Product_Model extends Main_Model {
         $this->db->from($this->table_name);
         return $this->db->count_all_results();
     }
-
     function load_all() {
         $this->limit_check();
         $this->filter_check();
@@ -35,13 +34,11 @@ class Product_Model extends Main_Model {
         $record = $query->result_array();
         return $record;
     }
-
     function load_all_user_count($id = null) {
         $this->db->where('id', $id);
         $this->db->from($this->table_name);
         return $this->db->count_all_results();
     }
-
     function load_all_user($id) {
         $this->limit_check();
         $this->db->where('id', $id);
@@ -49,28 +46,24 @@ class Product_Model extends Main_Model {
         $record = $query->result_array();
         return $record;
     }
-
     function load($id) {
         $this->db->where('id', $id);
         $query = $this->db->get($this->table_name);
         $record = $query->row_array();
         return $record;
     }
-
     function load_promote() {
         $this->db->where('promote', 1);
         $query = $this->db->get($this->table_name);
         $record = $query->row_array();
         return $record;
     }
-
     function load_all_product_count($id, $where = 'id') {
         $this->limit_check();
         $this->db->where($where, $id);
         $this->db->from($this->table_name);
         return $record = $this->db->count_all_results();
     }
-
     function load_all_product($id, $where = 'id') {
         $this->limit_check();
         $this->db->where($where, $id);
@@ -78,6 +71,7 @@ class Product_Model extends Main_Model {
         return $record = $query->result_array();
     }
 
+    // add
     function add() {
         $record = $_POST;
         $record['date_added'] = date("Y-m-d H:i:s");
@@ -113,7 +107,7 @@ class Product_Model extends Main_Model {
     function reject_set($id, $state) {
         $this->db->where('id', $id);
         $this->db->set('reject', $state);
-        //$this->db->update($this->table_name);
+        $this->db->update($this->table_name);
         return '{"success": true}';
     }
 

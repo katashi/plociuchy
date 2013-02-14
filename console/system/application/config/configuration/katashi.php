@@ -12,20 +12,20 @@ $config['autoload_controller_katashi'] = array();
 | -------------------------------------------------------------------------
 */
 $config['plociuchy'] = array(
-    0 => array('iconCls'=>'brick', 'text'=>'Partnerzy', 'type'=>'tab', 'url'=>APP_URL.'/plociuchy:partner'),
+    0 => array('iconCls'=>'group', 'text'=>'Partnerzy', 'type'=>'tab', 'url'=>APP_URL.'/plociuchy:partner'),
     1 => array('-'),
-    2 => array('iconCls'=>'brick', 'text'=>'Produkty', 'type'=>'tab', 'url'=>APP_URL.'/plociuchy:product'),
-    3 => array('iconCls'=>'brick', 'text'=>'Produkty - Komentarze', 'type'=>'tab', 'url'=>APP_URL.'/plociuchy:product_comment'),
-    4 => array('iconCls'=>'brick', 'text'=>'Produkty - Kategorie', 'type'=>'tab', 'url'=>APP_URL.'/plociuchy:product_dict_category'),
-    5 => array('iconCls'=>'brick', 'text'=>'Produkty - Producenci', 'type'=>'tab', 'url'=>APP_URL.'/plociuchy:product_dict_vendor'),
+    2 => array('iconCls'=>'lorry', 'text'=>'Produkty', 'type'=>'tab', 'url'=>APP_URL.'/plociuchy:product'),
+    3 => array('iconCls'=>'lorry', 'text'=>'Produkty - Komentarze', 'type'=>'tab', 'url'=>APP_URL.'/plociuchy:product_comment'),
+    4 => array('iconCls'=>'lorry_flatbed', 'text'=>'Produkty - Kategorie', 'type'=>'tab', 'url'=>APP_URL.'/plociuchy:product_dict_category'),
+    5 => array('iconCls'=>'lorry_flatbed', 'text'=>'Produkty - Producenci', 'type'=>'tab', 'url'=>APP_URL.'/plociuchy:product_dict_vendor'),
     6 => array('-'),
-    7 => array('iconCls'=>'brick', 'text'=>'Przelewy Partnerów', 'type'=>'tab', 'url'=>APP_URL.'/plociuchy:payment_p24_partner'),
-    8 => array('iconCls'=>'brick', 'text'=>'Przelewy Użytkowników', 'type'=>'tab', 'url'=>APP_URL.'/plociuchy:payment_p24_user'),
+    7 => array('iconCls'=>'money', 'text'=>'Przelewy Partnerów', 'type'=>'tab', 'url'=>APP_URL.'/plociuchy:payment_p24_partner'),
+    8 => array('iconCls'=>'money', 'text'=>'Przelewy Użytkowników', 'type'=>'tab', 'url'=>APP_URL.'/plociuchy:payment_p24_user'),
     9 => array('-'),
-    10 => array('iconCls'=>'brick', 'text'=>'Rezerwacje', 'type'=>'tab', 'url'=>APP_URL.'/plociuchy:product_reservation'),
-    11 => array('iconCls'=>'brick', 'text'=>'Rezerwacje - Komentarze', 'type'=>'tab', 'url'=>APP_URL.'/plociuchy:product_reservation_comment'),
+    10 => array('iconCls'=>'book_key', 'text'=>'Rezerwacje', 'type'=>'tab', 'url'=>APP_URL.'/plociuchy:product_reservation'),
+    11 => array('iconCls'=>'book_open', 'text'=>'Rezerwacje - Komentarze', 'type'=>'tab', 'url'=>APP_URL.'/plociuchy:product_reservation_comment'),
     12 => array('-'),
-    13 => array('iconCls'=>'brick', 'text'=>'Użytkownicy', 'type'=>'tab', 'url'=>APP_URL.'/plociuchy:user')
+    13 => array('iconCls'=>'folder_user', 'text'=>'Użytkownicy', 'type'=>'tab', 'url'=>APP_URL.'/plociuchy:user')
 );
 
 /*

@@ -92,8 +92,20 @@ var config = new Object({
 		width: 550
 	},{
         allowBlank: false,
-        fieldLabel: 'Cena',
-        name: 'price',
+        fieldLabel: 'Cena Weekend',
+        name: 'price1',
+        xtype: 'textfield',
+        width: 350
+    },{
+        allowBlank: false,
+        fieldLabel: 'Cena Tydzień',
+        name: 'price2',
+        xtype: 'textfield',
+        width: 350
+    },{
+        allowBlank: false,
+        fieldLabel: 'Cena Sklep',
+        name: 'price3',
         xtype: 'textfield',
         width: 350
     },{
@@ -136,11 +148,9 @@ var config = new Object({
         xtype: 'fileuploadfield'
     },{
         allowBlank: false,
-        fieldLabel: 'Odrzucony',
-        inputValue: 1,
+        fieldLabel: 'Odrzucony (-1/0/1)',
         name: 'reject',
-        value: 1,
-        xtype: 'checkbox',
+        xtype: 'textfield',
         width: 350
     },{
         allowBlank: false,
@@ -184,7 +194,7 @@ product_edit_fp.display.render(Ext.get('div_product_edit'));
 function product_edit_fps() {
     product_edit_fp.display.form.submit({
         method: 'POST',
-        url: base_url+'/plociuchy:product'+'/edit/{/literal}{$id}{literal}',
+        url: base_url+'/plociuchy:product/edit/{/literal}{$id}{literal}',
         success: function() {
             Ext.MessageBox.alert('Informacja', 'Obiekt zapisany');
             product_store.display.reload();
@@ -200,13 +210,14 @@ function product_edit_fps() {
 function product_edit_load() {
     product_edit_fp.display.form.load({
         method: 'POST',
-        url: base_url+'/plociuchy:product'+'/load/{/literal}{$id}{literal}',
+        url: base_url+'/plociuchy:product/load/{/literal}{$id}{literal}',
         waitMsg: 'Oczekiwanie',
         success: function() {
         },
         failure: function() {
             Ext.MessageBox.alert('Informacja', 'Błąd');
-        }
+        },
+        waitMsg: 'Oczekiwanie'
     });
 }
 

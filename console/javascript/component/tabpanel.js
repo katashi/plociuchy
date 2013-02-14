@@ -16,8 +16,8 @@ function TabPanel() {
 			enableTabScroll: true,
 			items: [{
 				id: 'Katashi',
-				title: 'Katashi',
-				closable: true,
+				title: 'Plociuchy',
+				closable: false,
 				autoLoad: {
 					url: 'index.php/main/welcome',
 					scripts: true
