@@ -19,9 +19,11 @@ class Main extends Controller {
         $this->include_controller('hub');
         $this->include_controller('home');
         $this->include_controller('article');
-        //
+        // category
         $this->smarty->assign('category', $this->category_load_all());
+        // vendor
         $this->smarty->assign('vendor', $this->vendor_load_all());
+
 	}
 
 	// index
