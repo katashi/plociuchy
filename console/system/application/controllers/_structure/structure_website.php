@@ -50,7 +50,6 @@ class Structure_Website extends Main {
             $_REQUEST['start'] = ($page-1) * $limit;
             $_REQUEST['limit'] = $limit;
         }
-
         echo '{"total":'.json_encode($this->structure_website_model->load_all_title_call_count($title_call)).', "data":'.json_encode($this->structure_website_model->load_all_title_call($title_call)).'}';
     }
     function load_filter($id_tree = null, $mode = 'full', $limit = 1) {

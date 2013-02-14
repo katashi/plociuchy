@@ -21,7 +21,7 @@ function North_Plociuchy() {
 		
 		// here we construct ui
 		var config = new Object({
-			iconCls: 'brick',
+			iconCls: 'cart',
 			text: 'Plociuchy',
 			tooltip: {title: 'Plociuchy', text: '', autoHide:true},
 			menu: menu
