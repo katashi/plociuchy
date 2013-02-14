@@ -5,6 +5,8 @@
             {foreach from=$category item=cat}
             <li><a href="{$site_url}kategoria/{$cat.id}">{$cat.title}</a></li>
             {/foreach}
+        <br/>
+        <li><a href="{$site_url}kategorie">Wszystkie Kategorie</a></li>
         {else}
             Brak kategorii
         {/if}
@@ -22,9 +24,12 @@
             {foreach from=$vendor item=vendor}
                 <li><a href="{$site_url}marka/{$vendor.id}">{$vendor.title}</a></li>
             {/foreach}
+        <br/>
+        <li><a href="{$site_url}marki">Wszystkie marki</a></li>
         {else}
             Brak producentów
         {/if}
+
     </ul>
 </article>
         

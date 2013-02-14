@@ -1,0 +1,37 @@
+{include file="extension/header.html"}
+<section>
+    <div class="container_12">
+        <div class="wrapper">
+            <!--==============================lewa strona====================================-->
+            {include file="extension/addon_menuleft.html"}
+            <!--==============================end lewa strona====================================-->
+
+
+            <article class="grid_9 prefix_1">
+                <h2 class="border-bot">Wybierz<span lang="pl">{$title}</span></h2>
+                <div class="wrapper">
+                    <div id="marki">
+                        {foreach from=$letters_array key=id item=data}
+                        <!-- listowanie -->
+                        <h6 class="border-bot2"><span><span>{$id}</span></span></h6>
+                            {foreach from=$data key=id2 item=data2}
+                            <ul class="marki">
+                                <li><a href="{$site_url}{$link}/{$id2}">{$data2}</a></li>
+                            </ul>
+                            {/foreach}
+                        {/foreach}
+
+                    </div>
+
+                    <br/>  <br/>               <div class="overflow">
+                    <p>&nbsp;</p>
+                </div>
+                </div>
+
+                <!--==============================end content====================================-->
+        </div>
+        </article>
+    </div>
+    {include file="extension/footer_section.html"}
+</section>
+{include file="extension/footer.html"}

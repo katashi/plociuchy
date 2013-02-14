@@ -45,6 +45,18 @@ class Product extends Main {
         }
         echo '{"total":'.json_encode($this->product_model->load_all_product_count($id,$where)).', "data":'.json_encode($this->product_model->load_all_product($id,$where)).'}';
     }
+
+    function load_all_product_search_ui($query=null, $page = null , $limit = 10){
+        if(isset($query)){
+            $_REQUEST['query'] = urldecode($query);//unserialize(urldecode($query));
+        }
+        if($page >= 1){
+            $_REQUEST['start'] = ($page-1) * $limit;
+            $_REQUEST['limit'] = $limit;
+        }
+        echo '{"total":'.json_encode($this->product_model->load_all_product_count()).', "data":'.json_encode($this->product_model->load_all_product()).'}';
+    }
+
     // add
     function add() {
         $result = $this->product_model->add();

@@ -2,11 +2,11 @@
 <section>
     <div class="container_12">
         <div class="wrapper">
+            <br/><br/>
             <!--==============================lewa strona====================================-->
             {include file="extension/addon_menuleft.html"}
             <!--==============================end lewa strona====================================-->
             {if $product_view}
-
             <article class="grid_9 prefix_1">
                 <div style="float:left;width:474px; margin-left:10px;">
                     <h2 class="border-bot"
@@ -15,7 +15,6 @@
                     <span style="font-size:1.4em;">{$product.text2}</span><Br/>(należy
                     do: właściciel serwisu)
                 </div>
-
                 <div style="float:right;width:175px; margin-left:10px; text-align:right; background:#F5F5F5; padding:10px; color:black;">
 			  <span lang="pl"> 	  <span lang="pl"><strong>
                   <div class="title-1" style="padding-bottom:8px;">Cena wypożyczenia</div>
@@ -24,11 +23,11 @@
                 <div class="wrapper">
                     <div id="opis">
                         <div style="width:297px; float:left;margin-right:15px;"><a href="#">
-                            <img alt="" height="349" src="produkty/zdjecie-male.png" width="253"></a>
+                            <img alt="" height="349" src="{$media_url}image/200x150/{$product.image1}" width="253"></a>
 		        <span lang="pl">
-		        <a href="#"><img alt="" height="103" src="produkty/zdjecie-male3.png" width="71"></a><a href="#">
-                <img alt="" height="103" src="produkty/zdjecie-male3.png" width="71"></a>
-                <a href="#"><img alt="" height="103" src="produkty/zdjecie-male3.png" width="71"></a>
+		        <a href="#"><img alt="" height="103" src="{$media_url}image/100x75/{$product.image2}" width="71"></a><a href="#">
+                <img alt="" height="103" src="{$media_url}image/100x75/{$product.image3}" width="71"></a>
+                <a href="#"><img alt="" height="103" src="{$media_url}image/100x75/{$product.image4}" width="71"></a>
                 </span></div>
                         <div style="width:354px; float:right;margin-right:15px;">
    	            <span lang="pl"><strong>
@@ -86,20 +85,22 @@
                     </div>
                 </div>
 
-
-                {else}
+{else}
                 <article class="grid_9 prefix_1">
                     <h2 class="border-bot">Produkty<span lang="pl"> {$title}</span></h2>
 
                     <div class="wrapper">
                         <div id="marki" style="height: 298px">
+                            {if !$products}
+                            <p>brak produktów</p>
+                            {else}
                             {foreach from=$products item=product key='test' name='loop'}
                             <!-- poczatek produktu -->
                             <div id="jeden-produkt{if $smarty.foreach.loop.iteration % 4 == 0}-koncowy{/if}">
                                 <strong>
                                     <div class="title-1" style="padding-bottom:3px;">
                                         <a href="produkt.php">
-                                            <img alt="" height="200" src="produkty/zdjecie-male4.png" width="150"></a>{$product.text1}
+                                            <img alt="" height="200" src="{$media_url}image/100x75/{$product.image1}" width="150"></a>{$product.text1}
                                     </div>
                                 </strong>
 
@@ -107,7 +108,7 @@
                                     <a href="{$site_url}product/{$product.id}" class="link-3">
 
                                         {$product.text2}</a></div>
-                                Cena od: {$product.price} zł
+                                Cena od: {$product.price1} zł
                                 <br/>
                                 <br/>
                                 <a class="button2" href="">Zarezerwuj</a>
@@ -118,22 +119,35 @@
 
                         </div>
                         <div id="nawig">
-                            {if ($current_page-1) != 0}
-                            <a class="button2" href="{$site_url}{$route_name}/{$id},{$current_page-1}"
-                               style="float:right; ">wstecz</a>
-                            {/if}
-                            {if !(($current_page+1) > $all_pages)}
-                            <a class="button2" href="{$site_url}{$route_name}/{$id},{$current_page+1}"
-                               style="float:right;margin-right:3px;">dalej</a>
+
+                                {if $search_route_name}
+                                    {if ($current_page-1) != 0}
+                                    <a class="button2" href="{$site_url}{$search_route_name}{$current_page-1}"
+                                       style="float:right; ">wstecz</a>
+                                    {/if}
+                                    {if !(($current_page+1) > $all_pages)}
+                                    <a class="button2" href="{$site_url}{$search_route_name}{$current_page+1}"
+                                       style="float:right;margin-right:3px;">dalej</a>
+                                    {/if}
+                                {else}
+                                    {if ($current_page-1) != 0}
+                                    <a class="button2" href="{$site_url}{$route_name}/{$id},{$current_page-1}"
+                                       style="float:right; ">wstecz</a>
+                                    {/if}
+                                    {if !(($current_page+1) > $all_pages)}
+                                    <a class="button2" href="{$site_url}{$route_name}/{$id},{$current_page+1}"
+                                       style="float:right;margin-right:3px;">dalej</a>
+                                    {/if}
                             {/if}
                         </div>
+                        {/if}
                         <br/> <br/>
 
                         <div class="overflow">
                             <p>&nbsp;</p>
                         </div>
                     </div>
-                    {/if}
+{/if}
                     <!--==============================end content====================================-->
         </div>
         </article>

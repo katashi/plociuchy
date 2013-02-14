@@ -211,9 +211,13 @@ class Main extends Controller {
 	}
 
     // category
-    function category_load_all($field = null, $value = null) {
+    function category_load_all($start = 0, $limit = 10) {
+        $data['sort'] = 'title';
+        $data['dir'] = 'ASC';
+        $data['start'] = $start;
+        $data['limit'] = $limit;
         $url = CONSOLE_URL.'/plociuchy:product_dict_category/load_all';
-        $result = $this->api_call($url);
+        $result = $this->api_call($url,$data);
         if ($result['total'] > 0) {
             return $result['data'];
         } else {
@@ -222,9 +226,13 @@ class Main extends Controller {
     }
 
     // vendor
-    function vendor_load_all($field = null, $value = null) {
+    function vendor_load_all($start = 0, $limit = 10) {
+        $data['sort'] = 'title';
+        $data['dir'] = 'ASC';
+        $data['start'] = $start;
+        $data['limit'] = $limit;
         $url = CONSOLE_URL.'/plociuchy:product_dict_vendor/load_all';
-        $result = $this->api_call($url);
+        $result = $this->api_call($url,$data);
         if ($result['total'] > 0) {
             return $result['data'];
         } else {
