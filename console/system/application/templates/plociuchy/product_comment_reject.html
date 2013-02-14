@@ -1,0 +1,71 @@
+<script type="text/javascript">
+{literal}
+
+// panel
+var config = new Object({
+    items: [{
+        allowBlank: false,
+        fieldLabel: 'Partner',
+        name: 'id_partner',
+        displayField: 'nick',
+        hiddenName: 'id_partner',
+        editable: false,
+        //store: partner_store,
+        triggerAction: 'all',
+        width: 320,
+        valueField: 'id',
+        xtype: 'combo'
+    },{
+        allowBlank: false,
+        fieldLabel: 'Product',
+        name: 'id_product',
+        displayField: 'text1',
+        editable: false,
+        //store: product_store,
+        hiddenName: 'id_product',
+        triggerAction: 'all',
+        width: 320,
+        valueField: 'id',
+        xtype: 'combo'
+    },{
+        allowBlank: false,
+        fieldLabel: 'Tytuł',
+        name: 'text1',
+        width: 320,
+        xtype: 'textfield'
+    },{
+        allowBlank: false,
+        fieldLabel: 'Nagłówek',
+        name: 'text2',
+        width: 320,
+        xtype: 'textarea'
+    }],
+	buttons: [{
+		handler: product_comment_reject_fps,
+		text: 'Odrzuć'
+	}]
+});
+product_comment_reject_fp = new FormPanel();
+product_comment_reject_fp.init(config);
+product_comment_reject_fp.display.render(Ext.get('div_product_comment_reject'));
+
+// submit
+function product_comment_reject_fps() {
+    alert('reject');
+    /*product_comment_add_fp.display.form.submit({
+		method: 'POST',
+		url: base_url+'/plociuchy:product_comment'+'/add',
+		success: function() {
+			Ext.MessageBox.alert('Informacja', 'Gotowe');
+            product_comment_add_fp.display.getForm().reset();
+            product_comment_store.display.reload();
+		},
+		failure: function() {
+			Ext.MessageBox.alert('Informacja', 'Błąd');
+		},
+		waitMsg: 'Oczekiwanie'
+	});*/
+}
+{/literal}
+</script>
+<div id="div_product_comment_reject"></div>

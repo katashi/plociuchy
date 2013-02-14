@@ -88,5 +88,13 @@ class Product_Model extends Main_Model {
         return '{"success": true}';
     }
 
+    // active
+    function reject_set($id, $state) {
+        $this->db->where('id', $id);
+        $this->db->set('reject', $state);
+        //$this->db->update($this->table_name);
+        return '{"success": true}';
+    }
+
 }
 ?>

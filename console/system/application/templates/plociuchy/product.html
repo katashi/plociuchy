@@ -87,7 +87,7 @@ var config = new Object({
 		{ id: 'text1', dataIndex: 'text1', header: 'Tytuł', sortable: true },
 		{ id: 'text2', dataIndex: 'text2', header: 'Nagłówek', sortable: true },
 		{ id: 'price', dataIndex: 'price', header: 'Cena', sortable: true },
-		{ id: 'reject', dataIndex: 'reject', header: 'Odrzucony', renderer: render_reject, sortable: true },
+		{ id: 'reject', dataIndex: 'reject', header: 'Status', renderer: render_reject, sortable: true },
 		{ id: 'date_added', dataIndex: 'date_added', header: 'Stworzony', sortable: true },
 		{ id: 'options', header: 'Opcje', renderer: render_options, sortable: false }
 	],
@@ -168,14 +168,18 @@ function active(url) {
 }
 
 // reject
-function reject(id, mode) {
-    if (mode == 1) {
-        url = base_url+'/plociuchy:product'+'/reject_set/'+id+','+mode;
+function reject(id, state) {
+    if (state == 1) {
+        url = base_url+'/plociuchy:product'+'/reject_set/'+id+','+state;
         new Helper_Ui().url_call(url, 'grid', product_store, null);
+        product_store_reload();
     }
-    if (mode == -1) {
-        url = base_url+'/plociuchy:product'+'/reject_display/'+id;
+    if (state == -1) {
+        url = base_url+'/plociuchy:product/reject_set/'+id+','+state;
+        new Helper_Ui().url_call(url, 'grid', product_store, null);
+        url = base_url+'/plociuchy:product_comment/display_reject/'+id;
         new Helper_Ui().add_window('product_reject', 'Odrzuć produkt', url);
+        product_store_reload();
     }
 }
 

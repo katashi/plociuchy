@@ -22,7 +22,6 @@ function Window() {
 	
 	// display create	
 	this.display_create = function() {
-
 		this.display = new Ext.Window(this.config);
 		// assign main object to display
 		this.display.parent = this;
