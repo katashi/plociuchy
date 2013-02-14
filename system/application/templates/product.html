@@ -18,8 +18,8 @@
                 <div style="float:right;width:175px; margin-left:10px; text-align:right; background:#F5F5F5; padding:10px; color:black;">
 			  <span lang="pl"> 	  <span lang="pl"><strong>
                   <div class="title-1" style="padding-bottom:8px;">Cena wypożyczenia</div>
-              </strong>na weekend: {$product.price} zł<br>
-			  na tydzień: {$product.price} zł<br>Cena w sklepie: {$product.price} zł</span></div>
+              </strong>na weekend: {$product.price1} zł<br>
+			  na tydzień: {$product.price2} zł<br>Cena w sklepie: {$product.price3} zł</span></div>
                 <div class="wrapper">
                     <div id="opis">
                         <div style="width:297px; float:left;margin-right:15px;"><a href="#">
@@ -99,7 +99,7 @@
                             <div id="jeden-produkt{if $smarty.foreach.loop.iteration % 4 == 0}-koncowy{/if}">
                                 <strong>
                                     <div class="title-1" style="padding-bottom:3px;">
-                                        <a href="produkt.php">
+                                        <a href="{$site_url}product/{$product.id}">
                                             <img alt="" height="200" src="{$media_url}image/100x75/{$product.image1}" width="150"></a>{$product.text1}
                                     </div>
                                 </strong>

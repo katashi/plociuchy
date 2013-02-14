@@ -14,11 +14,11 @@
                         {foreach from=$letters_array key=id item=data}
                         <!-- listowanie -->
                         <h6 class="border-bot2"><span><span>{$id}</span></span></h6>
-                            {foreach from=$data key=id2 item=data2}
                             <ul class="marki">
+                            {foreach from=$data key=id2 item=data2}
                                 <li><a href="{$site_url}{$link}/{$id2}">{$data2}</a></li>
-                            </ul>
                             {/foreach}
+                            </ul>
                         {/foreach}
 
                     </div>

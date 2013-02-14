@@ -63,15 +63,23 @@ class Product_Model extends Main_Model {
         $record = $query->row_array();
         return $record;
     }
-    function load_all_product_count($id, $where = 'id') {
+
+    function load_all_product_count($id = null, $where = 'id') {
         $this->limit_check();
-        $this->db->where($where, $id);
+        $this->filter_check();
+        if(isset($id)){
+            $this->db->where($where, $id);
+        }
         $this->db->from($this->table_name);
         return $record = $this->db->count_all_results();
     }
-    function load_all_product($id, $where = 'id') {
+
+    function load_all_product($id = null, $where = 'id') {
         $this->limit_check();
-        $this->db->where($where, $id);
+        $this->filter_check();
+        if(isset($id)){
+            $this->db->where($where, $id);
+        }
         $query = $this->db->get($this->table_name);
         return $record = $query->result_array();
     }
@@ -111,7 +119,7 @@ class Product_Model extends Main_Model {
     function reject_set($id, $state) {
         $this->db->where('id', $id);
         $this->db->set('reject', $state);
-        $this->db->update($this->table_name);
+        //$this->db->update($this->table_name);
         return '{"success": true}';
     }
 

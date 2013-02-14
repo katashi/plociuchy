@@ -104,6 +104,13 @@ class Product_Comment_User_Model extends Main_Model
         return 1;
     }
 
+    // active
+    function active_set($id, $state) {
+        $this->db->where('id', $id);
+        $this->db->set('active', $state);
+        $this->db->update($this->table_name);
+        return '{"success": true}';
+    }
 }
 
 ?>

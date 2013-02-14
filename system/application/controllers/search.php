@@ -31,7 +31,6 @@ class Search extends Hub {
     }
 
     function load_all_search_products($query = null, $page = 1 , $limit = 10) {
-
         $query = urlencode($query);//urlencode(serialize($query));
         $url = CONSOLE_URL . '/plociuchy:product/load_all_product_search_ui/' . $query . ',' . $page . ',' .$limit;
         $result = $this->api_call($url);

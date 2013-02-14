@@ -81,10 +81,4 @@ class Product extends Main {
         echo 'grid';
     }
 
-    // reject
-    function reject_set($id = null, $state = false) {
-        $result = $this->product_model->reject_set($id, $state);
-        echo 'grid';
-    }
-
 }

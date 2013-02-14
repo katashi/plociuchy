@@ -67,5 +67,11 @@ class Product_Comment_User extends Main {
         $result = $this->product_comment_user_model->delete($id);
         echo '{"success":' . $result . '}';
     }
+    // active
+    function active_set($id = null, $state = false) {
+        $result = $this->product_comment_user_model->active_set($id, $state);
+        echo 'grid';
+    }
+
 
 }
