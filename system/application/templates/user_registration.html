@@ -1,0 +1,95 @@
+{include file="extension/header.html"}
+<section>
+    <div class="container_12">
+        <div class="wrapper">
+            <br/><br/>
+            <!--==============================lewa strona====================================-->
+            {include file="extension/addon_menuleft.html"}
+            <!--==============================end lewa strona====================================-->
+
+            {$code}<br/>
+            <article class="grid_9 prefix_1">
+                <h2 class="border-bot">Rejestracja: konto zwykłe</h2>
+                <div class="auto-style1">
+                    <form action="{$site_url}rejestracja" name="registration" method="post">
+                        <table style="width: 59%">
+                        <tr>
+                            <td class="auto-style4" style="width: 134px"><span lang="pl">Imię:</span></td>
+                            <td class="auto-style2">
+                                <input type="text" style="width: 145px" size="40" name="name" placeholder=""></td>
+                        </tr>
+                        <tr>
+                            <td class="auto-style4" style="height: 27px; width: 134px"><span lang="pl">Nazwisko:</span></td>
+                            <td class="auto-style2" style="height: 27px">
+                                <input type="text" style="width: 145px" size="40" name="surname" placeholder=""></td>
+                        </tr>
+                        <tr>
+                            <td class="auto-style4" style="width: 134px"><span lang="pl">&nbsp;</span></td>
+                            <td class="auto-style2">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td class="auto-style4" style="width: 134px"><span lang="pl">Adres e-mail:</span></td>
+                            <td class="auto-style2">
+                                <input type="text" style="width: 145px" size="40" name="user" placeholder=""></td>
+                        </tr>
+                        <tr>
+                            <td class="auto-style4" style="width: 134px"><span lang="pl">Hasło:</span></td>
+                            <td class="auto-style2">
+                                <input type="password" style="width: 145px" size="40" name="password" placeholder=""></td>
+                        </tr>
+                        <tr>
+                            <td class="auto-style4" style="width: 134px"><span lang="pl">Hasło (powtórka):</span></td>
+                            <td class="auto-style2">
+                                <input type="password" style="width: 145px" size="40" name="password2" placeholder=""></td>
+                        </tr>
+                        <tr>
+                            <td class="auto-style4" style="width: 134px">&nbsp;</td>
+                            <td class="auto-style2">
+                                &nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td class="auto-style4" style="width: 134px"><span lang="pl">Telefon
+                          kontaktowy:</span></td>
+                            <td class="auto-style2">
+                                <input type="text" style="width: 145px" size="40" name="mobile" placeholder=""></td>
+                        </tr>
+                        <tr>
+                            <td class="auto-style2" style="width: 134px">&nbsp;</td>
+                            <td class="auto-style2">
+                                &nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td class="auto-style2" style="width: 134px"><span lang="pl">Oświadczenia:</span></td>
+                            <td class="auto-style2">
+                                <table style="width: 100%">
+                                    <tr>
+                                        <td style="width: 33px">
+                                            <input type="checkbox" value="1" name="submit1" style="width:20px;  margin:0px;" ></td>
+                                        <td>  <span lang="pl">Akceptuje <a href="#"> regulamin serwisu</a></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="checkbox" value="1" name="submit2" style="width:20px; margin:0px;" ></td>
+                                        <td>Wyrażam zgodę na przetwarzanie moich danych osobowych w
+                                            zakresie, celu i na warunkach opisanych w Regulaminie
+                                            Allegro.</td>
+                                    </tr>
+                                </table>
+                                &nbsp;</td>
+                        </tr>
+                    </table>
+                        <p class="auto-style3">
+                            <input type="submit" style="width: 188px" name="registration_submit" id="submit" value="Zakładam konto"> <br/>
+                        </p>
+                        <div class="overflow">
+                            <p>&nbsp;</p>
+                        </div>
+                    </form>
+                </div>
+
+                <!--==============================end content====================================-->
+        </div>
+        </article>
+    </div>
+    {include file="extension/footer_section.html"}
+</section>
+{include file="extension/footer.html"}

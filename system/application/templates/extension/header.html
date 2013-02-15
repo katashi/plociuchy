@@ -69,8 +69,12 @@
                 <h1 class="logo"><a href="/" title="Plo-ciuchy.pl - zostańmy przyjaciółkami"></a></h1>
             </div>
             <div id="row2" class="row2" style="width:200px;float:right; padding:0 10px 0 10px;text-align:right;">
-                <a href="#">Zaloguj się</a> | <a href="#">Rejestracja</a><br/><br/>
-
+                {$user_authorised|var_dump}
+                {if !$user_authorised}
+                    <a href="{$site_url}logowanie">Zaloguj się</a> | <a href="{$site_url}rejestracja">Rejestracja</a><br/><br/>
+                {else}
+                       {$user_name} {$user_surname} | <a href="{$site_url}logowanie">Wyloguj się</a>
+                {/if}
                 <form method="get" action="{$site_url}wyszukaj">
                     <input type="text" name="search" placeholder="Wpisz frazę">
                     <input type="submit" id="submit" value="Szukaj">

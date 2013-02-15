@@ -24,6 +24,7 @@ class Main extends Controller {
         // vendor
         $this->smarty->assign('vendor', $this->vendor_load_all());
 
+
 	}
 
 	// index

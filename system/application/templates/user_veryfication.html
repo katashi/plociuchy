@@ -1,0 +1,24 @@
+{include file="extension/header.html"}
+<section>
+    <div class="container_12">
+        <div class="wrapper">
+            <br/><br/>
+            <!--==============================lewa strona====================================-->
+            {include file="extension/addon_menuleft.html"}
+            <!--==============================end lewa strona====================================-->
+<!--{$code}
+{$result}
+{$operation}-->
+            {if $code == 'ok'}
+                Aktywacja przeporwadzona prawidłowo.
+                Dziekujemy.
+            {else}
+            Coś poszło źle.. przepraszamy...
+            {/if}
+                <!--==============================end content====================================-->
+        </div>
+        </article>
+    </div>
+    {include file="extension/footer_section.html"}
+</section>
+{include file="extension/footer.html"}

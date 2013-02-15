@@ -123,7 +123,7 @@ product_panel.display.render(Ext.get('div_product'));
 // store
 product_store.display.load({ params: { start: 0, limit: _paging_limit }});
 function product_store_reload(index){
-    product.store.display.load({ params: { start: 0, limit: _paging_limit, id: index }});
+    product_store.display.load({ params: { start: 0, limit: _paging_limit, id: index }});
 }
 
 // options
@@ -144,49 +144,49 @@ function render_reject(value, p, record) {
     if (value == -1) {
         return String.format('ODRZUCONY');
     } else {
-        return String.format('<a href="javascript:reject('+record.data.id+',1);"><img src="images/icon/accept.png" border="0"></a> <a href="javascript:reject('+record.data.id+',-1);"><img src="images/icon/cancel.png" border="0"></a>');
+        return String.format('<a href="javascript:reject('+record.data.id+',1);"><img src="images/icon/accept.png" border="0"></a> <a href="javascript:reject('+record.data.id+ ','+record.data.id_partner+',-1);"><img src="images/icon/cancel.png" border="0"></a>');
     }
 }
 
 // add
 function product_add() {
     tab_id = 'product_add';
-    tab_title = 'Dodaj Product';
-    tab_url = base_url+'/plociuchy:product'+'/display_add';
-    center.ui.tab_add(tab_id, tab_title, tab_url);
-}
+        tab_title = 'Dodaj Product';
+        tab_url = base_url+'/plociuchy:product'+'/display_add';
+        center.ui.tab_add(tab_id, tab_title, tab_url);
+    }
 
 // edit
-function product_edit(id, title) {
-    tab_id = 'product_edit';
-    tab_title = 'Edycja Produktu "'+title+'"';
-    tab_url = base_url+'/plociuchy:product'+'/display_edit/'+id;
-    center.ui.tab_add(tab_id, tab_title, tab_url);
-}
+    function product_edit(id, title) {
+        tab_id = 'product_edit';
+        tab_title = 'Edycja Produktu "'+title+'"';
+        tab_url = base_url+'/plociuchy:product'+'/display_edit/'+id;
+        center.ui.tab_add(tab_id, tab_title, tab_url);
+    }
 
 // delete
-function delete_confirm(url) {
-    new Helper_Delete().delete_confirm(url, 'grid', product_store, null);
-}
+    function delete_confirm(url) {
+        new Helper_Delete().delete_confirm(url, 'grid', product_store, null);
+    }
 
 // active
-function active(url) {
-    new Helper_Ui().url_call(url, 'grid', product_store, null);
-}
+    function active(url) {
+        new Helper_Ui().url_call(url, 'grid', product_store, null);
+    }
 
 // reject
-function reject(id, state) {
-    if (state == 1) {
-        url = base_url+'/plociuchy:product/reject_set/'+id+','+state;
-        new Helper_Ui().url_call(url, 'grid', product_store, null);
-        product_store_reload();
-    }
-    if (state == -1) {
-        url = base_url+'/plociuchy:product/reject_set/'+id+','+state;
-        new Helper_Ui().url_call(url, 'grid', product_store, null);
-        url = base_url+'/plociuchy:product_comment/display_reject/'+id;
-        new Helper_Ui().add_window('product_reject', 'Odrzuć produkt', url);
-        product_store_reload();
+    function reject(id, id_partner, state) {
+        if (state == 1) {
+            url = base_url+'/plociuchy:product/reject_set/'+id+','+state;
+            new Helper_Ui().url_call(url, 'grid', product_store, null);
+            product_store_reload();
+        }
+        if (state == -1) {
+            url = base_url+'/plociuchy:product/reject_set/'+id+','+state;
+            new Helper_Ui().url_call(url, 'grid', product_store, null);
+            url = base_url+'/plociuchy:product_comment/display_reject/'+id+','+id_partner;
+            new Helper_Ui().add_window('product_reject', 'Odrzuć produkt', url);
+            product_store_reload();
     }
 }
 

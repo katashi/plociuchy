@@ -23,8 +23,9 @@ class Product_Comment extends Main {
         $this->ci->smarty->assign('id', $id);
         $this->ci->smarty->display('plociuchy/product_comment_edit.html');
     }
-    function display_reject($id = null) {
+    function display_reject($id = null,$id_partner = null) {
         $this->ci->smarty->assign('id', $id);
+        $this->ci->smarty->assign('id_partner', $id_partner);
         $this->ci->smarty->display('plociuchy/product_comment_reject.html');
     }
 
