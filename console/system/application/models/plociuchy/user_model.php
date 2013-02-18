@@ -69,6 +69,15 @@ class User_Model extends Main_Model
         return $record;
     }
 
+    function load_field($field, $value) {
+        $this->db->where($field, $value);
+        $query = $this->db->get($this->table_name);
+        if ($this->db->affected_rows() > 0) {
+            $record = $query->row_array();
+            return $record;
+        }
+    }
+
     function add()
     {
         $record = $_POST;
@@ -104,6 +113,7 @@ class User_Model extends Main_Model
         $this->db->update($this->table_name);
         return '{"success": true}';
     }
+
     function add_ui() {
         // check for missed user
         if (!isset($_POST['user'])) {
@@ -216,7 +226,62 @@ class User_Model extends Main_Model
         return $result;
     }
 
+    // password reset
+    function password_reset_ui() {
+        $record = array();
+        $record['password'] = sha1($_POST['password']);
+        $record['password_hash'] = md5(date("Y-m-d H:i:s").$_POST['user']);
+        // generate date related stuff
+        $_POST['date_last_modified'] = date("Y-m-d H:i:s");
+        // update
+        $this->db->where('user', $_POST['user']);
+        $this->db->update($this->table_name, $record);
+        // result
+        $result = array();
+        $result['success'] = 1;
+        $result['code'] = 'ok';
+        return $result;
+    }
+    function password_clear($password_hash) {
+        $record = array();
+        $record['password'] = null;
+        $this->db->where('password_hash', $password_hash);
+        $this->db->update($this->table_name, $record);
+        // result
+        $result = array();
+        $result['success'] = 1;
+        $result['code'] = 'ok';
+        return $result;
+    }
+    function password_update($password_hash, $password) {
+        $record = array();
+        $record['password'] = $password;
+        $this->db->where('password_hash', $password_hash);
+        $this->db->update($this->table_name, $record);
+        // result
+        $result = array();
+        $result['success'] = 1;
+        $result['code'] = 'ok';
+        return $result;
+    }
 
+    function match_password($id_user,$password){
+        $passwords = sha1($password);
+        $this->db->where('password', $passwords);
+        $this->db->where('id', $id_user);
+        $query = $this->db->get($this->table_name);
+        $user = $query->row_array();
+        if ($this->db->affected_rows() > 0) {
+            $result = array();
+            $result['success'] = 1;
+            $result['code'] = 'match_ok';
+        } else {
+            $result = array();
+            $result['success'] = 0;
+            $result['code'] = 'match_error';
+        }
+        return $result;
+    }
 }
 
 ?>

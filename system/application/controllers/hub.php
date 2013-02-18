@@ -9,6 +9,11 @@ class Hub extends Main {
 
     // smarty
     function smarty_display($template = null, $title_call = null) {
+        //Display user info
+        $this->display_user_data();
+        //Display messages
+        $this->ci->smarty->assign('messages',$this->display_messages());
+        //display
         $this->ci->smarty->display($template.'.html');
     }
     function smarty_redirect($template = null, $title_call = null) {
@@ -38,6 +43,16 @@ class Hub extends Main {
                 $variable = serialize($variable);
                 $this->smarty_redirect_variables('home/display_redirect', 'home', $variable);
             }
+        }
+    }
+
+
+    public function display_user_data(){
+        if (isset($this->ci->session->userdata['user_authorised'])){
+            $this->ci->smarty->assign('user_authorised',$this->ci->session->userdata['user_authorised']);
+            $this->ci->smarty->assign('user_id',$this->ci->session->userdata['user_id']);
+            $this->ci->smarty->assign('user_name',$this->ci->session->userdata['user_name']);
+            $this->ci->smarty->assign('user_surname',$this->ci->session->userdata['user_surname']);
         }
     }
 
