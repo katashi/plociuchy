@@ -24,6 +24,7 @@ class Main extends Controller {
         $this->include_controller('hub');
         $this->include_controller('home');
         $this->include_controller('article');
+        $this->include_controller('user');
         // category
         $this->smarty->assign('category', $this->category_load_all());
         // vendor

@@ -115,10 +115,19 @@ class User extends Main {
     }
 
     //match passwords
-    function match_password($id_user,$password) {
-        $pass = $this->user_model->match_password($id_user,$password);
+    function match_password($id_user, $password) {
+        $pass = $this->user_model->match_password($id_user, $password);
         if ($pass) {
-            echo '{"success": '.$pass['success'].', "code": '.$pass['code'].'}';
+            echo '{"success": "' . $pass['success'] . '" , "code": "' . $pass['code'] . '"}';
+        }
+    }
+    //reset hasla podanego przez usera
+    function password_reset_user_ui() {
+        $reset = $this->user_model->password_reset_ui();
+        if ($reset['code'] == 'ok') {
+            echo '{"success": 1, "code": "password_reset"}';
+        } else {
+            echo '{"success": 0, "code": "password_error"}';
         }
     }
 

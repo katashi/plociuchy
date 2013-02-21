@@ -102,6 +102,43 @@ class Product_Reservation_Model extends Main_Model
         return '{"success": true}';
     }
 
+    function load_all_user_product_reservation($id_user , $status = null ){
+        $this->db->where('id_user', $id_user);
+        switch ($status){
+            case '0': // aktywne
+                $this->db->where('status', '0');
+                $this->db->where('active', '1');
+                break;
+            case '1': //historia
+                //$this->db->where('status', '1');
+                $this->db->where('active', '0');
+                break;
+            default:
+                break;
+        }
+        $query = $this->db->get($this->table_name);
+        $record = $query->result_array();
+        return $record;
+    }
+    function load_all_user_product_reservation_count($id_user , $status = null ){
+        $this->db->where('id_user', $id_user);
+        switch ($status){
+            case '0': // aktywne
+                $this->db->where('status', '0');
+                $this->db->where('active', '1');
+                break;
+            case '1': //historia
+                //$this->db->where('status', '1');
+                $this->db->where('active', '0');
+                break;
+            default:
+                break;
+        }
+        $query = $this->db->get($this->table_name);
+
+        return $this->db->count_all_results();
+    }
+
 }
 
 ?>

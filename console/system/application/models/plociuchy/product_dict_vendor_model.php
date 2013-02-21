@@ -32,6 +32,15 @@ class Product_Dict_Vendor_Model extends Main_Model {
         $record = $query->result_array();
         return $record;
     }
+    function load_all_letters() {
+        $this->limit_check();
+        $this->filter_check();
+        $this->sort_check();
+        $this->db->select(" * , SUBSTRING(`title`,1,1) as letter" , false);
+        $query = $this->db->get($this->table_name);
+        $record = $query->result_array();
+        return $record;
+    }
     function load_all_user_count($id = null) {
         $this->db->where('id', $id);
         $this->db->from($this->table_name);

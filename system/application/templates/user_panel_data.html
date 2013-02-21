@@ -95,30 +95,21 @@
                             </tr>
                             <tr>
                                 <td style="width: 134px" class="auto-style4">
-                                    <span lang="pl">Ulica:</span></td>
+                                    <span lang="pl">Adres:</span></td>
                                 <td class="auto-style2">
-                                    <input type="text" placeholder="" size="40" style="width: 145px">
+                                    <input type="text" placeholder="" name="shipment_address"  value="{$shipment_address}" size="40" style="width: 145px">
                                 </td>
                             </tr>
                             <tr>
                                 <td style="height: 27px; width: 134px" class="auto-style4">
-                                    <span lang="pl">Kod i miasto:</span></td>
+                                    <span lang="pl">Kod i miasto</span></td>
                                 <td style="height: 27px" class="auto-style2">
-                                    <input type="text" placeholder="" size="40"
-                                           style="width: 39px"><span lang="pl">&nbsp;
-					  </span>
-                                    <input type="text" placeholder="" size="40" style="width: 145px">
-                                </td>
+                                    <input type="text" placeholder="" name="shipment_zip"  value="{$shipment_zip}"size="40" style="width: 39px"><span
+                                        lang="pl">&nbsp;
+					        </span>
+                                    <input type="text" placeholder="" name="shipment_city" value="{$shipment_city}" size="40" style="width: 145px"></td>
                             </tr>
-                            <tr>
-                                <td style="width: 134px" class="auto-style4">
-                                    <span lang="pl">Nr domu / mieszkania:</span></td>
-                                <td class="auto-style2">
-                                    <input type="text" placeholder="" size="40"
-                                           style="width: 39px"><span lang="pl">&nbsp;
-					  /
-					  <input type="text" placeholder="" size="40" style="width: 39px"></span></td>
-                            </tr>
+
                             </tbody>
                         </table>
                         <br/><br/>
@@ -134,9 +125,16 @@
                         frmvalidator.addValidation("user", "req", "Uzupełnij pole e-mail");
                         frmvalidator.addValidation("user", "email", "Pole e-mail jest niepoprawne.");
 
-                        frmvalidator.addValidation("password", "req", "Wprowadź hasło.");
+                        frmvalidator.addValidation("name", "req", "Wpisz proszę swoje imię.");
+                        frmvalidator.addValidation("name","maxlen=100", "Maksymalna długość imienia to 100 znaków.");
+
+                        frmvalidator.addValidation("surname","req","Wpisz proszę swoje nazwisko.");
+                        frmvalidator.addValidation("address","req", "Uzupełnij pole adresu.");
+                        frmvalidator.addValidation("zip","req", "Uzupełnij Kod miasta.");
+                        frmvalidator.addValidation("city","req", "Uzupełnij miasto.");
 
                         frmvalidator.EnableMsgsTogether();
+
                     </script>
                     {/literal}
 

@@ -49,9 +49,21 @@ $route['artykul/(:any)'] = "main/run/article/display_single/$1";
 $route['product/(:any)'] = "main/run/product/display_product_single/$1";
 $route['kategoria/(:any)'] = "main/run/product/display_category_single_list/$1";
 $route['marka/(:any)'] = "main/run/product/display_vendor_single_list/$1";
-//link do walidacji
+//routing do walidacji
 $route['weryfikacja/(:any)'] = "main/run/user/display_verification/$1";
 $route['przypomnienie-hasla/(:any)'] = "main/run/user/password_reset_confirm/$1";
+//routing usera
+$route['wyloguj'] = "main/run/user/display_logout/$1";
+//routing do panelu usera
+$route['panel'] = "main/run/user_panel/display_front/$1";
+$route['panel-dane'] = "main/run/user_panel/display_data/$1";
+$route['panel-zamowienia'] = "main/run/user_panel/display_orders/$1";
+$route['panel-zmiana-hasla'] = "main/run/user_panel/display_change_password/$1";
+//routing koszyka
+$route['koszyk'] = "main/run/cart/display_cart/$1";
+$route['koszyk/podsumowanie'] = "main/run/cart/display_cart_summary/$1";
+
+
 /*$route['kontakt/(:any)'] = "main/run/kontakt/display/$1";
 $route['kontakt/send'] = "main/run/kontakt/send";
 $route['contact_en/(:any)'] = "main/run/contact_en/display/$1";

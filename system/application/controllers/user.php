@@ -73,6 +73,7 @@ class User extends Hub {
         $this->add_message_ok('Użytkownik został poprawnie wylogowany');
 
         //display
+        $template = 'user_logout';
         $this->smarty_display($template);
     }
 

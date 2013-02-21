@@ -12,6 +12,8 @@ class Default_Page extends Hub {
         $this->assign_template_titlecall($template, $title_call);
 
         $result = $this->load_all_title_call($title_call);
+        echo $title_call;
+        echo $template;
         //$this->ci->smarty->assign('regulation_total', $result['total']);
         $this->ci->smarty->assign('page', $result['data']);
         // display
@@ -23,6 +25,8 @@ class Default_Page extends Hub {
         $result = $this->api_call($url);
         return $result;
     }
+
+
 
     /*function load_last_ui($id_node = null) {
         $url = CONSOLE_URL.'/_structure:structure_website/load_last/'.$id_node;

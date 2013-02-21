@@ -74,4 +74,14 @@ class Product_Reservation extends Main
         echo 'grid';
     }
 
+    function load_all_user_product_reservation($id_user , $status=null)
+    {
+        echo '{"success": 1, "data":' . json_encode($this->product_reservation_model->load_all_user_product_reservation($id_user,$status)) . '}';
+    }
+
+    function load_all_user_product_reservation_count($id_user , $status=null)
+    {
+        echo '{"success": 1, "data":' . json_encode($this->product_reservation_model->load_all_user_product_reservation_count($id_user,$status)) . '}';
+    }
+
 }

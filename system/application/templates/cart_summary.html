@@ -1,0 +1,106 @@
+{include file="extension/header.html"}
+<section xmlns="http://www.w3.org/1999/html">
+    <div class="container_12">
+        <div class="wrapper">
+            <br/><br/>
+            <!--==============================lewa strona====================================-->
+           <!-- {include file="extension/addon_menuleft.html"}-->
+            <!--==============================end lewa strona====================================-->
+            <article class="grid_9 prefix_1" style="left: 0px; top: 0px; width: 880px">
+
+                <div class="wrapper" style="left: 0px; top: 0px; width: 880px">
+                    <div id="koszykk">
+                        <h2 class="border-bot">Twóje Zamwówienie</h2>	 <br>
+
+
+
+                        <span lang="pl"><br><br></span>
+
+                        <div id="koszyk" >
+                            <div id="koszyk-tabela">
+                                <div id="koszyk-opis" >
+                                    <strong>Opis</strong></div>
+
+                                <div  id="koszyk-koszt">
+                                    <strong>Koszt</strong></div>
+                                <div  id="koszyk-opcje" >
+                                    <strong>Data</strong></div>
+
+                            </div>
+                            <!-- jeden produkt -->
+
+                            <div id="podzial-tabeli" >
+
+
+                                <div  id="koszyk-opis2" >
+                                    <img alt="" height="100" src="{$site_url}media/image/100x75/{$product.image1}" style="float: left" width="75" >
+                                    <strong>{$product.vendor.title}
+                                    </strong> <br>{$product.text1}<br>{$product.text2}<br></div>
+
+                                <div  id="koszyk-koszt2" >
+                                    <span lang="pl"><strong>{$product.end_price} zł</strong></span></div>
+                                <div  id="koszyk-opcje2" >
+                                    <img alt="" height="24" src="{$site_url}images/edit-delete.png" width="24" style="float: left"></div>
+
+                            </div>
+
+                            <!-- koniec jeden produkt-->
+                            <div id="podzial-tabeli" style="height:84px;" >
+                                <div  id="koszyk-opis"  style="height:43px;" >
+                                    <strong>Dane wysyłki</strong>
+                                    <br>
+                                    Adres<br>
+                                     555 Warszawa</br
+                                </div>
+
+                                </div>
+                            </div>
+                            <div id="podzial-tabeli" style="height:37px;" >
+                                <div  id="koszyk-opis" >
+                                    <strong>Przesyłka</strong></div>
+                                <div  id="koszyk-koszt" >
+                                    <span lang="pl"><strong>20 zł</strong></span></div>
+
+
+                            </div>
+                            <!-- suma -->
+
+                            <div id="koszyk-tabela">
+
+                                <div id="koszyk-razem" >
+                                    Razem: {$final_price} zł</div>
+
+                            </div>
+
+                        </div>
+
+
+
+
+
+                        <!-- nawigacja dol -->
+
+                        <div style="width:803px; display:block;overflow:hidden; margin-top:20px;">
+                            <!--  <a class="button2" href="zamow.php" style="float:left;">PRZEGLĄDAJ DALEJ</a>-->
+                            {include file="extension/payment24.html"}
+
+                        </div>
+
+                        <!-- koniec nawigacja dol -->
+
+                    </div>
+
+                    <br/>  <br/>               <div class="overflow">
+                    <p>&nbsp;</p>
+                </div>
+                </div>
+
+
+                <!--==============================end content====================================-->
+            </article>
+        </div>
+
+    </div>
+    {include file="extension/footer_section.html"}
+</section>
+{include file="extension/footer.html"}

@@ -11,7 +11,9 @@
                 <h2 class="border-bot">Zamówienia </h2>
                 {$messages}
                 <strong>Aktualne zamówienia:</strong><br>
+                {if !$active_reservations}
                 <div id="ok">Aktualnie nie posiadasz żadnych zamówień.</div>
+                {else}
                 <br>
                 <div id="kolumny">
                     <div id="kolumny-szare">
@@ -26,22 +28,27 @@
                             <span lang="pl"><strong>Data</strong></span></div>
 
                     </div>
+                    {foreach from=$active_reservations item=reservation}
                     <div id="kolumny-produkt" >
                         <div id="kolumna1" >
-                            <a href="#">Różowa sukienka ze wstążką pod biustem</a></div>
-                        <div id="kolumna2">Nick</div>
-                        <div id="kolumna2" >W trakcie wysyłki</div>
-
-                        <div >
-                            <span lang="pl">22.02.2012</span></div>
+                            <a href="{$site_url}product/{$reservation.id_product}">{$reservation.product.text1}</a></div>
+                        <div id="kolumna2">{if $reservation.partner.nick}{$reservation.partner.nick}{else}NoInfo{/if}</div>
+                        <div id="kolumna2" > need status</div>
+                        <div>
+                            <span lang="pl">{$reservation.product.date_added|date_format:"%m-%d-%Y"}</span></div>
                     </div>
+                    {/foreach}
                 </div>
-                <br/><br/><br/>
+                <br/><br/><br/><br/>
+                {/if}
+                <br/>
                 <p></p>
                 <p></p>
                 <strong>Historia:</strong>
                 <br>
+                {if !$history_reservations}
                 <div id="ok">Nie dokonałaś jeszcze żadnego zamówienia.</div>
+                {else}
                 <br/>
 
                 <div id="kolumny">
@@ -52,20 +59,21 @@
                             <strong>Wypożyczający</strong></div>
                         <div id="kolumna2" >
                             <strong>Status</strong></div>
-
                         <div id="kolumna3" >
                             <span lang="pl"><strong>Data</strong></span></div>
-
                     </div>
+                    {foreach from=$history_reservations item=reservation}
                     <div id="kolumny-produkt" >
                         <div id="kolumna1" >
-                            <a href="#">Różowa sukienka ze wstążką pod biustem</a></div>
-                        <div id="kolumna2">Nick</div>
-                        <div id="kolumna2" >W trakcie wysyłki</div>
+                            <a href="{$site_url}product/{$reservation.id_product}">{$reservation.product.text1}</a></div>
+                        <div id="kolumna2">{if $reservation.partner.nick}{$reservation.partner.nick}{else}NoInfo{/if}</div>
+                        <div id="kolumna2" > need status</div>
                         <div>
-                            <span lang="pl">22.02.2012</span></div>
+                            <span lang="pl">{$reservation.product.date_added|date_format:"%m-%d-%Y"}</span></div>
                     </div>
+                    {/foreach}
                 </div>
+                {/if}
     <!--==============================end content====================================-->
             </article>
         </div>
