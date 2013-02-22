@@ -35,6 +35,8 @@ class User extends Hub {
         if (isset($this->ci->session->userdata['user_authorised'])) {
             $this->add_message_ok('Użytkownik jest juz Zalogowany.');
             // lub redirect
+        }elseif(isset($_POST['cart_summary'])){
+            $this->add_message_error('Zaloguj się aby potwierdzić rezerwację.');
         }else{
             if (isset($_POST['login_submit'])) {
                 unset($_POST['login_submit']);

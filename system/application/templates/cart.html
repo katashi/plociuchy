@@ -13,8 +13,9 @@
 
                     <div id="koszykk">
                         <h2 class="border-bot">Twój koszyk</h2>	 <br>
-
-
+                    {if !$products}
+                         <div id="ok" style="width: 880px">Pusty</div>
+                    {else}
                         Daty rezerwacji produktu: <strong>{$date_from} - {$date_to}</strong> ({$days} dni)
                         <strong>zmień</strong>
 
@@ -88,7 +89,7 @@
                         </div>
 
                         <!-- koniec nawigacja dol -->
-
+                    {/if}
                     </div>
 
 
