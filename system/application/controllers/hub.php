@@ -9,6 +9,8 @@ class Hub extends Main {
 
     // smarty
     function smarty_display($template = null, $title_call = null) {
+        //get from seeesion order
+        $this->display_cart_data();
         //Display user info
         $this->display_user_data();
         //Display messages
@@ -54,6 +56,19 @@ class Hub extends Main {
             $this->ci->smarty->assign('user_name',$this->ci->session->userdata['user_name']);
             $this->ci->smarty->assign('user_surname',$this->ci->session->userdata['user_surname']);
         }
+    }
+    public function display_cart_data(){
+        if (isset($this->ci->session->userdata['cart_data'])){
+            $products = $this->ci->session->userdata['products'];
+            $cart_product = $this->load_product_header($products[0]);
+            $this->ci->smarty->assign('header_cart_product',$cart_product);
+        }
+    }
+
+    public function load_product_header($id_product){
+        $url = CONSOLE_URL . '/plociuchy:product/load/' . $id_product;
+        $result = $this->api_call($url);
+        return $result['data'];
     }
 
 }

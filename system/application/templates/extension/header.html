@@ -86,7 +86,8 @@
             </div>
             <div class="row2" id="row2" style="width:250px;float:right; padding:0 10px 0 10px;">
                 <img alt="koszyk" height="24" src="{$site_url}images/carticon.png" width="28" style="float:left"/>
-                Twoje zamówienie: <Br/><a href="#">Spódnica Armani 32 wieczorowa</a>
+
+                Twoje zamówienie: <Br/><a href="{$site_url}koszyk">{if $header_cart_product}{$header_cart_product.text1}{else} Pusty {/if}</a>
             </div>
         </div>
         <div class="row-nav">

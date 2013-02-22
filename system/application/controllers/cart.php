@@ -44,8 +44,6 @@ class Cart extends Hub {
         //foreach($products as $product){
             $cart_products[] = $this->load_product($products[0]);//tylko 1 zamowienie na raz
         //}
-
-
         $numberDays  = $this->cout_days($date_from,$date_to);
         $shipment_cost = $this->get_shipmentCost();
         foreach ($cart_products as $key => $product){
@@ -124,13 +122,29 @@ class Cart extends Hub {
         $this->smarty_display($template);
     }
 
-    function display_cart_platnosci_ok($template = null, $title_call = null) {
+    function display_platnosci24_ok($template = null, $title_call = null) {
 
+        $data = $_POST;
+        //Add user payment
+        $url = CONSOLE_URL . '/plociuchy:payment_p24_user/payment_p24_ok_ui';
+        $result = $this->api_call($url, $data);
+
+        if($result['success'] == 'true'){
+            $this->add_message_ok('Dziekujemy za wpłatę. Twoja rezerwacja została przeprowadzona prawidłowo.');
+        }else{
+            $this->add_message_error('Wystąpił błąd podaczas wpłaty.Proszę spróbować jeszcze raz.');
+        }
+        $template = 'cart_payment24';
         $this->smarty_display($template);
     }
 
-    function display_cart_platnosci_error($template = null, $title_call = null) {
-
+    function display_platnosci24_error($template = null, $title_call = null) {
+        $data = $_POST;
+        //Add user payment
+        $url = CONSOLE_URL . '/plociuchy:payment_p24_user/payment_p24_error_ui';
+        $result = $this->api_call($url, $data);
+        $this->add_message_error('Wystąpił błąd podaczas wpłaty.Proszę spróbować jeszcze raz.');
+        $template = 'cart_payment24';
         $this->smarty_display($template);
     }
 
@@ -153,7 +167,7 @@ class Cart extends Hub {
         // add reservation
         // add payment
         $user = $this->load_user($this->ci->session->userdata['user_id']);
-                         var_dump($user);
+
         $data['id_user'] = $this->ci->session->userdata['user_id'];
         $data['id_session'] = $this->ci->session->userdata['session_id'];
         $data['p24_kwota'] = $data_s['final_price'];
@@ -170,15 +184,14 @@ class Cart extends Hub {
         //Add user payment
         $url = CONSOLE_URL . '/plociuchy:payment_p24_user/add_user_ui';
         $result = $this->api_call($url, $data);
-
         $data = array();
         $data['id_user'] = $this->ci->session->userdata['user_id'];
         $data['id_partner'] = $data_s['product']['id_partner'];
         $data['id_product'] = $data_s['product']['id'];
-        $data['id_payment_p24_user'] = '';//$result['data']['id'];
+        $data['id_payment_p24_user'] = $result['data']['id'];
         $data['status'] = 0;
         $data['reject'] = 0;
-        $data['active'] = 1;
+        $data['active'] = 0;//0-nowe 1-zatwierdzone
         $data['date_from'] = $data_s['date_from'];
         $data['date_to'] = $data_s['date_to'];
         //Add reservation

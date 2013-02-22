@@ -48,6 +48,12 @@
                             <div id="choose_date">
                                 <div style="text-align: left" id="times">
                                     <form id="cart_form" method="post" action="{$site_url}koszyk">
+
+                                        <img alt="" height="32" src="{$site_url}images/Calendar-Logo-32x32.png" width="32" style="border:0px;  padding:10px;" />
+                                        <select id="cart_available_days" >
+                                            <option value="0">3 dni</option>
+                                            <option value="1">7 dni</option>
+                                         </select>
                                         <div id="datepicker_reservation" class="datepicker"></div>
                                         <br /><br />
                                         <label>Rezerwacja:</label> <span id="startDate"></span> - <span id="endDate"></span>

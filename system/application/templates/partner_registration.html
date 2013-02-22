@@ -1,0 +1,175 @@
+{include file="extension/header.html"}
+<section>
+    <div class="container_12">
+        <div class="wrapper">
+            <br/><br/>
+            <!--==============================lewa strona====================================-->
+            {include file="extension/addon_menuleft.html"}
+            <!--==============================end lewa strona====================================-->
+            <!--==============================js ====================================-->
+
+            <script src="{$site_url}js/gen_validatorv4.js" type="text/javascript"></script>
+            {literal}
+            <script type="text/javascript">
+                /* <![CDATA[ */
+                $(function () {
+                    var input = document.createElement("input");
+                    if (('placeholder' in input) == false) {
+                        $('[placeholder]').focus(function () {
+                            var i = $(this);
+                            if (i.val() == i.attr('placeholder')) {
+                                i.val('').removeClass('placeholder');
+                                if (i.hasClass('password')) {
+                                    i.removeClass('password');
+                                    this.type = 'password';
+                                }
+                            }
+                        }).blur(function () {
+                                    var i = $(this);
+                                    if (i.val() == '' || i.val() == i.attr('placeholder')) {
+                                        if (this.type == 'password') {
+                                            i.addClass('password');
+                                            this.type = 'text';
+                                        }
+                                        i.addClass('placeholder').val(i.attr('placeholder'));
+                                    }
+                                }).blur().parents('form').submit(function () {
+                                    $(this).find('[placeholder]').each(function () {
+                                        var i = $(this);
+                                        if (i.val() == i.attr('placeholder'))
+                                            i.val('');
+                                    })
+                                });
+                    }
+                });
+                /* ]]> */
+            </script>
+            {/literal}
+            <!--==============================end js====================================-->
+            {$code}<br/>
+            <article class="grid_9 prefix_1">
+                {$message}
+                <h2 class="border-bot">Rejestracja: Partner</h2>
+
+                <div class="auto-style1">
+                    <form  id="regform"  action="{$site_url}partner-rejestracja" name="registration" method="post">
+                        <table style="width: 59%">
+                            <tr>
+                                <td class="auto-style4" style="width: 134px"><span lang="pl">Imię:</span></td>
+                                <td class="auto-style2">
+                                    <input type="text" style="width: 145px" size="40" name="name" placeholder=""></td>
+                            </tr>
+                            <tr>
+                                <td class="auto-style4" style="height: 27px; width: 134px"><span
+                                        lang="pl">Nazwisko:</span></td>
+                                <td class="auto-style2" style="height: 27px">
+                                    <input type="text" style="width: 145px" size="40" name="surname" placeholder="">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="auto-style4" style="width: 134px"><span lang="pl">&nbsp;</span></td>
+                                <td class="auto-style2">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td class="auto-style4" style="width: 134px"><span lang="pl">Adres e-mail:</span></td>
+                                <td class="auto-style2">
+                                    <input type="text" style="width: 145px" size="40" name="user" placeholder=""></td>
+                            </tr>
+                            <tr>
+                                <td class="auto-style4" style="width: 134px"><span lang="pl">Hasło:</span></td>
+                                <td class="auto-style2">
+                                    <input type="password" style="width: 145px" size="40" name="password"
+                                           placeholder=""></td>
+                            </tr>
+                            <tr>
+                                <td class="auto-style4" style="width: 134px"><span lang="pl">Hasło (powtórka):</span>
+                                </td>
+                                <td class="auto-style2">
+                                    <input type="password" style="width: 145px" size="40" name="password2"
+                                           placeholder=""></td>
+                            </tr>
+                            <tr>
+                                <td class="auto-style4" style="width: 134px">&nbsp;</td>
+                                <td class="auto-style2">
+                                    &nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td class="auto-style4" style="width: 134px"><span lang="pl">Telefon
+                          kontaktowy:</span></td>
+                                <td class="auto-style2">
+                                    <input type="text" style="width: 145px" size="40" name="mobile" placeholder=""></td>
+                            </tr>
+                            <tr>
+                                <td class="auto-style2" style="width: 134px">&nbsp;</td>
+                                <td class="auto-style2">
+                                    &nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td class="auto-style2" style="width: 134px"><span lang="pl">Oświadczenia:</span></td>
+                                <td class="auto-style2">
+                                    <table style="width: 100%">
+                                        <tr>
+                                            <td style="width: 33px">
+                                                <input type="checkbox" value="1" name="submit1"
+                                                       style="width:20px;  margin:0px;"></td>
+                                            <td><span lang="pl">Akceptuje <a href="#"> regulamin serwisu</a></span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><input type="checkbox" value="1" name="submit2"
+                                                       style="width:20px; margin:0px;"></td>
+                                            <td>Wyrażam zgodę na przetwarzanie moich danych osobowych w
+                                                zakresie, celu i na warunkach opisanych w Regulaminie
+                                                Allegro.
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    &nbsp;</td>
+                            </tr>
+                        </table>
+                        <p class="auto-style3">
+                            <input type="submit" style="width: 188px" name="registration_submit" id="submit"
+                                   value="Zakładam konto"> <br/>
+                        </p>
+
+                        <div class="overflow">
+                            <p>&nbsp;</p>
+                        </div>
+                    </form>
+                    {literal}
+                    <script type="text/javascript">
+
+                        var frmvalidator = new Validator("regform");
+                        frmvalidator.addValidation("name", "req", "Wpisz proszę swoje imię.");
+                        frmvalidator.addValidation("name", "maxlen=100", "Maksymalna długość imienia to 100 znaków.");
+
+                        frmvalidator.addValidation("surname", "req", "Wpisz proszę swoje nazwisko.");
+                        frmvalidator.addValidation("surname", "maxlen=100", "Maksymalna długość nazwiska to 100 znaków.");
+
+
+                        frmvalidator.addValidation("user", "maxlen=70", "Pole e-mail jest niepoprawne.");
+                        frmvalidator.addValidation("user", "req", "Uzupełnij pole e-mail abyśmy mogli się z Tobą skontaktować.");
+                        frmvalidator.addValidation("user", "email", "Pole e-mail jest niepoprawne.");
+
+                        frmvalidator.addValidation("mobile", "maxlen=50", "Maksymalny numer telefonu ma 50 znaków.");
+                        frmvalidator.addValidation("mobile", "req", "Uzupełnij numer telefonu abyśmy mogli się z Tobą skontaktować.");
+                        frmvalidator.addValidation("mobile","alphanumeric_space", 'Błąd w numerze telefonu');
+
+                        frmvalidator.addValidation("submit1","shouldselchk=on ", "Zaakceptuj regulamin.");
+                        frmvalidator.addValidation("submit2","shouldselchk=on ", "Zaakceptuj zgodę na przetwarzanie danych.");
+
+                        frmvalidator.addValidation("password","req", "Wprowadź hasło.");
+                        frmvalidator.addValidation("password2","eqelmnt=password", "Hasła nie zgadzają się.");
+
+                        frmvalidator.EnableMsgsTogether();
+                    </script>
+                    {/literal}
+                </div>
+
+
+                <!--==============================end content====================================-->
+        </div>
+        </article>
+    </div>
+    {include file="extension/footer_section.html"}
+</section>
+{include file="extension/footer.html"}

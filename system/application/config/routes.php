@@ -59,23 +59,47 @@ $route['panel'] = "main/run/user_panel/display_front/$1";
 $route['panel-dane'] = "main/run/user_panel/display_data/$1";
 $route['panel-zamowienia'] = "main/run/user_panel/display_orders/$1";
 $route['panel-zmiana-hasla'] = "main/run/user_panel/display_change_password/$1";
+/////////////////////PARTNER//////////////////////////////////////
+//routing do walidacji
+$route['partner-weryfikacja/(:any)'] = "main/run/partner/display_verification/$1";
+$route['partner-przypomnienie-hasla/(:any)'] = "main/run/partner/password_reset_confirm/$1";
+//routing usera
+$route['partner-wyloguj'] = "main/run/partner/display_logout/$1";
+//routing do panelu partnera
+$route['partner-logowanie'] = "main/run/partner/display_login/$1";
+$route['partner-rejestracja'] = "main/run/partner/display_registration/$1";
+$route['partner-przypomnienie-hasla'] = "main/run/partner/partner_user_password_reminder/$1";
+
+$route['partner-panel'] = "main/run/partner_panel/display_front/$1";
+$route['partner-panel-dane'] = "main/run/partner_panel/display_data/$1";
+$route['partner-panel-zmiana-hasla'] = "main/run/partner_panel/display_change_password/$1";
+$route['partner-panel-wystaw'] = "main/run/partner_panel/display_add_product/$1";
+$route['partner-panel-produkty'] = "main/run/partner_panel/display_products/$1";
+$route['partner-panel-produkty-odrzucone'] = "main/run/partner_panel/display_rejected_products/$1";
+$route['partner-panel-rezerwacje'] = "main/run/partner_panel/display_reservations/$1";
+$route['partner-panel-rezerwacje-aktualne'] = "main/run/partner_panel/display_reservations_actual/$1";
+$route['partner-panel-historia-rezerwacji'] = "main/run/partner_panel/display_reservation_history/$1";
+$route['partner-panel-saldo'] = "main/run/partner_panel/display_pauyment_balance/$1";
+$route['partner-panel-historia-wplat'] = "main/run/partner_panel/display_payment_history/$1";
+
 //routing koszyka
 $route['koszyk'] = "main/run/cart/display_cart/$1";
 $route['koszyk/podsumowanie'] = "main/run/cart/display_cart_summary/$1";
+$route['koszyk/platnosc24-ok'] = "main/run/cart/display_platnosci24_ok/$1";
+$route['koszyk/platnosc24-error'] =  "main/run/cart/display_platnosci24_error/$1";
 
-
-/*$route['kontakt/(:any)'] = "main/run/kontakt/display/$1";
-$route['kontakt/send'] = "main/run/kontakt/send";
-$route['contact_en/(:any)'] = "main/run/contact_en/display/$1";
-$route['contact_en/send'] = "main/run/contact_en/send";
-$route['kontakt_de/(:any)'] = "main/run/kontakt_de/display/$1";
-$route['kontakt_de/send'] = "main/run/kontakt_de/send";
-$route['glowna/(:any)'] = "main/run/glowna/language_set/$1";
-$route['home/(:any)'] = "main/run/home/language_set/$1";
-$route['zuhause/(:any)'] = "main/run/zuhause/language_set/$1";
-$route['pl'] = "main/run/glowna/language_set/pl";
-$route['en'] = "main/run/home/language_set/en";
-$route['de'] = "main/run/zuhause/language_set/de";*/
+    /*$route['kontakt/(:any)'] = "main/run/kontakt/display/$1";
+    $route['kontakt/send'] = "main/run/kontakt/send";
+    $route['contact_en/(:any)'] = "main/run/contact_en/display/$1";
+    $route['contact_en/send'] = "main/run/contact_en/send";
+    $route['kontakt_de/(:any)'] = "main/run/kontakt_de/display/$1";
+    $route['kontakt_de/send'] = "main/run/kontakt_de/send";
+    $route['glowna/(:any)'] = "main/run/glowna/language_set/$1";
+    $route['home/(:any)'] = "main/run/home/language_set/$1";
+    $route['zuhause/(:any)'] = "main/run/zuhause/language_set/$1";
+    $route['pl'] = "main/run/glowna/language_set/pl";
+    $route['en'] = "main/run/home/language_set/en";
+    $route['de'] = "main/run/zuhause/language_set/de";*/
 $route['(:any)'] = "main/run/$1";;
 
 /* End of file routes.php */

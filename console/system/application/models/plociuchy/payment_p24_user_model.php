@@ -69,7 +69,7 @@ class Payment_P24_User_Model extends Main_Model
         $record = $_POST;
         $record['date_added'] = date("Y-m-d H:i:s");
         $this->db->insert($this->table_name, $record);
-        return 1;
+        return $this->ci->db->insert_id();
     }
 
     // edit

@@ -93,8 +93,9 @@ class Payment_P24_User extends Main
         $_POST['p24_kwota'] = number_format($_POST['p24_kwota'], 2, '.', '') * 100;
         $_POST['p24_crc'] = md5($this->p24_session_id . '|' . $this->p24_id_sprzedawcy . '|' . $_POST['p24_kwota'] . '|' . $this->p24_crc);
         //Dodajemy zamowienie do usera
-        $this->payment_p24_user_model->add();
+        $inserted_id = $this->payment_p24_user_model->add();
         $data = $_POST;
+        $data['id'] = $inserted_id;
         echo '{"success":"true","data":' . json_encode($data) . '}';
     }
 
@@ -110,7 +111,7 @@ class Payment_P24_User extends Main
     function payment_p24_ok_ui()
     {
         //pobieramy dane z $_POST
-        $p24_session_id = $_POST["p24_session_id"];
+        $p24_session_id =  $_POST["p24_session_id"];
         $p24_order_id = $_POST["p24_order_id"];
         $p24_id_sprzedawcy = $_POST['p24_id_sprzedawcy'];
         //pobiermay cene z bazy
@@ -124,14 +125,25 @@ class Payment_P24_User extends Main
             // transakcja prawidłowa
             $_POST['status'] = '1';
             $this->payment_p24_user_model->edit($obj['id']);
-            echo 'tranzakcja prawidłowa';
+            //rezerwacja zmiana statusu
+            $_POST = array();
+            $_POST['active'] = '1';
+            $obj2 = $this->product_reservation_model->load($obj['id'],'id_payment_p24_user');
+            $this->product_reservation_model->edit($obj2['id']);
+            echo '{"success":"true"}';
         } else {
             // transakcja błędna
             // $WYNIK[1] - kod błędu
             // $WYNIK[2] - opis
+            $_POST = array();
             $_POST['status'] = '-1';
-            $this->payment_p24_user_model->update($obj['id']);
-            echo 'tranzakcja nieprawidlowa';
+            $this->payment_p24_user_model->edit($obj['id']);
+            //rezerwacja zmiana statusu
+            $_POST = array();
+            $_POST['active'] = '-1';
+            $obj2 = $this->product_reservation_model->load($obj['id'],'id_payment_p24_user');
+            $this->product_reservation_model->edit($obj2['id']);
+            echo '{"success":"false"}';
         }
 
     }
@@ -141,7 +153,22 @@ class Payment_P24_User extends Main
      */
     function payment_p24_error_ui()
     {
-        echo 'error';
+        //pobieramy dane z $_POST
+        $p24_session_id = $_POST["p24_session_id"];
+        //$p24_order_id = $_POST["p24_order_id"];
+        //$p24_id_sprzedawcy = $_POST['p24_id_sprzedawcy'];
+
+        $obj = $this->payment_p24_user_model->load($p24_session_id, 'p24_session_id');
+        //zmiana statusu na nieudany
+        $_POST = array();
+        $_POST['status'] = '-1';
+        $this->payment_p24_user_model->edit($obj['id']);
+        //rezerwacja zmiana statusu
+        $_POST = array();
+        $_POST['active'] = '-1';
+        $obj2 = $this->product_reservation_model->load($obj['id'],'id_payment_p24_user');
+        $this->product_reservation_model->edit($obj2['id']);
+        echo '{"success":"false"}';
     }
 
     function payment_p24_weryfikacja($p24_id_sprzedawcy, $p24_session_id, $p24_order_id, $p24_kwota)
