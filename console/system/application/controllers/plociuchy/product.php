@@ -57,6 +57,14 @@ class Product extends Main {
         echo '{"total":'.json_encode($this->product_model->load_all_product_count()).', "data":'.json_encode($this->product_model->load_all_product()).'}';
     }
 
+    function load_all_user_product_ui($id_user, $page = null , $limit = 10){
+        if($page >= 1){
+            $_REQUEST['start'] = ($page-1) * $limit;
+            $_REQUEST['limit'] = $limit;
+        }
+        echo '{"total":'.json_encode($this->product_model->load_all_user_products_count($id_user,'id_partner')).', "data":'.json_encode($this->product_model->load_all_user_products($id_user,'id_partner')).'}';
+    }
+
     // add
     function add() {
         $result = $this->product_model->add();

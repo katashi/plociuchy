@@ -1,0 +1,64 @@
+{include file="extension/header.html"}
+<section>
+    <div class="container_12">
+        <div class="wrapper">
+            <br/><br/>
+            <!--==============================lewa strona====================================-->
+            {include file="extension/addon_partner_panel_menuleft.html"}
+            <!--==============================end lewa strona====================================-->
+            <!--==============================content====================================-->
+            <article class="grid_9 prefix_1">
+
+                {$messages}
+
+                {if $reservations}
+
+                <div id="kolumny">
+                    <div id="kolumny-szare">
+                        <div id="kolumna1" style="width:324px;">
+                            <strong>Produkt</strong></div>
+                        <div id="kolumna2" style="width: 136px">
+                            <span lang="pl"><strong>Wypożyczający</strong></span></div>
+                        <div id="kolumna2" >
+                            <span lang="pl"><strong>Okres rezerwacji </strong></span></div>
+
+                        <div id="kolumna3" class="aligncenter" >
+                            <span lang="pl"><strong>Opcje</strong></span></div>
+
+                    </div>
+                    {foreach from=$reservations item=reservation}
+                    <!-- produkt -->
+                        <div id="kolumny-produkt2" >
+                            <div id="kolumna1"  style="width:324px;">
+                                <a href="#">{$reservation.product.text1}</a></div>
+                            <div id="kolumna2" class="col" style="width: 137px">
+                                <a href="javascript:void(0);" onclick="tooltip({$reservation.id});return;">
+                                    <img alt="ZOBACZ DANE" height="25" src="images/zoomicon.png" width="25">
+                                    {$reservation.user.name} {$reservation.user.surname}</a>
+                                    <div id="tooltip_{$reservation.id}" title="{$reservation.user.name} {$reservation.user.surname}" style="display:none;">
+                                    {$reservation.user.name} {$reservation.user.surname}<br>
+                                    {$reservation.user.address}<br/>
+                                    {$reservation.user.zip} / {$reservation.user.city}
+                                    </div>
+                                    </div>
+                            <div id="kolumna2" >
+                                <span lang="pl">{$reservation.date_from} do {$reservation.date_to}</span></div>
+
+                            <div class="aligncenter" >
+                                <a href="#"><img alt="" height="25" src="images/package.png" width="25" class="auto-style5">wysłane</a>
+                            </div>
+                        </div>
+                    <!-- koniec produktu -->
+                    {/foreach}
+                </div>
+
+
+                {/if}
+            <!--==============================end content====================================-->
+            </article>
+        </div>
+
+    </div>
+    {include file="extension/footer_section.html"}
+</section>
+{include file="extension/footer.html"}

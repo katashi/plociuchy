@@ -1,0 +1,81 @@
+{include file="extension/header.html"}
+<section>
+    <div class="container_12">
+        <div class="wrapper">
+            <br/><br/>
+            <!--==============================lewa strona====================================-->
+            {include file="extension/addon_partner_panel_menuleft.html"}
+            <!--==============================end lewa strona====================================-->
+            <!--==============================content====================================-->
+                <article class="grid_9 prefix_1">
+                    <h2 class="border-bot">bieżące saldo i wpłata</h2>
+                    <div class="wrapper" style="left: 0px; top: 0px">
+                        <div class="overflow">
+                            {$messages}
+                            <div id="error" class="auto-style5">Saldo bieżące: 3 kredyty</div>
+                            <br><span lang="pl"><strong>Wybierz opcje doładowania</strong><br><br>
+                <form action="{$site_url}partner-panel-saldo/doladowanie-konta" method="post">
+				<table cellpadding="5" cellspacing="5" class="auto-style6" style="width: 651px">
+                    <tr>
+                        <td class="auto-style10" style="height: 37px; width: 410px">
+                            <strong>P</strong><span class="auto-style11"><strong>akiet</strong></span></td>
+                        <td class="auto-style13" style="height: 37px">
+                            <strong class="auto-style12">1</strong></td>
+                        <td class="auto-style8" style="height: 37px">
+                            <strong class="auto-style12">2</strong></td>
+                        <td class="auto-style14" style="height: 37px">
+                            <strong class="auto-style12">3</strong></td>
+                    </tr>
+                    <tr>
+                        <td class="auto-style10" style="height: 22px; width: 410px">Koszt wystawienia jedenj pozycji (produktu) na okres
+                            1 miesiąca</td>
+                        <td class="auto-style15" style="height: 22px">8 zł</td>
+                        <td class="auto-style9" style="height: 22px">6 zł</td>
+                        <td class="auto-style15" style="height: 22px">4 zł</td>
+                    </tr>
+                    <tr>
+                        <td class="auto-style10" style="height: 22px; width: 410px">Ilość
+                            kredytów w ramach abonamentu</td>
+                        <td class="auto-style15" style="height: 22px">3</td>
+                        <td class="auto-style9" style="height: 22px">10</td>
+                        <td class="auto-style15" style="height: 22px">30</td>
+                    </tr>
+                    <tr>
+						<span lang="pl">
+						<td class="auto-style10" style="height: 37px; width: 410px"><strong>Cena</strong></td>
+						<td class="auto-style14" style="height: 37px">
+                            <strong class="auto-style7">24 zł</strong></td>
+						<td class="auto-style9" style="height: 37px">
+                            <strong class="auto-style7">60zł</strong></td>
+						<td class="auto-style15" style="height: 37px">
+                            <strong class="auto-style7">120zł</strong></td>
+						</span>
+                    </tr>
+                    <tr>
+                        <td style="width: 410px">&nbsp;</td>
+                        <td>
+                            <input type="submit" style="width:85px;" class="button2" name="cart_income_1" value="kup" id="submit">
+                        </td>
+                        <td>
+                            <input type="submit" style="width:85px;" class="button2" name="cart_income_2" value="kup" id="submit">
+                        </td>
+                        <td>
+                            <input type="submit" style="width:85px;" class="button2" name="cart_income_3" value="kup" id="submit">
+                        </td>
+                    </tr>
+                </table>
+                </form>
+				<br><br><br></span>
+                            <br/>
+
+                        </div>
+                    </div>
+
+                    <!--==============================end content====================================-->
+            </article>
+        </div>
+
+    </div>
+    {include file="extension/footer_section.html"}
+</section>
+{include file="extension/footer.html"}

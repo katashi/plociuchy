@@ -27,6 +27,14 @@ class Partner_Model extends Main_Model {
         $this->db->from($this->table_name);
         return $this->db->count_all_results();
     }
+    function load_field($field, $value) {
+        $this->db->where($field, $value);
+        $query = $this->db->get($this->table_name);
+        if ($this->db->affected_rows() > 0) {
+            $record = $query->row_array();
+            return $record;
+        }
+    }
     function load_all() {
         $this->limit_check();
         $this->filter_check();

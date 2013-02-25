@@ -34,8 +34,8 @@ class Product_Dict_Category extends Main {
     function load_all_user($id = null) {
         echo '{"total":'.json_encode($this->product_dict_category_model->load_all_user_count($id)).', "data":'.json_encode($this->product_dict_category_model->load_all_user($id)).'}';
     }
-    function load($id = null) {
-        echo '{"success": 1, "data":'.json_encode($this->product_dict_category_model->load($id)).'}';
+    function load($id = null,$where ='id') {
+        echo '{"success": 1, "data":'.json_encode($this->product_dict_category_model->load($id,$where)).'}';
     }
 
     // add
@@ -55,5 +55,7 @@ class Product_Dict_Category extends Main {
         $result = $this->product_dict_category_model->delete($id);
         echo '{"success":' . $result . '}';
     }
+
+
 
 }

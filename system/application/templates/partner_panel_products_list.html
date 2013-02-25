@@ -1,0 +1,47 @@
+{include file="extension/header.html"}
+<section>
+    <div class="container_12">
+        <div class="wrapper">
+            <br/><br/>
+            <!--==============================lewa strona====================================-->
+            {include file="extension/addon_partner_panel_menuleft.html"}
+            <!--==============================end lewa strona====================================-->
+            <!--==============================content====================================-->
+            <article class="grid_9 prefix_1">
+                <h2 class="border-bot"> {$title_page} </h2>
+                {$messages}
+                {if $user_products}
+                <div id="kolumny">
+                    <div id="kolumny-szare">
+                        <div id="kolumna1">
+                            <strong>Produkt</strong></div>
+                        <div id="kolumna2">
+                            <span lang="pl"><strong>Kategoria</strong></span></div>
+                        <div id="kolumna2" >
+                            <span lang="pl"><strong>Data wygaśnięcia</strong></span></div>
+
+                        <div id="kolumna3" class="aligncenter" >
+                            <span lang="pl"><strong>Opcje</strong></span></div>
+                    </div>
+                    {foreach from=$user_products item=product}
+                    <div id="kolumny-produkt" >
+                        <div id="kolumna1" >
+                            <a href="{$site_url}product/{$product.id}">{$product.text1}</a></div>
+                        <div id="kolumna2">{$product.category.title}</div>
+                        <div id="kolumna2" >
+                            <span lang="pl">{$product.active_to} ({$product.left_days}dni)</span></div>
+
+                        <div class="aligncenter" >
+                            <img alt="" height="24" src="images/delete.png" width="24"><img alt="" height="25" src="images/edit.png" width="25"><img alt="" height="25" src="images/zoomicon.png" width="25"></div>
+                    </div>
+                    {/foreach}
+                </div>
+                {/if}
+            <!--==============================end content====================================-->
+            </article>
+        </div>
+
+    </div>
+    {include file="extension/footer_section.html"}
+</section>
+{include file="extension/footer.html"}

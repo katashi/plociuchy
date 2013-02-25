@@ -62,13 +62,13 @@ $route['panel-zmiana-hasla'] = "main/run/user_panel/display_change_password/$1";
 /////////////////////PARTNER//////////////////////////////////////
 //routing do walidacji
 $route['partner-weryfikacja/(:any)'] = "main/run/partner/display_verification/$1";
+$route['partner-przypomnienie-hasla'] = "main/run/partner/display_password_reset/$1";
 $route['partner-przypomnienie-hasla/(:any)'] = "main/run/partner/password_reset_confirm/$1";
 //routing usera
 $route['partner-wyloguj'] = "main/run/partner/display_logout/$1";
 //routing do panelu partnera
 $route['partner-logowanie'] = "main/run/partner/display_login/$1";
 $route['partner-rejestracja'] = "main/run/partner/display_registration/$1";
-$route['partner-przypomnienie-hasla'] = "main/run/partner/partner_user_password_reminder/$1";
 
 $route['partner-panel'] = "main/run/partner_panel/display_front/$1";
 $route['partner-panel-dane'] = "main/run/partner_panel/display_data/$1";
@@ -79,8 +79,10 @@ $route['partner-panel-produkty-odrzucone'] = "main/run/partner_panel/display_rej
 $route['partner-panel-rezerwacje'] = "main/run/partner_panel/display_reservations/$1";
 $route['partner-panel-rezerwacje-aktualne'] = "main/run/partner_panel/display_reservations_actual/$1";
 $route['partner-panel-historia-rezerwacji'] = "main/run/partner_panel/display_reservation_history/$1";
-$route['partner-panel-saldo'] = "main/run/partner_panel/display_pauyment_balance/$1";
+$route['partner-panel-saldo'] = "main/run/partner_panel/display_payment_balance/$1";
 $route['partner-panel-historia-wplat'] = "main/run/partner_panel/display_payment_history/$1";
+
+$route['partner-panel-saldo/doladowanie-konta'] = "main/run/partner_panel/display_payment_balance_add/$1";
 
 //routing koszyka
 $route['koszyk'] = "main/run/cart/display_cart/$1";

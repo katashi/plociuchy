@@ -92,8 +92,8 @@ class Partner extends Hub {
     // reset
     function display_password_reset($template = null, $title_call = null) {
         $this->assign_template_titlecall($template, $title_call);
-        if (isset($_POST['partner'])) {
-            $url = CONSOLE_URL . '/plociuchy:partner/password_reset_ui/' . $_POST['partner'];
+        if (isset($_POST['user'])) {
+            $url = CONSOLE_URL . '/plociuchy:partner/password_reset_ui/' . $_POST['user'];
             $result = $this->api_call($url);
             $this->ci->smarty->assign('result', $result['success']);
             $this->ci->smarty->assign('code', $result['code']);
@@ -106,6 +106,7 @@ class Partner extends Hub {
             $this->add_message_error('Nieznaleziono podanego adresu email.');
         }
         //display
+        $template = 'partner_password_reminder';
         $this->smarty_display($template);
 //        $home = new Home($this->ci);
 //        $home->display('home');

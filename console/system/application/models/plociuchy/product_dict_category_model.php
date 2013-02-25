@@ -42,7 +42,6 @@ class Product_Dict_Category_Model extends Main_Model {
         return $record;
     }
 
-
     function load_all_user_count($id = null) {
         $this->db->where('id', $id);
         $this->db->from($this->table_name);
@@ -55,8 +54,8 @@ class Product_Dict_Category_Model extends Main_Model {
         $record = $query->result_array();
         return $record;
     }
-    function load($id) {
-        $this->db->where('id', $id);
+    function load($id,$where = 'id') {
+        $this->db->where($where, $id);
         $query = $this->db->get($this->table_name);
         $record = $query->row_array();
         return $record;

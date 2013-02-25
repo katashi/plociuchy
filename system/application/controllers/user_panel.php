@@ -86,10 +86,11 @@ class User_Panel extends Hub {
             }
         }
         //get history active reservation
-        $status = 0; // history
+        $status = 3; // history
         $url = CONSOLE_URL . '/plociuchy:product_reservation/load_all_user_product_reservation/' . $this->ci->session->userdata['user_id'].','.$status;
         $result = $this->api_call($url);
-        if($result['data']){
+        $history_reservation='';
+        if(!empty($result['data'])){
             $history_reservation = $result['data'];
             foreach ($history_reservation as $key => $val){
                 $history_reservation[$key]['product'] = $this->load_product($val['id_product']);

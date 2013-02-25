@@ -67,7 +67,7 @@ class Product_Model extends Main_Model {
     function load_all_product_count($id = null, $where = 'id') {
         $this->limit_check();
         $this->filter_check();
-        if(isset($id)){
+        if (isset($id)) {
             $this->db->where($where, $id);
         }
         $this->db->from($this->table_name);
@@ -77,7 +77,7 @@ class Product_Model extends Main_Model {
     function load_all_product($id = null, $where = 'id') {
         $this->limit_check();
         $this->filter_check();
-        if(isset($id)){
+        if (isset($id)) {
             $this->db->where($where, $id);
         }
         $query = $this->db->get($this->table_name);
@@ -121,6 +121,27 @@ class Product_Model extends Main_Model {
         $this->db->set('reject', $state);
         $this->db->update($this->table_name);
         return '{"success": true}';
+    }
+
+    function load_all_user_products_count($id = null) {
+        $this->db->where('id', $id);
+        $this->db->from($this->table_name);
+        return $this->db->count_all_results();
+    }
+
+    function load_all_user_products($id, $where='id') {
+        $current_date = date("Y-m-d H:i:s");
+        $this->limit_check();
+        $this->db->where($where, $id);
+        if (isset($_REQUEST['rejected'])) {
+            $this->db->where('reject', $_REQUEST['rejected']);
+        }
+        if (isset($_REQUEST['active_to'])) {
+            $this->db->where('active_to >', $current_date);
+        }
+        $query = $this->db->get($this->table_name);
+        $record = $query->result_array();
+        return $record;
     }
 
 }

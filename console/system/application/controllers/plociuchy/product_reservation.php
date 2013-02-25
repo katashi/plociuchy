@@ -84,4 +84,13 @@ class Product_Reservation extends Main
         echo '{"success": 1, "data":' . json_encode($this->product_reservation_model->load_all_user_product_reservation_count($id_user,$status)) . '}';
     }
 
+    function load_all_partner_products_reservation($id_partner , $status=null)
+    {
+        echo '{"success": 1, "data":' . json_encode($this->product_reservation_model->load_all_partner_products_reservation($id_partner,$status)) . '}';
+    }
+
+    function load_all_partner_products_reservation_count($id_partner , $status=null)
+    {
+        echo '{"success": 1, "data":' . json_encode($this->product_reservation_model->load_all_partner_products_reservation_count($id_partner,$status)) . '}';
+    }
 }
