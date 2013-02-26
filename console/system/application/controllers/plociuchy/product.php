@@ -95,4 +95,9 @@ class Product extends Main {
         echo 'grid';
     }
 
+    function add_product_ui() {
+        $_POST['active'] = '0';
+        $result = $this->product_model->add_ui();
+        echo '{"success": ' . $result['success'] . ', "code": "' . $result['code'] . '"}';
+    }
 }

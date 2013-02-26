@@ -1,0 +1,41 @@
+{include file="extension/header.html"}
+<section>
+    <div class="container_12">
+        <div class="wrapper">
+            <br/><br/>
+            <!--==============================lewa strona====================================-->
+            {include file="extension/addon_partner_panel_menuleft.html"}
+            <!--==============================end lewa strona====================================-->
+            <!--==============================content====================================-->
+            <article class="grid_9 prefix_1">
+
+                {$messages}
+                <div id="kolumny" style="margin-bottom: 10px">
+                    <div id="kolumny-szare">
+                        <div id="kolumna1">
+                            <strong>Opis</strong></div>
+
+                        <div class="aligncenter" id="kolumna3" style="width:120px;">
+                            <span lang="pl"><strong>Kwota Doładowania</strong></span></div>
+                    </div>
+                    <div id="kolumny-produkt">
+                        <div id="kolumna1" style="margin:10px">
+                            <strong>{$title}</strong>
+                        </div>
+                        <div id="kolumna2" style="margin:10px">
+                            <span lang="pl"> {$price}zł</span></div>
+
+
+                    </div>
+
+                </div>
+                             <div style="margin: 10px 29px 0 0">
+                        {include file="extension/payment24_partner_balance.html"}
+                             </div>
+            <!--==============================end content====================================-->
+            </article>
+        </div>
+    </div>
+    {include file="extension/footer_section.html"}
+</section>
+{include file="extension/footer.html"}

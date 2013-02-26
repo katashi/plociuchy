@@ -1,0 +1,169 @@
+{include file="extension/header.html"}
+        {literal}
+        <style>
+            .auto-style5 {
+                border-style: none!important;
+            }
+        </style>
+        {/literal}
+<section>
+    <div class="container_12">
+        <div class="wrapper">
+            <br/><br/>
+            <!--==============================lewa strona====================================-->
+            {include file="extension/addon_partner_panel_menuleft.html"}
+            <!--==============================end lewa strona====================================-->
+            <!--==============================content====================================-->
+            <article class="grid_9 prefix_1">
+                <h2 class="border-bot">Wystaw product</h2>
+                {$messages}
+                <form action="{$site_url}partner-panel-wystaw" method="post">
+                <div style="left: 0px; top: 0px" class="wrapper">
+                    <div class="overflow">
+<br>
+                    </div><br>
+                    <table cellspacing="0" cellpadding="0" style="width: 100%">
+
+                        <tbody><tr>
+                            <td colspan="2">
+                                <h3><span lang="pl">1. DANE PRODUKTU</span></h3>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="auto-style5" style="width: 108px"><span lang="pl">
+						Kategoria</span></td>
+                            <td class="auto-style5"><select class="select" name="id_category">
+                                <option value="">- wybierz -</option>
+                                 {foreach from=$categorys item=category}
+                                         <option value="{$category.id}"> {$category.title}</option>
+                                 {/foreach}
+                            </select></td>
+                        </tr>
+                        <tr>
+                            <td class="auto-style5" style="width: 108px"><span lang="pl">
+						Producent</span></td>
+                            <td class="auto-style5"><select class="select" name="id_vendor">
+                                <option selected="">- wybierz -</option>
+                                {foreach from=$vendors item=vendor}
+                                    <option value="{$vendor.id}"> {$vendor.title}</option>
+                                {/foreach}
+                            </select><span lang="pl">&nbsp; </span></td>
+                        </tr>
+                        <tr>
+                            <td class="auto-style5" style="width: 108px">&nbsp;</td>
+                            <td class="auto-style5"><span lang="pl">
+						<span class="auto-style6"></span>zaproponuj
+						<input type="text" style="width: 153px" size="40" name="vendor_propo" placeholder=""></span></td>
+                        </tr>
+                        <tr>
+                            <td class="auto-style5" style="width: 108px"><span lang="pl">
+						Nazwa</span></td>
+                            <td class="auto-style5">
+                                <input type="text" style="width: 222px" size="40" name="text1" placeholder=""></td>
+                        </tr>
+                        <tr>
+                            <td class="auto-style5" style="width: 108px"><span lang="pl">
+						Nagłówek</span></td>
+                            <td class="auto-style5">
+                                <input type="text" style="width: 222px" size="40" name="text2" placeholder=""></td>
+                        </tr>
+                        <tr>
+                            <td class="auto-style5" style="width: 108px"><span lang="pl">
+						Treść<br>(opisz rodzaj materiału, rozmiar)</span></td>
+                            <td class="auto-style5">
+                                <textarea name="text3" style="width:469px; height:150px;background:white"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><span lang="pl">&nbsp;<br>
+						<h3>2. CENA
+                            [zł]</h3>
+						</span></td>
+                        </tr>
+                        <tr>
+                            <td class="auto-style5" style="width: 108px"><span lang="pl">
+						Cena za weekend</span></td>
+                            <td>
+                                <input type="text" style="width: 46px" size="40" name="price1" placeholder=""></td>
+                        </tr>
+                        <tr>
+                            <td class="auto-style5" style="width: 108px"><span lang="pl">
+						Cena za tydzień</span></td>
+                            <td>
+                                <input type="text" style="width: 46px" size="40" name="price2" placeholder=""></td>
+                        </tr>
+                        <tr>
+                            <td class="auto-style5" style="width: 108px"><span lang="pl">
+						Cena w sklepie</span></td>
+                            <td>
+                                <input type="text" style="width: 46px" size="40" name="price3" placeholder=""></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="height: 25px;"><br>
+                                <h3><span lang="pl">3. ZDJĘCIA [?]</span></h3>
+                                Zdjęcie powinno mieć format JPG, PNG, JPEG i nie
+                                zajmować więcej niż 1MB.<br>Upewnij się, że posiadasz
+                                należyte prawa do wykorzystania zdjęcia, którym chcesz
+                                się posłużyć. <br>Naruszanie cudzych praw autorskich
+                                może wiązać się z odpowiedzialnością cywilną i karną.<br>
+                                Zdjęcie powinn być: dobrej ostrości, dobrze oświetlone,
+                                przedstawiające produkt na osobie.</td>
+                        </tr>
+                        <tr>
+                            <td class="auto-style5" style="width: 108px"><span lang="pl">#1</span></td>
+                            <td><input type="file" name="uploaded_file" size="20" class="pole_plik"></td>
+                        </tr>
+                        <tr>
+                            <td class="auto-style5" style="width: 108px"><span lang="pl">#2</span></td>
+                            <td><input type="file" name="uploaded_file" size="20" class="pole_plik"></td>
+                        </tr>
+                        <tr>
+                            <td class="auto-style5" style="width: 108px"><span lang="pl">#3</span></td>
+                            <td><input type="file" name="uploaded_file" size="20" class="pole_plik"></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 108px; height: 17px;"></td>
+                            <td style="height: 17px"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><br>
+                                <h3><span lang="pl">4. Czas trwania</span></h3>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="auto-style5" style="width: 108px">
+						<span lang="pl"><span class="auto-style6">Stan</span>
+						konta</span></td>
+                            <td class="auto-style5">
+                                <input type="text" value="{$partner_points.point_available} Kredytów" disabled="disabled"  size="70" style="width: 96px">
+						        {if $partner_points.point_available == 0}
+                                <a href="#">doładuj</a></span></td>
+                                {/if}
+                        </tr>
+                        <tr>
+                            <td style="width: 108px"><span lang="pl">Wybierz</span></td>
+                            <td><select class="select" name="add_month">
+                                <option selected="">- wybierz -</option>
+                                <option value="1">1 miesiąc - 3 kredyty</option>
+                                <option value="2">2 miesiace - 6 kredytów</option>
+                                <option value="3">3 miesiące - 12 kredytów</option>
+                            </select></td>
+                        </tr>
+                        </tbody></table>
+                    <br><br>
+                    <input type="submit" name="submit_product" style="width: 168px" id="submit" value="WYŚLIJ DO AKCEPTACJI">
+
+
+
+                    <br>
+
+                </div>
+                </form>
+            <!--==============================end content====================================-->
+            </article>
+        </div>
+
+    </div>
+    {include file="extension/footer_section.html"}
+</section>
+{include file="extension/footer.html"}

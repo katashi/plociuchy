@@ -12,8 +12,9 @@
                     <div class="wrapper" style="left: 0px; top: 0px">
                         <div class="overflow">
                             {$messages}
-                            <div id="error" class="auto-style5">Saldo bieżące: 3 kredyty</div>
+
                             <br><span lang="pl"><strong>Wybierz opcje doładowania</strong><br><br>
+                {if $account_income}
                 <form action="{$site_url}partner-panel-saldo/doladowanie-konta" method="post">
 				<table cellpadding="5" cellspacing="5" class="auto-style6" style="width: 651px">
                     <tr>
@@ -65,6 +66,9 @@
                     </tr>
                 </table>
                 </form>
+                {else}
+                 <div id="ok">Aby doładować konto musisz wykorzystać posiadane środki</div>
+                {/if}
 				<br><br><br></span>
                             <br/>
 

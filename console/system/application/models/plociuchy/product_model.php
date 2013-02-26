@@ -144,6 +144,30 @@ class Product_Model extends Main_Model {
         return $record;
     }
 
+    function add_ui() {
+        //check does the product exists in database
+        $this->db->like('text1', $_POST['text1']);
+        $query = $this->db->get($this->table_name);
+        $user = $query->row_array();
+        if ($this->db->affected_rows() > 0) {
+            $result = array();
+            $result['success'] = 0;
+            $result['code'] = 'product_exist';
+        } else {
+            $_POST['date_added'] = date("Y-m-d H:i:s");
+            $_POST['date_last_modified'] = date("Y-m-d H:i:s");
+            // insert new product
+            $this->db->insert($this->table_name, $_POST);
+            // result
+            $result = array();
+            $result['success'] = 1;
+            $result['code'] = 'ok';
+        }
+        return $result;
+    }
+
+
+
 }
 
 ?>

@@ -18,6 +18,7 @@ class Partner_Panel extends Hub {
     // display default
     function display($template = null, $title_call = null) {
         $this->assign_template_titlecall($template, $title_call);
+        $template = 'partner_panel_front';
         $this->smarty_display($template);
     }
 
@@ -79,9 +80,36 @@ class Partner_Panel extends Hub {
     //moje produkty
     public function display_add_product($template, $title_call) {
         $this->assign_template_titlecall($template, $title_call);
+        if(isset($_POST['submit_product'])){
+            unset($_POST['submit_product']);
+            unset($_POST['uploaded_file']);
+            unset($_POST['vendor_propo']);
+            $count_days = $_POST['add_month'];
+            unset($_POST['add_month']);
 
-        $template = 'partner_panel_front';
-        $this->add_message_ok('widok dodawania produktu');
+            $_POST['id_partner'] =  $this->ci->session->userdata['partner_id'];
+            $_POST['active_from'] = date("Y-m-d H:i:s");
+            $_POST['active_to'] =   date("Y-m-d H:i:s", strtotime($_POST['active_from']. " +".$count_days."month") );
+            $result = $this->add_product();
+
+            if($result['success'] == 1){
+                $this->add_message_error('Produkt został wysłany do zatwierdzenia przez admina.');
+            }else{
+                $this->add_message_error($result['code']);
+            }
+            $template = 'partner_panel_front';
+        }else{
+        $partner_points = $this->get_last_income_points($this->ci->session->userdata['partner_id']);
+
+        $categorys = $this->load_all_category();
+        $vendors = $this->load_all_vendor();
+
+        $this->ci->smarty->assign('partner_points',$partner_points);
+        $this->ci->smarty->assign('categorys',$categorys);
+        $this->ci->smarty->assign('vendors',$vendors);
+
+        $template = 'partner_panel_product_add';
+        }
         $this->smarty_display($template);
     }
 
@@ -111,8 +139,7 @@ class Partner_Panel extends Hub {
         $products = $this->load_all_rejected_products();
         if(empty($products)){
             $this->add_message_ok('Spis jest pusty co oznacza, że żaden z Twoich produktów nie został odrzucony.');
-        }else
-        {
+        }else{
             foreach ($products as $key =>  $val){
                 $products[$key]['category'] = $this->load_category($val['id_category']);
                 $products[$key]['left_days'] = $this->count_Days($val['active_to']);
@@ -180,29 +207,115 @@ class Partner_Panel extends Hub {
 
     //płatności
     public function display_payment_balance($template, $title_call) {
+        $account_income = true;
+        //pobieramy ilosc ptk
+        $available_points = $this->get_last_income_points($this->ci->session->userdata['partner_id']);
+        if(empty($available_points)){
+            $this->add_message_ok('Saldo bieżące: 0 kredytów');
+            $this->add_message_ok('<br>Nieodnotowano jeszcze zadnego doładowania twojego konta');
+        }else{
+            if($available_points['point_available'] == 0){
+                $this->add_message_error('Saldo bieżące: '.$available_points['point_available'].' kredytów. <br/> Doładuj Konto.');
+            }else{
+                $this->add_message_ok('Saldo bieżące: '.$available_points['point_available'].' kredytów');
+            }
+        }
+        //dodawanie do konta jest tylko mozliwe gdy stan jest 0
+        if(isset($available_points['point_available']) && $available_points['point_available'] != 0){
+            $account_income = false;
+        }
         $template = 'partner_panel_balance';
-        $this->add_message_ok('platnosci bilans');
+        $this->ci->smarty->assign('account_income' , $account_income);
         $this->smarty_display($template);
     }
 
     public function display_payment_balance_add($template, $title_call) {
+        $account_points = $this->get_last_income_points($this->ci->session->userdata['partner_id']);
+        if(isset($account_points['point_available']) && $account_points['point_available'] != 0){
+            $partner = new Partner_Panel($this->ci);
+            $partner->display_payment_balance('partner_panel_balance',null);
+            die();
+        }
+        //proces dodawania
         $opt = null;
         if(isset($_POST['cart_income_3'])){
+            $title = 'Pakiet 3';
+            $point = 120;
+            $unit_cost = 4;
             $opt = 3;
+            unset($_POST['cart_income_3']);
         }elseif(isset($_POST['cart_income_2'])){
+            $title = 'Pakiet 2';
+            $point = 60;
+            $unit_cost = 6;
             $opt = 2;
+            unset($_POST['cart_income_2']);
         }elseif(isset($_POST['cart_income_1'])){
+            $title = 'Pakiet 1';
+            $point = 24;
+            $unit_cost = 8;
             $opt = 1;
+            unset($_POST['cart_income_1']);
         }
+        //na razie ptk = zl
+        $price = $point;
 
+        //jesli mamy jaką opcje wybrał kient. dodajemy  płatność i wyświetlamy form.
         if(isset($opt)){
+            //Add payment payment
+            $data = array();
+            $partner = $this->load_partner($this->ci->session->userdata['partner_id']);
+            $data['id_partner'] = $this->ci->session->userdata['partner_id'];
+            $data['id_session'] = $this->ci->session->userdata['session_id'];
+            $data['p24_kwota'] = $price;
+            $data['p24_klient'] = $partner['name'].' '.$partner['surname'];
+            $data['p24_adres'] = $partner['address'];
+            $data['p24_kod'] = $partner['zip'];
+            $data['p24_miasto'] = $partner['city'];
+            $data['p24_kraj'] =  $partner['country'];
+            $data['p24_email'] = $partner['user'];
+            foreach($data as $key => $val){
+                $this->ci->smarty->assign($key, $val);
+            }
+            $url = CONSOLE_URL . '/plociuchy:payment_p24_partner/add_partner_ui';
+            $result = $this->api_call($url,$data);
+            //dodajemy pola do forma
 
-            $this->add_message_ok('Wyśwetlony zostanie formularz platnosci24<br/>');
-
+            $this->ci->smarty->assign('opt', $opt);
+            $this->ci->smarty->assign('p24_id_sprzedawcy', $result['data']['p24_id_sprzedawcy']);
+            $this->ci->smarty->assign('p24_session_id', $result['data']['p24_session_id']);
+            $this->ci->smarty->assign('p24_kwota', $result['data']['p24_kwota']);
+            $this->ci->smarty->assign('p24_crc', $result['data']['p24_crc']);
+            //teraz juz tylko czekamy na odpowiedz z platnosci 24
         }
 
-        $template = 'partner_panel_front';
-        $this->add_message_ok('platnosci bilans dodawanie pakietu do konta '.$opt);
+        $template = 'partner_panel_balance_payment24';
+        $this->ci->smarty->assign('title', $title);
+        $this->ci->smarty->assign('price', $price);
+        $this->add_message_ok('Dokonaj płatności aby dokonać doładowania.');
+
+        $this->smarty_display($template);
+    }
+    public function display_payment_balance_add_ok($template, $title_call, $opt) {
+        $data = $_POST;
+        //Add user payment
+        $url = CONSOLE_URL . '/plociuchy:payment_p24_partner/payment_p24_ok_ui/'.$opt;
+        $result = $this->api_call($url, $data);
+        if($result['success'] == 'true'){
+            $this->add_message_ok('Dziekujemy za wpłatę. Twoje doładowanie konta została przeprowadzona prawidłowo.<br/>');
+        }else{
+            $this->add_message_error('Wystąpił błąd podaczas wpłaty.Proszę spróbować jeszcze raz.');
+        }
+        $template = 'partner_panel_balance';
+        $this->display_payment_balance($template,$title_call);
+    }
+    public function display_payment_balance_add_error($template, $title_call) {
+        $data = $_POST;
+        //Add user payment
+        $url = CONSOLE_URL . '/plociuchy:payment_p24_partner/payment_p24_error_ui';
+        $result = $this->api_call($url, $data);
+        $this->add_message_error('Wystąpił błąd podaczas wpłaty.Proszę spróbować jeszcze raz.');
+        $template = 'partner_panel_balance';
         $this->smarty_display($template);
     }
 
@@ -241,6 +354,19 @@ class Partner_Panel extends Hub {
         return $result['data'];
     }
 
+    public function add_product(){
+        $data = $_POST;
+        $url = CONSOLE_URL . '/plociuchy:product/add_product_ui';
+        $result = $this->api_call($url, $data);
+        if ($result['code'] == 'product_exist') {
+            $result['code'] = 'Product o podanej nazwie istnieje';
+        }
+//        $this->ci->smarty->assign('result', $result['success']);
+//        $this->ci->smarty->assign('code', $result['code']);
+//        $this->ci->smarty->assign('operation', 'user_add');
+        return $result;
+    }
+
     public function load_all_active_products(){
         $data = array();
         $data['active_to'] = true;
@@ -267,6 +393,16 @@ class Partner_Panel extends Hub {
         $result = $this->api_call($url);
         return $result['data'];
     }
+    public function load_all_category(){
+        $url = CONSOLE_URL . '/plociuchy:product_dict_category/load_all/';
+        $result = $this->api_call($url);
+        return $result['data'];
+    }
+    public function load_all_vendor(){
+        $url = CONSOLE_URL . '/plociuchy:product_dict_vendor/load_all';
+        $result = $this->api_call($url);
+        return $result['data'];
+    }
     public function load_user($id_user){
         $url = CONSOLE_URL . '/plociuchy:user/load/' . $id_user;
         $result = $this->api_call($url);
@@ -275,6 +411,13 @@ class Partner_Panel extends Hub {
 
     public function load_product_rejected_comment($id_product){
         $url = CONSOLE_URL . '/plociuchy:product_comment/load/' . $id_product .',id_product';
+        $result = $this->api_call($url);
+        return $result['data'];
+    }
+
+    //pobranie ptk partnera
+    public function get_last_income_points($id_partner){
+        $url = CONSOLE_URL . '/plociuchy:partner_account_income/get_last_income_points/' . $this->ci->session->userdata['partner_id'];
         $result = $this->api_call($url);
         return $result['data'];
     }

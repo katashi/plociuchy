@@ -83,6 +83,8 @@ $route['partner-panel-saldo'] = "main/run/partner_panel/display_payment_balance/
 $route['partner-panel-historia-wplat'] = "main/run/partner_panel/display_payment_history/$1";
 
 $route['partner-panel-saldo/doladowanie-konta'] = "main/run/partner_panel/display_payment_balance_add/$1";
+$route['partner-panel/partner-panel-platnosc-ok/(:any)'] = "main/run/partner_panel/display_payment_balance_add_ok/$1";
+$route['partner-panel/partner-panel-platnosc-error'] = "main/run/partner_panel/display_payment_balance_add_error/$1";
 
 //routing koszyka
 $route['koszyk'] = "main/run/cart/display_cart/$1";
