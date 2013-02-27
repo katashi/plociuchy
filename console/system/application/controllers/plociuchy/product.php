@@ -100,4 +100,9 @@ class Product extends Main {
         $result = $this->product_model->add_ui();
         echo '{"success": ' . $result['success'] . ', "code": "' . $result['code'] . '"}';
     }
+    function edit_product_ui($id_product) {
+        $_POST['active'] = '0';
+        $result = $this->product_model->edit_ui($id_product);
+        echo '{"success": ' . $result['success'] . ', "code": "' . $result['code'] . '"}';
+    }
 }

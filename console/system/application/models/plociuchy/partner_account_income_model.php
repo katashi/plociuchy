@@ -81,7 +81,19 @@ class Partner_Account_Income_Model extends Main_Model {
         return $record;
     }
 
+    function get_outcome_income_all($id_partner){
 
+        $query = $this->db->query(
+        '(SELECT id_partner, point , point_available , null as id_product , null as koszt_wystawienia, date_added
+            FROM pc_partner_account_income WHERE id_partner = '.$id_partner.')
+        Union All
+        (SELECT id_partner, null , null , id_product, unit_cost, date_added
+            FROM pc_partner_account_outcome WHERE id_partner = '.$id_partner.')
+        ORDER BY date_added'
+        );
+        $record = $query->result_array();
+        return $record;
+    }
 }
 
 ?>

@@ -18,13 +18,9 @@
             <!--==============================content====================================-->
             <article class="grid_9 prefix_1">
 
-                {if $partner_points.point_available == 0}
-                    <div id="error">Nie możesz wystawić produktu ponieważ twój stan kredytów jest równy 0. <a href="{$site_url}partner-panel-saldo" > Doładuj Konto</a></div>
-                {else}
-
-                <h2 class="border-bot">Wystaw product</h2>
+                <h2 class="border-bot">Edyja Productu "{$text1}" </h2>
                 {$messages}
-                <form id="product_form" action="{$site_url}partner-panel-wystaw" method="post">
+                <form id="product_form" action="{$site_url}partner-panel-produkty/{$id}" method="post">
                 <div style="left: 0px; top: 0px" class="wrapper">
                     <div class="overflow">
 <br>
@@ -43,7 +39,7 @@
                             <td class="auto-style5"><select class="select" name="id_category">
                                 <option value="">- wybierz -</option>
                                  {foreach from=$categorys item=category}
-                                         <option value="{$category.id}"> {$category.title}</option>
+                                         <option value="{$category.id}" {if $category.id == $id_category} selected="selected" {/if}> {$category.title}</option>
                                  {/foreach}
                             </select></td>
                         </tr>
@@ -53,7 +49,7 @@
                             <td class="auto-style5"><select class="select" name="id_vendor">
                                 <option value="">- wybierz -</option>
                                 {foreach from=$vendors item=vendor}
-                                    <option value="{$vendor.id}"> {$vendor.title}</option>
+                                    <option value="{$vendor.id}" {if $vendor.id == $id_vendor} selected="selected" {/if}>{$vendor.title}</option>
                                 {/foreach}
                             </select><span lang="pl">&nbsp; </span></td>
                         </tr>
@@ -67,19 +63,19 @@
                             <td class="auto-style5" style="width: 108px"><span lang="pl">
 						Nazwa</span></td>
                             <td class="auto-style5">
-                                <input type="text" style="width: 222px" size="40" name="text1" placeholder=""></td>
+                                <input type="text" style="width: 222px" size="40" name="text1" value="{$text1}" placeholder=""></td>
                         </tr>
                         <tr>
                             <td class="auto-style5" style="width: 108px"><span lang="pl">
 						Nagłówek</span></td>
                             <td class="auto-style5">
-                                <input type="text" style="width: 222px" size="40" name="text2" placeholder=""></td>
+                                <input type="text" style="width: 222px" size="40" name="text2" value="{$text2}" placeholder=""></td>
                         </tr>
                         <tr>
                             <td class="auto-style5" style="width: 108px"><span lang="pl">
 						Treść<br>(opisz rodzaj materiału, rozmiar)</span></td>
                             <td class="auto-style5">
-                                <textarea name="text3" style="width:469px; height:150px;background:white"></textarea></td>
+                                <textarea name="text3" style="width:469px; height:150px;background:white">{$text3}</textarea></td>
                         </tr>
                         <tr>
                             <td colspan="2"><span lang="pl">&nbsp;<br>
@@ -91,19 +87,19 @@
                             <td class="auto-style5" style="width: 108px"><span lang="pl">
 						Cena za weekend</span></td>
                             <td>
-                                <input type="text" style="width: 46px" size="40" name="price1" placeholder=""></td>
+                                <input type="text" style="width: 46px" size="40" name="price1" value="{$price1}" placeholder=""></td>
                         </tr>
                         <tr>
                             <td class="auto-style5" style="width: 108px"><span lang="pl">
 						Cena za tydzień</span></td>
                             <td>
-                                <input type="text" style="width: 46px" size="40" name="price2" placeholder=""></td>
+                                <input type="text" style="width: 46px" size="40" name="price2" value="{$price2}" placeholder=""></td>
                         </tr>
                         <tr>
                             <td class="auto-style5" style="width: 108px"><span lang="pl">
 						Cena w sklepie</span></td>
                             <td>
-                                <input type="text" style="width: 46px" size="40" name="price3" placeholder=""></td>
+                                <input type="text" style="width: 46px" size="40" name="price3" value="{$price3}" placeholder=""></td>
                         </tr>
                         <tr>
                             <td colspan="2" style="height: 25px;"><br>
@@ -132,36 +128,38 @@
                             <td style="width: 108px; height: 17px;"></td>
                             <td style="height: 17px"></td>
                         </tr>
-                        <tr>
-                            <td colspan="2"><br>
-                                <h3><span lang="pl">4. Czas trwania</span></h3>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="auto-style5" style="width: 108px">
-						<span lang="pl"><span class="auto-style6">Stan</span>
-						konta</span></td>
-                            <td class="auto-style5">
-                                <input type="text" value="{$partner_points.point_available} Kredytów" disabled="disabled"  size="70" style="width: 96px">
-						        {if $partner_points.point_available == 0}
-                                <a href="#">doładuj</a></span></td>
-                                {/if}
-                        </tr>
-                        <tr>
-                            <td style="width: 108px"><span lang="pl">Wybierz</span></td>
-                            <td><select class="select" name="add_month">
-                                <option value="">- wybierz -</option>
-                                {foreach from=$payment_cost item=payment key=cal}
-                                <option value="1">{$cal} miesiąc - {$payment} kredyty</option>
-                                {/foreach}
-                            </select></td>
-                        </tr>
+                        <!--<tr>-->
+                            <!--<td colspan="2"><br>-->
+                                <!--<h3><span lang="pl">4. Czas trwania</span></h3>-->
+                            <!--</td>-->
+                        <!--</tr>-->
+                        <!--<tr>-->
+                            <!--<td class="auto-style5" style="width: 108px">-->
+						<!--<span lang="pl"><span class="auto-style6">Stan</span>-->
+						<!--konta</span></td>-->
+                            <!--<td class="auto-style5">-->
+                                <!--<input type="text" value="{$partner_points.point_available} Kredytów" disabled="disabled"  size="70" style="width: 96px">-->
+						        <!--{if $partner_points.point_available == 0}-->
+                                <!--<a href="#">doładuj</a></span></td>-->
+                                <!--{/if}-->
+                        <!--</tr>-->
+                        <!--<tr>-->
+                            <!--<td style="width: 108px"><span lang="pl">Wybierz</span></td>-->
+                            <!--<td><select class="select" name="add_month">-->
+                                <!--<option value="">- wybierz -</option>-->
+                                <!--{foreach from=$payment_cost item=payment key=cal}-->
+                                <!--<option value="1">{$cal} miesiąc - {$payment} kredyty</option>-->
+                                <!--{/foreach}-->
+                            <!--</select></td>-->
+                        <!--</tr>-->
                         </tbody></table>
                     <br><br>
                     <input type="submit" name="submit_product" style="width: 168px" id="submit" value="WYŚLIJ DO AKCEPTACJI">
                     <br>
                 </div>
                 </form>
+
+            <!--==============================end content====================================-->
                 <!--==============================Script===================================-->
                 {literal}
                 <script type="text/javascript">
@@ -178,15 +176,13 @@
                     frmvalidator.addValidation("price2", "req", "Pole \"Cena za tydzień\" jest wymagane");
                     frmvalidator.addValidation("price3", "req", "Pole \"Cena w sklepie\" jest wymagane");
 
-                    frmvalidator.addValidation("add_month", "req", "Wybierz czas trwania wystawienia produktu");
-
                     //dodajemy custom validation
                     frmvalidator.EnableMsgsTogether();
 
                 </script>
                 {/literal}
-                {/if}
-            <!--==============================end content====================================-->
+
+
                 <!--==============================end Script====================================-->
             </article>
         </div>

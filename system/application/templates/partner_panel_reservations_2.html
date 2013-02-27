@@ -8,11 +8,8 @@
             <!--==============================end lewa strona====================================-->
             <!--==============================content====================================-->
             <article class="grid_9 prefix_1">
-
                 {$messages}
-
                 {if $reservations}
-
                 <div id="kolumny">
                     <div id="kolumny-szare">
                         <div id="kolumna1" style="width:324px;">
@@ -21,10 +18,8 @@
                             <span lang="pl"><strong>Wypożyczający</strong></span></div>
                         <div id="kolumna2" >
                             <span lang="pl"><strong>Okres rezerwacji </strong></span></div>
-
                         <div id="kolumna3" class="aligncenter" >
                             <span lang="pl"><strong>Opcje</strong></span></div>
-
                     </div>
                     {foreach from=$reservations item=reservation}
                     <!-- produkt -->
@@ -42,24 +37,22 @@
                                 </div>
                                     </div>
                             <div id="kolumna2" >
-                                <span lang="pl">{$reservation.date_from} do {$reservation.date_to}</span></div>
-
+                                <span lang="pl">{$reservation.date_from|date_format:"%m.%d.%y"} do {$reservation.date_to|date_format:"%m.%d.%y"}</span></div>
                             <div class="aligncenter" >
-                                <a href="#"><img alt="" height="25" src="images/package.png" width="25" class="auto-style5">odbiór</a>
+                                    <img alt="" height="25" src="images/package.png" width="25" class="auto-style5">
+                                    <form action="{$site_url}/partner-panel-rezerwacje-aktualne" method="post">
+                                        <input type="hidden" name="rent_end" value="{$reservation.id}">
+                                        <input type="submit" name="change_status" value="odbiór" style="width:70px;height: 24px;margin-top: 0px;padding: 0px;">
+                                    </form>
                             </div>
                         </div>
                     <!-- koniec produktu -->
-
-
                     {/foreach}
                 </div>
-
-
-                {/if}
+               {/if}
             <!--==============================end content====================================-->
             </article>
         </div>
-
     </div>
     {include file="extension/footer_section.html"}
 </section>

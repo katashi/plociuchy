@@ -64,5 +64,8 @@ class Partner_Account_Income extends Main {
         echo '{"success":"1","data":' . json_encode($this->partner_account_income_model->get_last_income_points($id_partner)) . '}';
     }
 
+    function get_outcome_income_all($id_partner){
+        echo '{"success":"1","data":' . json_encode($this->partner_account_income_model->get_outcome_income_all($id_partner)) . '}';
+    }
 
 }

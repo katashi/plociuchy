@@ -21,10 +21,8 @@
                             <span lang="pl"><strong>Wypożyczający</strong></span></div>
                         <div id="kolumna2">
                             <span lang="pl"><strong>Okres rezerwacji </strong></span></div>
-
                         <div id="kolumna3" class="aligncenter">
                             <span lang="pl"><strong>Data otrzymania</strong></span></div>
-
                     </div>
                     {foreach from=$reservations item=reservation}
                     <!-- produkt -->
@@ -44,16 +42,16 @@
                             </div>
                         </div>
                         <div id="kolumna2">
-                            <span lang="pl">{$reservation.date_from} do {$reservation.date_to}</span></div>
-
+                            <span lang="pl">{$reservation.date_from|date_format:"%m.%d.%y"} do {$reservation.date_to|date_format:"%m.%d.%y"}</span></div>
                         <div class="aligncenter">
-                            <span lang="pl">{$reservation.date_last_modified}</span></div>
+                            <span lang="pl">{$reservation.date_last_modified|date_format:"%m.%d.%y"}</span></div>
                         </div>
-                    </div>
+
                     <!-- koniec produktu -->
 
 
                     {/foreach}
+                </div>
                 </div>
 
 

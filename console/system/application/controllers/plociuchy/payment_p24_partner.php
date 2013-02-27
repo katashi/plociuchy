@@ -29,7 +29,6 @@ class Payment_P24_Partner extends Main
         $this->p24_session_id = md5(time());
         $this->p24_id_sprzedawcy = '18592';
         $this->p24_crc = '51e016ba07cd389e';
-
     }
 
     // display
@@ -86,8 +85,7 @@ class Payment_P24_Partner extends Main
         echo '{"success":' . $result . '}';
     }
 
-    function add_partner_ui()
-    {
+    function add_partner_ui(){
         $_POST['p24_session_id'] = $this->p24_session_id;
         $_POST['p24_id_sprzedawcy'] = $this->p24_id_sprzedawcy;
         $_POST['p24_kwota'] = number_format($_POST['p24_kwota'], 2, '.', '') * 100;

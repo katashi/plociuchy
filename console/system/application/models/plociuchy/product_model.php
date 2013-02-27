@@ -136,6 +136,7 @@ class Product_Model extends Main_Model {
         if (isset($_REQUEST['rejected'])) {
             $this->db->where('reject', $_REQUEST['rejected']);
         }
+        
         if (isset($_REQUEST['active_to'])) {
             $this->db->where('active_to >', $current_date);
         }
@@ -158,6 +159,29 @@ class Product_Model extends Main_Model {
             $_POST['date_last_modified'] = date("Y-m-d H:i:s");
             // insert new product
             $this->db->insert($this->table_name, $_POST);
+            // result
+            $result = array();
+            $result['success'] = 1;
+            $result['code'] = 'ok';
+        }
+        return $result;
+    }
+    function edit_ui($id_product) {
+        //check does the product exists in database
+        $this->db->like('text1', $_POST['text1']);
+        $this->db->where('id !=', $id_product, false);
+        $query = $this->db->get($this->table_name);
+        $user = $query->row_array();
+        if ($this->db->affected_rows() > 0) {
+            $result = array();
+            $result['success'] = 0;
+            $result['code'] = 'product_exist';
+        } else {
+            $_POST['date_added'] = date("Y-m-d H:i:s");
+            $_POST['date_last_modified'] = date("Y-m-d H:i:s");
+            // insert new product
+            $this->db->where('id', $id_product);
+            $this->db->update($this->table_name, $_POST);
             // result
             $result = array();
             $result['success'] = 1;

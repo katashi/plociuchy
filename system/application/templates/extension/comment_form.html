@@ -81,14 +81,14 @@
 
 <script  type="text/javascript">
     var frmvalidator = new Validator("myform");
-    frmvalidator.addValidation("name","req","Wpisz proszę swoje imię i nazwisko.");
+    frmvalidator.addValidation("name","req","Wpisz proszę swój nick.");
     frmvalidator.addValidation("name","maxlen=100", "Maksymalna długość imienia to 100 znaków.");
 
     frmvalidator.addValidation("email","maxlen=70", "Pole e-mail jest niepoprawne.");
     frmvalidator.addValidation("email","req", "Uzupełnij pole e-mail abyśmy mogli się z Tobą skontaktować.");
     frmvalidator.addValidation("email","email", "Pole e-mail jest niepoprawne.");
 
-    frmvalidator.addValidation("message","minlen=10", "Wpisz proszę zapytanie.");
+    frmvalidator.addValidation("message","minlen=10", "Wpisz proszę komentarz.");
 </script>
 
 

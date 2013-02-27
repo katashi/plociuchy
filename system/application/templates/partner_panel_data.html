@@ -15,73 +15,175 @@
                 <h2 class="border-bot">Moje<span lang="pl">dane</span></h2>
                 {$messages}
                 <div class="overflow">
-                    <form id="dataform" action="{$site_url}parnter-panel-dane" method="post">
-                        <p class="MsoNormal"><span lang="pl"><strong>Dane ogólne:</strong></span></p>
-                        <table style="width: 59%">
-                            <tbody>
-                            <tr>
-                                <td style="width: 134px" class="auto-style4"><span lang="pl">Imię:</span></td>
-                                <td class="auto-style2">
-                                    <input type="text" placeholder="" value="{$name}" name="name" size="40" style="width: 145px"></td>
-                            </tr>
-                            <tr>
-                                <td style="height: 27px; width: 134px" class="auto-style4"><span
-                                        lang="pl">Nazwisko:</span></td>
-                                <td style="height: 27px" class="auto-style2">
-                                    <input type="text" placeholder="" name="surname" value="{$surname}" size="40" style="width: 145px">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="width: 134px" class="auto-style4"><span lang="pl">&nbsp;</span></td>
-                                <td class="auto-style2">&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td style="width: 134px" class="auto-style4"><span lang="pl">Adres e-mail:</span></td>
-                                <td class="auto-style2">
-                                    <input type="text" placeholder="" name="user" value="{$user}"size="40" style="width: 145px"></td>
-                            </tr>
-                            <tr>
-                                <td style="width: 134px" class="auto-style4"><span lang="pl">Telefon kontaktowy:</span>
-                                </td>
-                                <td class="auto-style2">
-                                    <input type="text" placeholder="" name="mobile" value="{$mobile}"size="40" style="width: 145px">
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                        <p class="MsoNormal">&nbsp;</p>
-
-                        <p class="MsoNormal"><span lang="pl"><strong>Adres zameldowania:</strong></span></p>
-                        <table style="width: 59%">
-                            <tbody>
-                            <tr>
-                                <td style="width: 134px" class="auto-style4">
-                                    <span lang="pl">Adres:</span></td>
-                                <td class="auto-style2">
-                                    <input type="text" placeholder="" name="address"  value="{$address}" size="40" style="width: 145px">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="height: 27px; width: 134px" class="auto-style4">
-                                    <span lang="pl">Kod i miasto</span></td>
-                                <td style="height: 27px" class="auto-style2">
-                                    <input type="text" placeholder="" name="zip"  value="{$zip}"size="40" style="width: 39px"><span
-                                        lang="pl">&nbsp;
+                    <form id="dataform" action="{$site_url}partner-panel-dane" method="post">
+                        <div class="wrapper" style="left: 0px; top: 0px">
+                            <div class="overflow">
+                                <table style="width: 59%">
+                                    <tbody><tr>
+                                        <td style="width: 134px" class="auto-style4"><span lang="pl">Imię:</span></td>
+                                        <td class="auto-style2">
+                                            <input type="text" placeholder="" name="name"  value="{$name}"size="40" style="width: 145px"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="height: 27px; width: 134px" class="auto-style4"><span lang="pl">Nazwisko:</span></td>
+                                        <td style="height: 27px" class="auto-style2">
+                                            <input type="text" placeholder="" name="surname"  value="{$surname}" size="40" style="width: 145px"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 134px" class="auto-style4"><span lang="pl">&nbsp;</span></td>
+                                        <td class="auto-style2">&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 134px" class="auto-style4"><span lang="pl">Adres e-mail:</span></td>
+                                        <td class="auto-style2">
+                                            <input type="text" placeholder="" name="user"  value="{$user}" size="40" style="width: 145px"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 134px" class="auto-style4"><span lang="pl">Telefon
+					  kontaktowy:</span></td>
+                                        <td class="auto-style2">
+                                            <input type="text" placeholder="" name="mobile" value="{$mobile}" size="40" style="width: 145px"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="auto-style4" colspan="2">
+					  <span lang="pl" class="auto-style1" style="outline: 0;">
+					  <br><strong>&nbsp;<br>Posiadam działalność gospodarczą:<br>
+                      </strong>
 					  </span>
-                                    <input type="text" placeholder="" name="city" value="{$city}" size="40" style="width: 145px"></td>
-                            </tr>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 134px" class="auto-style4">&nbsp;</td>
+                                        <td class="auto-style2">
+                                            <input class="company" type="radio" style="width:15px" value="1" {if $company == 1} checked="checked" {/if} name="company"> TAK
+                                            <input class="company" type="radio" style="width:15px" value="0" {if $company == 0} checked="checked" {/if}name="company"> NIE</td>
+                                    </tr>
+                                    <tr class="scompany">
+                                        <td style="width: 134px" class="auto-style4">
+                                            Nazwa firmy:</td>
+                                        <td class="auto-style2">
+                                            <input type="text" placeholder="" name="company_name" value="{$company_name}" size="40" style="width: 145px"></td>
+                                    </tr>
+                                    <tr class="scompany">
+                                        <td style="width: 134px" class="auto-style4">
+                                            NIP:</td>
+                                        <td class="auto-style2">
+                                            <input type="text" placeholder="" name="company_nip" value="{$company_nip}" size="40" style="width: 145px"></td>
+                                    </tr>
+                                    </tbody></table>
+                                <p class="MsoNormal">&nbsp;</p>
+                                <p class="MsoNormal"><span lang="pl"><strong>Płatności 24:</strong></span></p>
+                                <table style="width: 59%">
+                                    <tbody><tr>
+                                        <td style="width: 134px" class="auto-style4">
+                                            <span lang="pl">Numer ID:</span></td>
+                                        <td class="auto-style2">
+                                            <input type="text" placeholder="" name="p24_id_sprzedawcy" value="{$p24_id_sprzedawcy}" size="40" style="width: 145px"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="height: 27px; width: 134px" class="auto-style4">
+                                            <span lang="pl">Klucz CRC:<br></span></td>
+                                        <td style="height: 27px" class="auto-style2">
+                                            <input type="text" placeholder="" name="p24_crc" value="{$p24_crc}" size="40" style="width: 145px"><span lang="pl">&nbsp;<br>&nbsp;(generowany
+					  w panelu płatności24)</span></td>
+                                    </tr>
+                                    </tbody></table>
+                                <p class="MsoNormal"><strong><span lang="pl">&nbsp;</span></strong></p>
+                                <p class="MsoNormal"><span lang="pl"><strong>Adres zameldowania:</strong></span></p>
+                                <table style="width: 59%">
+                                    <table style="width: 59%">
+                                        <tbody>
+                                        <tr>
+                                            <td style="width: 134px" class="auto-style4">
+                                                <span lang="pl">Adres:</span></td>
+                                            <td class="auto-style2">
+                                                <input type="text" placeholder="" name="address"  value="{$address}" size="40" style="width: 145px">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="height: 27px; width: 134px" class="auto-style4">
+                                                <span lang="pl">Kod i miasto</span></td>
+                                            <td style="height: 27px" class="auto-style2">
+                                                <input type="text" placeholder="" name="zip"  value="{$zip}"size="40" style="width: 39px"><span
+                                                    lang="pl">&nbsp;
+					                    </span>
+                                                <input type="text" placeholder="" name="city" value="{$city}" size="40" style="width: 145px"></td>
+                                        </tr>
 
-                            </tbody>
-                        </table>
-                        <p class="MsoNormal">&nbsp;</p>
+                                        </tbody>
+                                    </table>
+                                <p class="MsoNormal">&nbsp;</p>
+                                <p class="MsoNormal"><span lang="pl"><strong>Adres do wysyłki
+                                    ubrań przez wypożyczających:</strong></span></p>
+                                <table style="width: 59%">
+                                    <tbody><tr>
+                                        <td colspan="2">
+                                      <span lang="pl"><strong>
+                                          <input id="shipment" type="checkbox" id="flexible" name="shipment" {if $shipment == 0} checked="checked"{/if} style="width: 20px">&nbsp;
+                                          dane takie same jak adresu zameldowania</strong></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 134px" class="auto-style4">
+                                            &nbsp;</td>
+                                        <td class="auto-style2">
+                                            &nbsp;</td>
+                                    </tr>
+                                    <table  style="width: 59%">
+                                        <table id="block_shipment" style="width: 59%">
+                                            <tbody>
+                                            <tr>
+                                                <td style="width: 134px" class="auto-style4">
+                                                    <span lang="pl">Adres:</span></td>
+                                                <td class="auto-style2">
+                                                    <input type="text" placeholder="" name="shipment_address"  value="{$shipment_address}" size="40" style="width: 145px">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="height: 27px; width: 134px" class="auto-style4">
+                                                    <span lang="pl">Kod i miasto</span></td>
+                                                <td style="height: 27px" class="auto-style2">
+                                                    <input type="text" placeholder="" name="shipment_zip"  value="{$shipment_zip}"size="40" style="width: 39px"><span
+                                                        lang="pl">&nbsp;
+					                    </span>
+                                                    <input type="text" placeholder="" name="shipment_city" value="{$shipment_city}" size="40" style="width: 145px"></td>
+                                            </tr>
 
-                        <br/><br/>
-                        <input type="submit" value="Zapisz" name="submit" id="submit" style="width: 118px">
+                                            </tbody>
+                                        </table>
+                                    </tbody></table><br/><br/>
+                                <input type="submit" name="submit" value="Zapisz" id="submit" style="width: 118px">
+                                <br/>
+                            </div>
+                        </div>
                     </form>
                     <!--==============================end content====================================-->
                     <!--==============================Script===================================-->
                     {literal}
                     <script type="text/javascript">
+                        function checkShipment(){
+                            if($('#shipment').is(':checked') == true){
+                                $('#block_shipment').hide();
+                            }else{
+                                $('#block_shipment').show();
+                            }
+                        }
+                        function checkCompany(){
+                            if($("input[name='company']:checked").val() == 0){
+                                $('.scompany').hide();
+                            }else{
+                                $('.scompany').show();
+                            }
+                        }
+                        $(document).ready(function(){
+                            checkShipment();
+                            $('#shipment').click(function(){
+                               checkShipment();
+                            });
+                            checkCompany();
+                            $('.company').click(function(){
+                                checkCompany();
+                            });
+                        });
 
                         var frmvalidator = new Validator("dataform");
                         frmvalidator.addValidation("user", "maxlen=70", "Pole e-mail jest niepoprawne.");
@@ -95,7 +197,25 @@
                         frmvalidator.addValidation("address","req", "Uzupełnij pole adresu.");
                         frmvalidator.addValidation("zip","req", "Uzupełnij Kod miasta.");
                         frmvalidator.addValidation("city","req", "Uzupełnij miasto.");
+                        //p24 wymagana
+                        frmvalidator.addValidation("p24_id_sprzedawcy","req","Uzupełnij  Płatności 24: Numer ID.");
+                        frmvalidator.addValidation("p24_crc","req", "Uzupełnij Płatności 24: klucz CRC.");
 
+                        //validacja firmy if select
+                        frmvalidator.addValidation("company_name","req","Uzupełnij nazwe firmy",
+                                "VWZ_IsChecked(document.forms['dataform'].elements['company'],'1')");
+                        frmvalidator.addValidation("company_nip","req","Uzupełnij nip firmy",
+                                "VWZ_IsChecked(document.forms['dataform'].elements['company'],'1')");
+
+                        //validacja adresu wysylki if selected
+                        frmvalidator.addValidation("shipment_address","req","Uzupełnij adres dostawy",
+                                "VWZ_IsChecked(document.forms['dataform'].elements['shipment'],'1')")
+                        frmvalidator.addValidation("shipment_zip","req","Uzupełnij kod pocztowy firmy",
+                                "VWZ_IsChecked(document.forms['dataform'].elements['shipment'],'1')")
+                        frmvalidator.addValidation("shipment_city","req","Uzupełnij miasto firmy",
+                                "VWZ_IsChecked(document.forms['dataform'].elements['shipment'],'1')")
+
+                        //dodajemy custom validation
                         frmvalidator.EnableMsgsTogether();
 
                     </script>

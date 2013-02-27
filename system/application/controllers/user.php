@@ -107,15 +107,17 @@ class User extends Hub {
         if (isset($_POST['user'])) {
             $url = CONSOLE_URL . '/plociuchy:user/password_reset_ui/' . $_POST['user'];
             $result = $this->api_call($url);
+            if($result['code'] == 'user_missing') {
+                $this->ci->smarty->assign('result', 0);
+                $this->ci->smarty->assign('code', 'user_missing');
+                $this->ci->smarty->assign('operation', 'password_reset');
+                $this->add_message_error('Nieznaleziono podanego adresu email.');
+            }else{
             $this->ci->smarty->assign('result', $result['success']);
             $this->ci->smarty->assign('code', $result['code']);
             $this->ci->smarty->assign('operation', 'password_reset');
-            $this->add_message_ok('Wysłano wiadomość z linkiem resetującym hasło.Sprawdź pocze');
-        } else {
-            $this->ci->smarty->assign('result', 0);
-            $this->ci->smarty->assign('code', 'user_missing');
-            $this->ci->smarty->assign('operation', 'password_reset');
-            $this->add_message_error('Nieznaleziono podanego adresu email.');
+            $this->add_message_ok('Wysłano wiadomość z linkiem resetującym hasło. Sprawdź pocztę.');
+            }
         }
         //display
         $this->smarty_display($template);
@@ -131,11 +133,11 @@ class User extends Hub {
         $this->ci->smarty->assign('operation', 'password_reset');
         //if ok
         if ($result['code'] == 'password_changed') {
-            $this->add_message_ok('Hasło zostało zresetowane.<br/> Nowe Hasło zostało wysłane na twój adres email.');
+            $this->add_message_ok('Hasło zostało zresetowane.<br/> Nowe hasło zostało wysłane na twój adres email.');
             $this->ci->smarty->assign('reset_ok', true);
         }
         // display
-        $template = 'user_password_reminder';
+        $template = 'user_login';
 
         $this->smarty_display($template);
     }

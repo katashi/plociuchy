@@ -75,6 +75,7 @@ $route['partner-panel-dane'] = "main/run/partner_panel/display_data/$1";
 $route['partner-panel-zmiana-hasla'] = "main/run/partner_panel/display_change_password/$1";
 $route['partner-panel-wystaw'] = "main/run/partner_panel/display_add_product/$1";
 $route['partner-panel-produkty'] = "main/run/partner_panel/display_products/$1";
+$route['partner-panel-produkty/(:any)'] = "main/run/partner_panel/display_products_edit/$1";
 $route['partner-panel-produkty-odrzucone'] = "main/run/partner_panel/display_rejected_products/$1";
 $route['partner-panel-rezerwacje'] = "main/run/partner_panel/display_reservations/$1";
 $route['partner-panel-rezerwacje-aktualne'] = "main/run/partner_panel/display_reservations_actual/$1";
