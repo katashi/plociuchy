@@ -20,10 +20,10 @@ class Home extends Hub {
         //załadowanie dokumentu glowna-ubrania
         $main_wear = $this->load_all_title_call('glowna-ubranie');
         // display
-        $this->ci->smarty->assign('main_wear', $main_wear['data'][0]);
+        $this->ci->smarty->assign('main_wear', (isset($main_wear['data'][0]) ? $main_wear['data'][0]: '' ));
         $this->ci->smarty->assign('how_to_rent', $how_to_rent['data']);
         $this->ci->smarty->assign('how_to_insert', $how_to_insert['data']);
-        $this->ci->smarty->assign('welcome', $welcome['data'][0] );
+        $this->ci->smarty->assign('welcome', (isset($welcome['data'][0]) ? $welcome['data'][0] : '' ));
         $this->smarty_display($template);
     }
     function display_redirect($template = null, $title_call = null, $variable = null) {

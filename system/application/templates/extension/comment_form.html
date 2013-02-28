@@ -6,6 +6,7 @@
     <script src="{$site_url}js/gen_validatorv4.js" type="text/javascript"></script>
     <title></title>
 
+    <link type="text/css" rel="stylesheet" href="{$site_url}css/style.css">
     <link type="text/css" rel="stylesheet" href="{$site_url}css/comment_form_main.css">
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
     {literal}
@@ -17,7 +18,7 @@
 
 </head>
 
-<body>
+<body style="background-image: none;background-color: white;">
 
 <script type="text/javascript">
     /* <![CDATA[ */
@@ -53,6 +54,7 @@
     });
     /* ]]> */
 </script><div style="width:100%">
+    {/literal}{$messages}{literal}
     <form method="post" id="myform" action="{/literal}{$site_url}comment_form/display_form/{$product.id}{literal}" style="width: 290px; float:left;">
 
         <table style="width: 212%; height: 87px">
@@ -60,8 +62,6 @@
                 <td valign="top">
                     <input name="id_product" type="hidden" value="{/literal}{$id_product}{literal}">
                     <input name="name" placeholder="Nick *" style="width: 173px">
-
-
                     <input name="email" type="email" placeholder="E-mail *" style="width: 173px"><br><br>
                 </td>
                 <td class="auto-style1" valign="top">

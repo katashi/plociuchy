@@ -10,15 +10,22 @@ class Search extends Hub {
     // display
     function display($template = null, $title_call = null, $query = null) {
         $this->assign_template_titlecall($template, $title_call);
-        $limit = 3;
+        $limit = 8;
         $current_page = (isset($_REQUEST['page'])? $_REQUEST['page'] : 1);
         $all_pages = 0;
         $query = trim($_REQUEST['search']);
         $result = $this->load_all_search_products($query , $current_page , $limit);
+        foreach ($result['data'] as $key => $val){
+            //dodajemy do tablicy vendor
+            $s = $this->load_vendor($val['id_vendor']);
+            $result['data'][$key]['vendor'] = $s['data'];
+        }
         if($result['total'] >= $limit){
             $all_pages = ceil($result['total']/$limit);
         }
+
         $this->ci->smarty->assign('title', $query);
+        $this->ci->smarty->assign('search', true );
         $this->ci->smarty->assign('search_route_name','wyszukaj?search='.$query.'&page=');
         $this->ci->smarty->assign('products_total', $result['total']);
         $this->ci->smarty->assign('products', $result['data']);

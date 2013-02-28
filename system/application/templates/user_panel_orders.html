@@ -33,9 +33,9 @@
                         <div id="kolumna1" >
                             <a href="{$site_url}product/{$reservation.id_product}">{$reservation.product.text1}</a></div>
                         <div id="kolumna2">{if $reservation.partner.nick}{$reservation.partner.nick}{else}NoInfo{/if}</div>
-                        <div id="kolumna2" > need status</div>
+                        <div id="kolumna2" > {$reservation.status} </div>
                         <div>
-                            <span lang="pl">{$reservation.product.date_added|date_format:"%m-%d-%Y"}</span></div>
+                            <span lang="pl">{$reservation.product.date_added}</span></div>
                     </div>
                     {/foreach}
                 </div>
@@ -67,7 +67,7 @@
                         <div id="kolumna1" >
                             <a href="{$site_url}product/{$reservation.id_product}">{$reservation.product.text1}</a></div>
                         <div id="kolumna2">{if $reservation.partner.nick}{$reservation.partner.nick}{else}NoInfo{/if}</div>
-                        <div id="kolumna2" > need status</div>
+                        <div id="kolumna2" > {$reservation.status} </div>
                         <div>
                             <span lang="pl">{$reservation.product.date_added|date_format:"%m-%d-%Y"}</span></div>
                     </div>

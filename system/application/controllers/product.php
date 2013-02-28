@@ -44,6 +44,12 @@ class Product extends Hub {
         $this->assign_template_titlecall($template, $title_call);
         // load product
         $product = $this->load_product($id);
+        //dodajemy do tablicy vendor
+        $s = $this->load_vendor($product['data']['id_vendor']);
+        $product['data']['vendor'] = $s['data'];
+        //dodajemy do tablicy wlasciciela
+        $s2 = $this->load_partner($product['data']['id_partner']);
+        $product['data']['partner'] = $s2['data'];
 
         // load product comments
         $product_comments = $this->load_all_product_comments_user($id);
@@ -60,7 +66,7 @@ class Product extends Hub {
         $this->assign_template_titlecall($template, $title_call);
         //get name cat
         $cat = $this->load_category($id_category);
-        $title = $cat['data']['title'];
+        $title = (isset($cat['data']['title'])? $cat['data']['title'] :'');
 
         //Set limit
         $limit = 8;
@@ -69,10 +75,14 @@ class Product extends Hub {
         // load products
         $result = $this->load_all_products($id_category, 'id_category', $current_page, $limit);
 
+        foreach ($result['data'] as $key => $val){
+            //dodajemy do tablicy vendor
+            $s = $this->load_vendor($val['id_vendor']);
+            $result['data'][$key]['vendor'] = $s['data'];
+        }
         if ($result['total'] >= $limit) {
             $all_pages = ceil($result['total'] / $limit);
         }
-
         $this->ci->smarty->assign('id', $id_category);
         $this->ci->smarty->assign('title', $title);
         $this->ci->smarty->assign('route_name', 'kategoria');
@@ -94,7 +104,12 @@ class Product extends Hub {
         $current_page = (isset($page) ? $page : 1);
         $all_pages = 0;
         // load products
-        $result = $this->load_all_products($id_vendor, 'id_cendor', $current_page, $limit);
+        $result = $this->load_all_products($id_vendor, 'id_vendor', $current_page, $limit);
+        foreach ($result['data'] as $key => $val){
+            //dodajemy do tablicy vendor
+            $s = $this->load_vendor($val['id_vendor']);
+            $result['data'][$key]['vendor'] = $s['data'];
+        }
 
         if ($result['total'] >= $limit) {
             $all_pages = ceil($result['total'] / $limit);
@@ -106,7 +121,6 @@ class Product extends Hub {
         $this->ci->smarty->assign('products', $result['data']);
         $this->ci->smarty->assign('all_pages', $all_pages);
         $this->ci->smarty->assign('current_page', $current_page);
-
         // display
         $this->smarty_display($template);
     }
@@ -125,7 +139,13 @@ class Product extends Hub {
             return $result;
         }
     }
-
+    function load_partner($id = null) {
+        $url = CONSOLE_URL . '/plociuchy:partner/load/' . $id;
+        $result = $this->api_call($url);
+        if ($result['success'] == 1) {
+            return $result;
+        }
+    }
     function load_all_product_comments_user($id_product) {
         $url = CONSOLE_URL . '/plociuchy:product_comment_user/load_all_comments_ui/' . $id_product . ',id_product';
         return $result = $this->api_call($url);

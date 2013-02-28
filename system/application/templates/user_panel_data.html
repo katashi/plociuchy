@@ -76,49 +76,62 @@
                         <p class="MsoNormal">&nbsp;</p>
 
                         <p class="MsoNormal"><span lang="pl"><strong>Adres do wysyłki:</strong></span></p>
-
-
                         <table style="width: 59%">
                             <tbody>
                             <tr>
                                 <td colspan="2">
-					  <span lang="pl"><strong>
-                          <input type="checkbox" id="flexible" value="flexible" style="width: 20px">&nbsp;
-                          dane takie same jak
-                          adresu zameldowania</strong></span></td>
-                            </tr>
+                                <span lang="pl"><strong>
+                                  <input id="shipment" type="checkbox" id="flexible" name="shipment" {if $shipment == 0} checked="checked"{/if}  style="width: 20px">&nbsp;
+                                  dane takie same jak adresu zameldowania</strong></span></td>
+                                </tr>
                             <tr>
                                 <td style="width: 134px" class="auto-style4">
                                     &nbsp;</td>
                                 <td class="auto-style2">
                                     &nbsp;</td>
                             </tr>
-                            <tr>
-                                <td style="width: 134px" class="auto-style4">
-                                    <span lang="pl">Ulica:</span></td>
-                                <td class="auto-style2">
-                                    <input type="text" placeholder="" name="shipment_address"  value="{$shipment_address}" size="40" style="width: 145px">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="height: 27px; width: 134px" class="auto-style4">
-                                    <span lang="pl">Kod i miasto:</span></td>
-                                <td style="height: 27px" class="auto-style2">
-                                    <input type="text" placeholder="" name="shipment_zip"  value="{$shipment_zip}"size="40" style="width: 39px"><span
-                                        lang="pl">&nbsp;
-					        </span>
-                                    <input type="text" placeholder="" name="shipment_city" value="{$shipment_city}" size="40" style="width: 145px"></td>
-                            </tr>
+                            <table  style="width: 59%">
+                                <table id="block_shipment" style="width: 59%">
+                                    <tbody>
+                                    <tr>
+                                        <td style="width: 134px" class="auto-style4">
+                                            <span lang="pl">Ulica:</span></td>
+                                        <td class="auto-style2">
+                                            <input type="text" placeholder="" name="shipment_address"  value="{$shipment_address}" size="40" style="width: 145px">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="height: 27px; width: 134px" class="auto-style4">
+                                            <span lang="pl">Kod i miasto</span></td>
+                                        <td style="height: 27px" class="auto-style2">
+                                            <input type="text" placeholder="" name="shipment_zip"  value="{$shipment_zip}"size="40" style="width: 39px"><span
+                                                lang="pl">&nbsp;
+					                    </span>
+                                            <input type="text" placeholder="" name="shipment_city" value="{$shipment_city}" size="40" style="width: 145px"></td>
+                                    </tr>
 
-                            </tbody>
-                        </table>
-                        <br/><br/>
+                                    </tbody>
+                                </table>
+                            </tbody></table><br/><br/>
                         <input type="submit" value="Zapisz" name="submit" id="submit" style="width: 118px">
                     </form>
                     <!--==============================end content====================================-->
                     <!--==============================Script===================================-->
                     {literal}
                     <script type="text/javascript">
+                        function checkShipment(){
+                            if($('#shipment').is(':checked') == true){
+                                $('#block_shipment').hide();
+                            }else{
+                                $('#block_shipment').show();
+                            }
+                        }
+                        $(document).ready(function(){
+                            checkShipment();
+                            $('#shipment').click(function(){
+                                checkShipment();
+                            });
+                        });
 
                         var frmvalidator = new Validator("dataform");
                         frmvalidator.addValidation("user", "maxlen=70", "Pole e-mail jest niepoprawne.");
@@ -132,6 +145,14 @@
                         frmvalidator.addValidation("address","req", "Uzupełnij pole adresu.");
                         frmvalidator.addValidation("zip","req", "Uzupełnij Kod miasta.");
                         frmvalidator.addValidation("city","req", "Uzupełnij miasto.");
+
+                        //validacja adresu wysylki if selected
+                        frmvalidator.addValidation("shipment_address","req","Uzupełnij adres dostawy",
+                                "VWZ_IsChecked(document.forms['dataform'].elements['shipment'],'')==false")
+                        frmvalidator.addValidation("shipment_zip","req","Uzupełnij kod pocztowy dostawy",
+                                "VWZ_IsChecked(document.forms['dataform'].elements['shipment'],'')==false")
+                        frmvalidator.addValidation("shipment_city","req","Uzupełnij miasto dostawy",
+                                "VWZ_IsChecked(document.forms['dataform'].elements['shipment'],'')==false")
 
                         frmvalidator.EnableMsgsTogether();
 

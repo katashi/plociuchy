@@ -71,7 +71,7 @@ class User_Panel extends Hub {
         //var
         $template = 'user_panel_orders';
         $active_reservation = array();
-
+        $actual_reservation = array();
         //get user active reservation
         $status = 1; // active
         $url = CONSOLE_URL . '/plociuchy:product_reservation/load_all_user_product_reservation/' . $this->ci->session->userdata['user_id'].','.$status;
@@ -80,11 +80,24 @@ class User_Panel extends Hub {
             $active_reservation = $result['data'];
             foreach ($active_reservation as $key => $val){
                 $active_reservation[$key]['product'] = $this->load_product($val['id_product']);
-            }
-            foreach ($active_reservation as $key => $val){
                 $active_reservation[$key]['partner'] = $this->load_partner($val['id_partner']);
+                $active_reservation[$key]['status'] = 'Opłacone. Czeka na wysyłke';
             }
         }
+        //get actual active reservation
+        $status = 2; // history
+        $url = CONSOLE_URL . '/plociuchy:product_reservation/load_all_user_product_reservation/' . $this->ci->session->userdata['user_id'].','.$status;
+        $result = $this->api_call($url);
+        $history_reservation='';
+        if(!empty($result['data'])){
+            $history_reservation = $result['data'];
+            foreach ($history_reservation as $key => $val){
+                $actual_reservation[$key]['product'] = $this->load_product($val['id_product']);
+                $actual_reservation[$key]['partner'] = $this->load_partner($val['id_partner']);
+                $actual_reservation[$key]['status'] = 'Aktualnie wypożyczane';
+            }
+        }
+        $active_reservation = array_merge($active_reservation,$actual_reservation);
         //get history active reservation
         $status = 3; // history
         $url = CONSOLE_URL . '/plociuchy:product_reservation/load_all_user_product_reservation/' . $this->ci->session->userdata['user_id'].','.$status;
@@ -94,11 +107,9 @@ class User_Panel extends Hub {
             $history_reservation = $result['data'];
             foreach ($history_reservation as $key => $val){
                 $history_reservation[$key]['product'] = $this->load_product($val['id_product']);
-            }
-            foreach ($history_reservation as $key => $val){
                 $history_reservation[$key]['partner'] = $this->load_partner($val['id_partner']);
+                $history_reservation[$key]['status'] = 'Zakończona';
             }
-
         }
         //smarty
         $this->ci->smarty->assign('active_reservations', $active_reservation);

@@ -8,12 +8,13 @@
             <!--==============================end lewa strona====================================-->
 <!--{$code}
 {$result}
-{$operation}-->
+{$operation}-->   <br/>
+            <article class="grid_9 prefix_1">
+
             {if $code == 'ok'}
-                Aktywacja przeporwadzona prawidłowo.
-                Dziekujemy.
+              <div id="ok"> Aktywacja przeporwadzona prawidłowo. Dziekujemy.</div>
             {else}
-            Coś poszło źle.. przepraszamy...
+              <div id="error"> Przepraszamy ale nie znaleźliśmy tego kodu aktywacyjnego. </div>
             {/if}
                 <!--==============================end content====================================-->
         </div>

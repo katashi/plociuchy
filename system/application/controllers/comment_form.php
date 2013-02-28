@@ -28,7 +28,7 @@ class Comment_Form extends Hub {
             $data['active'] = 0;
             $url = CONSOLE_URL.'/plociuchy:product_comment_user/add';
             $result = $this->api_call($url,$data);
-            echo 'Komentarz został przekazany do moderacji';
+            $this->add_message_ok('Komentarz został przekazany do moderacji');
         }
         if(!$id_product){
             die('Brak info o produkcie');

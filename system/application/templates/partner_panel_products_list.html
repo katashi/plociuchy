@@ -35,7 +35,8 @@
                             <form id="delete_{$product.id}" name="delete" method="post" action="{$site_url}partner-panel-produkty"><input type="hidden" name="delete_prod" value="{$product.id}"></form>
                             <a href="javascript:void(0)" onclick="submit('delete_{$product.id}')"><img alt="" height="24" src="images/delete.png" width="24" ></a>
                             <a href="{$site_url}partner-panel-produkty/{$product.id}"><img alt="" height="25" src="images/edit.png" width="25"></a>
-                            <img alt="" height="25" src="images/zoomicon.png" width="25"></div>
+                            <!--<img alt="" height="25" src="images/zoomicon.png" width="25">-->
+                            </div>
                     </div>
                     {/foreach}
                 </div>
@@ -43,7 +44,6 @@
             <!--==============================end content====================================-->
             </article>
         </div>
-
     </div>
     {include file="extension/footer_section.html"}
 </section>

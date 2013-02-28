@@ -55,7 +55,7 @@ class User extends Hub {
                     );
                     $this->ci->session->set_userdata($user);
                     //display message success
-                    $this->add_message_ok('Użytkownik Zalogowany.');
+                    $this->add_message_ok('Użytkownik zalogowany poprawnie.Zapraszamy do poznania się z naszymi produktami.');
                 }else{
                     $this->add_message_error('Nazwa użytkownika lub hasło są nieprawidłowe.');
                 }
@@ -92,7 +92,7 @@ class User extends Hub {
             $this->ci->smarty->assign('result', $result['success']);
             $this->ci->smarty->assign('code', $result['code']);
             $this->ci->smarty->assign('operation', 'user_add');
-
+            $this->add_message_error($result['code']);
             //if ok set confirm template
             if ($result['success'] == 1) {
                 $template = 'user_registration_success';
@@ -107,6 +107,7 @@ class User extends Hub {
         if (isset($_POST['user'])) {
             $url = CONSOLE_URL . '/plociuchy:user/password_reset_ui/' . $_POST['user'];
             $result = $this->api_call($url);
+            print_r($result);
             if($result['code'] == 'user_missing') {
                 $this->ci->smarty->assign('result', 0);
                 $this->ci->smarty->assign('code', 'user_missing');

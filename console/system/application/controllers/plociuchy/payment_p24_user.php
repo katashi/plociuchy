@@ -127,6 +127,7 @@ class Payment_P24_User extends Main
             $this->payment_p24_user_model->edit($obj['id']);
             //rezerwacja zmiana statusu
             $_POST = array();
+            $_POST['status'] = '1';
             $_POST['active'] = '1';
             $obj2 = $this->product_reservation_model->load($obj['id'],'id_payment_p24_user');
             $this->product_reservation_model->edit($obj2['id']);

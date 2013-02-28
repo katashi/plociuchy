@@ -78,7 +78,7 @@
                 {if !$user_authorised}
                     <a href="{$site_url}logowanie">Zaloguj się</a> | <a href="{$site_url}rejestracja">Rejestracja</a><br/><br/>
                 {else}
-                       {$user_name} {$user_surname}| <a href="{$site_url}panel"><b>Panel</b></a> | <a href="{$site_url}wyloguj">Wyloguj się</a><br/><br/>
+                       {$user_name} {$user_surname} | <a href="{$site_url}panel"><b>Panel</b></a> | <a href="{$site_url}wyloguj">Wyloguj się</a><br/><br/>
                 {/if}
                 <form method="get" action="{$site_url}wyszukaj">
                     <input type="text" name="search" placeholder="Wpisz frazę">
@@ -87,8 +87,11 @@
             </div>
             <div class="row2" id="row2" style="width:250px;float:right; padding:0 10px 0 10px;">
                 <img alt="koszyk" height="24" src="{$site_url}images/carticon.png" width="28" style="float:left"/>
-
-                Twoje zamówienie: <Br/><a href="{$site_url}koszyk">{if $header_cart_product}{$header_cart_product.text1}{else} Pusty {/if}</a>
+                Twoje zamówienie: <Br/>
+                {if $header_cart_product}
+                <a href="{$site_url}koszyk">{$header_cart_product.text1}
+                </a>
+                {else}  Nic nie dodano {/if}
             </div>
         </div>
         <div class="row-nav">

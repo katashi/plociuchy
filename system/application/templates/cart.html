@@ -13,8 +13,9 @@
 
                     <div id="koszykk">
                         <h2 class="border-bot">Twój koszyk</h2>	 <br>
+                        {$messages}
                     {if !$products}
-                         <div id="ok" style="width: 880px">Pusty</div>
+                         <div id="ok" style="width: 880px">Twój koszyk jest pusty.</div>
                     {else}
                         Daty rezerwacji produktu: <strong>{$date_from} - {$date_to}</strong> ({$days} dni)
                         <!--<strong>zmień</strong>-->
@@ -45,7 +46,13 @@
                                 <div  id="koszyk-koszt2" >
                                     <span lang="pl"><strong>{$product.end_price} zł</strong></span></div>
                                 <div  id="koszyk-opcje2" >
-                                    <img alt="" height="24" src="{$site_url}images/edit-delete.png" width="24" style="float: left"></div>
+                                    <form action="{$site_url}koszyk" method="post" name="delete" id="delete_cart_{$product.id}">
+                                        <input type="hidden" value="{$product.id}" name="delete_cart">
+                                    </form>
+                                    <a onclick="submit('delete_cart_{$product.id}')" href="javascript:void(0)">
+                                        <img alt="" height="24" src="{$site_url}images/edit-delete.png" width="24" style="float: left">
+                                    </a>
+                                    </div>
 
                             </div>
                             {/foreach}
@@ -94,6 +101,7 @@
 
 
                     <br/>  <br/>               <div class="overflow">
+                    <a href="{$site_url}" class="button2">Powrót</a>
                     <p>&nbsp;</p>
                 </div>
                 </div>

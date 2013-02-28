@@ -376,9 +376,9 @@ class Partner_Panel extends Hub {
                     }
             }
         }
-        echo'<pre>';
-        print_R($account_history);
-        echo'</pre>';
+//        echo'<pre>';
+//        print_R($account_history);
+//        echo'</pre>';
 
         $this->add_message_ok('historia platnosci');
 

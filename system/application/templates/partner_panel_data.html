@@ -133,7 +133,7 @@
                                             <tbody>
                                             <tr>
                                                 <td style="width: 134px" class="auto-style4">
-                                                    <span lang="pl">Adres:</span></td>
+                                                    <span lang="pl">Ulica:</span></td>
                                                 <td class="auto-style2">
                                                     <input type="text" placeholder="" name="shipment_address"  value="{$shipment_address}" size="40" style="width: 145px">
                                                 </td>
@@ -209,11 +209,11 @@
 
                         //validacja adresu wysylki if selected
                         frmvalidator.addValidation("shipment_address","req","Uzupełnij adres dostawy",
-                                "VWZ_IsChecked(document.forms['dataform'].elements['shipment'],'1')")
-                        frmvalidator.addValidation("shipment_zip","req","Uzupełnij kod pocztowy firmy",
-                                "VWZ_IsChecked(document.forms['dataform'].elements['shipment'],'1')")
-                        frmvalidator.addValidation("shipment_city","req","Uzupełnij miasto firmy",
-                                "VWZ_IsChecked(document.forms['dataform'].elements['shipment'],'1')")
+                                "VWZ_IsChecked(document.forms['dataform'].elements['shipment'],'')==false")
+                        frmvalidator.addValidation("shipment_zip","req","Uzupełnij kod pocztowy dostawy",
+                                "VWZ_IsChecked(document.forms['dataform'].elements['shipment'],'')==false")
+                        frmvalidator.addValidation("shipment_city","req","Uzupełnij miasto dostawy",
+                                "VWZ_IsChecked(document.forms['dataform'].elements['shipment'],'')==false")
 
                         //dodajemy custom validation
                         frmvalidator.EnableMsgsTogether();
