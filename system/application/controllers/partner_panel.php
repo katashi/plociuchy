@@ -109,7 +109,6 @@ class Partner_Panel extends Hub {
 
     public function display_products($template, $title_call) {
         $this->assign_template_titlecall($template, $title_call);
-
         if (isset($_POST['delete_prod'])) {
             $url = CONSOLE_URL . '/plociuchy:product/delete/' . $_POST['delete_prod'];
             $result = $this->api_call($url);
@@ -121,12 +120,17 @@ class Partner_Panel extends Hub {
         if (empty($products)) {
             $this->add_message_ok('Aktualnie nie posiadasz żadnych produktów. Wystaw produkt.');
         } else {
-
             foreach ($products as $key => $val) {
                 $products[$key]['category'] = $this->load_category($val['id_category']);
                 $products[$key]['left_days'] = $this->count_Days($val['active_to']);
-            }
+                //sprawdzamy date oraz czy jest aktywny
 
+                if($val['active_to'] <= date("Y-m-d H:i:s") || $val['active'] == 0 || $val['reject'] <= 0){
+                    $products[$key]['displayed'] = false;
+                }else{
+                    $products[$key]['displayed'] = true;
+                }
+            }
         }
         $this->ci->smarty->assign('title_page', 'Spis Produktów');
         $this->ci->smarty->assign('user_products', $products);
@@ -364,25 +368,26 @@ class Partner_Panel extends Hub {
         $result = $this->api_call($url);
         if(isset($result['data'])){
             $account_history = $result['data'];
+            $saldo = 0;
                 foreach($account_history as $key => $history){
                     if($history['point'] != null){
                         $account_history[$key]['type'] = 'income';
+                        $account_history[$key]['point_available'] = $history['point'];
+                        $saldo = $account_history[$key]['point'];
                     }else{
                         $account_history[$key]['type'] = 'outcome';
-                        //jeśli outcome to pobieramy liczbe ptk z poprzedniego rekordu
-                        $account_history[$key]['point'] = $account_history[$key-1]['point'];
                         //dostepne ptk to poprzedni stan z income minus aktualny  koszt wysastawienia
-                        $account_history[$key]['point_available'] = ($account_history[$key-1]['point_available'] - $account_history[$key]['koszt_wystawienia']) ;
+                        $saldo = $saldo - $history['koszt_wystawienia'];
+                        $account_history[$key]['point_available'] = $saldo;
+                        //doadnie info o przedmiocie
+                        $account_history[$key]['product'] = $this->load_product($history['id_product']);
                     }
             }
         }
-//        echo'<pre>';
-//        print_R($account_history);
-//        echo'</pre>';
-
-        $this->add_message_ok('historia platnosci');
-
-        $this->ci->smarty->assign('account_history', $account_history);
+        if(empty($account_history)){
+            $this->add_message_ok('Brak historii platnosci');
+        }
+        $this->ci->smarty->assign('account_history', array_reverse($account_history));
         $template = 'partner_panel_payment_history';
         $this->smarty_display($template);
     }
@@ -429,6 +434,7 @@ class Partner_Panel extends Hub {
 
     public function add_product() {
         $data = $_POST;
+        $data['active'] = 0;
         $url = CONSOLE_URL . '/plociuchy:product/add_product_ui';
         $result = $this->api_call($url, $data);
         if ($result['code'] == 'product_exist') {
@@ -445,7 +451,7 @@ class Partner_Panel extends Hub {
         $url = CONSOLE_URL . '/plociuchy:product/edit_product_ui/' . $id_product;
         $result = $this->api_call($url, $data);
         if ($result['code'] == 'product_exist') {
-            $result['code'] = 'Product o podanej nazwie istnieje';
+            $result['code'] = 'Product o podanej nazwie istnieje.';
         }
 //        $this->ci->smarty->assign('result', $result['success']);
 //        $this->ci->smarty->assign('code', $result['code']);

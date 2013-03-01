@@ -19,10 +19,18 @@
                 });
             </script>
             {/literal}
+            {if !$product}
             <article class="grid_9 prefix_1">
                 <div style="float:left;width:474px; margin-left:10px;">
                     <h2 class="border-bot"
                         style="left: 0px; top: 0px; width: 496px; font-size:2em; padding-bottom:10px; margin-bottom:10px;">
+                        <span lang="pl">Przepraszamy...</span></h2>
+                            {$messages}
+                </div>
+            {else}
+            <article class="grid_9 prefix_1">
+                <div style="float:left;width:474px; margin-left:10px;">
+                    <h2 class="border-bot" style="left: 0px; top: 0px; width: 496px; font-size:2em; padding-bottom:10px; margin-bottom:10px;">
                         <span lang="pl">{$product.text1}</span></h2>
                     <span style="font-size:1.4em;">{$product.text2}</span><Br/>(należy
                     do: {$product.partner.nick})
@@ -89,10 +97,10 @@
                       <br>Wypowiedz się!
                   </div>
 
-	<iframe scrolling="no" frameborder="0" style=" width: 690px; height: 191px;"
-            src="{$site_url}comment_form/display_form/{$product.id}"
-            marginheight="0" marginwidth="0" name="I1" class="auto-style1">
-    </iframe>
+                    <iframe scrolling="no" frameborder="0" style=" width: 690px; height: 191px;"
+                            src="{$site_url}comment_form/display_form/{$product.id}"
+                            marginheight="0" marginwidth="0" name="I1" class="auto-style1">
+                    </iframe>
 
                     </div>
 
@@ -103,7 +111,7 @@
                         <p>&nbsp;</p>
                     </div>
                 </div>
-
+            {/if}
                 {else}
                 <article class="grid_9 prefix_1">
                     <h2 class="border-bot">{if $search}Wyszukuje: {else}{/if}<span lang="pl"> {$title}</span></h2>
@@ -112,6 +120,7 @@
                         <div id="marki" style="height: 298px">
                             {if !$products}
                             <div id="ok">Przykro nam ale w aktualnej kategorii nie ma jeszcze produktów.</div>
+                        </div>
                             {else}
                             {foreach from=$products item=product key='test' name='loop'}
                             <!-- poczatek produktu -->

@@ -83,5 +83,41 @@ class Product_Dict_Category_Model extends Main_Model {
         return 1;
     }
 
+    function load_all_no_dodatki() {
+        $this->limit_check();
+        $this->filter_check();
+        $this->sort_check();
+        $this->db->where_not_in('id',array(1,2,3));
+        $query = $this->db->get($this->table_name);
+        $record = $query->result_array();
+        return $record;
+    }
+    function load_all_dodatki() {
+        $this->limit_check();
+        $this->filter_check();
+        $this->sort_check();
+        $this->db->where_in('id',array(1,2,3));
+        $query = $this->db->get($this->table_name);
+        $record = $query->result_array();
+        return $record;
+    }
+
+    function load_all_no_dodatki_count() {
+        $this->limit_check();
+        $this->filter_check();
+        $this->sort_check();
+        $this->db->where_not_in('id',array(1,2,3));
+        $this->db->get($this->table_name);
+        $record = $this->db->count_all_results();
+        return $record;
+    }
+    function load_all_dodatki_count() {
+        $this->limit_check();
+        $this->filter_check();
+        $this->sort_check();
+        $this->db->where_in('id',array(1,2,3));
+        $this->db->get($this->table_name);
+        return $this->db->count_all_results();
+    }
 }
 ?>

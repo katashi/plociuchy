@@ -69,9 +69,9 @@ class Product_Comment_Model extends Main_Model
         return $record;
     }
 
-    function load($id)
+    function load($id,$where)
     {
-        $this->db->where('id', $id);
+        $this->db->where($where, $id);
         $query = $this->db->get($this->table_name);
         $record = $query->row_array();
         return $record;

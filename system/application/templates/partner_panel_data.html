@@ -19,7 +19,13 @@
                         <div class="wrapper" style="left: 0px; top: 0px">
                             <div class="overflow">
                                 <table style="width: 59%">
-                                    <tbody><tr>
+                                    <tbody>
+                                    <tr>
+                                        <td style="width: 134px" class="auto-style4"><span lang="pl">Nazwa Konta:</span></td>
+                                        <td class="auto-style2">
+                                            <input type="text" placeholder="" name="nick"  value="{$nick}"size="40" style="width: 145px"></td>
+                                    </tr>
+                                    <tr>
                                         <td style="width: 134px" class="auto-style4"><span lang="pl">Imię:</span></td>
                                         <td class="auto-style2">
                                             <input type="text" placeholder="" name="name"  value="{$name}"size="40" style="width: 145px"></td>
@@ -189,6 +195,8 @@
                         frmvalidator.addValidation("user", "maxlen=70", "Pole e-mail jest niepoprawne.");
                         frmvalidator.addValidation("user", "req", "Uzupełnij pole e-mail");
                         frmvalidator.addValidation("user", "email", "Pole e-mail jest niepoprawne.");
+
+                        frmvalidator.addValidation("nick", "req", "Uzupełnij Nazwę Konta.");
 
                         frmvalidator.addValidation("name", "req", "Wpisz proszę swoje imię.");
                         frmvalidator.addValidation("name","maxlen=100", "Maksymalna długość imienia to 100 znaków.");

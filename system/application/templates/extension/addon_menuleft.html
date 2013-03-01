@@ -13,9 +13,13 @@
     </ul>
     <div class="title-1 p"><Br/>Dodatki</div>
     <ul class="list-1 p1">
-        <li><a href="more.html">torebki</a></li>
-        <li><a href="more.html">paski</a></li>
-        <li><a href="more.html">biżuteria</a></li>
+        {if $dodatki|@count > 0}
+             {foreach from=$dodatki item=cat}
+            <li><a href="{$site_url}kategoria/{$cat.id}">{$cat.title}</a></li>
+            {/foreach}
+        {else}
+        Brak dodatków.
+        {/if}
     </ul>
     <div class="border-horiz"></div>
     <div class="title-1">Wybierz markę</div>

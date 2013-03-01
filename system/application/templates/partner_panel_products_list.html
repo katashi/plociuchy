@@ -16,7 +16,7 @@
                         <div id="kolumna1">
                             <strong>Produkt</strong></div>
                         <div id="kolumna2">
-                            <span lang="pl"><strong>Kategoria</strong></span></div>
+                            <span lang="pl"><strong>Aktywny</strong></span></div>
                         <div id="kolumna2" >
                             <span lang="pl"><strong>Data wygaśnięcia</strong></span></div>
 
@@ -27,7 +27,17 @@
                     <div id="kolumny-produkt" >
                         <div id="kolumna1" >
                             <a href="{$site_url}product/{$product.id}">{$product.text1}</a></div>
-                        <div id="kolumna2">{$product.category.title}</div>
+                        <div id="kolumna2">
+                            {if $product.displayed}
+                                    <span class="auto-style16" lang="pl">
+                                            <strong> Tak </strong>
+                                        </span>
+                            {else}
+                                 <span class="auto-style15" lang="pl">
+                                            <strong> Nie </strong>
+                                        </span>
+                            {/if}
+                        </div>
                         <div id="kolumna2" >
                             <span lang="pl">{$product.active_to} ({$product.left_days}dni)</span></div>
 

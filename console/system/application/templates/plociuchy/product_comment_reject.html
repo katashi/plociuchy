@@ -73,7 +73,7 @@ function product_comment_reject_fps() {
 			Ext.MessageBox.alert('Informacja', 'Gotowe');
             product_comment_reject_fp.display.getForm().reset();
             Ext.getCmp('product_reject').destroy();
-            product_comment_store.display.reload();
+            product_store.display.reload();
 		},
 		failure: function() {
 			Ext.MessageBox.alert('Informacja', 'Błąd');

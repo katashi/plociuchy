@@ -13,6 +13,8 @@ class Hub extends Main {
         $this->display_cart_data();
         //Display user info
         $this->display_user_data();
+        //Display partner info
+        $this->display_partner_data();
         //Display messages
         $this->ci->smarty->assign('messages',$this->display_messages());
         //display
@@ -57,6 +59,16 @@ class Hub extends Main {
             $this->ci->smarty->assign('user_surname',$this->ci->session->userdata['user_surname']);
         }
     }
+
+    public function display_partner_data(){
+        if (isset($this->ci->session->userdata['partner_authorised'])){
+            $this->ci->smarty->assign('partner_authorised',$this->ci->session->userdata['partner_authorised']);
+            $this->ci->smarty->assign('partner_id',$this->ci->session->userdata['partner_id']);
+            $this->ci->smarty->assign('partner_name',$this->ci->session->userdata['partner_name']);
+            $this->ci->smarty->assign('partner_surname',$this->ci->session->userdata['partner_surname']);
+        }
+    }
+
     public function display_cart_data(){
         if (isset($this->ci->session->userdata['cart_data'])){
             $products = $this->ci->session->userdata['products'];

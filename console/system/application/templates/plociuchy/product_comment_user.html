@@ -33,12 +33,12 @@ var config = new Object({
 	title: 'Produkt Komentarze',
 	columns: [
 		{ id: 'id', dataIndex: 'id', header: 'Id', sortable: true },
-		{ id: 'id_user', dataIndex: 'id_partner', header: 'Id_User', sortable: true },
+//		{ id: 'id_user', dataIndex: 'id_user', header: 'Id_User', sortable: true },
 		{ id: 'id_product', dataIndex: 'id_product', header: 'Id_Product', sortable: true },
         { id: 'nick', dataIndex: 'nick', header: 'Nick', sortable: true },
         { id: 'email', dataIndex: 'email', header: 'Email', sortable: true },
-		{ id: 'text1', dataIndex: 'text1', header: 'Tytuł', sortable: true },
-		{ id: 'text2', dataIndex: 'text2', header: 'Nagłówek', sortable: true },
+		{ id: 'text1', dataIndex: 'text1', header: 'Treść', sortable: true },
+//		{ id: 'text2', dataIndex: 'text2', header: 'Nagłówek', sortable: true },
 		{ id: 'date_addded', dataIndex: 'date_added', header: 'Stworzony', sortable: true },
 		{ id: 'options', header: 'Opcje', renderer: render_options, sortable: false }
 	],
@@ -119,8 +119,6 @@ function product_comment_user_filter_search_remove() {
     lastOptions.params['query'] = '';
     product_comment_user_ptb.display.changePage(0);
 }
-
-
 {/literal}
 </script>
 <div id="div_product_comment_user"></div>

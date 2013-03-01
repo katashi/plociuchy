@@ -28,6 +28,12 @@ class Product_Dict_Category extends Main {
     function load_all() {
         echo '{"total":'.json_encode($this->product_dict_category_model->load_all_count()).', "data":'.json_encode($this->product_dict_category_model->load_all()).'}';
     }
+    function load_all_no_dodatki() {
+        echo '{"total":'.json_encode($this->product_dict_category_model->load_all_no_dodatki_count()).', "data":'.json_encode($this->product_dict_category_model->load_all_no_dodatki()).'}';
+    }
+    function load_all_dodatki() {
+        echo '{"total":'.json_encode($this->product_dict_category_model->load_all_dodatki_count()).', "data":'.json_encode($this->product_dict_category_model->load_all_dodatki()).'}';
+    }
     function load_all_letters() {
         echo '{"total":'.json_encode($this->product_dict_category_model->load_all_count()).', "data":'.json_encode($this->product_dict_category_model->load_all_letters()).'}';
     }

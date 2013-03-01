@@ -89,7 +89,7 @@ class Partner_Account_Income_Model extends Main_Model {
         Union All
         (SELECT id_partner, null , null , id_product, unit_cost, date_added
             FROM pc_partner_account_outcome WHERE id_partner = '.$id_partner.')
-        ORDER BY date_added'
+        ORDER BY date_added LIMIT 0,50'
         );
         $record = $query->result_array();
         return $record;

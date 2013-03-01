@@ -43,8 +43,13 @@
                                     <strong>Dane wysyłki</strong>
                                     <br>
                                     {$user.name} {$user.surname}<br>
-                                    {$user.address}<br>
-                                    {$user.zip} {$user.city}</br>
+                                    {if $user.shipment == 0}
+                                        {$user.address}<br>
+                                        {$user.zip} {$user.city}</br>
+                                    {else}
+                                        {$user.shipment_address}<br>
+                                        {$user.shipment_zip} {$user.shipment_city}</br>
+                                    {/if}
                                 </div>
 
                                 </div>

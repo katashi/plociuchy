@@ -45,6 +45,13 @@ class Product extends Main {
         }
         echo '{"total":'.json_encode($this->product_model->load_all_product_count($id,$where)).', "data":'.json_encode($this->product_model->load_all_product($id,$where)).'}';
     }
+    function load_all_active_product($id , $where = 'id', $page = null , $limit = 10){
+        if($page >= 1){
+            $_REQUEST['start'] = ($page-1) * $limit;
+            $_REQUEST['limit'] = $limit;
+        }
+        echo '{"total":'.json_encode($this->product_model->load_all_active_product_count($id,$where)).', "data":'.json_encode($this->product_model->load_all_active_product($id,$where)).'}';
+    }
 
     function load_all_product_search_ui($query=null, $page = null , $limit = 10){
         if(isset($query)){
@@ -54,7 +61,7 @@ class Product extends Main {
             $_REQUEST['start'] = ($page-1) * $limit;
             $_REQUEST['limit'] = $limit;
         }
-        echo '{"total":'.json_encode($this->product_model->load_all_product_count()).', "data":'.json_encode($this->product_model->load_all_product()).'}';
+        echo '{"total":'.json_encode($this->product_model->load_all_active_product_count()).', "data":'.json_encode($this->product_model->load_all_active_product()).'}';
     }
 
     function load_all_user_product_ui($id_user, $page = null , $limit = 10){
@@ -101,7 +108,6 @@ class Product extends Main {
         echo '{"success": ' . $result['success'] . ', "code": "' . $result['code'] . '"}';
     }
     function edit_product_ui($id_product) {
-        $_POST['active'] = '0';
         $result = $this->product_model->edit_ui($id_product);
         echo '{"success": ' . $result['success'] . ', "code": "' . $result['code'] . '"}';
     }

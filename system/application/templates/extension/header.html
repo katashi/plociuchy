@@ -75,10 +75,17 @@
                 <h1 class="logo"><a href="/" title="Plo-ciuchy.pl - zostańmy przyjaciółkami"></a></h1>
             </div>
             <div id="row2" class="row2" style="width:206px;float:right; padding:0 10px 0 10px;text-align:right;">
-                {if !$user_authorised}
-                    <a href="{$site_url}logowanie">Zaloguj się</a> | <a href="{$site_url}rejestracja">Rejestracja</a><br/><br/>
+                {if !$partner_authorised}
+                    {if !$user_authorised}
+                        <a href="{$site_url}logowanie">Zaloguj się</a> | <a href="{$site_url}rejestracja">Rejestracja</a><br/><br/>
+                    {else}
+                        {$user_name} {$user_surname} | <a href="{$site_url}panel"><b>Panel</b></a> | <a href="{$site_url}wyloguj">Wyloguj się</a><br/><br/>
+                    {/if}
                 {else}
-                       {$user_name} {$user_surname} | <a href="{$site_url}panel"><b>Panel</b></a> | <a href="{$site_url}wyloguj">Wyloguj się</a><br/><br/>
+                    {$partner_name} {$partner_surname} <br/>| <a href="{$site_url}partner-panel"><b>Panel Partnera</b></a> | <a href="{$site_url}partner-wyloguj">Wyloguj się</a><br/>
+                    {if $user_authorised}
+                            | <a href="{$site_url}panel"><b>Panel Użytkownika</b></a> | <a href="{$site_url}wyloguj">Wyloguj się</a><br/><br/>
+                    {/if}
                 {/if}
                 <form method="get" action="{$site_url}wyszukaj">
                     <input type="text" name="search" placeholder="Wpisz frazę">

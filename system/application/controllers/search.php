@@ -43,6 +43,11 @@ class Search extends Hub {
         $result = $this->api_call($url);
         return $result;
     }
+    function load_vendor($id) {
+        $url = CONSOLE_URL . '/plociuchy:product_dict_vendor/load/' . $id;
+        $result = $this->api_call($url);
+        return $result;
+    }
 
     /*function load_last_ui($id_node = null) {
         $url = CONSOLE_URL.'/_structure:structure_website/load_last/'.$id_node;

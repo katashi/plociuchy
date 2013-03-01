@@ -8,12 +8,12 @@
             <!--==============================end lewa strona====================================-->
             <!--==============================content====================================-->
             <article class="grid_9 prefix_1">
-
                 <h2 class="border-bot">historia doładowań i obciążeń</h2>
                 <div class="wrapper" style="left: 0px; top: 0px">
                     <div class="overflow">
                         {$messages}
                     <br/>
+                        {if $account_history}
                         <div id="kolumny">
                             <div id="kolumny-szare">
                                 <div id="kolumna1" style="width:399px;">
@@ -27,27 +27,43 @@
                                 </div>
                             </div>
                             <!-- produkt -->
+                            {foreach from=$account_history item=item}
                             <div id="kolumny-produkt2" >
                                 <div id="kolumna1"  style="width:399px;">
                                     <span lang="pl">
-                                    Wystawienie przedmiotu (#43242323)
+                                        {if $item.type == income}
+                                            Zasilenie konta
+                                        {else}
+                                            Wystawienie przedmiotu "{$item.product.text1}"
+                                        {/if}
                                     </span>
                                 </div>
                                 <div id="kolumna2" style="width: 122px">
 					            <span lang="pl">
-					            <a href="#">&nbsp;</a>22.02.2013 11:00</span></div>
+					            {$item.date_added}</span>
+                                </div>
                                 <div id="kolumna6" >
 									<span class="auto-style6" lang="pl">
-                                        <strong> 100 zł</strong>
+                                    {if $item.type == income}
+                                         <span class="auto-style16" lang="pl">
+                                            <strong> + {$item.point} zł </strong>
+                                         </span>
+                                    {else}
+                                        <span class="auto-style15" lang="pl">
+                                            <strong> - {$item.koszt_wystawienia} zł </strong>
+                                        </span>
+                                    {/if}
                                     </span>
                                 </div>
 
                                 <div id="kolumna6" >
-                                    <span lang="pl">100</span>
+                                    <span lang="pl">{$item.point_available} zł</span>
                                 </div>
                             </div>
+                            {/foreach}
                             <!-- koniec produktu -->
                         </div>
+                        {/if}
                     </div>
                     <!--==============================end content====================================-->
             <!--==============================end content====================================-->

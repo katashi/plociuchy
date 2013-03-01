@@ -27,7 +27,9 @@ class Main extends Controller {
         $this->include_controller('user');
         $this->include_controller('partner');
         // category
-        $this->smarty->assign('category', $this->category_load_all());
+        $this->smarty->assign('category', $this->category_load_all_no_dodatki());
+        // dodatki
+        $this->smarty->assign('dodatki', $this->category_load_all_dodatki());
         // vendor
         $this->smarty->assign('vendor', $this->vendor_load_all());
 
@@ -253,6 +255,8 @@ class Main extends Controller {
         $data['limit'] = $limit;
         $url = CONSOLE_URL . '/plociuchy:product_dict_category/load_all';
         $result = $this->api_call($url, $data);
+        // wyłącznie z wyników kategorii 1,2,3
+        print_R($result);
         if ($result['total'] > 0) {
             return $result['data'];
         } else {
@@ -260,6 +264,37 @@ class Main extends Controller {
         }
     }
 
+    // category
+    function category_load_all_no_dodatki($start = 0, $limit = 10) {
+        $data['sort'] = 'title';
+        $data['dir'] = 'ASC';
+        $data['start'] = $start;
+        $data['limit'] = $limit;
+        $url = CONSOLE_URL . '/plociuchy:product_dict_category/load_all_no_dodatki/';
+        $result = $this->api_call($url, $data);
+        // wyłącznie z wyników kategorii 1,2,3
+        if ($result['total'] > 0) {
+            return $result['data'];
+        } else {
+            return 0;
+        }
+    }
+
+    // category
+    function category_load_all_dodatki($start = 0, $limit = 10) {
+        $data['sort'] = 'title';
+        $data['dir'] = 'ASC';
+        $data['start'] = $start;
+        $data['limit'] = $limit;
+        $url = CONSOLE_URL . '/plociuchy:product_dict_category/load_all_dodatki/';
+        $result = $this->api_call($url, $data);
+        // wyłącznie z wyników kategorii 1,2,3
+        if ($result['total'] > 0) {
+            return $result['data'];
+        } else {
+            return 0;
+        }
+    }
     // vendor
     function vendor_load_all($start = 0, $limit = 10) {
         $data['sort'] = 'title';

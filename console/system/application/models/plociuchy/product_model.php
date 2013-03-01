@@ -20,6 +20,12 @@ class Product_Model extends Main_Model {
             $this->db->or_like('text3', $_REQUEST['query']);
         }
     }
+    // filter check
+    function filter_check_serach() {
+        if (isset($_REQUEST['query']) && $_REQUEST['query'] != '') {
+            $this->db->like('concat(text1,text2,text3) ', $_REQUEST['query']);
+        }
+    }
 
     // load
     function load_all_count() {
@@ -74,6 +80,32 @@ class Product_Model extends Main_Model {
         return $record = $this->db->count_all_results();
     }
 
+    function load_all_active_product($id = null, $where = 'id') {
+        $this->limit_check();
+        $this->filter_check_serach();
+        if (isset($id)) {
+            $this->db->where($where, $id);
+        }
+        $this->db->where('active_to >=', date("Y-m-d H:i:s"));
+        $this->db->where('reject =', 1 );
+        $this->db->where('active =', 1 );
+        $query = $this->db->get($this->table_name);
+        $record = $query->result_array();
+        return $record = $query->result_array();
+    }
+    function load_all_active_product_count($id = null, $where = 'id') {
+        $this->limit_check();
+        $this->filter_check_serach();
+        if (isset($id)) {
+            $this->db->where($where, $id);
+        }
+        $this->db->where('active_to >=', date("Y-m-d H:i:s"));
+        $this->db->where('reject =', 1 );
+        $this->db->where('active =', 1);
+        $this->db->from($this->table_name);
+        return $record = $this->db->count_all_results();
+    }
+
     function load_all_product($id = null, $where = 'id') {
         $this->limit_check();
         $this->filter_check();
@@ -119,6 +151,7 @@ class Product_Model extends Main_Model {
     function reject_set($id, $state) {
         $this->db->where('id', $id);
         $this->db->set('reject', $state);
+        $this->db->set('active', ($state == -1 ? 0 : 1)) ;
         $this->db->update($this->table_name);
         return '{"success": true}';
     }
@@ -133,8 +166,10 @@ class Product_Model extends Main_Model {
         $current_date = date("Y-m-d H:i:s");
         $this->limit_check();
         $this->db->where($where, $id);
-        if (isset($_REQUEST['rejected'])) {
-            $this->db->where('reject', $_REQUEST['rejected']);
+        if (isset($_REQUEST['rejected']) && $_REQUEST['rejected'] == -1) {
+            $this->db->where('reject =', -1 );
+        }else{
+            $this->db->where('reject >=', 0 );
         }
         
         if (isset($_REQUEST['active_to'])) {
@@ -168,7 +203,7 @@ class Product_Model extends Main_Model {
     }
     function edit_ui($id_product) {
         //check does the product exists in database
-        $this->db->like('text1', $_POST['text1']);
+        $this->db->where('text1', $_POST['text1']);
         $this->db->where('id !=', $id_product, false);
         $query = $this->db->get($this->table_name);
         $user = $query->row_array();
