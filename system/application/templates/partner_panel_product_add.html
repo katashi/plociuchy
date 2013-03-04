@@ -24,10 +24,11 @@
 
                 <h2 class="border-bot">Wystaw product</h2>
                 {$messages}
-                <form id="product_form" action="{$site_url}partner-panel-wystaw" method="post">
+                <form id="product_form" action="{$site_url}partner-panel-wystaw" method="post" enctype="multipart/form-data" >
+                    <input type="hidden" name="user_id_media_image" value="401">
                 <div style="left: 0px; top: 0px" class="wrapper">
                     <div class="overflow">
-<br>
+                    <br>
                     </div><br>
                     <table cellspacing="0" cellpadding="0" style="width: 100%">
 
@@ -118,15 +119,15 @@
                         </tr>
                         <tr>
                             <td class="auto-style5" style="width: 108px"><span lang="pl">#1</span></td>
-                            <td><input type="file" name="uploaded_file" size="20" class="pole_plik"></td>
+                            <td><input type="file" name="userfile" size="20" class="pole_plik" /></td>
                         </tr>
                         <tr>
                             <td class="auto-style5" style="width: 108px"><span lang="pl">#2</span></td>
-                            <td><input type="file" name="uploaded_file" size="20" class="pole_plik"></td>
+                            <td><input type="file" name="userfile2" size="20" class="pole_plik" /></td>
                         </tr>
                         <tr>
                             <td class="auto-style5" style="width: 108px"><span lang="pl">#3</span></td>
-                            <td><input type="file" name="uploaded_file" size="20" class="pole_plik"></td>
+                            <td><input type="file" name="userfile3" size="20" class="pole_plik" /></td>
                         </tr>
                         <tr>
                             <td style="width: 108px; height: 17px;"></td>

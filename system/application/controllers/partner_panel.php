@@ -78,13 +78,15 @@ class Partner_Panel extends Hub {
         $this->assign_template_titlecall($template, $title_call);
         if (isset($_POST['submit_product'])) {
             unset($_POST['submit_product']);
-            unset($_POST['uploaded_file']);
+
             unset($_POST['vendor_propo']);
+
             $count_days = $_POST['add_month'];
             unset($_POST['add_month']);
             $_POST['id_partner'] = $this->ci->session->userdata['partner_id'];
             $_POST['active_from'] = date("Y-m-d H:i:s");
             $_POST['active_to'] = date("Y-m-d H:i:s", strtotime($_POST['active_from'] . " +" . $count_days . "month"));
+            // wtym miejscu dodaje obrazki
             $result = $this->add_product();
             if ($result['success'] == 1) {
                 $this->add_message_error('Produkt został wysłany do zatwierdzenia przez admina.');
@@ -124,7 +126,6 @@ class Partner_Panel extends Hub {
                 $products[$key]['category'] = $this->load_category($val['id_category']);
                 $products[$key]['left_days'] = $this->count_Days($val['active_to']);
                 //sprawdzamy date oraz czy jest aktywny
-
                 if($val['active_to'] <= date("Y-m-d H:i:s") || $val['active'] == 0 || $val['reject'] <= 0){
                     $products[$key]['displayed'] = false;
                 }else{
@@ -433,6 +434,10 @@ class Partner_Panel extends Hub {
     }
 
     public function add_product() {
+        $url = CONSOLE_URL.'/plociuchy:product/add_images_ui';
+        $data = $_POST;
+        $result = $this->api_call($url, $data, true); //- tutaj TRUE ma zasadnicze znaczenie, bowiem oznacza to ze dziala $_FILES.
+        //dodajemy prod
         $data = $_POST;
         $data['active'] = 0;
         $url = CONSOLE_URL . '/plociuchy:product/add_product_ui';

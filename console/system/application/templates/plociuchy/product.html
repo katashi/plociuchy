@@ -182,8 +182,8 @@ function product_add() {
             product_store_reload();
         }
         if (state == -1) {
-            url = base_url+'/plociuchy:product/reject_set/'+id+','+state;
-            new Helper_Ui().url_call(url, 'grid', product_store, null);
+//            url = base_url+'/plociuchy:product/reject_set/'+id+','+state;
+//            new Helper_Ui().url_call(url, 'grid', product_store, null);
             url = base_url+'/plociuchy:product_comment/display_reject/'+id+','+id_partner;
             new Helper_Ui().add_window('product_reject', 'Odrzuć produkt', url);
             product_store_reload();

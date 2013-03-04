@@ -70,6 +70,8 @@ function product_comment_reject_fps() {
 		method: 'POST',
 		url: base_url+'/plociuchy:product_comment'+'/add',
 		success: function() {
+            url = base_url+'/plociuchy:product/reject_set/{/literal}{$id}{literal},-1';
+            new Helper_Ui().url_call(url, 'grid', product_store, null);
 			Ext.MessageBox.alert('Informacja', 'Gotowe');
             product_comment_reject_fp.display.getForm().reset();
             Ext.getCmp('product_reject').destroy();

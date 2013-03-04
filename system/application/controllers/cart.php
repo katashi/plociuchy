@@ -144,6 +144,16 @@ class Cart extends Hub {
         $url = CONSOLE_URL . '/plociuchy:payment_p24_user/payment_p24_ok_ui';
         $result = $this->api_call($url, $data);
 
+        $datae = array();
+        $array_prod = $this->ci->session->userdata['products'];
+        $datae['product'] = $this->load_product($array_prod['0']);
+        $user = $this->ci->session->userdata['user_id'];
+        $datae['user'] = $this->load_user($user);
+        $datae['partner'] = $this->load_partner($datae['product']['id_partner']);
+        //wysyłanie maila do usera
+        $this->send_user_email_confirm($datae);
+        //wysyłanie maila do partnera
+        $this->send_partner_email_confirm($datae);
         if ($result['success'] == 'true') {
             //delete product from cart
             $cart_data = array(
@@ -152,7 +162,8 @@ class Cart extends Hub {
                 'date_to' => '',
                 'products' => false
             );
-            $this->ci->session->unset_userdata($cart_data);
+            //$this->ci->session->unset_userdata($cart_data);
+
             $this->add_message_ok('Dziekujemy za wpłatę. Twoja rezerwacja została przeprowadzona prawidłowo.');
         } else {
             $this->add_message_error('Wystąpił błąd podaczas wpłaty.Proszę spróbować jeszcze raz.');
@@ -173,6 +184,52 @@ class Cart extends Hub {
 
     public function get_shipmentCost() {
         return 20;
+    }
+
+    public function send_user_email_confirm($data){
+        // lets define data
+        $this->ci->smarty->assign('path_template', SITE_URL . '/templates/email/' . CONFIGURATION);
+        $this->ci->smarty->assign('path_media', SITE_URL . '/templates/email/' . CONFIGURATION);
+        $this->ci->smarty->assign('path_site', SITE_URL);
+
+        $this->ci->smarty->assign('user', $data['user']);
+        $this->ci->smarty->assign('partner', $data['partner']);
+
+        $message = $this->ci->smarty->fetch('../../../templates/email/' . CONFIGURATION . '/cart_user_confirm.html');
+        //
+        $config['protocol'] = 'sendmail';
+        $config['mailtype'] = 'html';
+        $config['charset'] = 'utf-8';
+        //
+        $this->ci->email->initialize($config);
+        $this->ci->email->subject('Plociuchy - Potwierdzenie zamówienia');
+        $this->ci->email->from('rejestracja@plociuchy.pl');
+        $this->ci->email->to($data['user']['user']);
+        $this->ci->email->message($message);
+        $this->ci->email->send();
+    }
+
+    public function send_partner_email_confirm($data){
+        // lets define data
+        $this->ci->smarty->assign('path_template', SITE_URL . '/templates/email/' . CONFIGURATION);
+        $this->ci->smarty->assign('path_media', SITE_URL . '/templates/email/' . CONFIGURATION);
+        $this->ci->smarty->assign('path_site', SITE_URL);
+
+        $this->ci->smarty->assign('user', $data['user']);
+        $this->ci->smarty->assign('partner', $data['partner']);
+
+        $message = $this->ci->smarty->fetch('../../../templates/email/' . CONFIGURATION . '/cart_partner_confirm.html');
+        //
+        $config['protocol'] = 'sendmail';
+        $config['mailtype'] = 'html';
+        $config['charset'] = 'utf-8';
+        //
+        $this->ci->email->initialize($config);
+        $this->ci->email->subject('Plociuchy - Potwierdzenie zamówienia');
+        $this->ci->email->from('rejestracja@plociuchy.pl');
+        $this->ci->email->to($data['partner']['user']);
+        $this->ci->email->message($message);
+        $this->ci->email->send();
     }
 
     public function cout_days($date_from, $date_to) {
@@ -247,6 +304,10 @@ class Cart extends Hub {
         $result = $this->api_call($url);
         return $result['data'];
     }
-
+    public function load_partner($id_partner) {
+        $url = CONSOLE_URL . '/plociuchy:partner/load/' . $id_partner;
+        $result = $this->api_call($url);
+        return $result['data'];
+    }
 
 }

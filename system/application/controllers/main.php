@@ -173,6 +173,15 @@ class Main extends Controller {
                 $data['userfile2_name'] = $name2;
                 $data['userfile2_type'] = $type2;
             }
+            // third file ( exception )
+            if (isset($_FILES["userfile3"]["tmp_name"]) && $_FILES["userfile3"]["tmp_name"] != '') {
+                $tmp_name2 = $_FILES["userfile3"]["tmp_name"];
+                $name2 = $_FILES["userfile3"]["name"];
+                $type2 = $_FILES["userfile3"]["type"];
+                $data['userfile3'] = "@" . $tmp_name2;
+                $data['userfile3_name'] = $name2;
+                $data['userfile3_type'] = $type2;
+            }
         }
         $call = curl_init($url);
         curl_setopt($call, CURLOPT_CONNECTTIMEOUT, 2);

@@ -1,7 +1,7 @@
 <?php
-class Partner_Account_Income extends Main_Model {
+class Partner_Account_outcome_Model extends Main_Model {
 
-    function Partner_Account_Income() {
+    function Partner_Account_outcome_Model() {
         // Call the Model constructor
         parent::Model();
         //
@@ -9,7 +9,7 @@ class Partner_Account_Income extends Main_Model {
             $this->db = $this->ci->db;
         }
         //
-        $this->table_name = 'pc_partner_account_income';
+        $this->table_name = 'pc_partner_account_outcome';
     }
     // load
     function load_all_count() {

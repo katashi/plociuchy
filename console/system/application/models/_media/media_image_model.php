@@ -1,6 +1,8 @@
 <?php
 class Media_Image_Model extends Model {
-	
+
+    var $file;
+
 	function Media_Image_Model() {
 		// Call the Model constructor
 		parent::Model();
