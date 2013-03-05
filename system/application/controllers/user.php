@@ -33,7 +33,7 @@ class User extends Hub {
 
         //sprawdzmy czy user zalogowany jesli tak przekierowanie na główną
         if (isset($this->ci->session->userdata['user_authorised'])) {
-            $this->add_message_ok('Użytkownik jest juz Zalogowany.');
+            $this->add_message_ok('Użytkownik jest już zalogowany.');
             // lub redirect
         }elseif(isset($_POST['cart_summary'])){
             $this->add_message_error('Zaloguj się aby potwierdzić rezerwację.');
@@ -55,7 +55,7 @@ class User extends Hub {
                     );
                     $this->ci->session->set_userdata($user);
                     //display message success
-                    $this->add_message_ok('Użytkownik zalogowany poprawnie.Zapraszamy do poznania się z naszymi produktami.');
+                    $this->add_message_ok('Użytkownik zalogowany.');
                 }else{
                     $this->add_message_error('Nazwa użytkownika lub hasło są nieprawidłowe.');
                 }
@@ -87,7 +87,7 @@ class User extends Hub {
             $data = $_POST;
             $result = $this->api_call($url, $data);
             if ($result['code'] == 'user_exist') {
-                $result['code'] = 'Użytkownik istnieje';
+                $result['code'] = 'Użytkownik o podanym adresie e-mail jest już zarejestrowany w bazie.';
             }
             $this->ci->smarty->assign('result', $result['success']);
             $this->ci->smarty->assign('code', $result['code']);
@@ -107,7 +107,6 @@ class User extends Hub {
         if (isset($_POST['user'])) {
             $url = CONSOLE_URL . '/plociuchy:user/password_reset_ui/' . $_POST['user'];
             $result = $this->api_call($url);
-            print_r($result);
             if($result['code'] == 'user_missing') {
                 $this->ci->smarty->assign('result', 0);
                 $this->ci->smarty->assign('code', 'user_missing');

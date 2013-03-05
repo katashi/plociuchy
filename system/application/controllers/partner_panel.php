@@ -95,11 +95,13 @@ class Partner_Panel extends Hub {
             }
             $template = 'partner_panel_front';
         } else {
+            $partner = $this->load_partner($this->ci->session->userdata['partner_id']);
             $partner_points = $this->get_last_income_points($this->ci->session->userdata['partner_id']);
             $categorys = $this->load_all_category();
             $vendors = $this->load_all_vendor();
             $payment_cost = $this->get_payment_options();
 
+            $this->ci->smarty->assign('partner', $partner);
             $this->ci->smarty->assign('payment_cost', $payment_cost);
             $this->ci->smarty->assign('partner_points', $partner_points);
             $this->ci->smarty->assign('categorys', $categorys);
@@ -126,9 +128,9 @@ class Partner_Panel extends Hub {
                 $products[$key]['category'] = $this->load_category($val['id_category']);
                 $products[$key]['left_days'] = $this->count_Days($val['active_to']);
                 //sprawdzamy date oraz czy jest aktywny
-                if($val['active_to'] <= date("Y-m-d H:i:s") || $val['active'] == 0 || $val['reject'] <= 0){
+                if ($val['active_to'] <= date("Y-m-d H:i:s") || $val['active'] == 0 || $val['reject'] <= 0) {
                     $products[$key]['displayed'] = false;
-                }else{
+                } else {
                     $products[$key]['displayed'] = true;
                 }
             }
@@ -152,6 +154,7 @@ class Partner_Panel extends Hub {
                 $this->add_message_error($result['code']);
             }
         }
+        $partner = $this->load_partner($this->ci->session->userdata['partner_id']);
         //$partner_points = $this->get_last_income_points($this->ci->session->userdata['partner_id']);
         $categorys = $this->load_all_category();
         $vendors = $this->load_all_vendor();
@@ -161,6 +164,7 @@ class Partner_Panel extends Hub {
         //$payment_cost = $this->get_payment_options();
         //$this->ci->smarty->assign('payment_cost', $payment_cost);
         //$this->ci->smarty->assign('partner_points', $partner_points);
+        $this->ci->smarty->assign('partner', $partner);
         $this->ci->smarty->assign('categorys', $categorys);
         $this->ci->smarty->assign('vendors', $vendors);
         $template = 'partner_panel_product_edit';
@@ -196,13 +200,17 @@ class Partner_Panel extends Hub {
         $reservations = $this->load_all_partner_reservations($id_status = 1);
 
         if (empty($reservations)) {
-            $this->add_message_ok('Spis przedstawia aktualne zapłacone rezerwacje które nie zostały jeszcze wysłane. Kliknij "wysłane" aby zmienić status produktu.');
+            $this->add_message_ok('Aktualnie nie posiadasz żadnych rezerwacji.');
         } else {
+            if (isset($_POST['change_status']) == false){
+                $this->add_message_ok('Spis przedstawia aktualne zapłacone rezerwacje które nie zostały jeszcze wysłane. <br/>Kliknij "wysłane" aby zmienić status produktu.');
+            }
             foreach ($reservations as $key => $val) {
                 $reservations[$key]['product'] = $this->load_product($val['id_product']);
                 $reservations[$key]['user'] = $this->load_user($val['id_user']);
             }
         }
+        $this->ci->smarty->assign('title_page', 'Spis Rezerwacji');
         $this->ci->smarty->assign('reservations', $reservations);
         $template = 'partner_panel_reservations_1';
         $this->smarty_display($template);
@@ -212,19 +220,23 @@ class Partner_Panel extends Hub {
         $this->assign_template_titlecall($template, $title_call);
         if (isset($_POST['change_status'])) {
             $this->change_partner_reservations_status($_POST['rent_end'], 3);
-            $this->add_message_ok('Rezerwacja została zakonczona i przeniesiona do zakładki <a href="' . SITE_URL . '/partner-panel-historia-rezerwacji">"Historia rezerwacji"</a><br/>');
+            $this->add_message_ok('Rezerwacja została zakończona i przeniesiona do zakładki <a href="' . SITE_URL . '/partner-panel-historia-rezerwacji">"Historia rezerwacji".</a><br/>');
         }
         //pobieramy wszytskie rezerwacje status:1) aktualne, oplacone - status:1) czekajace na wyslanie;
         $reservations = $this->load_all_partner_reservations($id_status = 2);
-
         if (empty($reservations)) {
-            $this->add_message_ok('Spis przedstawia aktualne zapłacone rezerwacje które nie zostały jeszcze wysłane. Kliknij "wysłane" aby zmienić status produktu.');
+            $this->add_message_ok('Nie posiadasz aktualne żadnych rezerwacji do wysłania.');
         } else {
+            if (isset($_POST['change_status']) == false){
+                $this->add_message_ok('Spis przedstawia aktualne wypożyczone produkty które zostały wysłane do wypożyczających.<br/>
+                                        Kliknij w opcje "odbiór" gdy odbierzesz ponownie swój produkt. Trafi on wówczas do historii rezerwacji.');
+            }
             foreach ($reservations as $key => $val) {
                 $reservations[$key]['product'] = $this->load_product($val['id_product']);
                 $reservations[$key]['user'] = $this->load_user($val['id_user']);
             }
         }
+        $this->ci->smarty->assign('title_page', 'Aktualnie wypożyczane produkty');
         $this->ci->smarty->assign('reservations', $reservations);
         $template = 'partner_panel_reservations_2';
         $this->smarty_display($template);
@@ -235,13 +247,14 @@ class Partner_Panel extends Hub {
         //pobieramy wszytskie rezerwacje status:1) aktualne, oplacone - status:1) czekajace na wyslanie ;
         $reservations = $this->load_all_partner_reservations($id_status = 3);
         if (empty($reservations)) {
-            $this->add_message_ok('Spis przedstawia aktualne zapłacone rezerwacje które nie zostały jeszcze wysłane. Kliknij "wysłane" aby zmienić status produktu.');
+            $this->add_message_ok('Brak historii rezerwacji.');
         } else {
             foreach ($reservations as $key => $val) {
                 $reservations[$key]['product'] = $this->load_product($val['id_product']);
                 $reservations[$key]['user'] = $this->load_user($val['id_user']);
             }
         }
+        $this->ci->smarty->assign('title_page', 'Historia rezerwacji');
         $this->ci->smarty->assign('reservations', $reservations);
         $template = 'partner_panel_reservations_3';
         $this->smarty_display($template);
@@ -367,25 +380,25 @@ class Partner_Panel extends Hub {
         $account_history = null;
         $url = CONSOLE_URL . '/plociuchy:partner_account_income/get_outcome_income_all/' . $this->ci->session->userdata['partner_id'];
         $result = $this->api_call($url);
-        if(isset($result['data'])){
+        if (isset($result['data'])) {
             $account_history = $result['data'];
             $saldo = 0;
-                foreach($account_history as $key => $history){
-                    if($history['point'] != null){
-                        $account_history[$key]['type'] = 'income';
-                        $account_history[$key]['point_available'] = $history['point'];
-                        $saldo = $account_history[$key]['point'];
-                    }else{
-                        $account_history[$key]['type'] = 'outcome';
-                        //dostepne ptk to poprzedni stan z income minus aktualny  koszt wysastawienia
-                        $saldo = $saldo - $history['koszt_wystawienia'];
-                        $account_history[$key]['point_available'] = $saldo;
-                        //doadnie info o przedmiocie
-                        $account_history[$key]['product'] = $this->load_product($history['id_product']);
-                    }
+            foreach ($account_history as $key => $history) {
+                if ($history['point'] != null) {
+                    $account_history[$key]['type'] = 'income';
+                    $account_history[$key]['point_available'] = $history['point'];
+                    $saldo = $account_history[$key]['point'];
+                } else {
+                    $account_history[$key]['type'] = 'outcome';
+                    //dostepne ptk to poprzedni stan z income minus aktualny  koszt wysastawienia
+                    $saldo = $saldo - $history['koszt_wystawienia'];
+                    $account_history[$key]['point_available'] = $saldo;
+                    //doadnie info o przedmiocie
+                    $account_history[$key]['product'] = $this->load_product($history['id_product']);
+                }
             }
         }
-        if(empty($account_history)){
+        if (empty($account_history)) {
             $this->add_message_ok('Brak historii platnosci');
         }
         $this->ci->smarty->assign('account_history', array_reverse($account_history));
@@ -434,17 +447,30 @@ class Partner_Panel extends Hub {
     }
 
     public function add_product() {
-        $url = CONSOLE_URL.'/plociuchy:product/add_images_ui';
-        $data = $_POST;
-        $result = $this->api_call($url, $data, true); //- tutaj TRUE ma zasadnicze znaczenie, bowiem oznacza to ze dziala $_FILES.
-        //dodajemy prod
+
         $data = $_POST;
         $data['active'] = 0;
         $url = CONSOLE_URL . '/plociuchy:product/add_product_ui';
         $result = $this->api_call($url, $data);
         if ($result['code'] == 'product_exist') {
             $result['code'] = 'Product o podanej nazwie istnieje';
+        } else {
+            //jesli dodano produkt dodajemy zdjecia
+            $url = CONSOLE_URL . '/plociuchy:product/add_images_ui';
+            $data = $_POST;
+            $result2 = $this->api_call($url, $data, true); //- tutaj TRUE ma zasadnicze znaczenie, bowiem oznacza to ze dziala $_FILES.
+            $images = array();
+            if (!empty($result2['images'])) {
+                foreach ($result2['images'] as $key => $val) {
+                    $ims = $key + 1;
+                    $images[$key] = $val;
+                }
+            }
+            $data = $images;
+            $url = CONSOLE_URL . '/plociuchy:product/edit/'.$result['inserted_id'];
+            $result3 = $this->api_call($url, $data);
         }
+
 //        $this->ci->smarty->assign('result', $result['success']);
 //        $this->ci->smarty->assign('code', $result['code']);
 //        $this->ci->smarty->assign('operation', 'user_add');
@@ -457,7 +483,24 @@ class Partner_Panel extends Hub {
         $result = $this->api_call($url, $data);
         if ($result['code'] == 'product_exist') {
             $result['code'] = 'Product o podanej nazwie istnieje.';
+        } else {
+            //jesli dodano produkt dodajemy zdjecia
+            $url = CONSOLE_URL . '/plociuchy:product/add_images_ui';
+            $data = $_POST;
+            $result2 = $this->api_call($url, $data, true); //- tutaj TRUE ma zasadnicze znaczenie, bowiem oznacza to ze dziala $_FILES.
+            $images = array();
+            if (!empty($result2['images'])) {
+                foreach ($result2['images'] as $key => $val) {
+                    $ims = $key + 1;
+                    $images[$key] = $val;
+                }
+            }
+            $data = array();
+            $data = $images;
+            $url = CONSOLE_URL . '/plociuchy:product/edit/'.$id_product;
+            $result3 = $this->api_call($url, $data);
         }
+
 //        $this->ci->smarty->assign('result', $result['success']);
 //        $this->ci->smarty->assign('code', $result['code']);
 //        $this->ci->smarty->assign('operation', 'user_add');

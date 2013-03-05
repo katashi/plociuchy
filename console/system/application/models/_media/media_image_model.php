@@ -101,6 +101,7 @@ class Media_Image_Model extends Model {
 		// load library
 		$this->load->library('upload', $config_upload);
 		// upload
+
 		if ($this->upload->do_upload()) {
 			$this->upload_data = $this->upload->data();
 			//
@@ -125,15 +126,15 @@ class Media_Image_Model extends Model {
                 // insert into db
                 $this->add_save($id_tree, $this->upload_data);
 			} else {
-                return '{"success": false, "error": "Plik nie jest obrazem"}';
+                return '{"success": "false", "error": "Plik nie jest obrazem"}';
 			}
 			// remove file from tmp
 			@unlink('./tmp/'.$this->upload_data['file_name']);
 			//
-			return '{"success": true, "upload_data": '. json_encode($this->upload_data) .'}';
+			return '{"success": "true", "upload_data": '. json_encode($this->upload_data) .'}';
 		} else {
             $error = $this->upload->get_errors();
-			return '{"success":false, "error": "'.$error.'"}';
+			return '{"success":"false", "error": "'.$error.'"}';
 		}
 	}
 	

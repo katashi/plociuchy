@@ -1,7 +1,7 @@
 {include file="extension/header.html"}
         {literal}
         <style>
-            .auto-style5 {
+            .auto-style4 {
                 border-style: none!important;
             }
         </style>
@@ -21,11 +21,10 @@
                 {if $partner_points.point_available == 0}
                     <div id="error">Nie możesz wystawić produktu ponieważ twój stan kredytów jest równy 0. <a href="{$site_url}partner-panel-saldo" > Doładuj Konto</a></div>
                 {else}
-
-                <h2 class="border-bot">Wystaw product</h2>
+                <h2 class="border-bot">Wystaw produkt</h2>
                 {$messages}
                 <form id="product_form" action="{$site_url}partner-panel-wystaw" method="post" enctype="multipart/form-data" >
-                    <input type="hidden" name="user_id_media_image" value="401">
+                    <input type="hidden" name="user_id_media_image" value="{$partner.user_id_media_image}">
                 <div style="left: 0px; top: 0px" class="wrapper">
                     <div class="overflow">
                     <br>
@@ -39,9 +38,9 @@
                         </tr>
 
                         <tr>
-                            <td class="auto-style5" style="width: 108px"><span lang="pl">
+                            <td class="auto-style4" style="width: 108px"><span lang="pl">
 						Kategoria</span></td>
-                            <td class="auto-style5"><select class="select" name="id_category">
+                            <td class="auto-style4"><select class="select" name="id_category">
                                 <option value="">- wybierz -</option>
                                  {foreach from=$categorys item=category}
                                          <option value="{$category.id}"> {$category.title}</option>
@@ -49,9 +48,9 @@
                             </select></td>
                         </tr>
                         <tr>
-                            <td class="auto-style5" style="width: 108px"><span lang="pl">
+                            <td class="auto-style4" style="width: 108px"><span lang="pl">
 						Producent</span></td>
-                            <td class="auto-style5"><select class="select" name="id_vendor">
+                            <td class="auto-style4"><select class="select" name="id_vendor">
                                 <option value="">- wybierz -</option>
                                 {foreach from=$vendors item=vendor}
                                     <option value="{$vendor.id}"> {$vendor.title}</option>
@@ -59,27 +58,27 @@
                             </select><span lang="pl">&nbsp; </span></td>
                         </tr>
                         <tr>
-                            <td class="auto-style5" style="width: 108px">&nbsp;</td>
-                            <td class="auto-style5"><span lang="pl">
+                            <td class="auto-style4" style="width: 108px">&nbsp;</td>
+                            <td class="auto-style4"><span lang="pl">
 						<span class="auto-style6"></span>zaproponuj
 						<input type="text" style="width: 153px" size="40" name="vendor_propo" placeholder=""></span></td>
                         </tr>
                         <tr>
-                            <td class="auto-style5" style="width: 108px"><span lang="pl">
+                            <td class="auto-style4" style="width: 108px"><span lang="pl">
 						Nazwa</span></td>
-                            <td class="auto-style5">
+                            <td class="auto-style4">
                                 <input type="text" style="width: 222px" size="40" name="text1" placeholder=""></td>
                         </tr>
                         <tr>
-                            <td class="auto-style5" style="width: 108px"><span lang="pl">
+                            <td class="auto-style4" style="width: 108px"><span lang="pl">
 						Nagłówek</span></td>
-                            <td class="auto-style5">
+                            <td class="auto-style4">
                                 <input type="text" style="width: 222px" size="40" name="text2" placeholder=""></td>
                         </tr>
                         <tr>
-                            <td class="auto-style5" style="width: 108px"><span lang="pl">
+                            <td class="auto-style3" style="width: 108px"><span lang="pl">
 						Treść<br>(opisz rodzaj materiału, rozmiar)</span></td>
-                            <td class="auto-style5">
+                            <td class="auto-style4">
                                 <textarea name="text3" style="width:469px; height:150px;background:white"></textarea></td>
                         </tr>
                         <tr>
@@ -89,44 +88,45 @@
 						</span></td>
                         </tr>
                         <tr>
-                            <td class="auto-style5" style="width: 108px"><span lang="pl">
+                            <td class="auto-style4" style="width: 108px"><span lang="pl">
 						Cena za weekend</span></td>
                             <td>
                                 <input type="text" style="width: 46px" size="40" name="price1" placeholder=""></td>
                         </tr>
                         <tr>
-                            <td class="auto-style5" style="width: 108px"><span lang="pl">
+                            <td class="auto-style4" style="width: 108px"><span lang="pl">
 						Cena za tydzień</span></td>
                             <td>
                                 <input type="text" style="width: 46px" size="40" name="price2" placeholder=""></td>
                         </tr>
                         <tr>
-                            <td class="auto-style5" style="width: 108px"><span lang="pl">
+                            <td class="auto-style4" style="width: 108px"><span lang="pl">
 						Cena w sklepie</span></td>
                             <td>
                                 <input type="text" style="width: 46px" size="40" name="price3" placeholder=""></td>
                         </tr>
                         <tr>
                             <td colspan="2" style="height: 25px;"><br>
-                                <h3><span lang="pl">3. ZDJĘCIA [?]</span></h3>
+                                <h3><span lang="pl">3. ZDJĘCIA</span></h3>
                                 Zdjęcie powinno mieć format JPG, PNG, JPEG i nie
                                 zajmować więcej niż 1MB.<br>Upewnij się, że posiadasz
                                 należyte prawa do wykorzystania zdjęcia, którym chcesz
                                 się posłużyć. <br>Naruszanie cudzych praw autorskich
                                 może wiązać się z odpowiedzialnością cywilną i karną.<br>
                                 Zdjęcie powinn być: dobrej ostrości, dobrze oświetlone,
-                                przedstawiające produkt na osobie.</td>
+                                przedstawiające produkt na osobie.<br/>
+                            Wysłane zdjęcie powinno być w proporcjach 3:4.</td>
                         </tr>
                         <tr>
-                            <td class="auto-style5" style="width: 108px"><span lang="pl">#1</span></td>
+                            <td class="auto-style4" style="width: 108px"><span lang="pl">#1</span></td>
                             <td><input type="file" name="userfile" size="20" class="pole_plik" /></td>
                         </tr>
                         <tr>
-                            <td class="auto-style5" style="width: 108px"><span lang="pl">#2</span></td>
+                            <td class="auto-style4" style="width: 108px"><span lang="pl">#2</span></td>
                             <td><input type="file" name="userfile2" size="20" class="pole_plik" /></td>
                         </tr>
                         <tr>
-                            <td class="auto-style5" style="width: 108px"><span lang="pl">#3</span></td>
+                            <td class="auto-style4" style="width: 108px"><span lang="pl">#3</span></td>
                             <td><input type="file" name="userfile3" size="20" class="pole_plik" /></td>
                         </tr>
                         <tr>
@@ -139,10 +139,10 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="auto-style5" style="width: 108px">
+                            <td class="auto-style4" style="width: 108px">
 						<span lang="pl"><span class="auto-style6">Stan</span>
 						konta</span></td>
-                            <td class="auto-style5">
+                            <td class="auto-style4">
                                 <input type="text" value="{$partner_points.point_available} Kredytów" disabled="disabled"  size="70" style="width: 96px">
 						        {if $partner_points.point_available == 0}
                                 <a href="#">doładuj</a></span></td>
@@ -153,7 +153,7 @@
                             <td><select class="select" name="add_month">
                                 <option value="">- wybierz -</option>
                                 {foreach from=$payment_cost item=payment key=cal}
-                                <option value="1">{$cal} miesiąc - {$payment} kredyty</option>
+                                <option value="{$cal}">{$cal} miesiąc{if $cal == 3}e{/if} - {$payment} kredyty</option>
                                 {/foreach}
                             </select></td>
                         </tr>

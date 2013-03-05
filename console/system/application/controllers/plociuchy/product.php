@@ -91,6 +91,8 @@ class Product extends Main {
 
     // edit
     function edit($id = null) {
+        print_r($_FILES);
+        print_r($_POST);
         $result = $this->product_model->edit($id);
         echo '{"success": ' . $result . '}';
     }
@@ -127,20 +129,21 @@ class Product extends Main {
         //send email
         $this->send_email_to_user($data);
         //count how many days take product
-        $opt = $this->cout_days($product['active_from'], $product['active_to']);
-        //accout outcome
-        $income = $this->partner_account_income_model->get_last_income_points($product['id_partner']);
-        $income_unitcost = $income['unit_cost'] * $opt; //cena jednostkowa * ilość miesięcy
-
-        $_POST = array();
-        $_POST['id_partner'] = $product['id_partner'];
-        $_POST['id_product'] = $product['id'];
-        $_POST['unit_cost'] = $income_unitcost;
-        $this->partner_account_outcome_model->add();
-        //modyfikujemy aktualne ptk
-        $_POST = array();
-        $_POST['point_available'] = $income['point_available'] - $income_unitcost;
-        $modify_points = $this->partner_account_income_model->edit($income['id']);
+        if ($state == 1) {
+            $opt = $this->cout_days($product['active_from'], $product['active_to']);
+            //accout outcome
+            $income = $this->partner_account_income_model->get_last_income_points($product['id_partner']);
+            $income_unitcost = $income['unit_cost'] * $opt; //cena jednostkowa * ilość miesięcy
+            $_POST = array();
+            $_POST['id_partner'] = $product['id_partner'];
+            $_POST['id_product'] = $product['id'];
+            $_POST['unit_cost'] = $income_unitcost;
+            $this->partner_account_outcome_model->add();
+            //modyfikujemy aktualne ptk
+            $_POST = array();
+            $_POST['point_available'] = $income['point_available'] - $income_unitcost;
+            $modify_points = $this->partner_account_income_model->edit($income['id']);
+        }
         echo 'grid';
     }
 
@@ -155,13 +158,14 @@ class Product extends Main {
     }
 
     function add_product_ui() {
-        $_POST['active'] = '0';   //add images
+        $_POST['active'] = '0'; //add images
         unset($_POST['user_id_media_image']);
         $result = $this->product_model->add_ui();
-        echo '{"success": ' . $result['success'] . ', "code": "' . $result['code'] . '"}';
+        echo '{"success": ' . $result['success'] . ', "code": "' . $result['code'] . '", "inserted_id": "' . $result['inserted_id'] . '"}';
     }
 
     function edit_product_ui($id_product) {
+        unset($_POST['user_id_media_image']);
         $result = $this->product_model->edit_ui($id_product);
         echo '{"success": ' . $result['success'] . ', "code": "' . $result['code'] . '"}';
     }
@@ -171,7 +175,6 @@ class Product extends Main {
         $this->ci->smarty->assign('path_template', SITE_URL . '/templates/email/' . CONFIGURATION);
         $this->ci->smarty->assign('path_media', SITE_URL . '/templates/email/' . CONFIGURATION);
         $this->ci->smarty->assign('path_site', SITE_URL);
-
         $this->ci->smarty->assign('product', $data['product']);
         $this->ci->smarty->assign('partner', $data['partner']);
         $this->ci->smarty->assign('reason_reject', $data['reason_reject']);
@@ -194,9 +197,10 @@ class Product extends Main {
         $this->ci->email->send();
     }
 
-    public function add_images_ui(){
+    public function add_images_ui() {
         $result['success'] = '0';
         $result['code'] = 'false';
+        $img = array();
         // ok, here we will add file ( mp3 )
         if (isset($_POST['userfile_name']) && $_POST['userfile_name'] != '') {
             $_POST['userfile_name'] = $_POST['userfile_name'];
@@ -204,38 +208,48 @@ class Product extends Main {
             $_FILES['userfile'] = $_FILES['userfile'];
             //let's use media file model
             $result = $this->media_image_model->add($_POST['user_id_media_image']);
-            if ($result['success'] == 1) {
+            if ($result['success'] == true) {
                 // after adding a file we need to pass that file id number
-                $_POST['image1'] = $result['upload_data']['file_name'];
+                //$img['image2'] = $result['upload_data']['file_name'];//old version
+                $s = json_decode($result);
+                $img['image1'] = $s->upload_data->file_name;
             }
         }
         // now we will arrange avatar if exists
-        if (isset($_POST['userfile1_name']) && $_POST['userfile1_name'] != '') {
-            $_POST['userfile_name'] = $_POST['userfile1_name'];
-            $_POST['userfile_type'] = $_POST['userfile1_type'];
-            $_FILES['userfile'] = $_FILES['userfile1'];
-            // let's use media file model
-            $result = $this->media_image_model->add($_POST['user_id_media_image']);
-            if ($result['success'] == 1) {
-                // after adding a file we need to pass that file id number
-                $_POST['image2'] = $result['upload_data']['file_name'];
-            }
-        }
         if (isset($_POST['userfile2_name']) && $_POST['userfile2_name'] != '') {
             $_POST['userfile_name'] = $_POST['userfile2_name'];
             $_POST['userfile_type'] = $_POST['userfile2_type'];
             $_FILES['userfile'] = $_FILES['userfile2'];
             // let's use media file model
             $result = $this->media_image_model->add($_POST['user_id_media_image']);
-            if ($result['success'] == 1) {
+            if ($result['success'] == true) {
                 // after adding a file we need to pass that file id number
-                $_POST['image3'] = $result['upload_data']['file_name'];
+                //$img['image2'] = $result['upload_data']['file_name'];//old version
+                $s = json_decode($result);
+                $img['image2'] = $s->upload_data->file_name;
+            }
+        }
+        if (isset($_POST['userfile3_name']) && $_POST['userfile3_name'] != '') {
+            $_POST['userfile_name'] = $_POST['userfile3_name'];
+            $_POST['userfile_type'] = $_POST['userfile3_type'];
+            $_FILES['userfile'] = $_FILES['userfile3'];
+            // let's use media file model
+            $result = $this->media_image_model->add($_POST['user_id_media_image']);
+            if ($result['success'] == true) {
+                // after adding a file we need to pass that file id number
+                //$img['image2'] = $result['upload_data']['file_name'];//old version
+                $s = json_decode($result);
+                $img['image3'] = $s->upload_data->file_name;
             }
         }
         // adding record
         //$result = $this->arrange_model->add_ui();
-        echo '{"success": "true", "code": "ok"}';
-       // echo '{"success": '. $result['success'] .', "code": "'.$result['code'].'"}';
+        echo '{"success": "true", "code": "ok" , "images": ' . json_encode($img) . '}';
+        // echo '{"success": '. $result['success'] .', "code": "'.$result['code'].'"}';
+    }
+
+    function load_all_promotion_products() {
+        echo '{"total":' . json_encode($this->product_model->load_all_promotion_products_count()) . ', "data":' . json_encode($this->product_model->load_all_promotion_products()) . '}';
     }
 
 }

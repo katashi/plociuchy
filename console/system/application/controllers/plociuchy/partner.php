@@ -10,6 +10,7 @@ class Partner extends Main {
         // load models
         $this->load->model('main_model');
         $this->load->model('plociuchy/partner_model');
+        $this->load->model('_system/tree_model');
     }
 
     // display
@@ -59,8 +60,8 @@ class Partner extends Main {
         echo 'grid';
     }
 
-
     function add_ui() {
+        //add user
         $result = $this->partner_model->add_ui();
         // if success send optin email
         if ($result['success'] == 1) {

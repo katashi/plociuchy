@@ -110,6 +110,14 @@ class Partner_Model extends Main_Model {
         unset($_POST['submit2']);
         unset($_POST['registration_submit']);
 
+        //dodajemy katalog bez modelu
+        $datas = array();
+        $datas['pid'] = 0;
+        $datas['title'] = $_POST['name'].'_'.$_POST['surname'];
+        $datas['position'] = '3';
+        $res = $this->db->insert('media_image_tree', $datas);
+        $_POST['user_id_media_image'] =  $this->db->insert_id();
+
         // check does the user exists in database (email)
         $this->db->where('user', $_POST['user']);
         $query = $this->db->get($this->table_name);

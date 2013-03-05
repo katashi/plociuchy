@@ -73,8 +73,8 @@ class Partner extends Hub {
             $url = CONSOLE_URL . '/plociuchy:partner/add_ui';
             $data = $_POST;
             $result = $this->api_call($url, $data);
-            if ($result['code'] == 'partner_exist') {
-                $result['code'] = 'Użytkownik istnieje';
+            if ($result['code'] == 'user_exist') {
+                $this->add_message_error('Podany Partner jest już zarejestrowany.');
             }
             $this->ci->smarty->assign('result', $result['success']);
             $this->ci->smarty->assign('code', $result['code']);
@@ -95,15 +95,17 @@ class Partner extends Hub {
         if (isset($_POST['user'])) {
             $url = CONSOLE_URL . '/plociuchy:partner/password_reset_ui/' . $_POST['user'];
             $result = $this->api_call($url);
-            $this->ci->smarty->assign('result', $result['success']);
-            $this->ci->smarty->assign('code', $result['code']);
-            $this->ci->smarty->assign('operation', 'password_reset');
-            $this->add_message_ok('Wysłano wiadomość z linkiem resetującym hasło.Sprawdź pocze');
-        } else {
-            $this->ci->smarty->assign('result', 0);
-            $this->ci->smarty->assign('code', 'partner_missing');
-            $this->ci->smarty->assign('operation', 'password_reset');
-            $this->add_message_error('Nieznaleziono podanego adresu email.');
+            if($result['code'] != 'partner_missing'){
+                $this->ci->smarty->assign('result', $result['success']);
+                $this->ci->smarty->assign('code', $result['code']);
+                $this->ci->smarty->assign('operation', 'password_reset');
+                $this->add_message_ok('Wysłano wiadomość z linkiem resetującym hasło.Sprawdź pocze');
+            }else {
+                $this->ci->smarty->assign('result', 0);
+                $this->ci->smarty->assign('code', 'partner_missing');
+                $this->ci->smarty->assign('operation', 'password_reset');
+                $this->add_message_error('Nieznaleziono podanego adresu email.');
+            }
         }
         //display
         $template = 'partner_password_reminder';

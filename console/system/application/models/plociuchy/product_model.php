@@ -198,6 +198,7 @@ class Product_Model extends Main_Model {
             $result = array();
             $result['success'] = 1;
             $result['code'] = 'ok';
+            $result['inserted_id'] =  $this->db->insert_id();
         }
         return $result;
     }
@@ -225,7 +226,19 @@ class Product_Model extends Main_Model {
         return $result;
     }
 
+    function load_all_promotion_products_count(){
+        $this->db->where('promote', '1');
+        $this->db->from($this->table_name);
+        return $this->db->count_all_results();
 
+    }
+
+    function load_all_promotion_products(){
+        $this->db->where('promote', '1');
+        $query = $this->db->get($this->table_name);
+        $record = $query->result_array();
+        return $record;
+    }
 
 }
 

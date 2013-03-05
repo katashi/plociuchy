@@ -32,9 +32,21 @@ class Main extends Controller {
         $this->smarty->assign('dodatki', $this->category_load_all_dodatki());
         // vendor
         $this->smarty->assign('vendor', $this->vendor_load_all());
-
+        // producty do slidera
+        $promotion_products = $this->load_promotion_products();
+        $this->smarty->assign('promotion_products', $promotion_products );
     }
 
+    public function load_promotion_products(){
+        $url = CONSOLE_URL . '/plociuchy:product/load_all_promotion_products/';
+        $result = $this->api_call($url);
+        // wyłącznie z wyników kategorii 1,2,3
+        if ($result['total'] > 0) {
+            return $result['data'];
+        } else {
+            return false;
+        }
+    }
 
     // index
     function index() {
