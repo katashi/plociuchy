@@ -1,41 +1,42 @@
 {include file="extension/header.html"}
 
 <section>
-    <div class="container_12">
-        <div class="wrapper">
-            <br/><br/>
-            <!--==============================lewa strona====================================-->
-            {include file="extension/addon_menuleft.html"}
-            <!--==============================end lewa strona====================================-->
-            {if $product_view}
-            {literal}
-            <script>
-                $(document).ready(function() {
-                    $('#images img').click(function(){
-                       var img_url = $(this).attr('src');
-                       var new_img_url = img_url.replace('100x75','400x300');
-                       $('#bigimg').attr('src',new_img_url);
-                    });
-                });
-            </script>
-            {/literal}
-            {if !$product}
-            <article class="grid_9 prefix_1">
-                <div style="float:left;width:474px; margin-left:10px;">
-                    <h2 class="border-bot"
-                        style="left: 0px; top: 0px; width: 496px; font-size:2em; padding-bottom:10px; margin-bottom:10px;">
-                        <span lang="pl">Przepraszamy...</span></h2>
-                            {$messages}
-                </div>
-            {else}
-            <article class="grid_9 prefix_1">
-                <div style="float:left;width:474px; margin-left:10px;">
-                    <h2 class="border-bot" style="left: 0px; top: 0px; width: 496px; font-size:2em; padding-bottom:10px; margin-bottom:10px;">
-                        <span lang="pl">{$product.text1}</span></h2>
-                    <span style="font-size:1.4em;">{$product.text2}</span><Br/>(należy
-                    do: {$product.partner.nick})
-                </div>
-                <div style="float:right;width:175px; margin-left:10px; text-align:right; background:#F5F5F5; padding:10px; color:black;">
+<div class="container_12">
+<div class="wrapper">
+    <br/><br/>
+    <!--==============================lewa strona====================================-->
+    {include file="extension/addon_menuleft.html"}
+    <!--==============================end lewa strona====================================-->
+    {if $product_view}
+    {literal}
+    <script>
+        $(document).ready(function () {
+            $('#images img').click(function () {
+                var img_url = $(this).attr('src');
+                var new_img_url = img_url.replace('100x75', '353x253');
+                $('#bigimg').attr('src', new_img_url);
+            });
+        });
+    </script>
+    {/literal}
+    {if !$product}
+    <article class="grid_9 prefix_1">
+        <div style="float:left;width:474px; margin-left:10px;">
+            <h2 class="border-bot"
+                style="left: 0px; top: 0px; width: 496px; font-size:2em; padding-bottom:10px; margin-bottom:10px;">
+                <span lang="pl">Przepraszamy...</span></h2>
+            {$messages}
+        </div>
+        {else}
+        <article class="grid_9 prefix_1">
+            <div style="float:left;width:474px; margin-left:10px;">
+                <h2 class="border-bot"
+                    style="left: 0px; top: 0px; width: 496px; font-size:2em; padding-bottom:10px; margin-bottom:10px;">
+                    <span lang="pl">{$product.vendor.title}</span></h2>
+                <span style="font-size:1.4em;">{$product.text1}</span><Br/>(należy
+                do: {$product.partner.nick})
+            </div>
+            <div style="float:right;width:175px; margin-left:10px; text-align:right; background:#F5F5F5; padding:10px; color:black;">
 			  <span lang="pl">
                   <span lang="pl">
                   <strong>
@@ -45,50 +46,59 @@
                         <br>Cena w sklepie: {$product.price3} zł
                   </span>
               </span>
-                </div>
-                <div class="wrapper">
-                    <div id="opis">
-                        <div style="width:297px; float:left;margin-right:15px;">
-                        <div  style="background:#F5F5F5; text-align: center;width:273px;height:375px;">
+            </div>
+            <div class="wrapper">
+                <div id="opis">
+                    <div style="width:297px; float:left;margin-right:15px;">
+                        <div style="background:#F5F5F5; text-align: center;width:273px;height:375px;">
                             <a href="#">
-                                <img id="bigimg" alt=""  src="{$media_url}image/353x253/{$product.image1}" style=" text-align: center;" width="253">
+                                <img id="bigimg" alt="" src="{$media_url}image/353x253/{$product.image1}"
+                                     style=" text-align: center;" width="253">
                             </a>
                         </div>
 		        <span id="images" lang="pl">
-                    <a href="javascript:void(0);"><img alt="" height="103" src="{$media_url}image/100x75/{$product.image1}"
-                                     width="71"></a>
-                    <a href="javascript:void(0);"><img alt="" height="103" src="{$media_url}image/100x75/{$product.image2}"
-                                     width="71" style="margin-left: -4px"></a>
-                    <a href="javascript:void(0);"><img alt="" height="103" src="{$media_url}image/100x75/{$product.image3}"
-                                     width="71" style="margin-left: -4px"></a>
+                    <a href="javascript:void(0);"><img alt="" height="103"
+                                                       src="{$media_url}image/100x75/{$product.image1}"
+                                                       width="71"></a>
+                    <a href="javascript:void(0);"><img alt="" height="103"
+                                                       src="{$media_url}image/100x75/{$product.image2}"
+                                                       width="71" style="margin-left: -4px"></a>
+                    <a href="javascript:void(0);"><img alt="" height="103"
+                                                       src="{$media_url}image/100x75/{$product.image3}"
+                                                       width="71" style="margin-left: -4px"></a>
                 </span></div>
-                        <div style="width:354px; float:right;margin-right:15px;">
+                    <div style="width:354px; float:right;margin-right:15px;">
    	            <span lang="pl"><strong>
                        <div class="title-1 p">Opis</div>
                    </strong></span>{$product.text3}<br><br><br>
-                            <div id="choose_date">
-                                <div style="text-align: left" id="times">
-                                    <form id="cart_form" method="post" action="{$site_url}koszyk">
-                                        <img alt="" height="32" src="{$site_url}images/Calendar-Logo-32x32.png" width="32" style="border:0px;  padding:10px;" />
-                                        <select id="cart_available_days" >
-                                            <option value="0">3 dni</option>
-                                            <option value="1">7 dni</option>
-                                         </select>
-                                        <div id="datepicker_reservation" class="datepicker"></div>
-                                        <br /><br />
-                                        <label>Rezerwacja:</label> <span id="startDate"></span> - <span id="endDate"></span>
-                                            <input type="hidden" id="id_product" value="{$product.id}" name="id_product">
-                                            <input type="hidden" id="date_from" value="" name="date_from">
-                                            <input type="hidden" id="date_to" value="" name="date_to">
-                                            <br><br>
-                                        <input style="width:120px" type="submit" id="submit" name="add_to_cart" class="button2" value="Zarezerwuj">
-                                        </form>
-                                </div>
+
+                        <div id="choose_date">
+                            <div style="text-align: left" id="times">
+                                <form id="cart_form" method="post" action="{$site_url}koszyk">
+                                    <div class="title-1 p">Wybierz termin</div>
+                                    <!--<img alt="" height="32" src="{$site_url}images/Calendar-Logo-32x32.png" width="32"-->
+                                         <!--style="border:0px;  padding:10px;"/>-->
+                                    Okres rezerwacji
+                                    <select id="cart_available_days">
+                                        <option value="0">3 dni</option>
+                                        <option value="1">7 dni</option>
+                                    </select>
+                                    <br/><br/>
+                                    <div id="datepicker_reservation" class="datepicker"></div>
+                                    <br/><br/>
+                                    <label>Rezerwacja:</label> <span id="startDate"></span> - <span id="endDate"></span>
+                                    <input type="hidden" id="id_product" value="{$product.id}" name="id_product">
+                                    <input type="hidden" id="date_from" value="" name="date_from">
+                                    <input type="hidden" id="date_to" value="" name="date_to">
+                                    <br><br>
+                                    <input style="width:120px" type="submit" onclick="datepick_submit();" id="submit" name="add_to_cart" class="button2" value="Zarezerwuj">
+                                </form>
                             </div>
                         </div>
                     </div>
-                    <div id="komentarz" style="width:980px; overflow:hidden;display:block;">
-        	  <span lang="pl"><div class="title-1 p"><br>KomentarzE</div>
+                </div>
+                <div id="komentarz" style="width:980px; overflow:hidden;display:block;">
+        	  <span lang="pl"><div class="title-1 p"><br>Komentarze</div>
                 {if !$product_comments}
                 Brak komentarzy.
                 {else}
@@ -99,93 +109,211 @@
                   <div class="title-1 p">
                       <br>Wypowiedz się!
                   </div>
-
                     <iframe scrolling="no" frameborder="0" style=" width: 690px; height: 191px;"
                             src="{$site_url}comment_form/display_form/{$product.id}"
                             marginheight="0" marginwidth="0" name="I1" class="auto-style1">
                     </iframe>
-
-                    </div>
-
-
-                    <br/>
-
-                    <div class="overflow">
-                        <p>&nbsp;</p>
-                    </div>
                 </div>
+                <br/>
+
+                <div class="overflow">
+                    <p>&nbsp;</p>
+                </div>
+            </div>
             {/if}
-                {else}
-                <article class="grid_9 prefix_1">
-                    <h2 class="border-bot">{if $search}Wyszukuje: {else}{/if}<span lang="pl"> {$title}</span></h2>
+            {else}
+            <article class="grid_9 prefix_1">
+                <h2 class="border-bot">{if $search}Wyszukuje: {else}{/if}<span lang="pl"> {$title}</span></h2>
 
-                    <div class="wrapper">
-                        <div id="marki" style="height: 298px">
-                            {if !$products}
-                            <div id="ok">Przykro nam ale w aktualnej kategorii nie ma jeszcze produktów.</div>
-                        </div>
-                            {else}
-                            {foreach from=$products item=product key='test' name='loop'}
-                            <!-- poczatek produktu -->
-                            <div id="jeden-produkt{if $smarty.foreach.loop.iteration % 4 == 0}-koncowy{/if}">
-                                <strong>
-                                    <div class="title-1" style="padding-bottom:3px;">
-                                        <a href="{$site_url}product/{$product.id}"><img alt="" height="200"
-                                                                                        src="{$media_url}image/200x150/{$product.image1}"
-                                                                                        width="150"></a>{$product.vendor.title}
-                                    </div>
-                                </strong>
-
-                                <div id="jeden-produkt-opis">
-                                    <a href="{$site_url}product/{$product.id}" class="link-3">
-
-                                        {$product.text1}</a></div>
-                                Cena od: {$product.price1} zł
-                                <br/>
-                                <br/>
-
-                                <a class="button2" href="{$site_url}product/{$product.id}">Zarezerwuj</a>
-                            </div>
-                            <!-- finish produktu -->
-                            {/foreach}
-                            <Br/>
-
-                        </div>
-                        <div id="nawig">
-
-                            {if $search_route_name}
-                            {if ($current_page-1) != 0}
-                            <a class="button2" href="{$site_url}{$search_route_name}{$current_page-1}"
-                               style="float:right; ">wstecz</a>
-                            {/if}
-                            {if !(($current_page+1) > $all_pages)}
-                            <a class="button2" href="{$site_url}{$search_route_name}{$current_page+1}"
-                               style="float:right;margin-right:3px;">dalej</a>
-                            {/if}
-                            {else}
-                            {if ($current_page-1) != 0}
-                            <a class="button2" href="{$site_url}{$route_name}/{$id},{$current_page-1}"
-                               style="float:right; ">wstecz</a>
-                            {/if}
-                            {if !(($current_page+1) > $all_pages)}
-                            <a class="button2" href="{$site_url}{$route_name}/{$id},{$current_page+1}"
-                               style="float:right;margin-right:3px;">dalej</a>
-                            {/if}
-                            {/if}
-                        </div>
-                        {/if}
-                        <br/> <br/>
-
-                        <div class="overflow">
-                            <p>&nbsp;</p>
-                        </div>
+                <div class="wrapper">
+                    <div id="marki" style="height: 298px">
+                        {if !$products}
+                        <div id="ok">Przykro nam ale w aktualnej kategorii nie ma jeszcze produktów.</div>
                     </div>
-                    {/if}
-                          <!--==============================end content====================================-->
-        </div>
-        </article>
+                    {else}
+                    {foreach from=$products item=product key='test' name='loop'}
+                    <!-- poczatek produktu -->
+                    <div id="jeden-produkt{if $smarty.foreach.loop.iteration % 4 == 0}-koncowy{/if}">
+                        <strong>
+                            <div class="title-1" style="padding-bottom:3px;">
+                                <a href="{$site_url}product/{$product.id}"><img alt="" height="200"
+                                                                                src="{$media_url}image/200x150/{$product.image1}"
+                                                                                width="150"></a>{$product.vendor.title}
+                            </div>
+                        </strong>
 
-    </div>
-    {include file="extension/footer_section.html"}
+                        <div id="jeden-produkt-opis">
+                            <a href="{$site_url}product/{$product.id}" class="link-3">
+                                {$product.text1}</a></div>
+                        Cena od: {$product.price1} zł
+                        <br/>
+                        <br/>
+                        <a class="button2" href="{$site_url}product/{$product.id}">Zarezerwuj</a>
+                    </div>
+                    <!-- finish produktu -->
+                    {/foreach}
+                    <Br/>
+                </div>
+                <div id="nawig">
+                    {if $search_route_name}
+                    {if ($current_page-1) != 0}
+                    <a class="button2" href="{$site_url}{$search_route_name}{$current_page-1}"
+                       style="float:right; ">wstecz</a>
+                    {/if}
+                    {if !(($current_page+1) > $all_pages)}
+                    <a class="button2" href="{$site_url}{$search_route_name}{$current_page+1}"
+                       style="float:right;margin-right:3px;">dalej</a>
+                    {/if}
+                    {else}
+                    {if ($current_page-1) != 0}
+                    <a class="button2" href="{$site_url}{$route_name}/{$id},{$current_page-1}"
+                       style="float:right; ">wstecz</a>
+                    {/if}
+                    {if !(($current_page+1) > $all_pages)}
+                    <a class="button2" href="{$site_url}{$route_name}/{$id},{$current_page+1}"
+                       style="float:right;margin-right:3px;">dalej</a>
+                    {/if}
+                    {/if}
+                </div>
+                {/if}
+                <br/> <br/>
+
+                <div class="overflow">
+                    <p>&nbsp;</p>
+                </div>
+</div>
+{/if}
+<!--==============================end content====================================-->
+{literal}
+<script>
+    function datepick_submit(){
+      $('form').submit(function(){
+          if($('#datepicker_reservation').find('.ui-datepicker-current-day a').hasClass('colision')){
+              alert('Przykro nam ale twoja rezerwacja koliduje już z istniejącą rezerwacją. Zaznacz inny termin.');
+          }else{
+            return true;
+          }
+          return false;
+      });
+    }
+    $(document).ready(function () {
+        var reservations_days = new Array();
+        var startDate;
+        var endDate;
+        var act_date = new Date();
+        var week_days = new Array(1, 2, 3, 4, 5);
+        var weekends_days = new Array(0, 6);
+
+        var reservated_days = new Array();
+        var reservated_days_php = {/literal}{if $reserved_days}{$reserved_days}{else}""{/if}{literal}
+        if(reservated_days_php){
+            for ( i in reservated_days_php){
+                reservated_days[i] = new Array();
+                var start_d = new Date(reservated_days_php[i]['startDate']);
+                var end_d = new Date(reservated_days_php[i]['endDate']);
+                reservated_days[i]['startDate'] = new Date(start_d.getFullYear(), start_d.getMonth(), start_d.getDate());
+                reservated_days[i]['endDate'] = new Date(end_d.getFullYear(), end_d.getMonth(), end_d.getDate());
+            }
+        }
+
+    var selectCurrent = function () {
+        window.setTimeout(function () {
+            $('#datepicker_reservation').find('.ui-datepicker-current-day a').addClass('ui-state-active');
+
+            if (($('#datepicker_reservation').find('.ui-datepicker-current-day').hasClass('ui-datepicker-current-day'))
+                && ($('#datepicker_reservation').find('.ui-datepicker-current-day').hasClass('ui-state-disabled'))) {
+                $('#datepicker_reservation').find('.ui-datepicker-current-day a').addClass('colision');
+                alert('Przykro nam ale twoja rezerwacja koliduje już z istniejącą rezerwacją. Zaznacz inny termin.');
+            }
+        }, 1);
+    }
+
+        var CountEndStartDate = function (date) {
+            var current_date = date.getDay();
+            var reservation_days = get_day_options(); // default na 7 dni
+            //jesli zaznaczony dzien tygodnia
+            startDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+            endDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() + reservation_days);
+            var array = new Array();
+            array['startDate'] = startDate;
+            array['endDate'] = endDate;
+            return array;
+        }
+
+        $('#datepicker_reservation').datepicker({
+            firstDay:'1',
+            showOtherMonths:true,
+            selectOtherMonths:true,
+            onSelect:function (dateText, inst) {
+                var selected_field = $(this).find('.ui-state-hover');
+                var date = $(this).datepicker('getDate');
+                var current_date = date.getDay();
+                if (selected_field.parent().hasClass('ui-state-disabled')) {
+                    alert('Rezerwacja w tym dniu jest niemożliwa');
+                } else {
+                    //sprawdzamy czy data pozwala na rezerwacje
+                    if (date.getTime() < act_date.getTime()) {
+                        alert('Zbyt wczesna data');
+                    } else {
+                        //liczymy date startu rezerwacji i konca
+                        var dat = CountEndStartDate(date);
+                        var startDate = dat['startDate'];
+                        var endDate = dat['endDate'];
+                        var dateFormat = inst.settings.dateFormat || $.datepicker._defaults.dateFormat;
+                        //
+                        selectCurrent();
+
+//                        $('.ui-datepicker-current-day').each(function(){
+//                            if($(this).hasClass('ui-state-disabled')){
+//                                alert('here');
+//
+//                            }
+//                        });
+                        //display
+                        $('#startDate').text($.datepicker.formatDate(dateFormat, startDate, inst.settings));
+                        $('#endDate').text($.datepicker.formatDate(dateFormat, endDate, inst.settings));
+                        //add hiden
+                        $('#date_from').val($.datepicker.formatDate(dateFormat, startDate, inst.settings));
+                        $('#date_to').val($.datepicker.formatDate(dateFormat, endDate, inst.settings));
+
+                    }
+                }
+            },
+            beforeShowDay:function (date) {
+                var cssClass = '';
+                //zaznaczenie dni
+                if (date >= startDate && date <= endDate) {
+                    cssClass = ' ui-datepicker-current-day';
+                }
+                if (date < act_date) {
+                    cssClass += ' ui-state-disabled';
+                }
+                // jesli tydzien się zaczął to niemozna juz w nim rezerwowac
+                for (var i = 0; i < reservated_days.length; i++) {
+                    //alert(reservated_days[i]['startDate']);
+                    if (date >= reservated_days[i]['startDate'] && date <= reservated_days[i]['endDate']) {
+                        cssClass += ' ui-state-disabled';
+                    }
+                }
+                return [true, cssClass];
+            },
+            onChangeMonthYear:function (year, month, inst) {
+                selectCurrent();
+
+            }
+        });
+
+        //$('#datepicker_reservation .ui-datepicker-calendar tr').live('mousemove', function() { $(this).find('td a').addClass('ui-state-hover'); });
+        //$('#datepicker_reservation .ui-datepicker-calendar tr').live('mouseleave', function() { $(this).find('td a').removeClass('ui-state-hover'); });
+    });
+
+
+</script>
+
+{/literal}
+</div>
+</article>
+</div>
+{include file="extension/footer_section.html"}
 </section>
 {include file="extension/footer.html"}

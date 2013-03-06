@@ -93,4 +93,8 @@ class Product_Reservation extends Main
     {
         echo '{"success": 1, "data":' . json_encode($this->product_reservation_model->load_all_partner_products_reservation_count($id_partner,$status)) . '}';
     }
+
+    function load_reserved_product_days($id_product){
+        echo '{"success": 1, "data":' . json_encode($this->product_reservation_model->load_reserved_product_days($id_product)) . '}';
+    }
 }
