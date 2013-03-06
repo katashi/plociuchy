@@ -23,12 +23,12 @@
                     {foreach from=$user_products item=product}
                     <div id="kolumny-produkt" >
                         <div id="kolumna1" >
-                            <a href="{$site_url}product/{$product.id}">{$product.text1}</a></div>
+                            {$product.text1}</div>
                         <div id="kolumna2" >
                             <span lang="pl">{$product.rejected_reson.text1}<br/>{$product.rejected_reson.text2}</span></div>
                         <div class="aligncenter" >
-                            <img alt="" height="24" src="images/delete.png" width="24">
-                            <img alt="" height="25" src="images/zoomicon.png" width="25">
+                            <form id="delete_{$product.id}" name="delete" method="post" action="{$site_url}partner-panel-produkty-odrzucone"><input type="hidden" name="delete_prod" value="{$product.id}"></form>
+                            <a href="javascript:void(0)" onclick="submit('delete_{$product.id}')"><img alt="" height="24" src="images/delete.png" width="24" ></a>
                         </div>
                     </div>
                     {/foreach}

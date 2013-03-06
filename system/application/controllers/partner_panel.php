@@ -79,6 +79,33 @@ class Partner_Panel extends Hub {
         if (isset($_POST['submit_product'])) {
             unset($_POST['submit_product']);
 
+            if(isset($_POST['vendor_propo']) && $_POST['vendor_propo'] != ''){
+                $partner = $this->load_partner($this->ci->session->userdata['partner_id']);
+                // lets define data
+                $this->ci->smarty->assign('path_template', SITE_URL . '/templates/email/' . CONFIGURATION);
+                $this->ci->smarty->assign('path_media', SITE_URL . '/templates/email/' . CONFIGURATION);
+                $this->ci->smarty->assign('path_site', SITE_URL);
+
+                $this->ci->smarty->assign('partner',  $partner);
+                $this->ci->smarty->assign('propozycja', $_POST['vendor_propo']);
+
+                $message = $this->ci->smarty->fetch('../../../templates/email/' . CONFIGURATION . '/partner_propo.html');
+                //
+                $config['protocol'] = 'sendmail';
+                $config['mailtype'] = 'html';
+                $config['charset'] = 'utf-8';
+                //wysylamuy maila na maila admina
+                $partner2 = $this->load_partner(1);
+                $this->ci->email->initialize($config);
+                $this->ci->email->subject('Plociuchy - Propozycja Producenta');
+                $this->ci->email->from('rejestracja@plociuchy.pl');
+                $this->ci->email->to($partner2['user']);
+                $this->ci->email->message($message);
+                $this->ci->email->send();
+
+            }
+            unset($partner2);
+            unset($partner);
             unset($_POST['vendor_propo']);
 
             $count_days = $_POST['add_month'];
@@ -89,7 +116,7 @@ class Partner_Panel extends Hub {
             // wtym miejscu dodaje obrazki
             $result = $this->add_product();
             if ($result['success'] == 1) {
-                $this->add_message_error('Produkt został wysłany do zatwierdzenia przez admina.');
+                $this->add_message_error('Produkt został wysłany do zatwierdzenia przez administratora Plo-cichy.pl');
             } else {
                 $this->add_message_error($result['code']);
             }
@@ -173,6 +200,12 @@ class Partner_Panel extends Hub {
 
     public function display_rejected_products($template, $title_call) {
         $this->assign_template_titlecall($template, $title_call);
+        if (isset($_POST['delete_prod'])) {
+            $url = CONSOLE_URL . '/plociuchy:product/delete/' . $_POST['delete_prod'];
+            $result = $this->api_call($url);
+
+            $this->add_message_ok('Produkt został usunięty');
+        }
         //pobieramy wszytskie produkty
         $products = $this->load_all_rejected_products();
         if (empty($products)) {

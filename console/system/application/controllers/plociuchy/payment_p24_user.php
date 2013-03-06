@@ -119,7 +119,6 @@ class Payment_P24_User extends Main
         $p24_kwota = $obj['p24_kwota'];
         //Weryfikujemy
         $WYNIK = $this->payment_p24_weryfikacja($p24_id_sprzedawcy, $p24_session_id, $p24_order_id, $p24_kwota);
-
         unset($_POST);
         if ($WYNIK[0] == "TRUE") {
             // transakcja prawidłowa

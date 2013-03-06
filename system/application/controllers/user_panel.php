@@ -48,6 +48,9 @@ class User_Panel extends Hub {
 
     public function display_data($template, $title_call) {
         $template = 'user_panel_data';
+        if(isset($_POST['cart_summary'])){
+            $this->add_message_error('Uzupełnij swoje dane do wysyłki aby dokonać rezerwacji.');
+        }
         if (isset($_POST['submit'])) {
             unset($_POST['submit']);
 

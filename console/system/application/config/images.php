@@ -8,6 +8,7 @@ $config['dimensions'] = array(
 	array('w' => '100','h' => '75', 'watermark' => false),
 	array('w' => '200','h' => '150', 'watermark' => false),
 	array('w' => '400','h' => '300', 'watermark' => false),
-	array('w' => '640','h' => '480', 'watermark' => false)
+	array('w' => '640','h' => '480', 'watermark' => false),
+    array('w' => '353','h' => '253', 'watermark' => false),
 );
 ?>

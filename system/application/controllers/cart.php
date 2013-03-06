@@ -98,6 +98,21 @@ class Cart extends Hub {
             $login->display_login('user_login');
             die();
         }
+        $user = $this->load_user($this->ci->session->userdata['user_id']);
+        if ( $user['address'] == '' || $user['zip'] == '' || $user['city'] == '' ) {
+            //walidacja adresu
+            $user_panel = new User_Panel($this->ci);
+            $user_panel->display_data('user_panel_data',null);
+            die();
+        }
+        if($user['shipment']== 1){
+            if ( $user['shipment_address'] == '' || $user['shipment_zip'] == '' || $user['shipment_city'] == '' ) {
+                //walidacja adresu
+                $user_panel = new User_Panel($this->ci);
+                $user_panel->display_data('user_panel_data',null);
+                die();
+            }
+        }
         //geting from post
         if (isset($_POST['cart_summary'])) {
             //update values
@@ -162,7 +177,7 @@ class Cart extends Hub {
                 'date_to' => '',
                 'products' => false
             );
-            //$this->ci->session->unset_userdata($cart_data);
+            $this->ci->session->unset_userdata($cart_data);
 
             $this->add_message_ok('Dziekujemy za wpłatę. Twoja rezerwacja została przeprowadzona prawidłowo.');
         } else {
@@ -272,8 +287,8 @@ class Cart extends Hub {
         $data['status'] = 0;
         $data['reject'] = 0;
         $data['active'] = 0;//0-nowe 1-zatwierdzone
-        $data['date_from'] = $data_s['date_from'];
-        $data['date_to'] = $data_s['date_to'];
+        $data['date_from'] = date("Y-m-d H:i:s",strtotime($data_s['date_from']));
+        $data['date_to'] = date("Y-m-d H:i:s",strtotime($data_s['date_to']));
         //Add reservation
         $url = CONSOLE_URL . '/plociuchy:payment_p24_user/add_reservation_ui';
         $this->api_call($url, $data);
