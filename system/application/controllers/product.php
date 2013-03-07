@@ -64,11 +64,12 @@ class Product extends Hub {
         //dodajemy do js daty zarezerwowane
         $reserved_days = array();
 
-            foreach($reserved_product_days['data']  as $key => $val){
-                $reserved_days[$key]['startDate'] = strtotime($val['date_from'])*1000;
-                $reserved_days[$key]['endDate'] = strtotime($val['date_to'])*1000;
-            }
-
+        foreach($reserved_product_days['data']  as $key => $val){
+            //dodajemy do kazdej daty 2 dni przed i po rezerwacji
+            //przerabiamy dane pod js
+            $reserved_days[$key]['startDate'] = strtotime($val['date_from']. "-2 days")*1000;
+            $reserved_days[$key]['endDate'] = strtotime($val['date_to']. "+2 days")*1000;
+        }
         $this->ci->smarty->assign('reserved_days',json_encode($reserved_days));
         // load product comments
         $product_comments = $this->load_all_product_comments_user($id);
