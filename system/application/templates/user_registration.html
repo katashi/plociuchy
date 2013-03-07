@@ -54,11 +54,7 @@
                 <div class="auto-style1">
                     <form  id="regform"  action="{$site_url}rejestracja" name="registration" method="post">
                         <table style="width: 59%">
-                            <tr>
-                                <td style="width: 134px" class="auto-style4"><span lang="pl">Nazwa Konta:</span></td>
-                                <td class="auto-style2">
-                                    <input type="text" placeholder="" name="nick" size="40" style="width: 145px"></td>
-                            </tr>
+
                             <tr>
                                 <td class="auto-style4" style="width: 134px"><span lang="pl">Imię:</span></td>
                                 <td class="auto-style2">
@@ -117,7 +113,7 @@
                                             <td style="width: 33px">
                                                 <input type="checkbox" value="1" name="submit1"
                                                        style="width:20px;  margin:0px;"></td>
-                                            <td><span lang="pl">Akceptuje <a href="#"> regulamin serwisu</a></span></td>
+                                            <td><span lang="pl">Akceptuje <a href="{$site_url}regulamin"> regulamin serwisu</a></span></td>
                                         </tr>
                                         <tr>
                                             <td><input type="checkbox" value="1" name="submit2"
@@ -144,8 +140,6 @@
                     <script type="text/javascript">
 
                         var frmvalidator = new Validator("regform");
-
-                        frmvalidator.addValidation("nick", "req", "Podaj nazwę konta.");
 
                         frmvalidator.addValidation("name", "req", "Wpisz proszę swoje imię.");
                         frmvalidator.addValidation("name", "maxlen=100", "Maksymalna długość imienia to 100 znaków.");

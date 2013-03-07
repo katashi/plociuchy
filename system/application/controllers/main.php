@@ -27,6 +27,7 @@ class Main extends Controller {
         $this->include_controller('user');
         $this->include_controller('partner');
         $this->include_controller('user_panel');
+        $this->include_controller('partner_panel');
         // category
         $this->smarty->assign('category', $this->category_load_all_no_dodatki());
         // dodatki

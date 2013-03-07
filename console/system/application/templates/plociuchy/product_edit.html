@@ -37,6 +37,7 @@ pdv_store.init(config);
 
 // panel
 var config = new Object({
+    fileUpload: true,
 	title: 'Edycja Productu',
 	items: [{
         displayField: 'nick',
@@ -119,19 +120,19 @@ var config = new Object({
     },{
         allowBlank: true,
         fieldLabel: 'Zdjęcie',
-        name: 'image1',
+        name: 'userfile',
         buttonText: 'Wybierz plik',
         xtype: 'fileuploadfield'
     },{
         allowBlank: true,
         fieldLabel: 'Zdjęcie',
-        name: 'image2',
+        name: 'userfile2',
         buttonText: 'Wybierz plik',
         xtype: 'fileuploadfield'
     },{
         allowBlank: true,
         fieldLabel: 'Zdjęcie',
-        name: 'image3',
+        name: 'userfile3',
         buttonText: 'Wybierz plik',
         xtype: 'fileuploadfield'
     },{

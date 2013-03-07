@@ -86,13 +86,78 @@ class Product extends Main {
     // add
     function add() {
         $result = $this->product_model->add();
+        if (isset($_FILES['userfile']['name']) && $_FILES['userfile']['name'] != '') {
+            //let's use media file model
+            $result = $this->media_image_model->add($partner['user_id_media_image']);
+            if ($result['success'] == true) {
+                // after adding a file we need to pass that file id number
+                //$img['image2'] = $result['upload_data']['file_name'];//old version
+                $s = json_decode($result);
+                $_POST['image1'] = $s->upload_data->file_name;
+            }
+        }
+        // now we will arrange avatar if exists
+        if (isset($_FILES['userfile2']['name']) && $_FILES['userfile2']['name'] != '') {
+            // let's use media file model
+            $result = $this->media_image_model->add($partner['user_id_media_image']);
+            if ($result['success'] == true) {
+                // after adding a file we need to pass that file id number
+                //$img['image2'] = $result['upload_data']['file_name'];//old version
+                $s = json_decode($result);
+                $_POST['image2'] = $s->upload_data->file_name;
+            }
+        }
+        if (isset($_FILES['userfile3']['name']) && $_FILES['userfile3']['name'] != '') {
+            // let's use media file model
+            $result = $this->media_image_model->add($partner['user_id_media_image']);
+            if ($result['success'] == true) {
+                // after adding a file we need to pass that file id number
+                //$img['image2'] = $result['upload_data']['file_name'];//old version
+                $s = json_decode($result);
+                $_POST['image3'] = $s->upload_data->file_name;
+            }
+        }
+        $result = $this->product_model->edit($result);
         echo '{"success": ' . $result . '}';
     }
 
     // edit
     function edit($id = null) {
-        print_r($_FILES);
-        print_r($_POST);
+        //add images
+        // ok, here we will add file ( mp3 )
+        //load user_id_media_image
+        $partner = $this->partner_model->load($_POST['id_partner']);
+        if (isset($_FILES['userfile']['name']) && $_FILES['userfile']['name'] != '') {
+            //let's use media file model
+            $result = $this->media_image_model->add($partner['user_id_media_image']);
+            if ($result['success'] == true) {
+                // after adding a file we need to pass that file id number
+                //$img['image2'] = $result['upload_data']['file_name'];//old version
+                $s = json_decode($result);
+                $_POST['image1'] = $s->upload_data->file_name;
+            }
+        }
+        // now we will arrange avatar if exists
+        if (isset($_FILES['userfile2']['name']) && $_FILES['userfile2']['name'] != '') {
+            // let's use media file model
+            $result = $this->media_image_model->add($partner['user_id_media_image']);
+            if ($result['success'] == true) {
+                // after adding a file we need to pass that file id number
+                //$img['image2'] = $result['upload_data']['file_name'];//old version
+                $s = json_decode($result);
+                $_POST['image2'] = $s->upload_data->file_name;
+            }
+        }
+        if (isset($_FILES['userfile3']['name']) && $_FILES['userfile3']['name'] != '') {
+            // let's use media file model
+            $result = $this->media_image_model->add($partner['user_id_media_image']);
+            if ($result['success'] == true) {
+                // after adding a file we need to pass that file id number
+                //$img['image2'] = $result['upload_data']['file_name'];//old version
+                $s = json_decode($result);
+                $_POST['image3'] = $s->upload_data->file_name;
+            }
+        }
         $result = $this->product_model->edit($id);
         echo '{"success": ' . $result . '}';
     }

@@ -22,6 +22,9 @@
                                 {/if}
                                 <strong>{$article.header}</strong><span lang="pl"><strong>...</strong><br>
                             <br>{$article.text}</span><Br/><Br/>
+                                <div class="overflow">
+                                    <p>&nbsp;</p>
+                                </div>
                             <a class="button2" href="{$site_url}artykuly" style="float:right;">spis artykułów</a>
                             <!-- koniec art art -->
                     {else}
@@ -35,7 +38,7 @@
                                 <span lang="pl">{$article.title}</span></h3>
                             <span style="margin-top:-5px; font-size:1.1em">({$article.date_created})</span><Br/>
                             <Br/>
-                            {$article.text}<Br/><Br/>
+                            {$article.text|truncate:500:'...':true:true}<Br/><Br/>
                             <a class="button3" href="{$site_url}artykul/{$article.id}">czytaj więcej</a>
                         </div>
                         <div id="linia"></div>

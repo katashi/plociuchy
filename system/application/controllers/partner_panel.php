@@ -122,12 +122,31 @@ class Partner_Panel extends Hub {
             }
             $template = 'partner_panel_front';
         } else {
+            $address = false;
             $partner = $this->load_partner($this->ci->session->userdata['partner_id']);
             $partner_points = $this->get_last_income_points($this->ci->session->userdata['partner_id']);
             $categorys = $this->load_all_category();
             $vendors = $this->load_all_vendor();
             $payment_cost = $this->get_payment_options();
+            //Before add any product check address is ok
+            if ( $partner['address'] == '' || $partner['zip'] == '' || $partner['city'] == '' ) {
+                //walidacja adresu
+                $address = true;
+//                $user_panel = new Partner_Panel($this->ci);
+//                $user_panel->display_data('user_panel_data',null);
+//                die();
+            }
+            if($partner['shipment']== 1){
+                if ( $partner['shipment_address'] == '' || $partner['shipment_zip'] == '' || $partner['shipment_city'] == '' ) {
+                    //walidacja adresu
+                    $address = true;
+//                    $user_panel = new User_Panel($this->ci);
+//                    $user_panel->display_data('user_panel_data',null);
+//                    die();
+                }
+            }
 
+            $this->ci->smarty->assign('check_address', $address);
             $this->ci->smarty->assign('partner', $partner);
             $this->ci->smarty->assign('payment_cost', $payment_cost);
             $this->ci->smarty->assign('partner_points', $partner_points);

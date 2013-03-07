@@ -191,6 +191,9 @@ class Product_Reservation_Model extends Main_Model
 
     function load_reserved_product_days($id_product){
         $current_date = date("Y-m-d H:i:s");
+        //only active reservaions
+        $this->db->where('status <', '3');
+        $this->db->where('active =', '1');
         $this->db->where('id_product', $id_product);
         $this->db->where('date_from >=', $current_date);
         $query = $this->db->get($this->table_name);

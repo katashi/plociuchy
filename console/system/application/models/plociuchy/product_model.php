@@ -120,7 +120,7 @@ class Product_Model extends Main_Model {
         $record = $_POST;
         $record['date_added'] = date("Y-m-d H:i:s");
         $this->db->insert($this->table_name, $record);
-        return 1;
+        return $this->db->insert_id();
     }
 
     // edit
@@ -230,7 +230,6 @@ class Product_Model extends Main_Model {
         $this->db->where('promote', '1');
         $this->db->from($this->table_name);
         return $this->db->count_all_results();
-
     }
 
     function load_all_promotion_products(){

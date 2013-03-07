@@ -17,8 +17,9 @@
             <!--==============================Script===================================-->
             <!--==============================content====================================-->
             <article class="grid_9 prefix_1">
-
-                {if $partner_points.point_available == 0}
+                {if $check_address == true}
+                    <div id="error">Nie możesz wystawić produktu ponieważ twój adres jest niepoprawny. <a href="{$site_url}partner-panel-dane" > Zaktualizuj swoje dane</a></div>
+                {elseif $partner_points.point_available == 0}
                     <div id="error">Nie możesz wystawić produktu ponieważ twój stan kredytów jest równy 0. <a href="{$site_url}partner-panel-saldo" > Doładuj Konto</a></div>
                 {else}
                 <h2 class="border-bot">Wystaw produkt</h2>
