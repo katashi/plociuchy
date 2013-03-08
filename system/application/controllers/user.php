@@ -57,7 +57,11 @@ class User extends Hub {
                     //display message success
                     $this->add_message_ok('Użytkownik zalogowany.');
                 }else{
+                    if($result['code'] == 'unactive'){
+                    $this->add_message_error('Przepraszamy konto jest nieaktywne lub zostało zablokowane.');
+                    }else{
                     $this->add_message_error('Nazwa użytkownika lub hasło są nieprawidłowe.');
+                    }
                 }
             }
         }

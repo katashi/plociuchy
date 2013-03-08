@@ -6,6 +6,7 @@ class Cart extends Hub {
         //
         $this->ci = $_ci;
     }
+
     // display
     function display_cart($template = null, $title_call = null) {
         $this->assign_template_titlecall($template, $title_call);
@@ -15,7 +16,7 @@ class Cart extends Hub {
         $final_price = 0;
         $id_user = 0;
         //check date
-        if ((isset($_POST['date_to']) && $_POST['date_to']=='') || (isset($_POST['date_from']) && $_POST['date_from']=='')) {
+        if ((isset($_POST['date_to']) && $_POST['date_to'] == '') || (isset($_POST['date_from']) && $_POST['date_from'] == '')) {
             $this->add_message_error('Nie wybrałeś daty rezerwacji.');
             $products = false;
         } else {
@@ -99,17 +100,17 @@ class Cart extends Hub {
             die();
         }
         $user = $this->load_user($this->ci->session->userdata['user_id']);
-        if ( $user['address'] == '' || $user['zip'] == '' || $user['city'] == '' ) {
+        if ($user['address'] == '' || $user['zip'] == '' || $user['city'] == '') {
             //walidacja adresu
             $user_panel = new User_Panel($this->ci);
-            $user_panel->display_data('user_panel_data',null);
+            $user_panel->display_data('user_panel_data', null);
             die();
         }
-        if($user['shipment']== 1){
-            if ( $user['shipment_address'] == '' || $user['shipment_zip'] == '' || $user['shipment_city'] == '' ) {
+        if ($user['shipment'] == 1) {
+            if ($user['shipment_address'] == '' || $user['shipment_zip'] == '' || $user['shipment_city'] == '') {
                 //walidacja adresu
                 $user_panel = new User_Panel($this->ci);
-                $user_panel->display_data('user_panel_data',null);
+                $user_panel->display_data('user_panel_data', null);
                 die();
             }
         }
@@ -124,30 +125,46 @@ class Cart extends Hub {
         $cart_product = $this->load_product($id_product);
         $numberDays = $this->cout_days($date_from, $date_to);
         $shipment_cost = $this->get_shipmentCost();
-        if ($numberDays == 3) {
-            $cart_product['end_price'] = $cart_product['price1'];
-        } else {
-            $cart_product['end_price'] = $cart_product['price2'];
+        $reserved_days = $this->load_reserved_product_days($id_product);
+        $collide = false;
+        //check dates
+        foreach ($reserved_days as $key => $day) {
+            if (date('Y-m-d', strtotime($date_from)) >= date('Y-m-d', $day['real_date_from']) && date('Y-m-d', strtotime($date_from)) <= date('Y-m-d', $day['real_date_to'])) {
+                $collide = true;
+//                echo 'Data = ' . $date_from . ' Jest pomiedzy datami (' . date('Y-m-d', $day['real_date_from']) . '/' . date('Y-m-d', $day['real_date_to']) . ')';
+            }
+            if (date('Y-m-d', strtotime($date_to)) >= date('Y-m-d', $day['real_date_from']) && date('Y-m-d', strtotime($date_to)) <= date('Y-m-d', $day['real_date_to'])) {
+                $collide = true;
+//                echo 'Data = ' . $date_to . ' Jest pomiedzy datami (' . date('Y-m-d', $day['real_date_from']) . '/' . date('Y-m-d', $day['real_date_to']) . ')';
+            }
         }
-        $final_price = $shipment_cost + $cart_product['end_price'];
-        //vendor
-        $cart_product['vendor'] = $this->load_vendor($cart_product['id_vendor']);
+        if ($collide == false) {
+            if ($numberDays == 3) {
+                $cart_product['end_price'] = $cart_product['price1'];
+            } else {
+                $cart_product['end_price'] = $cart_product['price2'];
+            }
+            $final_price = $shipment_cost + $cart_product['end_price'];
+            //vendor
+            $cart_product['vendor'] = $this->load_vendor($cart_product['id_vendor']);
 
-        $data = array();
-        $data['final_price'] = $final_price;
-        $data['date_from'] = $date_from;
-        $data['date_to'] = $date_to;
-        $data['product'] = $cart_product;
+            $data = array();
+            $data['final_price'] = $final_price;
+            $data['date_from'] = $date_from;
+            $data['date_to'] = $date_to;
+            $data['product'] = $cart_product;
 
-        //dodajemy logike platnosci
-        $this->payment24($data);
+            //dodajemy logike platnosci
+            $this->payment24($data);
 
-        $this->ci->smarty->assign('final_price', $final_price);
-        $this->ci->smarty->assign('date_from', $date_from);
-        $this->ci->smarty->assign('date_to', $date_to);
-        $this->ci->smarty->assign('days', $numberDays);
+            $this->ci->smarty->assign('final_price', $final_price);
+            $this->ci->smarty->assign('date_from', $date_from);
+            $this->ci->smarty->assign('date_to', $date_to);
+            $this->ci->smarty->assign('days', $numberDays);
+
+        }
         $this->ci->smarty->assign('product', $cart_product);
-
+        $this->ci->smarty->assign('collide', $collide);
         $template = 'cart_summary';
         $this->smarty_display($template);
     }
@@ -201,7 +218,7 @@ class Cart extends Hub {
         return 20;
     }
 
-    public function send_user_email_confirm($data){
+    public function send_user_email_confirm($data) {
         // lets define data
         $this->ci->smarty->assign('path_template', SITE_URL . '/templates/email/' . CONFIGURATION);
         $this->ci->smarty->assign('path_media', SITE_URL . '/templates/email/' . CONFIGURATION);
@@ -224,7 +241,7 @@ class Cart extends Hub {
         $this->ci->email->send();
     }
 
-    public function send_partner_email_confirm($data){
+    public function send_partner_email_confirm($data) {
         // lets define data
         $this->ci->smarty->assign('path_template', SITE_URL . '/templates/email/' . CONFIGURATION);
         $this->ci->smarty->assign('path_media', SITE_URL . '/templates/email/' . CONFIGURATION);
@@ -286,9 +303,9 @@ class Cart extends Hub {
         $data['id_payment_p24_user'] = $result['data']['id'];
         $data['status'] = 0;
         $data['reject'] = 0;
-        $data['active'] = 0;//0-nowe 1-zatwierdzone
-        $data['date_from'] = date("Y-m-d H:i:s",strtotime($data_s['date_from']));
-        $data['date_to'] = date("Y-m-d H:i:s",strtotime($data_s['date_to']));
+        $data['active'] = 0; //0-nowe 1-zatwierdzone
+        $data['date_from'] = date("Y-m-d H:i:s", strtotime($data_s['date_from']));
+        $data['date_to'] = date("Y-m-d H:i:s", strtotime($data_s['date_to']));
         //Add reservation
         $url = CONSOLE_URL . '/plociuchy:payment_p24_user/add_reservation_ui';
         $this->api_call($url, $data);
@@ -319,9 +336,21 @@ class Cart extends Hub {
         $result = $this->api_call($url);
         return $result['data'];
     }
+
     public function load_partner($id_partner) {
         $url = CONSOLE_URL . '/plociuchy:partner/load/' . $id_partner;
         $result = $this->api_call($url);
+        return $result['data'];
+    }
+
+    function load_reserved_product_days($id_product) {
+        $url = CONSOLE_URL . '/plociuchy:product_reservation/load_reserved_product_days/' . $id_product;
+        $result = $this->api_call($url);
+        //add +/- 2 dni
+        foreach ($result['data'] as $key => $val) {
+            $result['data'][$key]['real_date_from'] = strtotime($val['date_from'] . '-2days');
+            $result['data'][$key]['real_date_to'] = strtotime($val['date_to'] . '+2days');
+        }
         return $result['data'];
     }
 

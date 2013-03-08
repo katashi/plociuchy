@@ -124,11 +124,11 @@ class Payment_P24_Partner extends Main
                     $unit_cost = 8;
                     break;
                 case 2;
-                    $point = 60;
+                    $point = 42;
                     $unit_cost = 6;
                     break;
                 case 3:
-                    $point = 120;
+                    $point = 60;
                     $unit_cost = 4;
                     break;
             }

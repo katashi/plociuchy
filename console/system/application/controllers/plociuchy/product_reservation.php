@@ -36,7 +36,11 @@ class Product_Reservation extends Main
     {
         echo '{"total":' . json_encode($this->product_reservation_model->load_all_count()) . ', "data":' . json_encode($this->product_reservation_model->load_all()) . '}';
     }
-
+    function load_all2()
+    {
+        //print_R($this->product_reservation_model->load_all2());
+        echo '{"total":' . json_encode($this->product_reservation_model->load_all_count()) . ', "data":' . json_encode($this->product_reservation_model->load_all2()) . '}';
+    }
     function load_all_user($id = null)
     {
         echo '{"total":' . json_encode($this->product_reservation_model->load_all_user_count($id)) . ', "data":' . json_encode($this->product_reservation_model->load_all_user($id)) . '}';

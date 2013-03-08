@@ -32,6 +32,7 @@ class Product_Reservation_Model extends Main_Model
         return $this->db->count_all_results();
     }
 
+
     function load_all()
     {
         $this->limit_check();
@@ -41,6 +42,35 @@ class Product_Reservation_Model extends Main_Model
         $record = $query->result_array();
         return $record;
     }
+    function load_all2()
+    {
+        if (isset($_REQUEST['start']) && isset($_REQUEST['limit'])) {
+            $this->start = $_REQUEST['start'];
+            $this->limit = $_REQUEST['limit'];
+            $this->db->limit($this->limit, $this->start);
+        }
+        if (isset($_REQUEST['query']) && $_REQUEST['query'] != '') {
+            $this->db->like($this->table_name.'.id', $_REQUEST['query']);
+            $this->db->or_like($this->table_name.'.id_user', $_REQUEST['query']);
+            $this->db->or_like($this->table_name.'.id_partner', $_REQUEST['query']);
+            $this->db->or_like($this->table_name.'.id_product', $_REQUEST['query']);
+            $this->db->or_like('pc_partner.user', $_REQUEST['query']);
+            $this->db->or_like($this->table_name.'.id_payment_p24_user', $_REQUEST['query']);
+        }
+        if (isset($_REQUEST['sort']) && isset($_REQUEST['sort'])) {
+            $this->db->order_by($_REQUEST['sort'], $_REQUEST['dir']);
+        } else {
+            $this->db->order_by($this->table_name.'.id', 'DESC');
+        }
+        $this->db->select('*, pc_partner.*');
+        $this->db->join('pc_partner', $this->table_name.'.id_partner = pc_partner.id', 'left');
+        $this->db->order_by($this->table_name.'.id');
+        $query = $this->db->get($this->table_name);
+        //echo $this->db->last_query();
+        $record = $query->result_array();
+        return $record;
+    }
+
 
     function load_all_user_count($id = null)
     {

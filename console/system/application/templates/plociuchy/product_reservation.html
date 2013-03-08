@@ -2,12 +2,12 @@
 {literal}
 
 // fields
-var fields = new Array('id', 'id_user', 'id_partner', 'id_product', 'id_payment_24_user', 'status', 'reject','active','date_from','date_to','date_added', 'date_added','date_last_modified');
+var fields = new Array('id', 'id_user', 'id_partner', 'id_product', 'id_payment_p24_user', 'status', 'reject','active','date_from','date_to','date_added', 'date_added','date_last_modified','user');
 var config = new Object({
 	fields: fields,
 	format: 'json',
 	id: 'product_reservation_store',
-	url: base_url+'/plociuchy:product_reservation'+'/load_all'
+	url: base_url+'/plociuchy:product_reservation'+'/load_all2'
 });
 product_reservation_store = new Store();
 product_reservation_store.init(config);
@@ -90,7 +90,7 @@ var config = new Object({
 	columns: [
 		{ id: 'id', dataIndex: 'id', header: 'Id', sortable: true },
         { id: 'id_user', dataIndex: 'id_user', header: 'Id_User', sortable: true },
-		{ id: 'id_partner', dataIndex: 'id_partner', header: 'Id_Partner', sortable: true },
+		{ id: 'id_partner', dataIndex: 'user', header: 'Id_Partner', sortable: true },
 		{ id: 'id_product', dataIndex: 'id_product', header: 'Id_Product', sortable: true },
 		{ id: 'id_payment_p24_user', dataIndex: 'id_payment_p24_user', header: 'id_payment_p24_user', sortable: true },
 		{ id: 'status', dataIndex: 'status', header: 'Status', sortable: true },

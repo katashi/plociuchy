@@ -57,7 +57,6 @@ class User_Panel extends Hub {
             $data = $_POST;
             $url = CONSOLE_URL . '/plociuchy:user/edit/' . $this->ci->session->userdata['user_id'];
             $result = $this->api_call($url, $data);
-
             if ($result['success']) {
                 $this->add_message_ok('Dane zostały zapisane.');
             } else {

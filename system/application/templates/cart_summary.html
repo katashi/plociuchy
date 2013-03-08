@@ -11,6 +11,8 @@
                 <div class="wrapper" style="left: 0px; top: 0px; width: 880px">
                     <div id="koszykk">
                         <h2 class="border-bot">Podsumowanie Zamówienia</h2>	 <br>
+
+                        {if $collide == false}
                         <span lang="pl"><br><br></span>
                         <div id="koszyk" >
                             <div id="koszyk-tabela">
@@ -28,13 +30,11 @@
                                     <img alt="" height="100" src="{$site_url}media/image/100x75/{$product.image1}" style="float: left" width="75" >
                                     <strong>{$product.vendor.title}
                                     </strong> <br>{$product.text1}<br>{$product.text2}<br></div>
-
                                 <div  id="koszyk-koszt2" >
                                     <span lang="pl"><strong>{$product.end_price} zł</strong></span></div>
                                 <div  id="koszyk-opcje2" style="width:164px">
                                     <span lang="pl"><strong>{$date_from} - {$date_to}</strong></span>
                                     </div>
-
                             </div>
 
                             <!-- koniec jeden produkt-->
@@ -61,9 +61,7 @@
                                     <span lang="pl"><strong>20 zł</strong></span></div>
                             </div>
                             <!-- suma -->
-
                             <div id="koszyk-tabela">
-
                                 <div id="koszyk-razem" >
                                     Razem: {$final_price} zł</div>
 
@@ -78,7 +76,10 @@
                             {include file="extension/payment24.html"}
 
                         </div>
-
+                        {else}
+                        <div id="error">Przepraszamy. Zmień datę rezerwacji ponieważ wybrany przez ciebie termin koliduje z innymi rezerwacjami. <a href="{$site_url}/product/{$product.id}">Zmień date rezerwacji</a></div>
+                        </div>
+                        {/if}
                         <!-- koniec nawigacja dol -->
 
                     </div>

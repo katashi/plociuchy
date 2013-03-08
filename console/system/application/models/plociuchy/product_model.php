@@ -234,6 +234,9 @@ class Product_Model extends Main_Model {
 
     function load_all_promotion_products(){
         $this->db->where('promote', '1');
+        $this->db->where('active_to >=', date("Y-m-d H:i:s"));
+        $this->db->where('reject =', 1);
+        $this->db->where('active =', 1);
         $query = $this->db->get($this->table_name);
         $record = $query->result_array();
         return $record;

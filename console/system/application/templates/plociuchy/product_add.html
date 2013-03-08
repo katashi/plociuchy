@@ -122,23 +122,56 @@ var config = new Object({
         xtype: 'checkbox',
         width: 350
     },{
-        allowBlank: true,
-        fieldLabel: 'Zdjęcie',
-        name: 'userfile',
-        buttonText: 'Wybierz plik',
-        xtype: 'fileuploadfield'
+        id: 'image1',
+        name: 'image1',
+        xtype: 'hidden'
     },{
-        allowBlank: true,
-        fieldLabel: 'Zdjęcie',
+        allowBlank: false,
+        fieldLabel: 'Obraz1',
+        id: 'image_image_waa1',
+        name: 'userfile1',
+        xtype: 'box',
+        autoEl:{
+            tag:'div',
+            children:[{
+                tag:'img',
+                src: '../media/image/100x75/default.jpg'
+            }]
+        }
+    },{
+        id: 'image2',
+        name: 'image2',
+        xtype: 'hidden'
+    },{
+        allowBlank: false,
+        fieldLabel: 'Obraz2',
+        id: 'image_image_waa2',
         name: 'userfile2',
-        buttonText: 'Wybierz plik',
-        xtype: 'fileuploadfield'
+        xtype: 'box',
+        autoEl:{
+            tag:'div',
+            children:[{
+                tag:'img',
+                src: '../media/image/100x75/default.jpg'
+            }]
+        }
     },{
-        allowBlank: true,
-        fieldLabel: 'Zdjęcie',
+        id: 'image3',
+        name: 'image3',
+        xtype: 'hidden'
+    },{
+        allowBlank: false,
+        fieldLabel: 'Obraz3',
+        id: 'image_image_waa3',
         name: 'userfile3',
-        buttonText: 'Wybierz plik',
-        xtype: 'fileuploadfield'
+        xtype: 'box',
+        autoEl:{
+            tag:'div',
+            children:[{
+                tag:'img',
+                src: '../media/image/100x75/default.jpg'
+            }]
+        }
     },{
         allowBlank: false,
         fieldLabel: 'Odrzucony (-1/0/1)',
@@ -170,7 +203,47 @@ var config = new Object({
 	buttons: [{
 		handler: product_add_fps,
 		text: 'Dodaj'
-	}]
+	}],
+    listeners: {
+        afterRender: function(form) {
+            var img1 = form.findById('image_image_waa1').getEl();
+            form.DropTarget1 = new Ext.dd.DropTarget(img1, {
+                copy: false,
+                ddGroup: 'media',
+                enabled: true,
+                notifyDrop: function(dd, e, data) {
+                    var field = form.findById('image_image_waa1');
+                    field.update('<img src="../media/image/100x75/'+data.node.attributes.file_name+'" border="1">');
+                    var field = form.findById('image1');
+                    field.setValue(data.node.attributes.file_name);
+                }
+            });
+            var img2 = form.findById('image_image_waa2').getEl();
+            form.DropTarget1 = new Ext.dd.DropTarget(img2, {
+                copy: false,
+                ddGroup: 'media',
+                enabled: true,
+                notifyDrop: function(dd, e, data) {
+                    var field = form.findById('image_image_waa2');
+                    field.update('<img src="../media/image/100x75/'+data.node.attributes.file_name+'" border="1">');
+                    var field = form.findById('image2');
+                    field.setValue(data.node.attributes.file_name);
+                }
+            });
+            var img3 = form.findById('image_image_waa3').getEl();
+            form.DropTarget1 = new Ext.dd.DropTarget(img3, {
+                copy: false,
+                ddGroup: 'media',
+                enabled: true,
+                notifyDrop: function(dd, e, data) {
+                    var field = form.findById('image_image_waa3');
+                    field.update('<img src="../media/image/100x75/'+data.node.attributes.file_name+'" border="1">');
+                    var field = form.findById('image3');
+                    field.setValue(data.node.attributes.file_name);
+                }
+            });
+        }
+    }
 });
 product_add_fp = new FormPanel();
 product_add_fp.init(config);

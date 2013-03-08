@@ -245,8 +245,34 @@ class Partner_Panel extends Hub {
     public function display_reservations($template, $title_call) {
         $this->assign_template_titlecall($template, $title_call);
         if (isset($_POST['change_status'])) {
+            //reservation_information_to_user_send
+            $reservation = $this->load_reservation($_POST['rented']);
+            $partner = $this->load_partner($reservation['data']['id_partner']);
+            $user = $this->load_user($reservation['data']['id_user']);
+            $product = $this->load_product($reservation['data']['id_product']);
+            // lets define data
+            $this->ci->smarty->assign('path_template', SITE_URL . '/templates/email/' . CONFIGURATION);
+            $this->ci->smarty->assign('path_media', SITE_URL . '/templates/email/' . CONFIGURATION);
+            $this->ci->smarty->assign('path_site', SITE_URL);
+            $this->ci->smarty->assign('rezerwacja', $reservation['data']);
+            $this->ci->smarty->assign('user', $user);
+            $this->ci->smarty->assign('product', $product);
+            $this->ci->smarty->assign('partner', $partner);
+            $message = $this->ci->smarty->fetch('../../../templates/email/' . CONFIGURATION . '/reservation_information_to_user_send.html');
+            //
+            $config['protocol'] = 'sendmail';
+            $config['mailtype'] = 'html';
+            $config['charset'] = 'utf-8';
+            //
+            $this->ci->email->initialize($config);
+            $this->ci->email->subject('Plociuchy - Informacja o zamówieniu');
+            $this->ci->email->from('rejestracja@plociuchy.pl');
+            $this->ci->email->to($user['user']);
+            $this->ci->email->message($message);
+            $this->ci->email->send();
+
             $this->change_partner_reservations_status($_POST['rented'], 2);
-            $this->add_message_ok('Rezerwacja została przeniesiona do zakładki <a href="' . SITE_URL . '/partner-panel-rezerwacje-aktualne">"Aktualnie wypożyczane"</a><br/>');
+            $this->add_message_ok('Rezerwacja została przeniesiona do zakładki <a href="' . SITE_URL . '/partner-panel-rezerwacje-aktualne">"Aktualnie wypożyczane"</a><br/>Został wysłany użytkownikowi e-mail potwierdzający.');
         }
         //pobieramy wszytskie rezerwacje status:1) aktualne, oplacone - status:1) czekajace na wyslanie ;
         $reservations = $this->load_all_partner_reservations($id_status = 1);
@@ -271,8 +297,33 @@ class Partner_Panel extends Hub {
     public function display_reservations_actual($template, $title_call) {
         $this->assign_template_titlecall($template, $title_call);
         if (isset($_POST['change_status'])) {
+            //reservation_information_to_user_send
+            $reservation = $this->load_reservation($_POST['rented']);
+            $partner = $this->load_partner($reservation['data']['id_partner']);
+            $user = $this->load_user($reservation['data']['id_user']);
+            $product = $this->load_product($reservation['data']['id_product']);
+            // lets define data
+            $this->ci->smarty->assign('path_template', SITE_URL . '/templates/email/' . CONFIGURATION);
+            $this->ci->smarty->assign('path_media', SITE_URL . '/templates/email/' . CONFIGURATION);
+            $this->ci->smarty->assign('path_site', SITE_URL);
+            $this->ci->smarty->assign('rezerwacja', $reservation['data']);
+            $this->ci->smarty->assign('user', $user);
+            $this->ci->smarty->assign('product', $product);
+            $this->ci->smarty->assign('partner', $partner);
+            $message = $this->ci->smarty->fetch('../../../templates/email/' . CONFIGURATION . '/reservation_information_to_user_end.html');
+            //
+            $config['protocol'] = 'sendmail';
+            $config['mailtype'] = 'html';
+            $config['charset'] = 'utf-8';
+            //
+            $this->ci->email->initialize($config);
+            $this->ci->email->subject('Plociuchy - Informacja o zamówieniu');
+            $this->ci->email->from('rejestracja@plociuchy.pl');
+            $this->ci->email->to($user['user']);
+            $this->ci->email->message($message);
+            $this->ci->email->send();
             $this->change_partner_reservations_status($_POST['rent_end'], 3);
-            $this->add_message_ok('Rezerwacja została zakończona i przeniesiona do zakładki <a href="' . SITE_URL . '/partner-panel-historia-rezerwacji">"Historia rezerwacji".</a><br/>');
+            $this->add_message_ok('Rezerwacja została zakończona i przeniesiona do zakładki <a href="' . SITE_URL . '/partner-panel-historia-rezerwacji">"Historia rezerwacji".</a><br/><br/>Został wysłany użytkownikowi e-mail potwierdzający.');
         }
         //pobieramy wszytskie rezerwacje status:1) aktualne, oplacone - status:1) czekajace na wyslanie;
         $reservations = $this->load_all_partner_reservations($id_status = 2);
@@ -347,13 +398,13 @@ class Partner_Panel extends Hub {
         $opt = null;
         if (isset($_POST['cart_income_3'])) {
             $title = 'Pakiet 3';
-            $point = 120;
+            $point = 60;
             $unit_cost = 4;
             $opt = 3;
             unset($_POST['cart_income_3']);
         } elseif (isset($_POST['cart_income_2'])) {
             $title = 'Pakiet 2';
-            $point = 60;
+            $point = 42;
             $unit_cost = 6;
             $opt = 2;
             unset($_POST['cart_income_2']);
@@ -641,6 +692,12 @@ class Partner_Panel extends Hub {
             return $return;
         }
         return false;
+    }
+
+    public function load_reservation($id_reservation){
+        $url = CONSOLE_URL . '/plociuchy:product_reservation/load/' . $id_reservation;
+        $result = $this->api_call($url);
+        return $result;
     }
 
     public function change_partner_reservations_status($id_reservation, $status) {

@@ -43,7 +43,11 @@ class Partner extends Hub {
                     //display message success
                     $this->add_message_ok('Partner Zalogowany.');
                 }else{
-                    $this->add_message_error('Nazwa partnera lub hasło są nieprawidłowe.');
+                    if($result['code'] == 'unactive'){
+                        $this->add_message_error('Przepraszamy konto jest nieaktywne lub zostało zablokowane.');
+                    }else{
+                        $this->add_message_error('Nazwa partnera lub hasło są nieprawidłowe.');
+                    }
                 }
             }
         }

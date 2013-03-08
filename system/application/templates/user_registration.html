@@ -68,6 +68,13 @@
                                 </td>
                             </tr>
                             <tr>
+                                <td style="height: 27px; width: 134px" class="auto-style4"><span
+                                        lang="pl">Pesel:</span></td>
+                                <td style="height: 27px" class="auto-style2">
+                                    <input type="text" placeholder="" name="pesel" value="{$pesel}" size="40" style="width: 145px">
+                                </td>
+                            </tr>
+                            <tr>
                                 <td class="auto-style4" style="width: 134px"><span lang="pl">&nbsp;</span></td>
                                 <td class="auto-style2">&nbsp;</td>
                             </tr>
@@ -138,8 +145,34 @@
                     </form>
                     {literal}
                     <script type="text/javascript">
-
+                        function pesel_check() {
+                            var pesel = $('input[name=pesel]').val();
+                            var pesel_waga = '13791379131';
+                            var pesel_suma = 0;
+                            if (pesel.length != 0) {
+                                if (pesel.length = 11) {
+                                    for (a = 0; a <= 10; a++)
+                                        pesel_suma = pesel_suma + (pesel.substr(a, 1) * pesel_waga.substr(a, 1));
+                                    pesel_suma_str = pesel_suma.toString();
+                                    if (pesel_suma_str.substr(-1, 1) == '0') {
+                                        //sfm_show_error_msg('Validation Two Failed!');
+                                        return true;
+//                                    document.getElementById('wynik').innerHTML = 'Pesel prawidłowy.';
+                                    } else {
+                                        sfm_show_error_msg('Pesel jest nieprawidłowy.');
+                                        return false;
+//                                    document.getElementById('wynik').innerHTML = 'Pesel jest nieprawidłowy.';
+                                    }
+                                } else {
+                                    sfm_show_error_msg('Pesel jest nieprawidłowy.');
+                                    return false;
+                                }
+                            }
+                        }
                         var frmvalidator = new Validator("regform");
+
+                        frmvalidator.addValidation("pesel", "req", "Podaj presel.");
+                        frmvalidator.setAddnlValidationFunction(pesel_check);
 
                         frmvalidator.addValidation("name", "req", "Wpisz proszę swoje imię.");
                         frmvalidator.addValidation("name", "maxlen=100", "Maksymalna długość imienia to 100 znaków.");
