@@ -14,7 +14,9 @@
             $('#images img').click(function () {
                 var img_url = $(this).attr('src');
                 var new_img_url = img_url.replace('100x75', '353x253');
+                var new_img_url2 = img_url.replace('100x75', '640x480');
                 $('#bigimg').attr('src', new_img_url);
+                $('#abigimg').attr('href', new_img_url2);
             });
         });
     </script>
@@ -51,7 +53,7 @@
                 <div id="opis">
                     <div style="width:297px; float:left;margin-right:15px;">
                         <div style="background:#F5F5F5; text-align: center;width:273px;height:375px;">
-                            <a href="#">
+                            <a id="abigimg" href="{$media_url}image/640x480/{$product.image1}">
                                 <img id="bigimg" alt="" src="{$media_url}image/353x253/{$product.image1}"
                                      style=" text-align: center;" width="253">
                             </a>

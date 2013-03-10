@@ -2,7 +2,7 @@
 {literal}
 
 // fields
-var fields = new Array('id', 'id_user', 'id_partner', 'id_product', 'id_payment_p24_user', 'status', 'reject','active','date_from','date_to','date_added', 'date_added','date_last_modified','user');
+var fields = new Array('id', 'id_user', 'id_partner', 'id_product', 'id_payment_p24_user', 'status', 'reject','active','date_from','date_to','date_added', 'date_added','date_last_modified','partner','user');
 var config = new Object({
 	fields: fields,
 	format: 'json',
@@ -89,8 +89,8 @@ var config = new Object({
 	title: 'Rezerwacje Produktu',
 	columns: [
 		{ id: 'id', dataIndex: 'id', header: 'Id', sortable: true },
-        { id: 'id_user', dataIndex: 'id_user', header: 'Id_User', sortable: true },
-		{ id: 'id_partner', dataIndex: 'user', header: 'Id_Partner', sortable: true },
+        { id: 'id_user', dataIndex: 'user', header: 'Użytkownik', sortable: true },
+		{ id: 'id_partner', dataIndex: 'partner', header: 'Partner', sortable: true },
 		{ id: 'id_product', dataIndex: 'id_product', header: 'Id_Product', sortable: true },
 		{ id: 'id_payment_p24_user', dataIndex: 'id_payment_p24_user', header: 'id_payment_p24_user', sortable: true },
 		{ id: 'status', dataIndex: 'status', header: 'Status', sortable: true },

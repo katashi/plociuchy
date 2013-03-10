@@ -55,15 +55,17 @@ class Product_Reservation_Model extends Main_Model
             $this->db->or_like($this->table_name.'.id_partner', $_REQUEST['query']);
             $this->db->or_like($this->table_name.'.id_product', $_REQUEST['query']);
             $this->db->or_like('pc_partner.user', $_REQUEST['query']);
+            $this->db->or_like('pc_user.user', $_REQUEST['query']);
             $this->db->or_like($this->table_name.'.id_payment_p24_user', $_REQUEST['query']);
         }
         if (isset($_REQUEST['sort']) && isset($_REQUEST['sort'])) {
             $this->db->order_by($_REQUEST['sort'], $_REQUEST['dir']);
         } else {
-            $this->db->order_by($this->table_name.'.id', 'DESC');
+           $this->db->order_by($this->table_name.'.id', 'DESC');
         }
-        $this->db->select('*, pc_partner.*');
-        $this->db->join('pc_partner', $this->table_name.'.id_partner = pc_partner.id', 'left');
+        $this->db->select($this->table_name.'.*, pr.user as partner , us.user as user ');
+        $this->db->join('pc_partner pr', $this->table_name.'.id_partner = pr.id','left');
+        $this->db->join('pc_user us', $this->table_name.'.id_user = us.id','left');
         $this->db->order_by($this->table_name.'.id');
         $query = $this->db->get($this->table_name);
         //echo $this->db->last_query();

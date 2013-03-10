@@ -1,5 +1,31 @@
 <script type="text/javascript">
 {literal}
+// image_update
+function image1_update() {
+    var form = product_edit_fp.display;
+    var image = form.getForm().findField('image1').getValue();
+    if (image) {
+        var image_image = form.findById('image_image_waa1');
+        image_image.update('<img src="../media/image/100x75/' + image + '" border="1">');
+    }
+}
+function image2_update() {
+    var form = product_edit_fp.display;
+    var image = form.getForm().findField('image2').getValue();
+    if (image) {
+        var image_image = form.findById('image_image_waa2');
+        image_image.update('<img src="../media/image/100x75/' + image + '" border="1">');
+    }
+}
+function image3_update() {
+    var form = product_edit_fp.display;
+    var image = form.getForm().findField('image3').getValue();
+    if (image) {
+        var image_image = form.findById('image_image_waa3');
+        image_image.update('<img src="../media/image/100x75/' + image + '" border="1">');
+    }
+}
+
 
 // store
 var fields = new Array('id', 'nick');
@@ -131,6 +157,7 @@ var config = new Object({
             tag:'div',
             children:[{
                 tag:'img',
+                id: 'image_image_wae_1' ,
                 src: '../media/image/100x75/default.jpg'
             }]
         }
@@ -148,6 +175,7 @@ var config = new Object({
             tag:'div',
             children:[{
                 tag:'img',
+                id: 'image_image_wae_2' ,
                 src: '../media/image/100x75/default.jpg'
             }]
         }
@@ -165,6 +193,7 @@ var config = new Object({
             tag:'div',
             children:[{
                 tag:'img',
+                id: 'image_image_wae_3' ,
                 src: '../media/image/100x75/default.jpg'
             }]
         }
@@ -275,6 +304,9 @@ function product_edit_load() {
         url: base_url+'/plociuchy:product/load/{/literal}{$id}{literal}',
         waitMsg: 'Oczekiwanie',
         success: function() {
+            image1_update();
+            image2_update();
+            image3_update();
         },
         failure: function() {
             Ext.MessageBox.alert('Informacja', 'Błąd');
