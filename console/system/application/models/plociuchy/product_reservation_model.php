@@ -54,8 +54,8 @@ class Product_Reservation_Model extends Main_Model
             $this->db->or_like($this->table_name.'.id_user', $_REQUEST['query']);
             $this->db->or_like($this->table_name.'.id_partner', $_REQUEST['query']);
             $this->db->or_like($this->table_name.'.id_product', $_REQUEST['query']);
-            $this->db->or_like('pc_partner.user', $_REQUEST['query']);
-            $this->db->or_like('pc_user.user', $_REQUEST['query']);
+            $this->db->or_like('pr.user', $_REQUEST['query']);
+            $this->db->or_like('us.user', $_REQUEST['query']);
             $this->db->or_like($this->table_name.'.id_payment_p24_user', $_REQUEST['query']);
         }
         if (isset($_REQUEST['sort']) && isset($_REQUEST['sort'])) {
