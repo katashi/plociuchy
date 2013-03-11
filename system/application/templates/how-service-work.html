@@ -15,7 +15,7 @@
                     </figure>
                     {/if}
                     <div class="overflow">
-                        <div class="txt-1 p11">{$page[0].header}</div>
+                        {if $page[0].header != ''}<div class="txt-1 p11">{$page[0].header}</div>{/if}
                         <p class="MsoNormal">{$page[0].text}<o:p></o:p></p>
                         <p>&nbsp;</p>
                     </div>
