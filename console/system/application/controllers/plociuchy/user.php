@@ -108,7 +108,7 @@ class User extends Main {
         //
         $this->ci->email->initialize($config);
         $this->ci->email->subject('Plociuchy - Rejestracja');
-        $this->ci->email->from('rejestracja@plociuchy.pl');
+        $this->ci->email->from('kontakt@plo-ciuchy.pl');
         $this->ci->email->to($_POST['user']);
         $this->ci->email->message($message);
         $this->ci->email->send();
@@ -159,7 +159,7 @@ class User extends Main {
             // hit it! send it!
             $this->ci->email->initialize($config);
             $this->ci->email->subject('plo-ciuchy.pl - Reset Hasła');
-            $this->ci->email->from('rejestracja@plociuchy.pl');
+            $this->ci->email->from('kontakt@plo-ciuchy.pl');
             $this->ci->email->to($record['user']);
             $this->ci->email->message($message);
             $this->ci->email->send();
@@ -201,7 +201,7 @@ class User extends Main {
             // hit it! send it!
             $this->ci->email->initialize($config);
             $this->ci->email->subject('Plo-ciuchy.pl - Reset Hasła');
-            $this->ci->email->from('rejestracja@plociuchy.pl');
+            $this->ci->email->from('kontakt@plo-ciuchy.pl');
             $this->ci->email->to($record['user']);
             $this->ci->email->message($message);
             $this->ci->email->send();

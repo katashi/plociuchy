@@ -10,7 +10,7 @@
                 <br/>
                 <h2 class="border-bot">Witamy</h2>
                 <div class="wrapper">
-                    <figure class="img-indent"><img src="{$media_url}image/200x150/{$welcome.image}" alt=""/></figure>
+                    {if $welcome.image != ''}<figure class="img-indent"><img src="{$media_url}image/200x150/{$welcome.image}" alt=""/></figure>{/if}
                     <div class="overflow">
                         <!--<div class="txt-1 p11">{$welcome.title}</div>-->
                         <p class="MsoNormal">{$welcome.text}
@@ -28,7 +28,7 @@
                 <!--==============================wyrozniony ciuch===================================-->
                 <div class="box-1">
                     <div class="wrapper">
-                        <figure><img src="{$media_url}image/200x150/{$main_wear.image}" width="260" height="349"></figure>
+                        <figure><img src="{$media_url}image/640x480/{$main_wear.image}" width="260" height="349"></figure>
                         <div class="overflow"><strong>NOWe ubranie <em>{$main_wear.title}</em></strong>
                             <!--<span>ROZMIAR L</span>-->
                             <p>{$main_wear.text}</p>

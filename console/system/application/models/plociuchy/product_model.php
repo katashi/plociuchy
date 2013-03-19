@@ -118,7 +118,7 @@ class Product_Model extends Main_Model {
 
     function add() {
         $record = $_POST;
-        $record['date_added'] = date("Y-m-d H:i:s");
+
         $this->db->insert($this->table_name, $record);
         return $this->db->insert_id();
     }

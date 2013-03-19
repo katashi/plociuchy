@@ -53,8 +53,8 @@ function Tree() {
 			ddGroup: this.config.ddGroup,
 			enableDD: true,
 			id: this.config.id,
-			loader: this.loader,
-			rootVisible: false
+            loader: this.loader,
+            rootVisible: false
 		});
 		// assign main object to display
 		this.display.parent = this;

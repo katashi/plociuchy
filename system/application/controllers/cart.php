@@ -235,7 +235,7 @@ class Cart extends Hub {
         //
         $this->ci->email->initialize($config);
         $this->ci->email->subject('Plociuchy - Potwierdzenie zamówienia');
-        $this->ci->email->from('rejestracja@plociuchy.pl');
+        $this->ci->email->from('kontakt@plo-ciuchy.pl');
         $this->ci->email->to($data['user']['user']);
         $this->ci->email->message($message);
         $this->ci->email->send();
@@ -257,8 +257,8 @@ class Cart extends Hub {
         $config['charset'] = 'utf-8';
         //
         $this->ci->email->initialize($config);
-        $this->ci->email->subject('Plociuchy - Potwierdzenie zamówienia');
-        $this->ci->email->from('rejestracja@plociuchy.pl');
+        $this->ci->email->subject('Plo-ciuchy.pl - Potwierdzenie zamówienia');
+        $this->ci->email->from('kontakt@plo-ciuchy.pl');
         $this->ci->email->to($data['partner']['user']);
         $this->ci->email->message($message);
         $this->ci->email->send();

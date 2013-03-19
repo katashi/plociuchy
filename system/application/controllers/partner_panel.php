@@ -98,7 +98,7 @@ class Partner_Panel extends Hub {
                 $partner2 = $this->load_partner(1);
                 $this->ci->email->initialize($config);
                 $this->ci->email->subject('Plociuchy - Propozycja Producenta');
-                $this->ci->email->from('rejestracja@plociuchy.pl');
+                $this->ci->email->from('kontakt@plo-ciuchy.pl');
                 $this->ci->email->to($partner2['user']);
                 $this->ci->email->message($message);
                 $this->ci->email->send();
@@ -266,7 +266,7 @@ class Partner_Panel extends Hub {
             //
             $this->ci->email->initialize($config);
             $this->ci->email->subject('Plociuchy - Informacja o zamówieniu');
-            $this->ci->email->from('rejestracja@plociuchy.pl');
+            $this->ci->email->from('kontakt@plo-ciuchy.pl');
             $this->ci->email->to($user['user']);
             $this->ci->email->message($message);
             $this->ci->email->send();
@@ -317,8 +317,8 @@ class Partner_Panel extends Hub {
             $config['charset'] = 'utf-8';
             //
             $this->ci->email->initialize($config);
-            $this->ci->email->subject('Plociuchy - Informacja o zamówieniu');
-            $this->ci->email->from('rejestracja@plociuchy.pl');
+            $this->ci->email->subject('Plo-ciuchy.pl - Informacja o zamówieniu');
+            $this->ci->email->from('kontakt@plo-ciuchy.pl');
             $this->ci->email->to($user['user']);
             $this->ci->email->message($message);
             $this->ci->email->send();

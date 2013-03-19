@@ -255,8 +255,8 @@ class Product extends Main {
         $config['charset'] = EMAIL_ENCODING;
         //
         $this->ci->email->initialize($config);
-        $this->ci->email->subject('Plociuchy - Informacje odnośnie produktu');
-        $this->ci->email->from('rejestracja@plociuchy.pl');
+        $this->ci->email->subject('Plo-ciuchy.pl - Informacje odnośnie produktu');
+        $this->ci->email->from('kontakt@plo-ciuchy.pl');
         $this->ci->email->to($data['partner']['user']);
         $this->ci->email->message($message);
         $this->ci->email->send();
