@@ -173,8 +173,8 @@ class Payment_P24_Partner extends Main
     {
         $P = array();
         $RET = array();
-        //$url = "https://secure.przelewy24.pl/transakcja.php";
-        $url = "https://sandbox.przelewy24.pl/transakcja.php";
+        $url = "https://secure.przelewy24.pl/transakcja.php";
+        //$url = "https://sandbox.przelewy24.pl/transakcja.php";
         $P[] = "p24_id_sprzedawcy=" . $p24_id_sprzedawcy;
         $P[] = "p24_session_id=" . $p24_session_id;
         $P[] = "p24_order_id=" . $p24_order_id;

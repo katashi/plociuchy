@@ -126,6 +126,9 @@ class Product_Model extends Main_Model {
     // edit
     function edit($id) {
         $record = $_POST;
+        if(!isset($record['promote'])){
+            $record['promote'] = 0;
+        }
         $record['date_last_modified'] = date("Y-m-d H:i:s");
         $this->db->where('id', $id);
         $this->db->update($this->table_name, $record);

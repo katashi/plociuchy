@@ -177,6 +177,7 @@ class Cart extends Hub {
         $result = $this->api_call($url, $data);
 
         $datae = array();
+        if(!empty($this->ci->session->userdata['products'])){
         $array_prod = $this->ci->session->userdata['products'];
         $datae['product'] = $this->load_product($array_prod['0']);
         $user = $this->ci->session->userdata['user_id'];
@@ -186,6 +187,7 @@ class Cart extends Hub {
         $this->send_user_email_confirm($datae);
         //wysyłanie maila do partnera
         $this->send_partner_email_confirm($datae);
+        }
         if ($result['success'] == 'true') {
             //delete product from cart
             $cart_data = array(
@@ -279,7 +281,7 @@ class Cart extends Hub {
         // add reservation
         // add payment
         $user = $this->load_user($this->ci->session->userdata['user_id']);
-
+        $data['id_partner'] = $data_s['product']['id_partner'];
         $data['id_user'] = $this->ci->session->userdata['user_id'];
         $data['id_session'] = $this->ci->session->userdata['session_id'];
         $data['p24_kwota'] = $data_s['final_price'];
@@ -316,7 +318,6 @@ class Cart extends Hub {
         $this->ci->smarty->assign('p24_session_id', $result['data']['p24_session_id']);
         $this->ci->smarty->assign('p24_kwota', $result['data']['p24_kwota']);
         $this->ci->smarty->assign('p24_crc', $result['data']['p24_crc']);
-
     }
 
     public function load_product($id_product) {

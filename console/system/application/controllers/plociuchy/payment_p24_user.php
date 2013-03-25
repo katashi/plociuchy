@@ -15,6 +15,7 @@ class Payment_P24_User extends Main
         $this->ci = $_ci;
         // load models
         $this->load->model('main_model');
+        $this->load->model('plociuchy/partner_model');
         $this->load->model('plociuchy/payment_p24_user_model');
         $this->load->model('plociuchy/product_reservation_model');
         //
@@ -24,12 +25,16 @@ class Payment_P24_User extends Main
     /*
     * Fukcja init(). Ustawia podstawowe zmienne
     */
-    public function init()
+    public function init($id_partner = null)
     {
         $this->p24_session_id = md5(time());
-        $this->p24_id_sprzedawcy = '18592';
-        $this->p24_crc = '51e016ba07cd389e';
-
+        if(!empty($id_partner)){
+            $partner = $this->partner_model->load($id_partner);
+            $this->p24_id_sprzedawcy = $partner['p24_id_sprzedawcy'];
+            $this->p24_crc = $partner['p24_crc'];
+        }
+//        $this->p24_id_sprzedawcy = '18592';
+//        $this->p24_crc = '51e016ba07cd389e';
     }
 
     // display
@@ -88,6 +93,8 @@ class Payment_P24_User extends Main
 
     function add_user_ui()
     {
+        $this->init($_POST['id_partner']);
+        unset($_POST['id_partner']);
         $_POST['p24_session_id'] = $this->p24_session_id;
         $_POST['p24_id_sprzedawcy'] = $this->p24_id_sprzedawcy;
         $_POST['p24_kwota'] = number_format($_POST['p24_kwota'], 2, '.', '') * 100;
@@ -117,6 +124,8 @@ class Payment_P24_User extends Main
         //pobiermay cene z bazy
         $obj = $this->payment_p24_user_model->load($p24_session_id, 'p24_session_id');
         $p24_kwota = $obj['p24_kwota'];
+        $objss = $this->product_reservation_model->load($obj['id'],'id_payment_p24_user');
+        $this->init($objss['id_partner']);
         //Weryfikujemy
         $WYNIK = $this->payment_p24_weryfikacja($p24_id_sprzedawcy, $p24_session_id, $p24_order_id, $p24_kwota);
         unset($_POST);
@@ -175,8 +184,8 @@ class Payment_P24_User extends Main
     {
         $P = array();
         $RET = array();
-        //$url = "https://secure.przelewy24.pl/transakcja.php";
-        $url = "https://sandbox.przelewy24.pl/transakcja.php";
+        $url = "https://secure.przelewy24.pl/transakcja.php";
+        //$url = "https://sandbox.przelewy24.pl/transakcja.php";
         $P[] = "p24_id_sprzedawcy=" . $p24_id_sprzedawcy;
         $P[] = "p24_session_id=" . $p24_session_id;
         $P[] = "p24_order_id=" . $p24_order_id;
