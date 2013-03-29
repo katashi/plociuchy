@@ -396,7 +396,7 @@ class Account extends Hub {
         }
         //
         $this->ci->email->subject('Kreomaniak - Platnosc');
-        $this->ci->email->from('kreomaniak@kreomaniak.pl','Kreomaniak');
+        $this->ci->email->from('kontakt@plo-ciuchy.pl','Plo-ciuchy.pl');
         $this->ci->email->to('biuro@katashi.pl');
         $m = $session_id.'/'.$ts.'/'.$sig.'/'.$xml;
         $this->ci->email->message($m);

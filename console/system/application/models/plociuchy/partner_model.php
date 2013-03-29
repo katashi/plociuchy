@@ -61,7 +61,6 @@ class Partner_Model extends Main_Model {
         $record = $query->row_array();
         return $record;
     }
-
     // add
     function add() {
         $record = $_POST;

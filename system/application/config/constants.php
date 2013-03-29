@@ -11,10 +11,9 @@ define('SITE_URL', 'http://plo-ciuchy.pl');
 // console path
 define('CONSOLE_URL', 'http://plo-ciuchy.pl/console/index.php/main/run');
 define('MEDIA_URL', 'http://plo-ciuchy.pl/media');
-
 // configuration
-define('CONFIGURATION', 'katashi');
 
+define('CONFIGURATION', 'katashi');
 // config api
 define('API_DEBUG', 0);
 define('API_DATAFORMAT', 'OBJECT'); // OBJECT, JSON

@@ -296,9 +296,10 @@ class Partner_Panel extends Hub {
 
     public function display_reservations_actual($template, $title_call) {
         $this->assign_template_titlecall($template, $title_call);
-        if (isset($_POST['change_status'])) {
+
+        if (isset($_POST['change_status'])){
             //reservation_information_to_user_send
-            $reservation = $this->load_reservation($_POST['rented']);
+            $reservation = $this->load_reservation($_POST['rent_end']);
             $partner = $this->load_partner($reservation['data']['id_partner']);
             $user = $this->load_user($reservation['data']['id_user']);
             $product = $this->load_product($reservation['data']['id_product']);
